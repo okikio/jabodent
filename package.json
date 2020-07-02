@@ -1,0 +1,26 @@
+{
+    "name": "jabodent",
+    "version": "0.0.0",
+    "description": "The website for Jabodent, an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.",
+    "scripts": {
+        "build": "gulp build",
+        "watch": "gulp"
+    },
+    "main": "gulpfile.js",
+    "author": "Okiki Ojo",
+    "license": "MIT",
+    "private": true,
+    "devDependencies": {
+        "@rollup/plugin-node-resolve": "^8.1.0",
+        "autoprefixer": "^9.8.4",
+        "browser-sync": "^2.26.7",
+        "eslint": "^7.3.1",
+        "gulp": "^4.0.2",
+        "gulp-sass": "^4.1.0",
+        "gulp-swig": "^0.9.1",
+        "pnpm": "^5.2.6",
+        "rollup": "^2.18.2",
+        "rollup-plugin-esbuild": "^2.1.0",
+        "ultra": "^0.7.2"
+    }
+}

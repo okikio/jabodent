@@ -1,0 +1,5 @@
+tasks:
+    - init: npm install pnpm -g
+    - task: pnpm install
+image:
+    file: .gitpod.Dockerfile
