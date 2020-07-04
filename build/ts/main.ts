@@ -32,24 +32,24 @@ app
     }));
 
 try {
-    app.boot();
-    router = app.getService("router") as Router;
+    // app.boot();
+    // router = app.getService("router") as Router;
 
-    let navLink = document.querySelectorAll(".navbar .nav-link");
-    for (let item of navLink) {
-        let navItem = (item as HTMLAnchorElement);
-        router.add({
-            path: navItem.getAttribute("data-path") || navItem.pathname,
-            method() {
-                let isActive = navItem.classList.contains("active");
-                if (!isActive) navItem.classList.add("active");
-                for (let nav of navLink) {
-                    if (nav !== navItem)
-                        nav.classList.remove("active");
-                }
-            }
-        });
-    }
+    // let navLink = document.querySelectorAll(".navbar .nav-link");
+    // for (let item of navLink) {
+    //     let navItem = (item as HTMLAnchorElement);
+    //     router.add({
+    //         path: navItem.getAttribute("data-path") || navItem.pathname,
+    //         method() {
+    //             let isActive = navItem.classList.contains("active");
+    //             if (!isActive) navItem.classList.add("active");
+    //             for (let nav of navLink) {
+    //                 if (nav !== navItem)
+    //                     nav.classList.remove("active");
+    //             }
+    //         }
+    //     });
+    // }
 } catch (err) {
     splashscreen.show();
     console.warn("[App] boot failed,", err);

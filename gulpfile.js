@@ -63,7 +63,7 @@ tasks({
 
     "tailwind-css": () => {
         return stream(`${sassFolder}/tailwind.css`, {
-            pipes: [postcss([tailwind])],
+            pipes: [postcss([tailwind("./tailwind.js")])],
             dest: cssFolder,
             end: [browserSync.stream()],
         });
@@ -144,7 +144,10 @@ task("watch", () => {
 
     watch(`${swigFolder}/**/*.html`, series("html"));
     watch(`${sassFolder}/**/*.scss`, series("app-css"));
-    watch(`${sassFolder}/tailwind.css`, series("tailwind-css"));
+    watch(
+        [`${sassFolder}/tailwind.css`, `./tailwind.js`],
+        series("tailwind-css")
+    );
     watch(`${tsFolder}/**/*.ts`, js(true));
 });
 

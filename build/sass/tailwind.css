@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.row {
+    @apply flex flex-row flex-wrap;
+    flex-flow: row wrap;
+}
+
+.col {
+    @apply relative min-h-1 w-full max-w-full flex-grow cursor-pointer;
+    flex-basis: 100%;
+}
+
+.spread-x-8 > * + * {
+    padding-left: theme("space.8");
+}
+
+@screen sm {
+
+    .sm\:spread-x-8 > * + * {
+        padding-left: theme("space.8");
+    }
+}

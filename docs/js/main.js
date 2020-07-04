@@ -1408,31 +1408,7 @@ class SlideRight extends Slide {
 
 const app = new App();
 let splashscreen;
-let router;
 app.addService(new IntroAnimation()).addService(splashscreen = new Splashscreen()).setService("router", new Router()).add("service", new PJAX()).add("transition", new Fade()).addTransition(new BigTransition()).addTransition(new Slide()).add("transition", new SlideLeft()).add("transition", new SlideRight()).add("block", new BlockIntent({
   name: "InViewBlock",
   block: InViewBlock
 }));
-try {
-  app.boot();
-  router = app.getService("router");
-  let navLink = document.querySelectorAll(".navbar .nav-link");
-  for (let item of navLink) {
-    let navItem = item;
-    router.add({
-      path: navItem.getAttribute("data-path") || navItem.pathname,
-      method() {
-        let isActive = navItem.classList.contains("active");
-        if (!isActive)
-          navItem.classList.add("active");
-        for (let nav of navLink) {
-          if (nav !== navItem)
-            nav.classList.remove("active");
-        }
-      }
-    });
-  }
-} catch (err) {
-  splashscreen.show();
-  console.warn("[App] boot failed,", err);
-}
