@@ -1,7 +1,6 @@
 
-import { getTheme, setTheme, mediaTheme } from "./theme";
-// @ts-ignore
-import { PJAX, App, _URL, BlockIntent, Router } from "https://unpkg.com/@okikio/native@latest/lib/api.mjs";
+// import { getTheme, setTheme, mediaTheme } from "./theme";
+import { PJAX, App, _URL, BlockIntent, Router } from "./framework/api";
 
 import { InViewBlock } from "./blocks/InViewBlock";
 import { Splashscreen } from "./services/Splashscreen";
@@ -10,25 +9,6 @@ import { IntroAnimation } from "./services/IntroAnimation";
 import { Fade } from "./transitions/Fade";
 import { BigTransition } from "./transitions/BigTransition";
 import { Slide, SlideLeft, SlideRight } from "./transitions/Slide";
-
-const html = document.querySelector("html");
-try {
-    let theme = getTheme();
-    if (theme === null) theme = mediaTheme();
-    theme && html.setAttribute("theme", theme);
-} catch (e) {
-    console.warn("Theming isn't available on this browser.");
-}
-
-// Set theme in localStorage, as well as in the html tag
-let themeSet = (theme: string) => {
-    html.setAttribute("theme", theme);
-    setTheme(theme);
-};
-
-window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-    themeSet(e.matches ? "dark" : "light");
-});
 
 const app: App = new App();
 let splashscreen: Splashscreen;

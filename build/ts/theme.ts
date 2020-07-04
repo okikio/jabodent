@@ -22,3 +22,22 @@ export const mediaTheme = (): string | null => {
     if (hasMediaQueryPreference) return mql.matches ? 'dark' : 'light';
     return null;
 };
+
+const html = document.querySelector("html");
+try {
+    let theme = getTheme();
+    if (theme === null) theme = mediaTheme();
+    theme && html.setAttribute("theme", theme);
+} catch (e) {
+    console.warn("Theming isn't available on this browser.");
+}
+
+// Set theme in localStorage, as well as in the html tag
+let themeSet = (theme: string) => {
+    html.setAttribute("theme", theme);
+    setTheme(theme);
+};
+
+window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+    themeSet(e.matches ? "dark" : "light");
+});

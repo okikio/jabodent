@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { Block } from "https://unpkg.com/@okikio/native@latest/lib/api.mjs";
-import { animate } from "https://unpkg.com/@okikio/animate@latest/lib/api.mjs";
+import { Block, IBlockInit } from "../framework/api";
+import { animate } from "@okikio/animate";
 
 //== Blocks
 export class InViewBlock extends Block {
@@ -11,7 +10,7 @@ export class InViewBlock extends Block {
     protected xPercent: number;
     protected inView: boolean = false;
 
-    public init(value) {
+    public init(value: IBlockInit) {
         super.init(value);
 
         // Values

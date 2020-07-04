@@ -3,7 +3,7 @@
 {% block content %}
 <main>
     <section class="flex flex-col h-screen justify-center bg-red-500 intro-animation">
-        <div class="self-center text-center" data-direction="left" data-block="InViewBlock">
+        <div class="self-center text-center">
             <h1 class="h1 text-5xl font-semibold">Jabodent</h1>
             <h2 class="text-lg leading-7">Integrity, Professionalism, Teamwork, Innovation & Excellence</h2>
 
@@ -17,7 +17,8 @@
 
     <section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
         <h3 class="text-2xl mb-6 font-bold">About Us</h3>
-        <p class="leading-8">We are an independent marine specialist organization inspired to serve the Marine Oil and
+        <p class="leading-8">We are an independent marine specialist
+            organization inspired to serve the Marine Oil and
             Gas communities with reliability, integrity and consistent delivery.</p>
         <div class="mt-16">
             <a href="" class="learn-more font-semibold italic">
@@ -169,49 +170,6 @@
         </div>
     </section>
 
-    <section class="bg-red-300 py-8 px-6">
-        <div class="max-w-screen-lg w-full mx-auto">
-            <div class="flex space-x-10">
-                <section class="w-4/12">
-                    <div class="w-20 h-16 bg-yellow-300 mb-5"></div>
-                    <p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
-                    </p>
-                </section>
-
-                <section class="w-4/12">
-                    <h3 class="text-xl mb-6 font-semibold">Quick Links</h3>
-                    <ul class="leading-8 list-none">
-                        <li>About Us</li>
-                        <li>Our services</li>
-                        <li>Contact</li>
-                        <li>Blog</li>
-                    </ul>
-                </section>
-
-                <section class="w-4/12 text-right">
-                    <p class="leading-8 font-medium">
-                        Plot E10A, Close 51, VGC Lekki<br>
-                        Peninsular, Lagos, Nigeria.<br>
-                        <strong>
-                            +2348033324072<br>
-                            info@jabodent.com
-                        </strong>
-                    </p>
-                    <div class="mt-10 space-x-2">
-                        <i>Twttr</i>
-                        <i>Twttr</i>
-                        <i>Twttr</i>
-                        <i>Twttr</i>
-                    </div>
-                </section>
-
-            </div>
-            <div class="flex mt-10">
-                <section>© 2020 Jabodent. All rights reserved.</section>
-                <section class="flex-grow"></section>
-                <section>Made with Love by Okiki Ojo</section>
-            </div>
-        </div>
-    </section>
+    {% include "../partials/footer.html" %}
 </main>
 {% endblock %}

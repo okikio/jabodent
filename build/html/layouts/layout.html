@@ -8,12 +8,11 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
-    {# <link rel="stylesheet" href="./css/tailwindcss.css"> #}
-    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/tailwind.css">
     <link rel="stylesheet" href="./css/app.css">
 </head>
 
-<body class="bg-dark text-white">
+<body>
     <div id="splashscreen">
         <div class="splashscreen-inner">
             <div class="spinner">
@@ -60,13 +59,12 @@
     </div>
 
     {% include "../partials/navbar.html" %}
-    {% block content %} {% endblock %}
 
-    <footer class="footer text-dark">
-        <div class="container">
-            Made by <a href="https://github.com/okikio" class="text-muted" target="_blank">Okiki Ojo</a>
+    <section class="overflow-hidden">
+        <div data-wrapper>
+            {% block content %} {% endblock %}
         </div>
-    </footer>
+    </section>
 
     {# <!-- <script src="../app.js" type="module"></script> --> #}
     <script src="./js/main.js" type="module"></script>

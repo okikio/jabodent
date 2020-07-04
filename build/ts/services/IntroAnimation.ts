@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { Service } from "https://unpkg.com/@okikio/native@latest/lib/api.mjs";
-import { animate } from "https://unpkg.com/@okikio/animate@latest/lib/api.mjs";
+import { Service } from "../framework/api";
+import { animate } from "@okikio/animate";
 
 export class IntroAnimation extends Service {
     protected elements: Array<Element>;

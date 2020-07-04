@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { Service } from "https://unpkg.com/@okikio/native@latest/lib/api.mjs";
-import { animate } from "https://unpkg.com/@okikio/animate@latest/lib/api.mjs";
+import { Service } from "../framework/api";
+import { animate } from "@okikio/animate";
 
 export class Splashscreen extends Service {
     protected rootElement: HTMLElement;
@@ -31,7 +30,6 @@ export class Splashscreen extends Service {
     public async hide() {
         await new Promise(resolve => {
             window.setTimeout(() => {
-                // @ts-ignore
                 this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
                 resolve();
             }, this.minimalDuration);
@@ -48,7 +46,6 @@ export class Splashscreen extends Service {
                 }
             });
 
-            // @ts-ignore
             this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
 
             await this.show();

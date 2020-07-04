@@ -2,12 +2,25 @@
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const esbuild = require("rollup-plugin-esbuild");
 const { rollup } = require("rollup");
+
+// const logger = require("connect-logger");
+const postcss = require("gulp-postcss");
+const tailwind = require("tailwindcss");
 const bs = require("browser-sync");
+
 const sass = require("gulp-sass");
 const swig = require("gulp-swig");
 
 // Gulp utilities
-const { stream, task, watch, parallel, series } = require("./util");
+const {
+    stream,
+    tasks,
+    task,
+    watch,
+    parallel,
+    series,
+    parallelFn,
+} = require("./util");
 
 // Origin folders (source and destination folders)
 const srcFolder = `build`;
@@ -39,18 +52,42 @@ task("html", () => {
 
 // CSS Tasks
 const { logError } = sass;
-task("css", () => {
-    return stream(`${sassFolder}/**/*.scss`, {
-        pipes: [
-            // Minify scss to css
-            sass({ outputStyle: "compressed" }).on("error", logError),
-        ],
-        dest: cssFolder,
-        end: [browserSync.stream()],
-    });
+tasks({
+    "app-css": () => {
+        return stream(`${sassFolder}/**/*.scss`, {
+            pipes: [sass({ outputStyle: "compressed" }).on("error", logError)],
+            dest: cssFolder,
+            end: [browserSync.stream()],
+        });
+    },
+
+    "tailwind-css": () => {
+        return stream(`${sassFolder}/tailwind.css`, {
+            pipes: [postcss([tailwind])],
+            dest: cssFolder,
+            end: [browserSync.stream()],
+        });
+    },
+
+    css: parallelFn("app-css", "tailwind-css"),
 });
 
 // JS Tasks
+// Rollup warnings are annoying
+let ignoreLog = [
+    "CIRCULAR_DEPENDENCY",
+    "UNRESOLVED_IMPORT",
+    "EXTERNAL_DEPENDENCY",
+    "THIS_IS_UNDEFINED",
+];
+let onwarn = ({ loc, message, code, frame }, warn) => {
+    if (ignoreLog.indexOf(code) > -1) return;
+    if (loc) {
+        warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
+        if (frame) warn(frame);
+    } else warn(message);
+};
+
 let js = (watching) => {
     return async () => {
         const bundle = await rollup({
@@ -64,6 +101,7 @@ let js = (watching) => {
                     target: "es2020", // default, or 'es20XX', 'esnext'
                 }),
             ],
+            onwarn,
         });
 
         await bundle.write({
@@ -88,20 +126,26 @@ task("watch", () => {
         {
             notify: false,
             server: destFolder,
+            // middleware: [
+            //     logger({
+            //         format: "%date %status %method %url -- %time",
+            //     }),
+            // ],
         },
         (_err, bs) => {
             bs.addMiddleware("*", (_req, res) => {
                 res.writeHead(302, {
                     location: `/404.html`,
                 });
-                res.end();
+                res.end("404 Error");
             });
         }
     );
 
     watch(`${swigFolder}/**/*.html`, series("html"));
-    watch(`${sassFolder}/*.scss`, series("css"));
-    watch([`${tsFolder}/*.ts`, `src/*.ts`, `../**/src/*.ts`], js(true));
+    watch(`${sassFolder}/**/*.scss`, series("app-css"));
+    watch(`${sassFolder}/tailwind.css`, series("tailwind-css"));
+    watch(`${tsFolder}/**/*.ts`, js(true));
 });
 
 task("default", series("build", "watch"));

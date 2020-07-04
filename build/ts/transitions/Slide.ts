@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { Transition } from "https://unpkg.com/@okikio/native@latest/lib/api.mjs";
-import { animate } from "https://unpkg.com/@okikio/animate@latest/lib/api.mjs";
+import { Transition, ITransitionData, ITransition } from "../framework/api";
+import { animate } from "@okikio/animate";
 
 //== Transitions
 export class Slide extends Transition {
@@ -8,7 +7,18 @@ export class Slide extends Transition {
     protected duration = 500;
     protected direction: string = "right";
 
-    out({ from }) {
+    init(value: ITransition) {
+        super.init(value);
+
+        let trigger = (value.trigger as HTMLElement);
+        if (trigger instanceof Node && trigger.hasAttribute("data-direction")) {
+            this.direction = trigger.getAttribute("data-direction");
+        } else {
+            this.direction = "right";
+        }
+    }
+
+    out({ from }: ITransitionData) {
         let { duration, direction } = this;
         let fromWrapper = from.getWrapper();
         window.scroll({
@@ -30,7 +40,7 @@ export class Slide extends Transition {
         });
     }
 
-    in({ to }) {
+    in({ to }: ITransitionData) {
         let { duration } = this;
         let toWrapper = to.getWrapper();
         return animate({

@@ -82,9 +82,6 @@ typings/
 .nuxt
 dist
 
-# lock files
-package-lock.json
-
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
@@ -106,7 +103,8 @@ package-lock.json
 # TernJS port file
 .tern-port
 
-# Gitpod extra files
-core.gitpod.*
-core.git.*
-core.node.*
+# Jest
+coverage/
+
+# Ultra
+.ultra.cache.json

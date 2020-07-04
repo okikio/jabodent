@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { Transition } from "https://unpkg.com/@okikio/native@latest/lib/api.mjs";
-import { animate } from "https://unpkg.com/@okikio/animate@latest/lib/api.mjs";
+import { Transition, ITransitionData } from "../framework/api";
+import { animate } from "@okikio/animate";
 
 //== Transitions
 export class BigTransition extends Transition {
@@ -20,7 +19,7 @@ export class BigTransition extends Transition {
         this.maxLength = this.horizontalElements.length;
     }
 
-    out({ from }) {
+    out({ from }: ITransitionData) {
         let { durationPerAnimation: duration, delay } = this;
         let fromWrapper = from.getWrapper();
         window.scroll({
@@ -84,7 +83,7 @@ export class BigTransition extends Transition {
         });
     }
 
-    in({ to }) {
+    in({ to }: ITransitionData) {
         let { durationPerAnimation: duration, delay } = this;
         let toWrapper = to.getWrapper();
         toWrapper.style.transform = "translateX(0%)";
