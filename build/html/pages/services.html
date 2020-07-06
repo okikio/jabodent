@@ -5,7 +5,9 @@
 		<section class="py-24 bg-red-500 intro-animation">
 			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
 				<h1 class="h1 text-3xl font-bold mb-4 text-center">Our Services</h1>
-				<h2 class="text-2xl leading-10">We offer a total of {{ services.length }} different and distinct services ranging from being Dry Rock Consultants to Inclining Experiments.
+				<h2 class="text-2xl leading-10">We offer a total of
+					{{ services.length }}
+					different and distinct services ranging from being Dry Rock Consultants to Inclining Experiments.
 					<br><br>
 					This is the complete list of all the services we offer:
 				</h2>
@@ -15,7 +17,7 @@
 		<section class="bg-white relative px-5 pt-8 mx-auto w-full max-w-screen-lg">
 			<div class="row">
 				{% for service in services %}
-					{{ macro.card(service) }}
+					{{ macro.card(service, loop.index % 2) }}
 				{% endfor %}
 			</div>
 		</section>

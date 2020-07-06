@@ -143,10 +143,9 @@ html {
 }
 
 .top-half {
+    transform: translateY(-50%);
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    display: inline-block;
     left: 0;
 }
 
