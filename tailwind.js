@@ -7,6 +7,7 @@ module.exports = {
     theme: {
         screens: {
             sm: "640px",
+            "lt-md": { max: "768px" },
             md: "768px",
             lg: "1024px",
             xl: "1280px",
@@ -180,6 +181,7 @@ module.exports = {
             default: "0.25rem",
             md: "0.375rem",
             lg: "0.5rem",
+            xl: "2rem",
             full: "9999px",
         },
         borderWidth: {
@@ -315,6 +317,8 @@ module.exports = {
             normal: "1.5",
             relaxed: "1.625",
             loose: "2",
+            inherit: "inherit",
+            "0": "0",
             "3": ".75rem",
             "4": "1rem",
             "5": "1.25rem",
@@ -680,7 +684,7 @@ module.exports = {
         fontFamily: ["responsive"],
         fontSize: ["responsive"],
         fontSmoothing: ["responsive"],
-        fontStyle: ["responsive"],
+        fontStyle: ["responsive", "hover", "group-hover"],
         fontWeight: ["responsive", "hover", "group-hover", "focus"],
         height: ["responsive"],
         inset: ["responsive"],

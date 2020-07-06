@@ -1,197 +1,166 @@
-<!DOCTYPE html>
-<html lang="en" theme="light">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <title>Jabodent</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="./css/tailwind.css">
-    <link rel="stylesheet" href="./css/app.css">
-</head>
 
-<body>
-    <div id="splashscreen">
-        <div class="splashscreen-inner">
-            <div class="spinner">
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="length" fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28">
-                    </circle>
-                </svg>
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-                </svg>
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-                </svg>
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-                </svg>
-            </div>
-        </div>
-        <div class="splashscreen-bg"></div>
-    </div>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+			<title>Jabodent</title>
+		
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@500;600;800&display=swap" rel="stylesheet">
 
-    <div id="big-transition">
-        <div class="spinner">
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle class="length" fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28">
-                </circle>
-            </svg>
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-            </svg>
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-            </svg>
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-            </svg>
-        </div>
-        <div id="big-transition-horizontal">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+		<link rel="stylesheet" href="./css/tailwind.css">
+		<link rel="stylesheet" href="./css/app.css">
+	</head>
 
-    <!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
-<nav class="navbar overflow-hidden bg-red-500 fixed w-full z-10">
-    <div class="w-full max-w-screen-lg flex mx-auto px-5">
-        <a class="navbar-link logo" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
-        <section class="flex w-full whitespace-no-wrap">
-            <a class="navbar-link" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
-            <a class="navbar-link" href="./services.html" data-path="/service(.html)?" data-transition="slide">Our
-                Services</a>
-            <a class="navbar-link" href="./contact.html" data-path="/contact(.html)?" data-transition="slide"
-                data-direction="left">Contact
-                Us</a>
-            <div class="flex-grow"></div>
-            <a class="navbar-link" href="">Blog</a>
-            <a class="navbar-link" href="">Search</a>
-        </section>
-    </div>
+	<body>
+		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
+<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-10">
+	
+	
+		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-link logo font-bold font-title text-xl cursor-pointer relative z-20" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
+
+		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
+			<a class="navbar-link hover:font-bold" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
+			<a class="navbar-link hover:font-bold" href="./services.html" data-path="/service(.html)?" data-transition="slide">Our Services</a>
+			<a class="navbar-link hover:font-bold" href="./contact.html" data-path="/contact(.html)?" data-transition="slide" data-direction="left">Contact Us</a>
+			<a class="block md:hidden navbar-link hover:font-bold" href="">Our Blog</a>
+		</section>
+
+		<section class="flex w-full whitespace-no-wrap relative">
+			<div class="flex-grow"></div>
+			<a class="hidden md:block navbar-link hover:font-bold" href="">Blog</a>
+			<a class="navbar-icon hover:text-red-900 cursor-pointer">
+				<i class="icon text-xl">search</i>
+			</a>
+			<a class="block md:hidden navbar-icon hover:text-red-900 cursor-pointer">
+				<i class="icon text-2xl">menu</i>
+			</a>
+		</section>
+	</div>
+
 </nav>
 
-    <section class="overflow-hidden">
-        <div data-wrapper>
-            
-<main>
-    <section class="py-24 bg-red-500 intro-animation">
-        <div class="mx-auto max-w-3xl px-5 mt-5 w-full">
-            <h1 class="h1 text-3xl font-semibold mb-4 text-center">About Us</h1>
-            <h2 class="text-2xl leading-10">We are an independent marine specialist organization inspired to
-                serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
-        </div>
-    </section>
 
-    <section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
-        <h3 class="text-2xl mb-6 font-bold">Our Story</h3>
-        <p class="leading-8">Established in 2017 out of the necessity for the marine, oil and gas offshore industry to
-            be provided with professional
-            marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking
-            expert advice to
-            safe guard and operate their marine and offshore investments as safe as practicable.
-            <br><br>
-            Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers
-            and master
-            mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of
-            different
-            types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and
-            production
-            platform e.g. FPSOFSO and FOI</p>
-    </section>
+		<section>
+			<div data-wrapper> 
+	<main>
+		<section class="py-24 bg-red-500 intro-animation">
+			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
+				<h1 class="h1 text-3xl font-bold mb-4 text-center">About Us</h1>
+				<h2 class="text-2xl leading-10">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
+			</div>
+		</section>
 
-    <section class="bg-yellow-300 overflow-hidden city-image py-32 bg-fixed"> </section>
+		<section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
+			<h3 class="text-2xl mb-6 font-bold">Our Story</h3>
+			<p class="leading-8">Established in 2017 out of the necessity for the marine, oil and gas offshore industry to be provided with professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments as safe as practicable.
+				<br><br>
+				Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers and master mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of different types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and production platform e.g. FPSOFSO and FOI</p>
+		</section>
 
-    <section class="bg-white relative">
-        <h3 class="text-3xl pt-6 pb-24 font-bold text-center">Our Team</h3>
-        <div class="top-half w-full font-semibold text-lg">
-            <a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
-            <a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
-        </div>
+		<section class="bg-yellow-300 overflow-hidden city-image py-32 bg-fixed"></section>
 
-        <div class="px-5 pb-40 mx-auto w-full max-w-screen-md flex justify-center">
-            <div class="h-auto bg-blue-400 mr-5 rounded-md person w-1/2"></div>
-            <div class="w-1/2">
-                <h3 class="self-center text-lg font-semibold">Jane Doe — Principal Partner</h3>
-                <p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry
-                    with positions ranging from onboarding Chief
-                    Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for
-                    Nigerian government, etc…</p>
-            </div>
-        </div>
+		<section class="bg-white relative">
+			<h3 class="text-3xl pt-6 pb-24 font-bold text-center">Our Team</h3>
+			<div class="top-half w-full font-semibold text-lg">
+				<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
+				<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
+			</div>
 
-        <div class="bg-gray-300 px-6 py-3 rounded-full mx-auto left-half space-x-1 mb-5">
-            <span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
-            <span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-            <span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-            <span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-        </div>
-    </section>
+			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg pb-40">
+				<section class="p-8 hover:bg-gray-200 flex flex-col md:flex-row justify-center rounded-xl">
+					<div class="self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
+					<div class="self-center w-full md:max-w-1/2">
+						<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
 
-    <section class="bg-blue-300">
-        <div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
-            <h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-            <a href="" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
-            <span class="block leading-10 text-xs">* You won’t regret it.</span>
-        </div>
-    </section>
+						<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
+						<div class="mt-6">
+	<a href="" class="learn-more italic hover:not-italic hover:font-bold">
+		Learn more
+	</a>
+</div>
+					</div>
+				</section>
+			</div>
 
-    <footer class="bg-red-300 py-8 px-6">
-    <div class="max-w-screen-lg w-full mx-auto">
-        <div class="flex space-x-10">
-            <section class="w-4/12">
-                <div class="w-20 h-16 bg-yellow-300 mb-5"></div>
-                <p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
-                </p>
-            </section>
+			<div class="bg-gray-300 px-6 py-3 rounded-full mx-auto left-half space-x-1 mb-5">
+				<span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
+				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+			</div>
+		</section>
 
-            <section class="w-4/12">
-                <h3 class="text-xl mb-6 font-semibold">Quick Links</h3>
-                <ul class="leading-8 list-none">
-                    <li>About Us</li>
-                    <li>Our services</li>
-                    <li>Contact</li>
-                    <li>Blog</li>
-                </ul>
-            </section>
+		<div class="bg-red-200">
+			<div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
+	<h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
+	<a href="" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
+	<span class="block leading-10 text-xs">* You won’t regret it.</span>
+</div>
 
-            <section class="w-4/12 text-right">
-                <p class="leading-8 font-medium">
-                    Plot E10A, Close 51, VGC Lekki<br>
-                    Peninsular, Lagos, Nigeria.<br>
-                    <strong>
-                        +2348033324072<br>
-                        info@jabodent.com
-                    </strong>
-                </p>
-                <div class="mt-10 space-x-2">
-                    <i>Twttr</i>
-                    <i>Twttr</i>
-                    <i>Twttr</i>
-                    <i>Twttr</i>
-                </div>
-            </section>
+		</div>
 
-        </div>
-        <div class="flex mt-10">
-            <section>© 2020 Jabodent. All rights reserved.</section>
-            <section class="flex-grow"></section>
-            <section>Made with Love by Okiki Ojo</section>
-        </div>
-    </div>
+		<a href="" class="sticky -mb-8 transform -translate-y-8 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
+	Back To Top
+</a>
+
+<footer class="bg-red-300 py-8 px-6">
+	<div class="max-w-screen-lg w-full mx-auto">
+		<div class="flex space-x-10 clear-both">
+			<section class="w-4/12">
+				<div class="w-20 h-16 bg-yellow-300 mb-5"></div>
+				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
+				</p>
+			</section>
+
+			<section class="w-4/12">
+				<h3 class="text-xl mb-6 font-semibold">Quick Links</h3>
+				<ul class="leading-8 list-none">
+					<li>About Us</li>
+					<li>Our Services</li>
+					<li>Contact</li>
+					<li>Blog</li>
+				</ul>
+			</section>
+
+			<section class="w-4/12 text-right">
+				<p class="leading-8 font-medium">
+					Plot E10A, Close 51, VGC Lekki<br>
+					Peninsular, Lagos, Nigeria.<br>
+					<strong>
+						+2348033324072<br>
+						info@jabodent.com
+					</strong>
+				</p>
+				<div class="mt-10 space-x-2">
+					<i>Twttr</i>
+					<i>Twttr</i>
+					<i>Twttr</i>
+					<i>Twttr</i>
+				</div>
+			</section>
+
+		</div>
+		<div class="flex mt-10">
+			<section>© 2020 Jabodent. All rights reserved.</section>
+			<section class="flex-grow"></section>
+			<section>Made with
+				<i class="icon text-xl text-red-600 mx-1">favorite</i>
+				by
+				<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
+			</section>
+
+		</div>
+	</div>
 </footer>
-</main>
 
-        </div>
-    </section>
+	</main>
 
-    
-    <script src="./js/main.js" type="module"></script>
-</body>
+				</div>
+			</section>
 
-</html>
+
+			<script src="./js/main.js" type="module"></script>
+		</body>
+	</html>

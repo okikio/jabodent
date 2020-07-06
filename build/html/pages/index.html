@@ -1,175 +1,165 @@
 {% extends "../layouts/layout.html" %}
 
 {% block content %}
-<main>
-    <section class="flex flex-col h-screen justify-center bg-red-500 intro-animation">
-        <div class="self-center text-center">
-            <h1 class="h1 text-5xl font-semibold">Jabodent</h1>
-            <h2 class="text-lg leading-7">Integrity, Professionalism, Teamwork, Innovation & Excellence</h2>
+	<main>
+		<section class="flex flex-col h-screen justify-center bg-red-500 intro-animation">
+			<div class="self-center text-center">
+				<h1 class="text-5xl font-semibold font-title tracking-wider">JABODENT</h1>
+				<h2 class="text-lg leading-7">Integrity, Professionalism, Teamwork, Innovation & Excellence</h2>
 
-            <div class="scroll">
-                <div class="text-lg p-5 tracking-wider">
-                    <a href="">Scroll</a>
-                </div>
-            </div>
-        </div>
-    </section>
+				<div class="scroll hover:underline">
 
-    <section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
-        <h3 class="text-2xl mb-6 font-bold">About Us</h3>
-        <p class="leading-8">We are an independent marine specialist
-            organization inspired to serve the Marine Oil and
-            Gas communities with reliability, integrity and consistent delivery.</p>
-        <div class="mt-16">
-            <a href="" class="learn-more font-semibold italic">
-                Learn More
-            </a>
-        </div>
-    </section>
+					<div class="text-sm p-5 pt-2 font-normal tracking-widest uppercase">
+						<a href="">scroll</a>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <section class="bg-red-300 intro-animation">
-        <div class="px-5 pt-24 mx-auto w-full max-w-screen-md">
-            <h3 class="text-2xl mb-6 font-bold">Mission & Vision</h3>
-            <p class="leading-8">Our Vision is to be a leading African Marine, Oil and Gas player with global brand
-                visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well prices
-                services.</p>
-        </div>
+		<section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
+			<h3 class="text-2xl mb-6 font-bold">About Us</h3>
 
-        <div class="flex w-full py-24">
-            <div class="flex-grow"></div>
-            <section class="bg-blue-400 w-full max-w-screen-md">
-                <div class="py-12 pl-10 w-full max-w-screen-md">
-                    <h3 class="text-2xl mb-6 font-bold">Skills & Services</h3>
-                    <ul class="leading-8 list-disc list-inside">
-                        <li>SMS MANUAL PREPARATION AND REVIEW</li>
-                        <li>MARINE FACILITY/EQUIPMENT CONDITION AND VALUE</li>
-                        <li>PRE-PURCHASE SURVEY</li>
-                        <li>INSURANCE/APPRAISAL SURVEY</li>
-                        <li>ON AND OFF HIRE BUNKER/CONDITION SURVEYS</li>
-                        <li>DRAFT SURVEYS</li>
-                    </ul>
+			<p class="leading-8">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</p>
 
-                    <div class="mt-16">
-                        <a href="" class="learn-more font-semibold italic">
-                            Learn More
-                        </a>
-                    </div>
-                </div>
-                <div class="flex-grow"></div>
+			<div class="mt-16">
+				{{ macro.learnMore("") }}
+			</div>
 
-            </section>
-            <div class="bg-blue-400 flex-grow"></div>
-        </div>
+		</section>
+		<section class="bg-red-300 intro-animation">
+			<div class="px-5 pt-24 mx-auto w-full max-w-screen-md">
+				<h3 class="text-2xl mb-6 font-bold">Mission & Vision</h3>
 
-        <div class="mx-auto w-full max-w-screen-lg flex flex-wrap overflow-hidden pb-5">
-            <section class="w-1/4 px-5">
-                <div class="w-full flex mx-auto my-5">
-                    <div class="h-12 w-12 bg-blue-400 mr-5"></div>
+				<p class="leading-8">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well prices services.</p>
+			</div>
 
-                    <section class="self-center">
-                        <h4 class="text-lg font-semibold">Title</h4>
-                        <p>Description</p>
-                    </section>
+			<div class="flex w-full py-24">
+				<div class="flex-grow"></div>
+				<section class="bg-blue-400 w-full max-w-screen-md">
+					<div class="py-12 pl-10 w-full max-w-screen-md">
+						<h3 class="text-2xl mb-6 font-bold">Skills & Services</h3>
 
-                </div>
-            </section>
-            <section class="w-1/4 px-5">
-                <div class="w-full flex mx-auto my-5">
-                    <div class="h-12 w-12 bg-blue-400 mr-5"></div>
+						<ul class="leading-8 list-disc list-inside">
+							<li>SMS MANUAL PREPARATION AND REVIEW</li>
+							<li>MARINE FACILITY/EQUIPMENT CONDITION AND VALUE</li>
+							<li>PRE-PURCHASE SURVEY</li>
+							<li>INSURANCE/APPRAISAL SURVEY</li>
+							<li>ON AND OFF HIRE BUNKER/CONDITION SURVEYS</li>
+							<li>DRAFT SURVEYS</li>
+						</ul>
 
-                    <section class="self-center">
-                        <h4 class="text-lg font-semibold">Title</h4>
-                        <p>Description</p>
-                    </section>
+						<div class="mt-16">
+							{{ macro.learnMore("") }}
+						</div>
+					</div>
+					<div class="flex-grow"></div>
 
-                </div>
-            </section>
-            <section class="w-1/4 px-5">
-                <div class="w-full flex mx-auto my-5">
-                    <div class="h-12 w-12 bg-blue-400 mr-5"></div>
+				</section>
+				<div class="bg-blue-400 flex-grow"></div>
+			</div>
 
-                    <section class="self-center">
-                        <h4 class="text-lg font-semibold">Title</h4>
-                        <p>Description</p>
-                    </section>
+			<div class="mx-auto w-full max-w-screen-lg flex flex-wrap overflow-hidden pb-5">
+				<section class="w-1/4 px-5">
+					<div class="w-full flex mx-auto my-5">
+						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
 
-                </div>
-            </section>
-            <section class="w-1/4 px-5">
-                <div class="w-full flex mx-auto my-5">
-                    <div class="h-12 w-12 bg-blue-400 mr-5"></div>
+						<section class="self-center">
+							<h4 class="text-lg font-bold">Title</h4>
+							<p>Description</p>
+						</section>
 
-                    <section class="self-center">
-                        <h4 class="text-lg font-semibold">Title</h4>
-                        <p>Description</p>
-                    </section>
+					</div>
+				</section>
+				<section class="w-1/4 px-5">
+					<div class="w-full flex mx-auto my-5">
+						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
 
-                </div>
-            </section>
-        </div>
-    </section>
+						<section class="self-center">
+							<h4 class="text-lg font-bold">Title</h4>
+							<p>Description</p>
+						</section>
 
-    <section class="bg-yellow-300 overflow-hidden h-full city-image">
-        <div class="px-16 py-24 w-full md:w-10/12 relative yellow-gradient">
-            <section class="max-w-screen-md mx-auto">
-                <section class="relative max-width">
-                    <h3 class="text-3xl mb-10 font-bold">Why Choose Us?</h3>
+					</div>
+				</section>
+				<section class="w-1/4 px-5">
+					<div class="w-full flex mx-auto my-5">
+						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
 
-                    <h4 class="text-xl mb-2">Certified Experience</h4>
-                    <p class="leading-8 mb-12">Experience of Certified industry professionals.</p>
+						<section class="self-center">
+							<h4 class="text-lg font-bold">Title</h4>
+							<p>Description</p>
+						</section>
 
-                    <h4 class="text-xl mb-2">Great Teamwork</h4>
-                    <p class="leading-8 mb-12">Teamwork that makes dreams work.</p>
+					</div>
+				</section>
+				<section class="w-1/4 px-5">
+					<div class="w-full flex mx-auto my-5">
+						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
 
-                    <h4 class="text-xl mb-2">Modern Technology</h4>
-                    <p class="leading-8 mb-12">High quality equipment. Tools used by the best of the best.</p>
+						<section class="self-center">
+							<h4 class="text-lg font-bold">Title</h4>
+							<p>Description</p>
+						</section>
 
-                    <div class="mt-16">
-                        <a href="" class="learn-more font-semibold italic">
-                            Learn More
-                        </a>
-                    </div>
-                </section>
-            </section>
-        </div>
-    </section>
+					</div>
+				</section>
+			</div>
+		</section>
 
-    <section class="bg-red-300">
-        <div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
-            <h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-            <a href="" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
-            <span class="block leading-10 text-xs">* You won’t regret it.</span>
-        </div>
-    </section>
+		<section class="bg-yellow-300 overflow-hidden city-image bg-fixed">
+			<div class="px-16 py-24 w-full md:w-10/12 relative yellow-gradient">
+				<section class="max-w-screen-md mx-auto">
+					<section class="relative max-width">
+						<h3 class="text-3xl mb-10 font-bold">Why Choose Us?</h3>
 
-    <section class="bg-white relative">
-        <h3 class="text-3xl my-6 font-bold text-center">Clients & Testimonials</h3>
-        <div class="top-half w-full">
-            <a href=""
-                class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block font-semibold text-lg">Previous</a>
-            <a href=""
-                class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block font-semibold text-lg">Next</a>
-        </div>
+						<h4 class="text-xl mb-2">Certified Experience</h4>
+						<p class="leading-8 mb-12">Experience of Certified industry professionals.</p>
 
-        <div class="px-5 py-48 mx-auto w-full max-w-screen-md">
-            <h4 class="text-4xl text-center font-medium">“Absolutely the best video call solution for medium sized
-                teams”</h4>
-            <section class="flex justify-center w-full px-5 mx-auto">
-                <div class="mt-10 flex">
-                    <div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-                    <p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
-                </div>
-            </section>
-        </div>
+						<h4 class="text-xl mb-2">Great Teamwork</h4>
+						<p class="leading-8 mb-12">Teamwork that makes dreams work.</p>
 
-        <div class="bg-gray-300 px-6 py-3 rounded-full mx-auto left-half space-x-1 mb-5">
-            <span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
-            <span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-            <span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-            <span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-        </div>
-    </section>
+						<h4 class="text-xl mb-2">Modern Technology</h4>
+						<p class="leading-8 mb-12">High quality equipment. Tools used by the best of the best.</p>
 
-    {% include "../partials/footer.html" %}
-</main>
+						<div class="mt-16">
+							{{ macro.learnMore("") }}
+						</div>
+
+					</section>
+				</section>
+			</div>
+		</section>
+
+		<section class="bg-white relative">
+			<h3 class="text-3xl my-6 font-medium text-center">Clients & Testimonials</h3>
+			<div class="top-half w-full">
+				<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block font-semibold text-lg">Previous</a>
+				<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block font-semibold text-lg">Next</a>
+			</div>
+
+			<div class="px-5 pt-20 pb-40 mx-auto w-full max-w-screen-sm">
+				<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
+				<section class="flex justify-center w-full px-5 mx-auto">
+					<div class="mt-10 flex">
+						<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+						<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+					</div>
+				</section>
+			</div>
+
+			<div class="bg-gray-300 px-6 py-3 rounded-full mx-auto left-half space-x-1 mb-5">
+				<span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
+				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+			</div>
+		</section>
+
+		<section class="bg-red-200">
+			{% include "../partials/contact.html" %}
+		</section>
+
+		{% include "../partials/footer.html" %}
+	</main>
+
 {% endblock %}

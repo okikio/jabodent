@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "Jabodent",
-        "esnext"
+        "esnext",
+        "tailwindcss"
     ],
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#1f6fd0",

@@ -1,134 +1,29 @@
 {% extends "../layouts/layout.html" %}
 
 {% block content %}
-<main>
-    <section class="py-24 bg-red-500 intro-animation">
-        <div class="mx-auto max-w-3xl px-5 mt-5 w-full">
-            <h1 class="h1 text-3xl font-semibold mb-4 text-center">Our Services</h1>
-            <h2 class="text-2xl leading-10">We offer a total of 13 different and distinct services ranging from
-                being Dry Rock Consultants to Inclining Experiments.
-                <br><br>
-                This is the complete list of all the services we offer.
-            </h2>
-            <!-- <ul class="list-inside list-disc font-bold mt-4 leading-8">
-                <li><a href="#table-of-contents">SMS MANUAL PREPARATION AND REVIEW</a></li>
-                <li><a href="#table-of-contents">MARINE FACILITY/EQUIPMENT CONDITION AND VALUE</a></li>
-                <li><a href="#table-of-contents">INSURANCE/APPRAISAL SURVEY</a></li>
-                <li><a href="#table-of-contents">ON AND OFF HIRE BUNKER/CONDITION SURVEYS</a></li>
-                <li><a href="#table-of-contents">DRAFT SURVEYS</a></li>
-                <li><a href="#table-of-contents">DAMAGE/REPAIR SURVEY</a></li>
-                <li><a href="#table-of-contents">DYNAMIC POSITIONING SURVEY (FMEA</a>)</li>
-                <li><a href="#table-of-contents">CARGO LIFTING AND GEAR SURVEY</a></li>
-                <li><a href="#table-of-contents">INCLINING EXPERIMENTS</a></li>
-                <li><a href="#table-of-contents">PREPARATORY AUDIT FOR ISM, ISPS AND MLC</a></li>
-                <li><a href="#table-of-contents">MARINE MAINTENANCE MANAGEMENT AND PLANNED MAINTENANCE</a></li>
-                <li><a href="#table-of-contents">SOFTWARE BROKERS</a></li>
-                <li><a href="#table-of-contents">MARINE ENGINEERING/NAVAL ARCHITECTURE</a></li>
-                <li><a href="#table-of-contents">DRY ROCK CONSULTANTS</a></li>
-                <li><a href="#table-of-contents">HIRING OF MARINE EQUIPMENTS AND SPECIALIST</a></li>
-                <li><a href="#table-of-contents">SPECIALIST TECHNICIAN AND ENGINEERS</a></li>
-            </ul> -->
-        </div>
-    </section>
+	<main>
+		<section class="py-24 bg-red-500 intro-animation">
+			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
+				<h1 class="h1 text-3xl font-bold mb-4 text-center">Our Services</h1>
+				<h2 class="text-2xl leading-10">We offer a total of {{ services.length }} different and distinct services ranging from being Dry Rock Consultants to Inclining Experiments.
+					<br><br>
+					This is the complete list of all the services we offer:
+				</h2>
+			</div>
+		</section>
 
-    <section class="bg-white relative px-5 py-12 mx-auto w-full max-w-screen-lg space-y-8">
-        <div class="row sm:spread-x-8 sm:space-y-0 space-y-8">
-            <div class="col sm:max-w-1/2 group">
-                <section class="rounded-md relative h-72 bg-blue-400">
-                    <div class="p-5 left-half w-full">
-                        <h3 class="text-base font-semibold group-hover:underline">SMS MANUAL PREPARATION AND REVIEW.
-                        </h3>
-                        <p class="line-clamp">Safety management system manual (SMS) is an ofﬁcial document that depicts
-                            how
-                            a
-                            shipping company plans and implements policies to ensure safety of their ships and the
-                            marine
-                            environment. Safety management system is a vital part of the
-                            international safety </p>
-                        <div class="mt-6 text-right transform group-hover:translate-x-8">
-                            <a href="" class="learn-more font-semibold italic">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            </div>
+		<section class="bg-white relative px-5 pt-8 mx-auto w-full max-w-screen-lg">
+			<div class="row">
+				{% for service in services %}
+					{{ macro.card(service) }}
+				{% endfor %}
+			</div>
+		</section>
 
-            <div class="col sm:max-w-1/2 group">
-                <section class="rounded-md relative h-72 bg-green-400">
-                    <div class="p-5 left-half w-full">
-                        <h3 class="text-base font-semibold group-hover:underline">MARINE FACILITY/EQUIPMENT CONDITION
-                            AND
-                            VALUE.</h3>
-                        <p class="line-clamp">Marine facility/equipment condition and value survey. Condition survey is
-                            a
-                            stand-alone assessment of the physical and
-                            operating condition of Marine Facilities and equipment at that point in time to ascertain
-                            its
-                            suitability for speciﬁc work scope as required by the client. </p>
-                        <div class="mt-6 text-right transform group-hover:translate-x-8">
-                            <a href="" class="learn-more font-semibold italic">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+		<div class="bg-red-200">
+			{% include "../partials/contact.html" %}
+		</div>
 
-        <div class="row sm:spread-x-8 sm:space-y-0 space-y-8">
-            <div class="col sm:max-w-1/2 group">
-                <section class="rounded-md relative h-72 bg-blue-400">
-                    <div class="p-5 left-half w-full">
-                        <h3 class="text-base font-semibold group-hover:underline">SMS MANUAL PREPARATION AND REVIEW.
-                        </h3>
-                        <p class="line-clamp">Safety management system manual (SMS) is an ofﬁcial document that depicts
-                            how
-                            a
-                            shipping company plans and implements policies to ensure safety of their ships and the
-                            marine
-                            environment. Safety management system is a vital part of the
-                            international safety </p>
-                        <div class="mt-6 text-right transform group-hover:translate-x-8">
-                            <a href="" class="learn-more font-semibold italic">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <div class="col sm:max-w-1/2 group">
-                <section class="rounded-md relative h-72 bg-green-400">
-                    <div class="p-5 left-half w-full">
-                        <h3 class="text-base font-semibold group-hover:underline">MARINE FACILITY/EQUIPMENT CONDITION
-                            AND
-                            VALUE.</h3>
-                        <p class="line-clamp">Marine facility/equipment condition and value survey. Condition survey is
-                            a
-                            stand-alone assessment of the physical and
-                            operating condition of Marine Facilities and equipment at that point in time to ascertain
-                            its
-                            suitability for speciﬁc work scope as required by the client. </p>
-                        <div class="mt-6 text-right transform group-hover:translate-x-8">
-                            <a href="" class="learn-more font-semibold italic">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-yellow-300">
-        <div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
-            <h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-            <a href="" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
-            <span class="block leading-10 text-xs">* You won’t regret it.</span>
-        </div>
-    </section>
-
-    {% include "../partials/footer.html" %}
-</main>
+		{% include "../partials/footer.html" %}
+	</main>
 {% endblock %}

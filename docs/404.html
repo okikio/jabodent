@@ -1,113 +1,122 @@
-<!DOCTYPE html>
-<html lang="en" theme="light">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <title>404 Page</title>
 
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="./css/tailwind.css">
-    <link rel="stylesheet" href="./css/app.css">
-</head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+	<title>404 Page</title>
 
-<body>
-    <div id="splashscreen">
-        <div class="splashscreen-inner">
-            <div class="spinner">
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="length" fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28">
-                    </circle>
-                </svg>
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-                </svg>
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-                </svg>
-                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-                </svg>
-            </div>
-        </div>
-        <div class="splashscreen-bg"></div>
-    </div>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@500;600;800&display=swap" rel="stylesheet">
 
-    <div id="big-transition">
-        <div class="spinner">
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle class="length" fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28">
-                </circle>
-            </svg>
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-            </svg>
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-            </svg>
-            <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                <circle fill="none" stroke-width="8" stroke-linecap="round" cx="33" cy="33" r="28"></circle>
-            </svg>
-        </div>
-        <div id="big-transition-horizontal">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+		<link rel="stylesheet" href="./css/tailwind.css">
+		<link rel="stylesheet" href="./css/app.css">
+	</head>
 
-    <!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
-<nav class="navbar overflow-hidden bg-red-500 fixed w-full z-10">
-    <div class="w-full max-w-screen-lg flex mx-auto px-5">
-        <a class="navbar-link logo" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
-        <section class="flex w-full whitespace-no-wrap">
-            <a class="navbar-link" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
-            <a class="navbar-link" href="./services.html" data-path="/service(.html)?" data-transition="slide">Our
-                Services</a>
-            <a class="navbar-link" href="./contact.html" data-path="/contact(.html)?" data-transition="slide"
-                data-direction="left">Contact
-                Us</a>
-            <div class="flex-grow"></div>
-            <a class="navbar-link" href="">Blog</a>
-            <a class="navbar-link" href="">Search</a>
-        </section>
-    </div>
+	<body>
+		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
+<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-10">
+	
+	
+		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-link logo font-bold font-title text-xl cursor-pointer relative z-20" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
+
+		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
+			<a class="navbar-link hover:font-bold" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
+			<a class="navbar-link hover:font-bold" href="./services.html" data-path="/service(.html)?" data-transition="slide">Our Services</a>
+			<a class="navbar-link hover:font-bold" href="./contact.html" data-path="/contact(.html)?" data-transition="slide" data-direction="left">Contact Us</a>
+			<a class="block md:hidden navbar-link hover:font-bold" href="">Our Blog</a>
+		</section>
+
+		<section class="flex w-full whitespace-no-wrap relative">
+			<div class="flex-grow"></div>
+			<a class="hidden md:block navbar-link hover:font-bold" href="">Blog</a>
+			<a class="navbar-icon hover:text-red-900 cursor-pointer">
+				<i class="icon text-xl">search</i>
+			</a>
+			<a class="block md:hidden navbar-icon hover:text-red-900 cursor-pointer">
+				<i class="icon text-2xl">menu</i>
+			</a>
+		</section>
+	</div>
+
 </nav>
 
-    <section class="overflow-hidden">
-        <div data-wrapper>
-            
-    <main data-wrapper id="404-page" role="main" id="sb-wrapper">
-        <div id="page-home-page"
-            class="page-content page-content-ajax"
-            data-node-name="home-page"
-            data-is-home="1"
-            data-node-type="HomePage"
-            data-meta-title="Home page">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="jumbotron jumbotron-fluid my-3 px-4 bg-white rounded box-shadow text-dark">
-                            <div class="container">
-                                <h1 class="display-4"><strong>404 Page</strong></h1>
-                                <p class="lead">Dynamic blocks example.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
 
-        </div>
-    </section>
+		<section>
+			<div data-wrapper> 
+	<main>
+		<section class="py-24 bg-red-500 intro-animation">
+			<div class="mx-auto max-w-3xl px-5 py-24 w-full text-center">
 
-    
-    <script src="./js/main.js" type="module"></script>
-</body>
+				<h1 class="text-5xl font-bold font-title tracking-wider pb-8">
+					<strong>404 Page</strong>
+				</h1>
 
-</html>
+				<h2 class="text-2xl leading-10 mb-16">Oops, it seems you are lost would you like to return
+					<a href="/">home</a>.</h2>
+			</div>
+		</section>
+
+		<a href="" class="sticky -mb-8 transform -translate-y-8 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
+	Back To Top
+</a>
+
+<footer class="bg-red-300 py-8 px-6">
+	<div class="max-w-screen-lg w-full mx-auto">
+		<div class="flex space-x-10 clear-both">
+			<section class="w-4/12">
+				<div class="w-20 h-16 bg-yellow-300 mb-5"></div>
+				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
+				</p>
+			</section>
+
+			<section class="w-4/12">
+				<h3 class="text-xl mb-6 font-semibold">Quick Links</h3>
+				<ul class="leading-8 list-none">
+					<li>About Us</li>
+					<li>Our Services</li>
+					<li>Contact</li>
+					<li>Blog</li>
+				</ul>
+			</section>
+
+			<section class="w-4/12 text-right">
+				<p class="leading-8 font-medium">
+					Plot E10A, Close 51, VGC Lekki<br>
+					Peninsular, Lagos, Nigeria.<br>
+					<strong>
+						+2348033324072<br>
+						info@jabodent.com
+					</strong>
+				</p>
+				<div class="mt-10 space-x-2">
+					<i>Twttr</i>
+					<i>Twttr</i>
+					<i>Twttr</i>
+					<i>Twttr</i>
+				</div>
+			</section>
+
+		</div>
+		<div class="flex mt-10">
+			<section>© 2020 Jabodent. All rights reserved.</section>
+			<section class="flex-grow"></section>
+			<section>Made with
+				<i class="icon text-xl text-red-600 mx-1">favorite</i>
+				by
+				<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
+			</section>
+
+		</div>
+	</div>
+</footer>
+
+	</main>
+
+				</div>
+			</section>
+
+
+			<script src="./js/main.js" type="module"></script>
+		</body>
+	</html>
