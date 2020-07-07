@@ -17200,7 +17200,6 @@ video {
   min-height: 1px;
   width: 100%;
   flex-grow: 1;
-  cursor: pointer;
   flex-basis: 100%;
 }
 

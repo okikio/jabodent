@@ -7,7 +7,8 @@
 		
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@500;600;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 
 		<link rel="stylesheet" href="./css/tailwind.css">
 		<link rel="stylesheet" href="./css/app.css">
@@ -18,10 +19,11 @@
 <nav class="navbar bg-red-500 overflow-hidden fixed w-full z-10">
 	
 	
-		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-link logo font-bold font-title text-xl cursor-pointer relative z-20" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
+		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-logo navbar-link cursor-pointer relative z-20" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
+
 
 		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
-			<a class="navbar-link hover:font-bold" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
+			<a class="navbar-link hover:font-extrabold" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
 			<a class="navbar-link hover:font-bold" href="./services.html" data-path="/service(.html)?" data-transition="slide">Our Services</a>
 			<a class="navbar-link hover:font-bold" href="./contact.html" data-path="/contact(.html)?" data-transition="slide" data-direction="left">Contact Us</a>
 			<a class="block md:hidden navbar-link hover:font-bold" href="">Our Blog</a>
@@ -29,12 +31,12 @@
 
 		<section class="flex w-full whitespace-no-wrap relative">
 			<div class="flex-grow"></div>
-			<a class="hidden md:block navbar-link hover:font-bold" href="">Blog</a>
-			<a class="navbar-icon hover:text-red-900 cursor-pointer">
-				<i class="icon text-xl">search</i>
+			<a class="hidden md:block navbar-link hover:font-bold" href="">Our Blog</a>
+			<a class="navbar-icon cursor-pointer">
+				<i class="icon hover:font-extrabold text-xl">search</i>
 			</a>
-			<a class="block md:hidden navbar-icon hover:text-red-900 cursor-pointer">
-				<i class="icon text-2xl">menu</i>
+			<a class="block md:hidden navbar-icon cursor-pointer">
+				<i class="icon hover:font-extrabold text-2xl">menu</i>
 			</a>
 		</section>
 	</div>
@@ -48,7 +50,7 @@
 		<section class="py-24 bg-red-500 intro-animation">
 			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
 				<h1 class="h1 text-3xl font-bold mb-4 text-center">About Us</h1>
-				<h2 class="text-2xl leading-10">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
+				<h2 class="text-2xl font-thin leading-10">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
 			</div>
 		</section>
 
@@ -62,13 +64,14 @@
 		<section class="bg-yellow-300 overflow-hidden city-image py-32 bg-fixed"></section>
 
 		<section class="bg-white relative">
-			<h3 class="text-3xl pt-6 pb-24 font-bold text-center">Our Team</h3>
+			<h3 class="text-3xl pt-6 font-bold text-center">Our Team</h3>
 			<div class="top-half w-full font-semibold text-lg lt-md:hidden">
-				<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
-				<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
-			</div>
+	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
+	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
+</div>
 
-			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg pb-40">
+
+			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-24">
 				<section class="p-8 hover:bg-gray-200 flex flex-col md:flex-row justify-center rounded-xl">
 					<div class="self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
 					<div class="self-center w-full md:max-w-1/2">
@@ -84,24 +87,27 @@
 				</section>
 			</div>
 
-			<div class="bg-gray-300 px-6 py-3 rounded-full mx-auto left-half space-x-1 mb-5">
-				<span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
-				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-				<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-			</div>
+			<div class="flex">
+	<div class="bg-gray-300 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
+		<span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+	</div>
+</div>
+
 		</section>
 
 		<div class="bg-red-200">
 			<div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
 	<h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-	<a href="" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
+	<a href="/contact.html" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
 	<span class="block leading-10 text-xs">* You won’t regret it.</span>
 </div>
 
 		</div>
 
-		<a href="" class="sticky -mb-8 transform -translate-y-8 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
+		<a href="" class="sticky -mb-8 transform -translate-y-6 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
 	Back To Top
 </a>
 
@@ -109,19 +115,19 @@
 	<div class="max-w-screen-lg w-full mx-auto">
 		<div class="flex flex-wrap clear-both">
 			<section class="col sm:max-w-4/12">
-				<div class="w-20 h-16 bg-yellow-300 mb-5"></div>
+				<a href="/" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
 				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
 				</p>
 			</section>
 
 			<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
-				<h3 class="text-xl mb-6 font-semibold">Quick Links</h3>
-				<ul class="leading-8 list-none">
-					<li>About Us</li>
-					<li>Our Services</li>
-					<li>Contact</li>
-					<li>Blog</li>
-				</ul>
+				<h3 class="text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+				<section class="leading-8 lt-md:leading-10 flex flex-col">
+					<a href="./about.html" class="hover:underline">About Us</a>
+					<a href="./services.html" class="hover:underline">Our Services</a>
+					<a href="./contact.html" class="hover:underline">Contact Us</a>
+					<a href="" class="hover:underline">Our Blog</a>
+				</section>
 			</section>
 
 			<section class="col sm:max-w-4/12 lt-md:mt-12 md:text-right">
@@ -129,15 +135,24 @@
 					Plot E10A, Close 51, VGC Lekki<br>
 					Peninsular, Lagos, Nigeria.<br>
 					<strong>
-						+2348033324072<br>
-						info@jabodent.com
+						<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
+						<br>
+						<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
 					</strong>
 				</p>
-				<div class="mt-10 space-x-2">
-					<i>Twttr</i>
-					<i>Twttr</i>
-					<i>Twttr</i>
-					<i>Twttr</i>
+				<div class="mt-10 space-x-2 text-2xl">
+					<a href="" class="hover:underline">
+						<i class="icon p-2">add</i>
+					</a>
+					<a href="" class="hover:underline">
+						<i class="icon p-2">add</i>
+					</a>
+					<a href="" class="hover:underline">
+						<i class="icon p-2">add</i>
+					</a>
+					<a href="" class="hover:underline">
+						<i class="icon p-2">add</i>
+					</a>
 				</div>
 			</section>
 

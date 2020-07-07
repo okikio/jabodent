@@ -5,7 +5,7 @@
 {% endmacro %}
 
 {% macro card(service, even) %}
-<div class="col sm:max-w-1/2 group {% if even %} sm:pr-8 {% endif %} pb-8">
+	<div class="col cursor-pointer sm:max-w-1/2 group {% if even %} sm:pr-8 {% endif %} pb-8">
 		<section class="rounded-md relative h-72 {% if service.class %}  {{ service.class }} {% else %} bg-blue-400 {% endif %}">
 			<div class="p-5 left-half w-full">
 				<h3 class="text-base mb-3 font-bold group-hover:underline">{{ service.title }}</h3>
