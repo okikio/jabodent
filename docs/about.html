@@ -16,28 +16,31 @@
 
 	<body>
 		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
-<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-10">
+<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-20">
 	
 	
-		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-logo navbar-link cursor-pointer relative z-20" href="./index.html" data-path="/(index|)(.html)?">Jabodent</a>
-
+		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-logo navbar-link cursor-pointer relative z-10" href="/index.html">Jabodent</a>
 
 		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
-			<a class="navbar-link hover:font-extrabold" href="./about.html" data-path="/about(.html)?" data-transition="default">About Us</a>
-			<a class="navbar-link hover:font-bold" href="./services.html" data-path="/service(.html)?" data-transition="slide">Our Services</a>
-			<a class="navbar-link hover:font-bold" href="./contact.html" data-path="/contact(.html)?" data-transition="slide" data-direction="left">Contact Us</a>
-			<a class="block md:hidden navbar-link hover:font-bold" href="">Our Blog</a>
+			<a class="navbar-link hover:font-extrabold" href="/about.html">About Us</a>
+			<a class="navbar-link hover:font-bold" href="/services.html">Our Services</a>
+			<a class="navbar-link hover:font-bold" href="/contact.html">Contact Us</a>
+			<a class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
 		</section>
 
 		<section class="flex w-full whitespace-no-wrap relative">
 			<div class="flex-grow"></div>
-			<a class="hidden md:block navbar-link hover:font-bold" href="">Our Blog</a>
+			<a class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
+
 			<a class="navbar-icon cursor-pointer">
 				<i class="icon hover:font-extrabold text-xl">search</i>
 			</a>
-			<a class="block md:hidden navbar-icon cursor-pointer">
-				<i class="icon hover:font-extrabold text-2xl">menu</i>
+			
+			<a class="block navbar-menu md:hidden navbar-icon cursor-pointer">
+				<i class="icon text-2xl">menu</i>
 			</a>
+			
+
 		</section>
 	</div>
 
@@ -47,25 +50,27 @@
 		<section>
 			<div data-wrapper> 
 	<main>
-		<section class="py-24 bg-red-500 intro-animation">
+		<section class="py-24 bg-red-500">
 			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
 				<h1 class="h1 text-3xl font-bold mb-4 text-center">About Us</h1>
 				<h2 class="text-2xl font-thin leading-10">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
 			</div>
 		</section>
 
-		<section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
-			<h3 class="text-2xl mb-6 font-bold">Our Story</h3>
-			<p class="leading-8">Established in 2017 out of the necessity for the marine, oil and gas offshore industry to be provided with professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments as safe as practicable.
-				<br><br>
-				Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers and master mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of different types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and production platform e.g. FPSOFSO and FOI</p>
+		<section class="px-5 mx-auto w-full max-w-screen-md py-24">
+			<h3 class="text-2xl mb-6 font-bold intro-animation">Our Story</h3>
+
+			<p class="leading-8 intro-animation">Established in 2017 out of the necessity for the marine, oil and gas offshore industry to be provided with professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments as safe as practicable.</p>
+			<br><br>
+			<p class="leading-8 intro-animation">Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers and master mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of different types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and production platform e.g. FPSOFSO and FOI</p>
+
 		</section>
 
 		<section class="bg-yellow-300 overflow-hidden city-image py-32 bg-fixed"></section>
 
 		<section class="bg-white relative">
-			<h3 class="text-3xl pt-6 font-bold text-center">Our Team</h3>
-			<div class="top-half w-full font-semibold text-lg lt-md:hidden">
+			<h3 class="text-3xl pt-6 font-bold text-center intro-animation">Our Team</h3>
+			<div class="top-half w-full font-semibold text-lg lt-md:hidden z-10">
 	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
 	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
 </div>
@@ -107,39 +112,42 @@
 
 		</div>
 
-		<a href="" class="sticky -mb-8 transform -translate-y-6 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
+		<a href="" class="z-10 sticky -mb-8 transform -translate-y-6 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
 	Back To Top
 </a>
 
 <footer class="bg-red-300 py-8 px-6">
 	<div class="max-w-screen-lg w-full mx-auto">
 		<div class="flex flex-wrap clear-both">
-			<section class="col sm:max-w-4/12">
+			<section class="intro-animation col sm:max-w-4/12">
+
 				<a href="/" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
 				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
 				</p>
 			</section>
 
 			<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
-				<h3 class="text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
-				<section class="leading-8 lt-md:leading-10 flex flex-col">
+				<h3 class="intro-animation text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+
+				<section class="leading-8 intro-animation lt-md:leading-10 flex flex-col">
 					<a href="./about.html" class="hover:underline">About Us</a>
 					<a href="./services.html" class="hover:underline">Our Services</a>
 					<a href="./contact.html" class="hover:underline">Contact Us</a>
 					<a href="" class="hover:underline">Our Blog</a>
+
 				</section>
 			</section>
 
-			<section class="col sm:max-w-4/12 lt-md:mt-12 md:text-right">
+			<section class="col intro-animation sm:max-w-4/12 lt-md:mt-12 md:text-right">
 				<p class="leading-8 font-medium">
-					Plot E10A, Close 51, VGC Lekki<br>
-					Peninsular, Lagos, Nigeria.<br>
+					<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
 					<strong>
 						<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
 						<br>
 						<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
 					</strong>
 				</p>
+
 				<div class="mt-10 space-x-2 text-2xl">
 					<a href="" class="hover:underline">
 						<i class="icon p-2">add</i>
@@ -155,9 +163,8 @@
 					</a>
 				</div>
 			</section>
-
 		</div>
-		<div class="flex flex-wrap mt-10">
+		<div class="flex flex-wrap mt-10 intro-animation">
 			<section>© 2020 Jabodent. All rights reserved.</section>
 			<section class="flex-grow"></section>
 			<section>Made with

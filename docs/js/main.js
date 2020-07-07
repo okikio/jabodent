@@ -384,50 +384,6 @@ class TransitionManager extends AdvancedManager {
   }
 }
 
-class Block extends Service {
-  init({name, rootElement, selector, index, length}) {
-    this.rootElement = rootElement;
-    this.name = name;
-    this.selector = selector;
-    this.index = index;
-    this.length = length;
-  }
-  getRootElement() {
-    return this.rootElement;
-  }
-  getSelector() {
-    return this.selector;
-  }
-  getLength() {
-    return this.length;
-  }
-  getIndex() {
-    return this.index;
-  }
-  getID() {
-    return this.id;
-  }
-  setID(id) {
-    this.id = id;
-    return this;
-  }
-  getName() {
-    return this.name;
-  }
-}
-class BlockIntent extends ManagerItem {
-  constructor({name, block}) {
-    super();
-    this.name = name;
-    this.block = block;
-  }
-  getName() {
-    return this.name;
-  }
-  getBlock() {
-    return this.block;
-  }
-}
 class BlockManager extends AdvancedManager {
   constructor(app2) {
     super(app2);
@@ -854,7 +810,7 @@ class PJAX extends Service {
           this.transitionStart();
           this.EventEmitter.emit("PAGE_LOAD_COMPLETE", {newPage, oldPage, trigger});
         } catch (err) {
-          throw `[PJAX] Page load error: ${err}`;
+          throw `[PJAX] page load error: ${err}`;
         }
         this.EventEmitter.emit("NAVIGATION_START", {oldPage, newPage, trigger, transitionName});
         try {
@@ -868,7 +824,7 @@ class PJAX extends Service {
           this.hashAction();
           this.EventEmitter.emit("TRANSITION_END", {transition});
         } catch (err) {
-          throw `[PJAX] Transition error: ${err}`;
+          throw `[PJAX] transition error: ${err}`;
         }
         this.EventEmitter.emit("NAVIGATION_END", {oldPage, newPage, trigger, transitionName});
       } catch (err) {
@@ -948,194 +904,7 @@ class PJAX extends Service {
   }
 }
 
-class Router extends Service {
-  constructor(routes = []) {
-    super();
-    this.routes = new d();
-    for (const route of routes) {
-      this.add(route);
-    }
-  }
-  add({path, method}) {
-    const key = this.parse(path);
-    this.routes.set(key, method);
-    return this;
-  }
-  parsePath(path) {
-    if (typeof path === "string")
-      return new RegExp(path, "i");
-    else if (path instanceof RegExp)
-      return path;
-    throw "[Router] only regular expressions and strings are accepted as paths.";
-  }
-  isPath(input) {
-    return typeof input === "string" || input instanceof RegExp;
-  }
-  parse(input) {
-    let route = input;
-    let toFromPath = {
-      from: /(.*)/g,
-      to: /(.*)/g
-    };
-    if (this.isPath(input))
-      toFromPath = {
-        from: input,
-        to: /(.*)/g
-      };
-    else if (this.isPath(route.from) && this.isPath(route.to))
-      toFromPath = route;
-    else
-      throw "[Router] path is neither a string, regular expression, or a { from, to } object.";
-    let {from, to} = toFromPath;
-    return {
-      from: this.parsePath(from),
-      to: this.parsePath(to)
-    };
-  }
-  route() {
-    let from = this.HistoryManager.last().getURLPathname();
-    let to = window.location.pathname;
-    this.routes.forEach((method, path) => {
-      let fromRegExp = path.from;
-      let toRegExp = path.to;
-      if (fromRegExp.test(from) && toRegExp.test(to)) {
-        let fromExec = fromRegExp.exec(from);
-        let toExec = toRegExp.exec(to);
-        method({from: fromExec, to: toExec});
-      }
-    });
-  }
-  initEvents() {
-    this.EventEmitter.on("READY", this.route, this);
-    this.EventEmitter.on("PAGE_LOADING", this.route, this);
-  }
-  stopEvents() {
-    this.EventEmitter.off("READY", this.route, this);
-    this.EventEmitter.off("PAGE_LOADING", this.route, this);
-  }
-}
-
 class t{constructor(a){this.map=new Map(a);}getMap(){return this.map}get(a){return this.map.get(a)}keys(){return Array.from(this.map.keys())}values(){return Array.from(this.map.values())}set(a,b){return this.map.set(a,b),this}add(a){let b=this.size,c=b;return this.set(c,a),this}get size(){return this.map.size}last(a=1){let b=this.keys()[this.size-a];return this.get(b)}prev(){return this.last(2)}delete(a){return this.map.delete(a),this}clear(){return this.map.clear(),this}has(a){return this.map.has(a)}entries(){return this.map.entries()}forEach(a=(...c)=>{},b){return this.map.forEach(a,b),this}[Symbol.iterator](){return this.entries()}methodCall(a,...b){return this.forEach(c=>{c[a](...b);}),this}async asyncMethodCall(a,...b){for(let[,c]of this.map)await c[a](...b);return this}}class u{constructor({callback:a=()=>{},scope:b=null,name:c="event"}){this.listener={callback:a,scope:b,name:c};}getCallback(){return this.listener.callback}getScope(){return this.listener.scope}getEventName(){return this.listener.name}toJSON(){return this.listener}}class m extends t{constructor(a="event"){super();this.name=a;}}class E extends t{constructor(){super();}getEvent(a){let b=this.get(a);return b instanceof m?b:(this.set(a,new m(a)),this.get(a))}newListener(a,b,c){let d=this.getEvent(a);return d.add(new u({name:a,callback:b,scope:c})),d}on(a,b,c){if(typeof a=="undefined")return this;typeof a=="string"&&(a=a.trim().split(/\s/g));let d,e,f=typeof a=="object"&&!Array.isArray(a),h=f?b:c;return f||(e=b),Object.keys(a).forEach(g=>{f?(d=g,e=a[g]):d=a[g],this.newListener(d,e,h);},this),this}removeListener(a,b,c){let d=this.get(a);if(d instanceof m&&b){let e=new u({name:a,callback:b,scope:c});d.forEach((f,h)=>{if(f.getCallback()===e.getCallback()&&f.getScope()===e.getScope())return d.delete(h)});}return d}off(a,b,c){if(typeof a=="undefined")return this;typeof a=="string"&&(a=a.trim().split(/\s/g));let d,e,f=typeof a=="object"&&!Array.isArray(a),h=f?b:c;return f||(e=b),Object.keys(a).forEach(g=>{f?(d=g,e=a[g]):d=a[g],typeof e==="function"?this.removeListener(d,e,h):this.delete(d);},this),this}once(a,b,c){if(typeof a=="undefined")return this;typeof a=="string"&&(a=a.trim().split(/\s/g));let d,e,f=typeof a==="object"&&!Array.isArray(a),h=f?b:c;return f||(e=b),Object.keys(a).forEach(g=>{f?(d=g,e=a[g]):d=a[g];let n=(...r)=>{f?(d=g,e=a[g]):d=a[g],this.off(d,n,h),e.apply(h,r);};this.on(d,n,h);},this),this}emit(a,...b){return typeof a=="undefined"?this:(typeof a=="string"&&(a=a.trim().split(/\s/g)),a.forEach(c=>{let d=this.get(c);d instanceof m&&d.forEach(e=>{let{callback:f,scope:h}=e.toJSON();f.apply(h,b);});},this),this)}}const v=a=>typeof a==="string"?Array.from(document.querySelectorAll(a)):[a],w=a=>Array.isArray(a)?a:typeof a=="string"||a instanceof Node?v(a):a instanceof NodeList||a instanceof HTMLCollection?Array.from(a):[],p=(a,b)=>typeof a==="function"?a(...b):a,q=(a,b)=>{let c,d,e={},f=Object.keys(a);for(let h=0,g=f.length;h<g;h++)c=f[h],d=a[c],e[c]=p(d,b);return e},x={ease:"ease",in:"ease-in",out:"ease-out","in-out":"ease-in-out","in-sine":"cubic-bezier(0.47, 0, 0.745, 0.715)","out-sine":"cubic-bezier(0.39, 0.575, 0.565, 1)","in-out-sine":"cubic-bezier(0.445, 0.05, 0.55, 0.95)","in-quad":"cubic-bezier(0.55, 0.085, 0.68, 0.53)","out-quad":"cubic-bezier(0.25, 0.46, 0.45, 0.94)","in-out-quad":"cubic-bezier(0.455, 0.03, 0.515, 0.955)","in-cubic":"cubic-bezier(0.55, 0.055, 0.675, 0.19)","out-cubic":"cubic-bezier(0.215, 0.61, 0.355, 1)","in-out-cubic":"cubic-bezier(0.645, 0.045, 0.355, 1)","in-quart":"cubic-bezier(0.895, 0.03, 0.685, 0.22)","out-quart":"cubic-bezier(0.165, 0.84, 0.44, 1)","in-out-quart":"cubic-bezier(0.77, 0, 0.175, 1)","in-quint":"cubic-bezier(0.755, 0.05, 0.855, 0.06)","out-quint":"cubic-bezier(0.23, 1, 0.32, 1)","in-out-quint":"cubic-bezier(0.86, 0, 0.07, 1)","in-expo":"cubic-bezier(0.95, 0.05, 0.795, 0.035)","out-expo":"cubic-bezier(0.19, 1, 0.22, 1)","in-out-expo":"cubic-bezier(1, 0, 0, 1)","in-circ":"cubic-bezier(0.6, 0.04, 0.98, 0.335)","out-circ":"cubic-bezier(0.075, 0.82, 0.165, 1)","in-out-circ":"cubic-bezier(0.785, 0.135, 0.15, 0.86)","in-back":"cubic-bezier(0.6, -0.28, 0.735, 0.045)","out-back":"cubic-bezier(0.175, 0.885, 0.32, 1.275)","in-out-back":"cubic-bezier(0.68, -0.55, 0.265, 1.55)"},y=a=>/^(ease|in|out)/.test(a)?x[a]:a,z={keyframes:[],loop:1,delay:0,speed:1,endDelay:0,easing:"ease",autoplay:!0,duration:1e3,onfinish(){},fillMode:"auto",direction:"normal"};class A{constructor(a={}){this.options={},this.targets=[],this.properties={},this.animations=new Map(),this.duration=0,this.emitter=new E();let{options:b,...c}=a;this.options=Object.assign({},z,b,c),this.loop=this.loop.bind(this);let{loop:d,delay:e,speed:f,easing:h,endDelay:g,duration:n,direction:r,fillMode:F,onfinish:G,target:H,keyframes:I,autoplay:J,...K}=this.options;this.mainElement=document.createElement("span"),this.targets=w(H),this.properties=K;let o;for(let i=0,l=this.targets.length;i<l;i++){let k=this.targets[i],j={easing:y(h),iterations:d===!0?Infinity:d,direction:r,endDelay:g,duration:n,delay:e,fill:F},s=p(I,[i,l,k]);o=s.length?s:this.properties,j=q(j,[i,l,k]),s.length>0||(o=q(o,[i,l,k]));let C=j.delay+j.duration*j.iterations+j.endDelay;this.duration<C&&(this.duration=C);let D=k.animate(o,j);D.onfinish=()=>{G(k,i,l);},this.animations.set(k,D);}this.mainAnimation=this.mainElement.animate([{opacity:"0"},{opacity:"1"}],{duration:this.duration,easing:"linear"}),this.setSpeed(f),J?this.play():this.pause(),this.promise=this.newPromise(),this.mainAnimation.onfinish=()=>{this.finish(this.options),window.cancelAnimationFrame(this.animationFrame);};}getTargets(){return this.targets}newPromise(){return new Promise((a,b)=>{try{this.finish=c=>(this.emit("finish",c),a(c));}catch(c){b(c);}})}then(a,b){return this.promise.then(a,b)}catch(a){return this.promise.catch(a)}finally(a){return this.promise.finally(a)}loop(){this.animationFrame=window.requestAnimationFrame(this.loop),this.emit("tick change",this.getCurrentTime());}on(a,b,c){return this.emitter.on(a,b,c),this}off(a,b,c){return this.emitter.off(a,b,c),this}emit(a,...b){return this.emitter.emit(a,...b),this}getAnimation(a){return this.animations.get(a)}play(){return this.mainAnimation.playState!=="finished"&&(this.mainAnimation.play(),this.animationFrame=requestAnimationFrame(this.loop),this.animations.forEach(a=>{a.playState!=="finished"&&a.play();}),this.emit("play")),this}pause(){return this.mainAnimation.playState!=="finished"&&(this.mainAnimation.pause(),window.cancelAnimationFrame(this.animationFrame),this.animations.forEach(a=>{a.playState!=="finished"&&a.pause();}),this.emit("pause")),this}getDuration(){return this.duration}getCurrentTime(){return this.mainAnimation.currentTime}setCurrentTime(a){return this.mainAnimation.currentTime=a,this.animations.forEach(b=>{b.currentTime=a;}),this}getProgress(){return this.getCurrentTime()/this.duration}setProgress(a){return this.mainAnimation.currentTime=a*this.duration,this.animations.forEach(b=>{b.currentTime=a*this.duration;}),this}getSpeed(){return this.mainAnimation.playbackRate}setSpeed(a=1){return this.mainAnimation.playbackRate=a,this.animations.forEach(b=>{b.playbackRate=a;}),this}reset(){this.setCurrentTime(0),this.promise=this.newPromise(),this.options.autoplay?this.play():this.pause();}getPlayState(){return this.mainAnimation.playState}getOptions(){return this.options}toJSON(){return this.getOptions()}}const B=(a={})=>new A(a);
-
-class InViewBlock extends Block {
-  constructor() {
-    super(...arguments);
-    this.inView = false;
-  }
-  init(value) {
-    super.init(value);
-    this.observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      thresholds: Array.from(Array(20), (_nul, x) => (x + 1) / 20)
-    };
-    this.observer = new IntersectionObserver((entries) => {
-      this.onIntersectionCallback(entries);
-    }, this.observerOptions);
-    this.imgs = [];
-    this.direction = "right";
-    this.xPercent = 30;
-    if (this.rootElement.hasAttribute("data-direction")) {
-      this.direction = this.rootElement.getAttribute("data-direction");
-    }
-    if (this.direction === "left") {
-      this.xPercent = -this.xPercent;
-    }
-    this.imgs = [...this.rootElement.querySelectorAll("img")];
-    this.observe();
-  }
-  observe() {
-    this.observer.observe(this.rootElement);
-  }
-  unobserve() {
-    this.observer.unobserve(this.rootElement);
-  }
-  onScreen() {
-    B({
-      target: this.rootElement,
-      transform: [`translateX(${this.xPercent}%)`, "translateX(0%)"],
-      opacity: [0, 1],
-      duration: 1500,
-      delay: 0.15,
-      easing: "out-quint",
-      onfinish(el) {
-        el.style.transform = "translateX(0%)";
-        el.style.opacity = "1";
-      }
-    });
-  }
-  offScreen() {
-    this.rootElement.style.transform = `translateX(${this.xPercent}%)`;
-    this.rootElement.style.opacity = "0";
-  }
-  onIntersectionCallback(entries) {
-    for (let entry of entries) {
-      if (entry.intersectionRatio > 0) {
-        this.onScreen();
-      } else {
-        this.offScreen();
-      }
-    }
-  }
-  stopEvents() {
-    this.unobserve();
-  }
-}
-
-class Splashscreen extends Service {
-  constructor() {
-    super(...arguments);
-    this.minimalDuration = 1e3;
-  }
-  init() {
-    super.init();
-    this.rootElement = document.getElementById("splashscreen");
-    if (this.rootElement) {
-      this.innerEl = this.rootElement.querySelector(".splashscreen-inner");
-      this.bgEl = this.rootElement.querySelector(".splashscreen-bg");
-    }
-    this.rootElement.style.visibility = "visible";
-    this.rootElement.style.pointerEvents = "auto";
-  }
-  boot() {
-    if (this.rootElement) {
-      this.hide();
-    }
-  }
-  async hide() {
-    await new Promise((resolve) => {
-      window.setTimeout(() => {
-        this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
-        resolve();
-      }, this.minimalDuration);
-    });
-    await new Promise(async (resolve) => {
-      B({
-        target: this.innerEl,
-        opacity: [1, 0],
-        autoplay: true,
-        duration: 500,
-        onfinish(el) {
-          el.style.opacity = "0";
-        }
-      });
-      this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
-      await this.show();
-      resolve();
-    });
-  }
-  async show() {
-    await B({
-      target: this.rootElement,
-      transform: ["translateY(0%)", "translateY(100%)"],
-      duration: 1200,
-      easing: "in-out-cubic"
-    });
-    this.rootElement.style.transform = "translateY(100%)";
-    this.rootElement.style.visibility = "hidden";
-    this.rootElement.style.pointerEvents = "none";
-  }
-}
 
 class IntroAnimation extends Service {
   init() {
@@ -1190,6 +959,58 @@ class IntroAnimation extends Service {
   }
 }
 
+class Navbar extends Service {
+  init() {
+    this.navbar = document.getElementsByClassName("navbar")[0];
+    this.elements = [...this.navbar.getElementsByClassName("navbar-link")];
+    this.menu = document.getElementsByClassName("navbar-menu")[0];
+    super.init();
+    this.click = this.click.bind(this);
+  }
+  validLink(el) {
+    return el && el.tagName && el.tagName.toLowerCase() === "a";
+  }
+  getLink({target}) {
+    let el = target;
+    while (el && !this.validLink(el)) {
+      el = el.parentNode;
+    }
+    if (!el)
+      return;
+    return el;
+  }
+  click(event) {
+    let el = this.getLink(event);
+    if (!el)
+      return;
+    if (el.classList.contains("navbar-menu")) {
+      this.navbar.classList.toggle("active");
+    } else if (el.classList.contains("navbar-link")) {
+      this.navbar.classList.remove("active");
+    }
+  }
+  activateLink() {
+    let {href} = window.location;
+    for (let item of this.elements) {
+      let URLmatch = _URL.equal(item.href, href);
+      let isActive = item.classList.contains("active");
+      if (!(URLmatch && isActive)) {
+        item.classList[URLmatch ? "add" : "remove"]("active");
+      }
+    }
+  }
+  initEvents() {
+    this.EventEmitter.on("READY", this.activateLink, this);
+    this.EventEmitter.on("GO", this.activateLink, this);
+    this.navbar.addEventListener("click", this.click);
+  }
+  stopEvents() {
+    this.EventEmitter.off("READY", this.activateLink, this);
+    this.EventEmitter.off("GO", this.activateLink, this);
+    this.navbar.removeEventListener("click", this.click);
+  }
+}
+
 class Fade extends Transition {
   constructor() {
     super(...arguments);
@@ -1231,184 +1052,10 @@ class Fade extends Transition {
   }
 }
 
-class BigTransition extends Transition {
-  constructor() {
-    super(...arguments);
-    this.name = "big";
-    this.delay = 200;
-    this.durationPerAnimation = 700;
-  }
-  boot() {
-    this.mainElement = document.getElementById("big-transition");
-    this.spinnerElement = this.mainElement.querySelector(".spinner");
-    this.horizontalElements = [...this.mainElement.querySelector("#big-transition-horizontal").querySelectorAll("div")];
-    this.maxLength = this.horizontalElements.length;
-  }
-  out({from}) {
-    let {durationPerAnimation: duration, delay} = this;
-    let fromWrapper = from.getWrapper();
-    window.scroll({
-      top: 0,
-      behavior: "smooth"
-    });
-    return new Promise(async (resolve) => {
-      B({
-        target: fromWrapper,
-        opacity: [1, 0],
-        duration,
-        onfinish(el) {
-          el.style.opacity = "0";
-        }
-      });
-      this.mainElement.style.opacity = "1";
-      this.mainElement.style.visibility = "visible";
-      await B({
-        target: this.horizontalElements,
-        keyframes: [
-          {transform: "scaleX(0)"},
-          {transform: "scaleX(1)"}
-        ],
-        delay(i) {
-          return delay * (i + 1);
-        },
-        onfinish(el) {
-          el.style.transform = `scaleX(1)`;
-        },
-        easing: "out-cubic",
-        duration: 500
-      });
-      let loaderDuration = 500;
-      this.spinnerElement.style.visibility = "visible";
-      let options = await B({
-        target: this.spinnerElement,
-        opacity: [0, 1],
-        duration: loaderDuration,
-        onfinish(el) {
-          el.style.opacity = `1`;
-        }
-      });
-      await B({
-        options,
-        opacity: [1, 0],
-        onfinish(el) {
-          el.style.opacity = `0`;
-        },
-        delay: 1500
-      });
-      this.spinnerElement.style.visibility = "hidden";
-      resolve();
-    });
-  }
-  in({to}) {
-    let {durationPerAnimation: duration, delay} = this;
-    let toWrapper = to.getWrapper();
-    toWrapper.style.transform = "translateX(0%)";
-    return new Promise(async (resolve) => {
-      B({
-        target: toWrapper,
-        opacity: [0, 1],
-        onfinish(el) {
-          el.style.opacity = `1`;
-        },
-        duration
-      });
-      await B({
-        target: this.horizontalElements,
-        keyframes: [
-          {transform: "scaleX(1)"},
-          {transform: "scaleX(0)"}
-        ],
-        delay(i) {
-          return delay * (i + 1);
-        },
-        onfinish(el) {
-          el.style.transform = `scaleX(0)`;
-        },
-        easing: "out-cubic",
-        duration: 500
-      });
-      this.mainElement.style.opacity = "0";
-      this.mainElement.style.visibility = "hidden";
-      resolve();
-    });
-  }
-}
-
-class Slide extends Transition {
-  constructor() {
-    super(...arguments);
-    this.name = "slide";
-    this.duration = 500;
-    this.direction = "right";
-  }
-  init(value) {
-    super.init(value);
-    let trigger = value.trigger;
-    if (trigger instanceof Node && trigger.hasAttribute("data-direction")) {
-      this.direction = trigger.getAttribute("data-direction");
-    } else {
-      this.direction = "right";
-    }
-  }
-  out({from}) {
-    let {duration, direction} = this;
-    let fromWrapper = from.getWrapper();
-    window.scroll({
-      top: 0,
-      behavior: "smooth"
-    });
-    return B({
-      target: fromWrapper,
-      keyframes: [
-        {transform: "translateX(0%)", opacity: 1},
-        {transform: `translateX(${direction === "left" ? "-" : ""}25%)`, opacity: 0}
-      ],
-      duration,
-      easing: "in-quint",
-      onfinish: (el) => {
-        el.style.opacity = "0";
-        el.style.transform = `translateX(${direction === "left" ? "-" : ""}25%)`;
-      }
-    });
-  }
-  in({to}) {
-    let {duration} = this;
-    let toWrapper = to.getWrapper();
-    return B({
-      target: toWrapper,
-      keyframes: [
-        {transform: `translateX(${this.direction === "right" ? "-" : ""}25%)`, opacity: 0},
-        {transform: "translateX(0%)", opacity: 1}
-      ],
-      duration,
-      easing: "out-quint",
-      onfinish(el) {
-        el.style.opacity = "1";
-        el.style.transform = `translateX(0%)`;
-      }
-    });
-  }
-}
-class SlideLeft extends Slide {
-  constructor() {
-    super(...arguments);
-    this.name = "slide-left";
-    this.duration = 500;
-    this.direction = "left";
-  }
-}
-class SlideRight extends Slide {
-  constructor() {
-    super(...arguments);
-    this.name = "slide-right";
-    this.duration = 500;
-    this.direction = "right";
-  }
-}
-
 const app = new App();
-let splashscreen;
-app.addService(new IntroAnimation()).addService(splashscreen = new Splashscreen()).setService("router", new Router()).add("service", new PJAX()).add("transition", new Fade()).addTransition(new BigTransition()).addTransition(new Slide()).add("transition", new SlideLeft()).add("transition", new SlideRight()).add("block", new BlockIntent({
-  name: "InViewBlock",
-  block: InViewBlock
-}));
+app.addService(new IntroAnimation()).add("service", new PJAX()).addService(new Navbar()).add("transition", new Fade());
+try {
+  app.boot();
+} catch (err) {
+  console.warn("[App] boot failed,", err);
+}

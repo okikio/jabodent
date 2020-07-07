@@ -2,23 +2,21 @@
 
 {% block content %}
 	<main>
-		<section class="flex flex-col h-screen justify-center bg-red-500 intro-animation">
-			<div class="self-center text-center">
+		<section class="relative flex flex-col h-screen justify-center bg-red-500">
+			<div class="self-center text-center px-5">
 				<h1 class="text-5xl font-semibold font-title tracking-wider">JABODENT</h1>
 				<h2 class="text-lg leading-7">Integrity, Professionalism, Teamwork, Innovation & Excellence</h2>
 
-				<div class="scroll hover:underline">
-
+				<a class="scroll hover:underline z-10">
 					<div class="text-sm p-5 pt-2 font-normal tracking-widest uppercase">
-						<a href="">scroll</a>
+						scroll
 					</div>
-				</div>
+				</a>
 			</div>
 		</section>
 
 		<section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
 			<h3 class="text-2xl mb-6 font-bold">About Us</h3>
-
 			<p class="leading-8">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</p>
 
 			<div class="mt-16">
@@ -26,17 +24,18 @@
 			</div>
 
 		</section>
-		<section class="bg-red-300 intro-animation">
+		<section class="bg-red-300">
 			<div class="px-5 pt-24 mx-auto w-full max-w-screen-md">
-				<h3 class="text-2xl mb-6 font-bold">Mission & Vision</h3>
-				<p class="leading-8">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well prices services.</p>
+				<h3 class="text-2xl mb-6 font-bold intro-animation">Mission & Vision</h3>
+
+				<p class="leading-8 intro-animation">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well prices services.</p>
 			</div>
 
 			<div class="flex w-full pt-24">
 				<div class="flex-grow"></div>
 				<section class="bg-blue-400 w-full max-w-screen-md">
-					<div class="py-12 pl-10 w-full max-w-screen-md">
-						<h3 class="text-2xl mb-6 font-bold">Skills & Services</h3>
+					<div class="py-12 pl-10 w-full">
+						<h3 class="text-2xl mb-6 font-bold intro-animation">Skills & Services</h3>
 
 						<ul class="leading-8 list-disc list-inside">
 							{% for service in services %}
@@ -46,7 +45,6 @@
 							{% endfor %}
 						</ul>
 						<p>etc...</p>
-
 
 						<div class="mt-16">
 							{{ macro.learnMore("/services.html") }}

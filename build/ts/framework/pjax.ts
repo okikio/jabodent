@@ -393,7 +393,7 @@ export class PJAX extends Service {
                     this.transitionStart();
                     this.EventEmitter.emit("PAGE_LOAD_COMPLETE", { newPage, oldPage, trigger });
                 } catch (err) {
-                    throw `[PJAX] Page load error: ${err}`;
+                    throw `[PJAX] page load error: ${err}`;
                 }
 
                 // --
@@ -413,7 +413,7 @@ export class PJAX extends Service {
                     this.hashAction();
                     this.EventEmitter.emit("TRANSITION_END", { transition });
                 } catch (err) {
-                    throw `[PJAX] Transition error: ${err}`;
+                    throw `[PJAX] transition error: ${err}`;
                 }
 
                 this.EventEmitter.emit("NAVIGATION_END", { oldPage, newPage, trigger, transitionName });
