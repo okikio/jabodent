@@ -1278,16 +1278,23 @@ class Carousel extends Block {
   }
   initEvents() {
     this.run();
+    this.rootElement.addEventListener("touchmove", this.setPos, {passive: true});
     this.rootElement.addEventListener("mousemove", this.setPos, {passive: true});
     this.rootElement.addEventListener("mousedown", this.on, false);
+    this.rootElement.addEventListener("touchstart", this.on, false);
     this.rootElement.addEventListener("mouseup", this.off, false);
+    this.rootElement.addEventListener("touchend", this.off, false);
     window.addEventListener("resize", this.resize, false);
   }
   stopEvents() {
     this.cancelAnimationFrame();
+    this.rootElement.removeEventListener("touchmove", this.setPos, {passive: true});
     this.rootElement.removeEventListener("mousemove", this.setPos, {passive: true});
+    this.rootElement.removeEventListener("touchstart", this.on, false);
     this.rootElement.removeEventListener("mousedown", this.on, false);
+    this.rootElement.removeEventListener("touchend", this.off, false);
     this.rootElement.removeEventListener("mouseup", this.off, false);
+    window.removeEventListener("resize", this.resize, false);
   }
 }
 const CarouselBlockIntent = new BlockIntent({
