@@ -31,7 +31,6 @@ export class IntroAnimation extends Service {
 
     public stop() {
         for (let el of this.elements) {
-            (el as HTMLElement).style.transform = "translateY(0px)";
             (el as HTMLElement).style.opacity = '1';
         }
 
@@ -40,7 +39,6 @@ export class IntroAnimation extends Service {
 
     public prepareToShow() {
         for (let el of this.elements) {
-            (el as HTMLElement).style.transform = "translateY(200px)";
             (el as HTMLElement).style.opacity = '0';
         }
 
@@ -51,15 +49,15 @@ export class IntroAnimation extends Service {
         return await animate({
             target: (this.elements as HTMLElement[]),
             keyframes: [
-                { transform: "translateY(200px)", opacity: 0 },
-                { transform: "translateY(0px)", opacity: 1 },
+                { opacity: 0 },
+                { opacity: 1 },
             ],
             // @ts-ignore
             delay(i: number) {
                 return 200 * (i + 1);
             },
-            onfinish(el: { style: { transform: string; opacity: string; }; }) {
-                el.style.transform = "translateY(0px)";
+            onfinish(el: { style: { opacity: string; }; }) {
+                // el.style.transform = "translateY(0px)";
                 el.style.opacity = "1";
             },
             easing: "out-cubic",

@@ -1,5 +1,8 @@
 
 
+<!DOCTYPE html>
+<html lang="en" theme="light">
+	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		
@@ -8,29 +11,29 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="preload" href="https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp" as="image">
 
-
-		<link rel="stylesheet" href="./css/tailwind.css">
-		<link rel="stylesheet" href="./css/app.css">
+		<link rel="stylesheet" href="./css/tailwind.css" async>
+		<link rel="stylesheet" href="./css/app.css" async>
 	</head>
-
 	<body>
 		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
-<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-20">
+<nav class="navbar bg-transparent overflow-hidden fixed w-full z-20">
+	<div class="navbar-mini theme-bg w-full"></div>
 	
-	
-		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-logo navbar-link cursor-pointer relative z-10" href="./index.html">Jabodent</a>
+	<div class="h-full w-full max-w-screen-lg flex mx-auto z-5">
+		<a class="navbar-logo navbar-link cursor-pointer relative z-10" href="./index.html">Jabodent</a>
 
 		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
 			<a class="navbar-link hover:font-extrabold" href="./about.html">About Us</a>
 			<a class="navbar-link hover:font-bold" href="./services.html">Our Services</a>
 			<a class="navbar-link hover:font-bold" href="./contact.html">Contact Us</a>
-			<a class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
+			<a href="./404.html" class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
 		</section>
 
 		<section class="flex w-full whitespace-no-wrap relative">
 			<div class="flex-grow"></div>
-			<a class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
+			<a href="./404.html" class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
 
 			<a class="navbar-icon cursor-pointer">
 				<i class="icon hover:font-extrabold text-xl">search</i>
@@ -43,283 +46,296 @@
 
 		</section>
 	</div>
-
 </nav>
 
-
-		<section>
-			<div data-wrapper> 
-	<main>
-		<section class="relative flex flex-col h-screen justify-center bg-red-500">
-			<div class="self-center text-center px-5">
-				<h1 class="text-5xl font-semibold font-title tracking-wider">JABODENT</h1>
+		<div data-wrapper> 
+	<section class="relative h-screen bg-primary hero-img bg-fixed">
+		<div class="hero-overlay absolute top-0 left-0 h-full w-full"></div>
+		<div class="relative flex flex-col h-full justify-center text-white z-5">
+			<section class="self-center text-center px-5">
+				<h1 class="text-5xl font-semibold font-title tracking-wider layer">JABODENT</h1>
 				<h2 class="text-lg leading-7">Integrity, Professionalism, Teamwork, Innovation & Excellence</h2>
 
-				<a class="scroll hover:underline z-10">
+				<a id="scroll-btn" class="cursor-pointer scroll text-secondary hover:underline z-10">
 					<div class="text-sm p-5 pt-2 font-normal tracking-widest uppercase">
 						scroll
 					</div>
 				</a>
-			</div>
-		</section>
+			</section>
+		</div>
+	</section>
 
-		<section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
+	<section class="bg-black text-white w-full">
+		<div class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
 			<h3 class="text-2xl mb-6 font-bold">About Us</h3>
 			<p class="leading-8">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</p>
 
 			<div class="mt-16">
 				
-	<a href="/about.html" class="learn-more italic hover:not-italic hover:font-bold">
-		Learn more
-	</a>
-
-			</div>
-
-		</section>
-		<section class="bg-red-300">
-			<div class="px-5 pt-24 mx-auto w-full max-w-screen-md">
-				<h3 class="text-2xl mb-6 font-bold intro-animation">Mission & Vision</h3>
-
-				<p class="leading-8 intro-animation">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well prices services.</p>
-			</div>
-
-			<div class="flex w-full pt-24">
-				<div class="flex-grow"></div>
-				<section class="bg-blue-400 w-full max-w-screen-md">
-					<div class="py-12 pl-10 w-full">
-						<h3 class="text-2xl mb-6 font-bold intro-animation">Skills & Services</h3>
-
-						<ul class="leading-8 list-disc list-inside">
-							
-								
-									<li>SMS MANUAL PREPARATION AND REVIEW</li>
-								
-							
-								
-									<li>MARINE FACILITY/EQUIPMENT CONDITION AND VALUE</li>
-								
-							
-								
-									<li>PRE-PURCHASE SURVEY</li>
-								
-							
-								
-									<li>INSURANCE/APPRAISAL SURVEY</li>
-								
-							
-								
-									<li>ON AND OFF HIRE BUNKER/CONDITION SURVEYS</li>
-								
-							
-								
-									<li>DRAFT SURVEYS</li>
-								
-							
-								
-									<li>DAMAGE/REPAIR SURVEY</li>
-								
-							
-								
-									<li>DYNAMIC POSITIONING SURVEY (FMEA)</li>
-								
-							
-								
-							
-								
-							
-								
-							
-								
-							
-								
-							
-								
-							
-								
-							
-								
-							
-						</ul>
-						<p>etc...</p>
-
-						<div class="mt-16">
-							
-	<a href="./services.html" class="learn-more italic hover:not-italic hover:font-bold">
-		Learn more
-	</a>
-
-						</div>
-					</div>
-
-				</section>
-				<div class="bg-blue-400 flex-grow"></div>
-			</div>
-
-			<div class="mx-auto w-full max-w-screen-lg flex flex-wrap overflow-hidden py-5">
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-			</div>
-		</section>
-
-		<section class="bg-yellow-300 overflow-hidden city-image bg-fixed">
-			<div class="px-16 py-24 w-full md:w-10/12 relative yellow-gradient">
-				<section class="max-w-screen-md mx-auto">
-					<section class="relative max-width">
-						<h3 class="text-3xl mb-10 font-bold">Why Choose Us?</h3>
-
-						<h4 class="text-xl mb-2">Certified Experience</h4>
-						<p class="leading-8 mb-12">Experience of Certified industry professionals.</p>
-
-						<h4 class="text-xl mb-2">Great Teamwork</h4>
-						<p class="leading-8 mb-12">Teamwork that makes dreams work.</p>
-
-						<h4 class="text-xl mb-2">Modern Technology</h4>
-						<p class="leading-8 mb-12">High quality equipment. Tools used by the best of the best.</p>
-
-						<div class="mt-16">
-							
 	<a href="./about.html" class="learn-more italic hover:not-italic hover:font-bold">
 		Learn more
 	</a>
 
-						</div>
-
-					</section>
-				</section>
 			</div>
-		</section>
+		</div>
+	</section>
 
-		<section class="bg-white relative">
-			<h3 class="text-3xl my-6 font-medium text-center">Clients & Testimonials</h3>
-			<div class="top-half w-full font-semibold text-lg lt-md:hidden z-10">
-	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
-	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
-</div>
+			<section>
+				<main id="main"> 
+	<section class="theme-bg">
+		<div class="theme-text px-5 pt-24 mx-auto w-full max-w-screen-md">
+			<h3 class="text-2xl mb-6 font-bold intro-animation">Mission & Vision</h3>
+			<p class="leading-8 intro-animation">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.</p>
+		</div>
 
+		<div class="flex w-full pt-24">
+			<div class="flex-grow"></div>
+			<section class="bg-secondary w-full max-w-screen-md">
+				<div class="py-12 pl-10 w-full">
+					<h3 class="text-2xl mb-6 font-bold intro-animation">Skills & Services</h3>
 
-			<div class="px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
-				<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
-				<section class="flex justify-center w-full px-5 mx-auto">
-					<div class="mt-10 flex">
-						<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-						<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+					<ul class="leading-8 list-disc list-inside">
+						
+							
+								<li>SMS MANUAL PREPARATION AND REVIEW</li>
+							
+						
+							
+								<li>MARINE FACILITY/EQUIPMENT CONDITION AND VALUE</li>
+							
+						
+							
+								<li>PRE-PURCHASE SURVEY</li>
+							
+						
+							
+								<li>INSURANCE/APPRAISAL SURVEY</li>
+							
+						
+							
+								<li>ON AND OFF HIRE BUNKER/CONDITION SURVEYS</li>
+							
+						
+							
+								<li>DRAFT SURVEYS</li>
+							
+						
+							
+								<li>DAMAGE/REPAIR SURVEY</li>
+							
+						
+							
+								<li>DYNAMIC POSITIONING SURVEY (FMEA)</li>
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+							
+						
+					</ul>
+					<p>etc...</p>
+
+					<div class="mt-16">
+						
+	<a href="./services.html" class="learn-more italic hover:not-italic hover:font-bold">
+		Learn more
+	</a>
+
 					</div>
-				</section>
-			</div>
+				</div>
 
-			<div class="flex">
-	<div class="bg-gray-300 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
-		<span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-	</div>
-</div>
-
-		</section>
-
-		<section class="bg-red-200">
-			<div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
-	<h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-	<a href="/contact.html" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
-	<span class="block leading-10 text-xs">* You won’t regret it.</span>
-</div>
-
-		</section>
-
-		<a href="" class="z-10 sticky -mb-8 transform -translate-y-6 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
-	Back To Top
-</a>
-
-<footer class="bg-red-300 py-8 px-6">
-	<div class="max-w-screen-lg w-full mx-auto">
-		<div class="flex flex-wrap clear-both">
-			<section class="intro-animation col sm:max-w-4/12">
-				<a href="./index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
-				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
-				</p>
 			</section>
+			<div class="bg-secondary flex-grow"></div>
+		</div>
 
-			<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
-				<h3 class="intro-animation text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+		<div class="theme-text mx-auto w-full max-w-screen-lg flex flex-wrap overflow-hidden py-5">
 
-				<section class="leading-8 intro-animation lt-md:leading-10 flex flex-col">
-					<a href="./about.html" class="hover:underline">About Us</a>
-					<a href="./services.html" class="hover:underline">Our Services</a>
-					<a href="./contact.html" class="hover:underline">Contact Us</a>
-					<a href="" class="hover:underline">Our Blog</a>
-				</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">more_time</i>
+					</div>
+
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">20</h4>
+						<p>Years of Experience</p>
+					</section>
+
+				</div>
 			</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">book</i>
+					</div>
 
-			<section class="col intro-animation sm:max-w-4/12 lt-md:mt-12 md:text-right">
-				<p class="leading-8 font-medium">
-					<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
-					<strong>
-						<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
-						<br>
-						<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
-					</strong>
-				</p>
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">154</h4>
+						<p>Projects Completed</p>
+					</section>
+				</div>
+			</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">thumb_up_alt</i>
+					</div>
 
-				<div class="mt-10 space-x-2 text-2xl">
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">785</h4>
+						<p>Happy Clients</p>
+					</section>
+				</div>
+			</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">emoji_events</i>
+					</div>
+
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">14</h4>
+						<p>Awards Won</p>
+					</section>
+
 				</div>
 			</section>
 		</div>
-		<div class="flex flex-wrap mt-10 intro-animation">
+	</section>
+
+	<section class="theme-bg overflow-hidden city-image">
+		<div class="px-16 py-24 w-full md:w-10/12 relative gradient theme-text">
+			<section class="max-w-screen-md mx-auto">
+				<section class="relative max-width">
+					<h3 class="text-3xl mb-10 font-bold">Why Choose Us?</h3>
+
+					<h4 class="text-xl mb-2">Certified Experience</h4>
+					<p class="leading-8 mb-12">Experience of Certified industry professionals.</p>
+
+					<h4 class="text-xl mb-2">Great Teamwork</h4>
+					<p class="leading-8 mb-12">Teamwork that makes dreams work.</p>
+
+					<h4 class="text-xl mb-2">Modern Technology</h4>
+					<p class="leading-8 mb-12">High quality equipment. Tools used by the best of the best.</p>
+
+					<div class="mt-16">
+						
+	<a href="./about.html" class="learn-more italic hover:not-italic hover:font-bold">
+		Learn more
+	</a>
+
+					</div>
+
+				</section>
+			</section>
+		</div>
+	</section>
+
+	<section class="theme-bg relative pt-6">
+		<h3 class="theme-text text-3xl font-medium text-center">Clients & Testimonials</h3>
+		<div class="top-half w-full font-semibold text-lg lt-md:hidden z-10">
+	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block">Previous</a>
+	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block ">Next</a>
+
+</div>
+
+
+		<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+			<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
+			<section class="flex justify-center w-full px-5 mx-auto">
+				<div class="mt-10 flex">
+					<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+					<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+				</div>
+			</section>
+		</div>
+
+		<div class="flex">
+	<div class="bg-gray-900 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
+		<span class="inline-block bg-white w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+	</div>
+</div>
+
+	</section>
+
+	<section class="bg-secondary">
+		<div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
+	<h3 class="text-translucentDark text-3xl mb-6 font-bold">Would you like to work with us?</h3>
+	<a href="./contact.html" class="leading-10 theme-bg theme-text px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
+	<span class="block leading-10 text-xs">* You won’t regret it.</span>
+</div>
+
+	</section>
+
+					</main>
+
+					<a id="back-to-top" class="cursor-pointer shadow-md z-10 sticky -mb-4 transform -translate-y-6 mr-8 bottom-0 bg-black text-white px-6 py-3 inline-block rounded-full float-right">
+	Back To Top
+</a>
+
+<footer class="bg-gray-900 text-white">
+	<div class="max-w-screen-lg w-full mx-auto flex flex-wrap clear-both py-8 px-6">
+		<section class="col sm:max-w-4/12">
+			<a href="./index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
+			<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
+			</p>
+		</section>
+
+		<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
+			<h3 class="text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+
+			<section class="leading-8 lt-md:leading-10 flex flex-col">
+				<a href="./about.html" class="hover:underline">About Us</a>
+				<a href="./services.html" class="hover:underline">Our Services</a>
+				<a href="./contact.html" class="hover:underline">Contact Us</a>
+				<a href="" class="hover:underline">Our Blog</a>
+			</section>
+		</section>
+
+		<section class="col sm:max-w-4/12 lt-md:mt-12 md:text-right">
+			<p class="leading-8 font-medium">
+				<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
+				<strong>
+					<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
+					<br>
+					<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
+				</strong>
+			</p>
+
+			<div class="mt-10 space-x-2 text-2xl">
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+			</div>
+		</section>
+	</div>
+
+	<div class="bg-gray-700">
+		<div class="max-w-screen-lg flex flex-wrap mt-10 w-full mx-auto py-4 px-6 leading-10">
 			<section>© 2020 Jabodent. All rights reserved.</section>
 			<section class="flex-grow"></section>
 			<section>Made with
@@ -327,17 +343,13 @@
 				by
 				<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
 			</section>
-
 		</div>
+
 	</div>
 </footer>
 
-	</main>
-
-				</div>
-			</section>
-
-
+				</section>
+			</div>
 			<script src="./js/main.js" type="module"></script>
 		</body>
 	</html>

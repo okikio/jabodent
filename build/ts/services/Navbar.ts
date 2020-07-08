@@ -1,17 +1,17 @@
 import { Service, _URL } from "../framework/api";
 
 export class Navbar extends Service {
-    protected navbar: HTMLElement;
-    protected elements: HTMLElement[];
-    protected menu: HTMLElement;
+    public navbar: HTMLElement;
+    public elements: HTMLElement[];
+    public menu: HTMLElement;
 
-    public init() {
+    constructor() {
+        super();
         // Elements
         this.navbar = (document.getElementsByClassName("navbar")[0] as HTMLElement)
         this.elements = ([...this.navbar.getElementsByClassName('navbar-link')] as HTMLElement[]);
         this.menu = (document.getElementsByClassName("navbar-menu")[0] as HTMLElement);
 
-        super.init();
         this.click = this.click.bind(this);
     }
 
@@ -44,9 +44,11 @@ export class Navbar extends Service {
         let { href } = window.location;
 
         for (let item of this.elements) {
-            let URLmatch = _URL.equal((item as HTMLAnchorElement).href, href);
-            let isActive = item.classList.contains("active");
+            let itemHref = (item as HTMLAnchorElement).href;
+            if (!itemHref || itemHref.length < 1) continue;
 
+            let URLmatch = _URL.equal(itemHref, href);
+            let isActive = item.classList.contains("active");
             if (!(URLmatch && isActive)) {
                 item.classList[URLmatch ? "add" : "remove"]("active");
             }

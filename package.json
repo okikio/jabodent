@@ -44,6 +44,8 @@
         "pnpm": "^5.2.6",
         "rollup": "^2.18.1",
         "rollup-plugin-esbuild": "^2.1.0",
+        "stylelint": "^13.6.1",
+        "stylelint-scss": "^3.18.0",
         "tailwindcss": "^1.4.6",
         "ultra": "^0.7.2"
     },

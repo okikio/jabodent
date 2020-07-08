@@ -1,3 +1,21 @@
+const getTheme = () => {
+  const theme = window.localStorage.getItem("theme");
+  if (typeof theme === "string")
+    return theme;
+  return null;
+};
+const setTheme = (theme) => {
+  if (typeof theme === "string")
+    window.localStorage.setItem("theme", theme);
+};
+const mediaTheme = () => {
+  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+  const hasMediaQueryPreference = typeof mql.matches === "boolean";
+  if (hasMediaQueryPreference)
+    return mql.matches ? "dark" : "light";
+  return null;
+};
+
 const CONFIG_DEFAULTS = {
   wrapperAttr: "wrapper",
   noAjaxLinkAttr: "no-ajax-link",
@@ -904,6 +922,73 @@ class PJAX extends Service {
   }
 }
 
+class Router extends Service {
+  constructor(routes = []) {
+    super();
+    this.routes = new d();
+    for (const route of routes) {
+      this.add(route);
+    }
+  }
+  add({path, method}) {
+    const key = this.parse(path);
+    this.routes.set(key, method);
+    return this;
+  }
+  parsePath(path) {
+    if (typeof path === "string")
+      return new RegExp(path, "i");
+    else if (path instanceof RegExp)
+      return path;
+    throw "[Router] only regular expressions and strings are accepted as paths.";
+  }
+  isPath(input) {
+    return typeof input === "string" || input instanceof RegExp;
+  }
+  parse(input) {
+    let route = input;
+    let toFromPath = {
+      from: /(.*)/g,
+      to: /(.*)/g
+    };
+    if (this.isPath(input))
+      toFromPath = {
+        from: input,
+        to: /(.*)/g
+      };
+    else if (this.isPath(route.from) && this.isPath(route.to))
+      toFromPath = route;
+    else
+      throw "[Router] path is neither a string, regular expression, or a { from, to } object.";
+    let {from, to} = toFromPath;
+    return {
+      from: this.parsePath(from),
+      to: this.parsePath(to)
+    };
+  }
+  route() {
+    let from = this.HistoryManager.last().getURLPathname();
+    let to = window.location.pathname;
+    this.routes.forEach((method, path) => {
+      let fromRegExp = path.from;
+      let toRegExp = path.to;
+      if (fromRegExp.test(from) && toRegExp.test(to)) {
+        let fromExec = fromRegExp.exec(from);
+        let toExec = toRegExp.exec(to);
+        method({from: fromExec, to: toExec});
+      }
+    });
+  }
+  initEvents() {
+    this.EventEmitter.on("READY", this.route, this);
+    this.EventEmitter.on("PAGE_LOADED", this.route, this);
+  }
+  stopEvents() {
+    this.EventEmitter.off("READY", this.route, this);
+    this.EventEmitter.off("PAGE_LOADED", this.route, this);
+  }
+}
+
 class t{constructor(a){this.map=new Map(a);}getMap(){return this.map}get(a){return this.map.get(a)}keys(){return Array.from(this.map.keys())}values(){return Array.from(this.map.values())}set(a,b){return this.map.set(a,b),this}add(a){let b=this.size,c=b;return this.set(c,a),this}get size(){return this.map.size}last(a=1){let b=this.keys()[this.size-a];return this.get(b)}prev(){return this.last(2)}delete(a){return this.map.delete(a),this}clear(){return this.map.clear(),this}has(a){return this.map.has(a)}entries(){return this.map.entries()}forEach(a=(...c)=>{},b){return this.map.forEach(a,b),this}[Symbol.iterator](){return this.entries()}methodCall(a,...b){return this.forEach(c=>{c[a](...b);}),this}async asyncMethodCall(a,...b){for(let[,c]of this.map)await c[a](...b);return this}}class u{constructor({callback:a=()=>{},scope:b=null,name:c="event"}){this.listener={callback:a,scope:b,name:c};}getCallback(){return this.listener.callback}getScope(){return this.listener.scope}getEventName(){return this.listener.name}toJSON(){return this.listener}}class m extends t{constructor(a="event"){super();this.name=a;}}class E extends t{constructor(){super();}getEvent(a){let b=this.get(a);return b instanceof m?b:(this.set(a,new m(a)),this.get(a))}newListener(a,b,c){let d=this.getEvent(a);return d.add(new u({name:a,callback:b,scope:c})),d}on(a,b,c){if(typeof a=="undefined")return this;typeof a=="string"&&(a=a.trim().split(/\s/g));let d,e,f=typeof a=="object"&&!Array.isArray(a),h=f?b:c;return f||(e=b),Object.keys(a).forEach(g=>{f?(d=g,e=a[g]):d=a[g],this.newListener(d,e,h);},this),this}removeListener(a,b,c){let d=this.get(a);if(d instanceof m&&b){let e=new u({name:a,callback:b,scope:c});d.forEach((f,h)=>{if(f.getCallback()===e.getCallback()&&f.getScope()===e.getScope())return d.delete(h)});}return d}off(a,b,c){if(typeof a=="undefined")return this;typeof a=="string"&&(a=a.trim().split(/\s/g));let d,e,f=typeof a=="object"&&!Array.isArray(a),h=f?b:c;return f||(e=b),Object.keys(a).forEach(g=>{f?(d=g,e=a[g]):d=a[g],typeof e==="function"?this.removeListener(d,e,h):this.delete(d);},this),this}once(a,b,c){if(typeof a=="undefined")return this;typeof a=="string"&&(a=a.trim().split(/\s/g));let d,e,f=typeof a==="object"&&!Array.isArray(a),h=f?b:c;return f||(e=b),Object.keys(a).forEach(g=>{f?(d=g,e=a[g]):d=a[g];let n=(...r)=>{f?(d=g,e=a[g]):d=a[g],this.off(d,n,h),e.apply(h,r);};this.on(d,n,h);},this),this}emit(a,...b){return typeof a=="undefined"?this:(typeof a=="string"&&(a=a.trim().split(/\s/g)),a.forEach(c=>{let d=this.get(c);d instanceof m&&d.forEach(e=>{let{callback:f,scope:h}=e.toJSON();f.apply(h,b);});},this),this)}}const v=a=>typeof a==="string"?Array.from(document.querySelectorAll(a)):[a],w=a=>Array.isArray(a)?a:typeof a=="string"||a instanceof Node?v(a):a instanceof NodeList||a instanceof HTMLCollection?Array.from(a):[],p=(a,b)=>typeof a==="function"?a(...b):a,q=(a,b)=>{let c,d,e={},f=Object.keys(a);for(let h=0,g=f.length;h<g;h++)c=f[h],d=a[c],e[c]=p(d,b);return e},x={ease:"ease",in:"ease-in",out:"ease-out","in-out":"ease-in-out","in-sine":"cubic-bezier(0.47, 0, 0.745, 0.715)","out-sine":"cubic-bezier(0.39, 0.575, 0.565, 1)","in-out-sine":"cubic-bezier(0.445, 0.05, 0.55, 0.95)","in-quad":"cubic-bezier(0.55, 0.085, 0.68, 0.53)","out-quad":"cubic-bezier(0.25, 0.46, 0.45, 0.94)","in-out-quad":"cubic-bezier(0.455, 0.03, 0.515, 0.955)","in-cubic":"cubic-bezier(0.55, 0.055, 0.675, 0.19)","out-cubic":"cubic-bezier(0.215, 0.61, 0.355, 1)","in-out-cubic":"cubic-bezier(0.645, 0.045, 0.355, 1)","in-quart":"cubic-bezier(0.895, 0.03, 0.685, 0.22)","out-quart":"cubic-bezier(0.165, 0.84, 0.44, 1)","in-out-quart":"cubic-bezier(0.77, 0, 0.175, 1)","in-quint":"cubic-bezier(0.755, 0.05, 0.855, 0.06)","out-quint":"cubic-bezier(0.23, 1, 0.32, 1)","in-out-quint":"cubic-bezier(0.86, 0, 0.07, 1)","in-expo":"cubic-bezier(0.95, 0.05, 0.795, 0.035)","out-expo":"cubic-bezier(0.19, 1, 0.22, 1)","in-out-expo":"cubic-bezier(1, 0, 0, 1)","in-circ":"cubic-bezier(0.6, 0.04, 0.98, 0.335)","out-circ":"cubic-bezier(0.075, 0.82, 0.165, 1)","in-out-circ":"cubic-bezier(0.785, 0.135, 0.15, 0.86)","in-back":"cubic-bezier(0.6, -0.28, 0.735, 0.045)","out-back":"cubic-bezier(0.175, 0.885, 0.32, 1.275)","in-out-back":"cubic-bezier(0.68, -0.55, 0.265, 1.55)"},y=a=>/^(ease|in|out)/.test(a)?x[a]:a,z={keyframes:[],loop:1,delay:0,speed:1,endDelay:0,easing:"ease",autoplay:!0,duration:1e3,onfinish(){},fillMode:"auto",direction:"normal"};class A{constructor(a={}){this.options={},this.targets=[],this.properties={},this.animations=new Map(),this.duration=0,this.emitter=new E();let{options:b,...c}=a;this.options=Object.assign({},z,b,c),this.loop=this.loop.bind(this);let{loop:d,delay:e,speed:f,easing:h,endDelay:g,duration:n,direction:r,fillMode:F,onfinish:G,target:H,keyframes:I,autoplay:J,...K}=this.options;this.mainElement=document.createElement("span"),this.targets=w(H),this.properties=K;let o;for(let i=0,l=this.targets.length;i<l;i++){let k=this.targets[i],j={easing:y(h),iterations:d===!0?Infinity:d,direction:r,endDelay:g,duration:n,delay:e,fill:F},s=p(I,[i,l,k]);o=s.length?s:this.properties,j=q(j,[i,l,k]),s.length>0||(o=q(o,[i,l,k]));let C=j.delay+j.duration*j.iterations+j.endDelay;this.duration<C&&(this.duration=C);let D=k.animate(o,j);D.onfinish=()=>{G(k,i,l);},this.animations.set(k,D);}this.mainAnimation=this.mainElement.animate([{opacity:"0"},{opacity:"1"}],{duration:this.duration,easing:"linear"}),this.setSpeed(f),J?this.play():this.pause(),this.promise=this.newPromise(),this.mainAnimation.onfinish=()=>{this.finish(this.options),window.cancelAnimationFrame(this.animationFrame);};}getTargets(){return this.targets}newPromise(){return new Promise((a,b)=>{try{this.finish=c=>(this.emit("finish",c),a(c));}catch(c){b(c);}})}then(a,b){return this.promise.then(a,b)}catch(a){return this.promise.catch(a)}finally(a){return this.promise.finally(a)}loop(){this.animationFrame=window.requestAnimationFrame(this.loop),this.emit("tick change",this.getCurrentTime());}on(a,b,c){return this.emitter.on(a,b,c),this}off(a,b,c){return this.emitter.off(a,b,c),this}emit(a,...b){return this.emitter.emit(a,...b),this}getAnimation(a){return this.animations.get(a)}play(){return this.mainAnimation.playState!=="finished"&&(this.mainAnimation.play(),this.animationFrame=requestAnimationFrame(this.loop),this.animations.forEach(a=>{a.playState!=="finished"&&a.play();}),this.emit("play")),this}pause(){return this.mainAnimation.playState!=="finished"&&(this.mainAnimation.pause(),window.cancelAnimationFrame(this.animationFrame),this.animations.forEach(a=>{a.playState!=="finished"&&a.pause();}),this.emit("pause")),this}getDuration(){return this.duration}getCurrentTime(){return this.mainAnimation.currentTime}setCurrentTime(a){return this.mainAnimation.currentTime=a,this.animations.forEach(b=>{b.currentTime=a;}),this}getProgress(){return this.getCurrentTime()/this.duration}setProgress(a){return this.mainAnimation.currentTime=a*this.duration,this.animations.forEach(b=>{b.currentTime=a*this.duration;}),this}getSpeed(){return this.mainAnimation.playbackRate}setSpeed(a=1){return this.mainAnimation.playbackRate=a,this.animations.forEach(b=>{b.playbackRate=a;}),this}reset(){this.setCurrentTime(0),this.promise=this.newPromise(),this.options.autoplay?this.play():this.pause();}getPlayState(){return this.mainAnimation.playState}getOptions(){return this.options}toJSON(){return this.getOptions()}}const B=(a={})=>new A(a);
 
 class IntroAnimation extends Service {
@@ -927,14 +1012,12 @@ class IntroAnimation extends Service {
   }
   stop() {
     for (let el of this.elements) {
-      el.style.transform = "translateY(0px)";
       el.style.opacity = "1";
     }
     super.stop();
   }
   prepareToShow() {
     for (let el of this.elements) {
-      el.style.transform = "translateY(200px)";
       el.style.opacity = "0";
     }
     window.scroll(0, 0);
@@ -943,14 +1026,13 @@ class IntroAnimation extends Service {
     return await B({
       target: this.elements,
       keyframes: [
-        {transform: "translateY(200px)", opacity: 0},
-        {transform: "translateY(0px)", opacity: 1}
+        {opacity: 0},
+        {opacity: 1}
       ],
       delay(i) {
         return 200 * (i + 1);
       },
       onfinish(el) {
-        el.style.transform = "translateY(0px)";
         el.style.opacity = "1";
       },
       easing: "out-cubic",
@@ -960,11 +1042,11 @@ class IntroAnimation extends Service {
 }
 
 class Navbar extends Service {
-  init() {
+  constructor() {
+    super();
     this.navbar = document.getElementsByClassName("navbar")[0];
     this.elements = [...this.navbar.getElementsByClassName("navbar-link")];
     this.menu = document.getElementsByClassName("navbar-menu")[0];
-    super.init();
     this.click = this.click.bind(this);
   }
   validLink(el) {
@@ -992,7 +1074,10 @@ class Navbar extends Service {
   activateLink() {
     let {href} = window.location;
     for (let item of this.elements) {
-      let URLmatch = _URL.equal(item.href, href);
+      let itemHref = item.href;
+      if (!itemHref || itemHref.length < 1)
+        continue;
+      let URLmatch = _URL.equal(itemHref, href);
       let isActive = item.classList.contains("active");
       if (!(URLmatch && isActive)) {
         item.classList[URLmatch ? "add" : "remove"]("active");
@@ -1053,9 +1138,61 @@ class Fade extends Transition {
 }
 
 const app = new App();
-app.addService(new IntroAnimation()).add("service", new PJAX()).addService(new Navbar()).add("transition", new Fade());
+let navbar, router;
+app.addService(new IntroAnimation()).add("service", new PJAX()).addService(navbar = new Navbar()).addService(router = new Router()).add("transition", new Fade());
+const html = document.querySelector("html");
 try {
+  let theme2 = getTheme();
+  if (theme2 === null)
+    theme2 = mediaTheme();
+  theme2 && html.setAttribute("theme", theme2);
+} catch (e) {
+  console.warn("Theming isn't available on this browser.");
+}
+let themeSet = (theme2) => {
+  html.setAttribute("theme", theme2);
+  setTheme(theme2);
+};
+window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
+  themeSet(e.matches ? "dark" : "light");
+});
+try {
+  let layer, top, navHeight = navbar.navbar.getBoundingClientRect().height;
+  app.on("GO READY", () => {
+    let layers = document.getElementsByClassName("layer") || [];
+    layer = layers[0] || null;
+    top = layer ? layer.getBoundingClientRect().y : null;
+    if (/^\/(index(.html)?|$)/.test(window.location.pathname))
+      navbar.navbar.classList.add("light");
+    else
+      navbar.navbar.classList.remove("light");
+    navbar.navbar.classList.remove("focus");
+    document.getElementById("back-to-top").addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  });
+  router.add({
+    path: /index(.html)?/g,
+    method() {
+      let scrollBtn = document.getElementById("scroll-btn");
+      scrollBtn.addEventListener("click", () => {
+        document.getElementById("main").scrollIntoView({behavior: "smooth"});
+      });
+    }
+  });
   app.boot();
+  window.addEventListener("scroll", () => {
+    let scrollTop = window.scrollY;
+    requestAnimationFrame(() => {
+      if (top && scrollTop + 10 + navHeight >= top) {
+        navbar.navbar.classList.add("focus");
+      } else
+        navbar.navbar.classList.remove("focus");
+    });
+  });
 } catch (err) {
   console.warn("[App] boot failed,", err);
 }

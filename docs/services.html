@@ -1,5 +1,8 @@
 
 
+<!DOCTYPE html>
+<html lang="en" theme="light">
+	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		
@@ -8,29 +11,29 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="preload" href="https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp" as="image">
 
-
-		<link rel="stylesheet" href="./css/tailwind.css">
-		<link rel="stylesheet" href="./css/app.css">
+		<link rel="stylesheet" href="./css/tailwind.css" async>
+		<link rel="stylesheet" href="./css/app.css" async>
 	</head>
-
 	<body>
 		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
-<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-20">
+<nav class="navbar bg-transparent overflow-hidden fixed w-full z-20">
+	<div class="navbar-mini theme-bg w-full"></div>
 	
-	
-		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-logo navbar-link cursor-pointer relative z-10" href="./index.html">Jabodent</a>
+	<div class="h-full w-full max-w-screen-lg flex mx-auto z-5">
+		<a class="navbar-logo navbar-link cursor-pointer relative z-10" href="./index.html">Jabodent</a>
 
 		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
 			<a class="navbar-link hover:font-extrabold" href="./about.html">About Us</a>
 			<a class="navbar-link hover:font-bold" href="./services.html">Our Services</a>
 			<a class="navbar-link hover:font-bold" href="./contact.html">Contact Us</a>
-			<a class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
+			<a href="./404.html" class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
 		</section>
 
 		<section class="flex w-full whitespace-no-wrap relative">
 			<div class="flex-grow"></div>
-			<a class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
+			<a href="./404.html" class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
 
 			<a class="navbar-icon cursor-pointer">
 				<i class="icon hover:font-extrabold text-xl">search</i>
@@ -43,27 +46,26 @@
 
 		</section>
 	</div>
-
 </nav>
 
+		<div data-wrapper> 
+	<section class="py-24 bg-primary">
+		<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
+			<h1 class="h1 text-3xl font-bold mb-4 text-center layer">Our Services</h1>
+			<h2 class="text-2xl font-thin leading-10">
+				<span>We offer a total of
+					16
+					different and distinct services ranging from being Dry Rock Consultants to Inclining Experiments.</span>
+				<br><br>
+				<span>This is the complete list of all the services we offer:</span>
+			</h2>
+		</div>
+	</section>
 
-		<section>
-			<div data-wrapper> 
+			<section>
+				<main id="main"> 
 	<main>
-		<section class="py-24 bg-red-500">
-			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
-				<h1 class="h1 text-3xl font-bold mb-4 text-center">Our Services</h1>
-				<h2 class="text-2xl font-thin leading-10">
-					<span>We offer a total of
-						16
-						different and distinct services ranging from being Dry Rock Consultants to Inclining Experiments.</span>
-					<br><br>
-					<span>This is the complete list of all the services we offer:</span>
-				</h2>
-			</div>
-		</section>
-
-		<section class="bg-white relative px-5 pt-8 mx-auto w-full max-w-screen-lg">
+		<section class="theme-bg relative px-5 pt-8 mx-auto w-full max-w-screen-lg">
 			<div class="row">
 				
 					
@@ -357,66 +359,70 @@
 			</div>
 		</section>
 
-		<div class="bg-red-200">
+		<div class="bg-secondary">
 			<div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
-	<h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-	<a href="/contact.html" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
+	<h3 class="text-translucentDark text-3xl mb-6 font-bold">Would you like to work with us?</h3>
+	<a href="./contact.html" class="leading-10 theme-bg theme-text px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
 	<span class="block leading-10 text-xs">* You won’t regret it.</span>
 </div>
 
 		</div>
+	</main>
 
-		<a href="" class="z-10 sticky -mb-8 transform -translate-y-6 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
+					</main>
+
+					<a id="back-to-top" class="cursor-pointer shadow-md z-10 sticky -mb-4 transform -translate-y-6 mr-8 bottom-0 bg-black text-white px-6 py-3 inline-block rounded-full float-right">
 	Back To Top
 </a>
 
-<footer class="bg-red-300 py-8 px-6">
-	<div class="max-w-screen-lg w-full mx-auto">
-		<div class="flex flex-wrap clear-both">
-			<section class="intro-animation col sm:max-w-4/12">
-				<a href="./index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
-				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
-				</p>
+<footer class="bg-gray-900 text-white">
+	<div class="max-w-screen-lg w-full mx-auto flex flex-wrap clear-both py-8 px-6">
+		<section class="col sm:max-w-4/12">
+			<a href="./index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
+			<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
+			</p>
+		</section>
+
+		<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
+			<h3 class="text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+
+			<section class="leading-8 lt-md:leading-10 flex flex-col">
+				<a href="./about.html" class="hover:underline">About Us</a>
+				<a href="./services.html" class="hover:underline">Our Services</a>
+				<a href="./contact.html" class="hover:underline">Contact Us</a>
+				<a href="" class="hover:underline">Our Blog</a>
 			</section>
+		</section>
 
-			<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
-				<h3 class="intro-animation text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+		<section class="col sm:max-w-4/12 lt-md:mt-12 md:text-right">
+			<p class="leading-8 font-medium">
+				<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
+				<strong>
+					<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
+					<br>
+					<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
+				</strong>
+			</p>
 
-				<section class="leading-8 intro-animation lt-md:leading-10 flex flex-col">
-					<a href="./about.html" class="hover:underline">About Us</a>
-					<a href="./services.html" class="hover:underline">Our Services</a>
-					<a href="./contact.html" class="hover:underline">Contact Us</a>
-					<a href="" class="hover:underline">Our Blog</a>
-				</section>
-			</section>
+			<div class="mt-10 space-x-2 text-2xl">
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+			</div>
+		</section>
+	</div>
 
-			<section class="col intro-animation sm:max-w-4/12 lt-md:mt-12 md:text-right">
-				<p class="leading-8 font-medium">
-					<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
-					<strong>
-						<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
-						<br>
-						<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
-					</strong>
-				</p>
-
-				<div class="mt-10 space-x-2 text-2xl">
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-				</div>
-			</section>
-		</div>
-		<div class="flex flex-wrap mt-10 intro-animation">
+	<div class="bg-gray-700">
+		<div class="max-w-screen-lg flex flex-wrap mt-10 w-full mx-auto py-4 px-6 leading-10">
 			<section>© 2020 Jabodent. All rights reserved.</section>
 			<section class="flex-grow"></section>
 			<section>Made with
@@ -424,17 +430,13 @@
 				by
 				<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
 			</section>
-
 		</div>
+
 	</div>
 </footer>
 
-	</main>
-
-				</div>
-			</section>
-
-
+				</section>
+			</div>
 			<script src="./js/main.js" type="module"></script>
 		</body>
 	</html>

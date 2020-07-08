@@ -143,7 +143,7 @@ export class Router extends Service {
      */
     public initEvents() {
         this.EventEmitter.on("READY", this.route, this);
-        this.EventEmitter.on("PAGE_LOADING", this.route, this);
+        this.EventEmitter.on("PAGE_LOADED", this.route, this);
     }
 
     /**
@@ -153,6 +153,6 @@ export class Router extends Service {
      */
     public stopEvents() {
         this.EventEmitter.off("READY", this.route, this);
-        this.EventEmitter.off("PAGE_LOADING", this.route, this);
+        this.EventEmitter.off("PAGE_LOADED", this.route, this);
     }
 }

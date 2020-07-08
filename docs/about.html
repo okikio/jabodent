@@ -1,5 +1,8 @@
 
 
+<!DOCTYPE html>
+<html lang="en" theme="light">
+	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		
@@ -8,29 +11,29 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="preload" href="https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp" as="image">
 
-
-		<link rel="stylesheet" href="./css/tailwind.css">
-		<link rel="stylesheet" href="./css/app.css">
+		<link rel="stylesheet" href="./css/tailwind.css" async>
+		<link rel="stylesheet" href="./css/app.css" async>
 	</head>
-
 	<body>
 		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
-<nav class="navbar bg-red-500 overflow-hidden fixed w-full z-20">
+<nav class="navbar bg-transparent overflow-hidden fixed w-full z-20">
+	<div class="navbar-mini theme-bg w-full"></div>
 	
-	
-		<div class="h-full w-full max-w-screen-lg flex mx-auto"> <a class="navbar-logo navbar-link cursor-pointer relative z-10" href="./index.html">Jabodent</a>
+	<div class="h-full w-full max-w-screen-lg flex mx-auto z-5">
+		<a class="navbar-logo navbar-link cursor-pointer relative z-10" href="./index.html">Jabodent</a>
 
 		<section class="navbar-list flex flex-col md:flex-row whitespace-no-wrap lt-md:h-screen justify-center absolute md:relative text-4xl md:leading-inherit leading-loose md:text-base">
 			<a class="navbar-link hover:font-extrabold" href="./about.html">About Us</a>
 			<a class="navbar-link hover:font-bold" href="./services.html">Our Services</a>
 			<a class="navbar-link hover:font-bold" href="./contact.html">Contact Us</a>
-			<a class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
+			<a href="./404.html" class="block md:hidden navbar-link hover:font-bold">Our Blog</a>
 		</section>
 
 		<section class="flex w-full whitespace-no-wrap relative">
 			<div class="flex-grow"></div>
-			<a class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
+			<a href="./404.html" class="hidden md:block navbar-link hover:font-bold">Our Blog</a>
 
 			<a class="navbar-icon cursor-pointer">
 				<i class="icon hover:font-extrabold text-xl">search</i>
@@ -43,45 +46,44 @@
 
 		</section>
 	</div>
-
 </nav>
 
+		<div data-wrapper> 
+	<section class="py-24 bg-primary">
+		<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
+			<h1 class="h1 text-3xl font-bold mb-4 text-center layer">About Us</h1>
+			<h2 class="text-2xl font-thin leading-10">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
+		</div>
+	</section>
 
-		<section>
-			<div data-wrapper> 
-	<main>
-		<section class="py-24 bg-red-500">
-			<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
-				<h1 class="h1 text-3xl font-bold mb-4 text-center">About Us</h1>
-				<h2 class="text-2xl font-thin leading-10">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</h2>
-			</div>
-		</section>
-
-		<section class="px-5 mx-auto w-full max-w-screen-md py-24">
+	<section class="theme-bg theme-text">
+		<div class="px-5 mx-auto w-full max-w-screen-md py-24">
 			<h3 class="text-2xl mb-6 font-bold intro-animation">Our Story</h3>
-
 			<p class="leading-8 intro-animation">Established in 2017 out of the necessity for the marine, oil and gas offshore industry to be provided with professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments as safe as practicable.</p>
 			<br><br>
 			<p class="leading-8 intro-animation">Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers and master mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of different types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and production platform e.g. FPSOFSO and FOI</p>
+		</div>
+	</section>
 
-		</section>
+			<section>
+				<main id="main"> 
+	<main>
+		<section class="theme-surface overflow-hidden city-image py-32 bg-fixed"></section>
 
-		<section class="bg-yellow-300 overflow-hidden city-image py-32 bg-fixed"></section>
-
-		<section class="bg-white relative">
-			<h3 class="text-3xl pt-6 font-bold text-center intro-animation">Our Team</h3>
+		<section class="theme-bg theme-text pt-6 relative">
+			<h3 class="text-3xl font-bold text-center intro-animation">Our Team</h3>
 			<div class="top-half w-full font-semibold text-lg lt-md:hidden z-10">
-	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-300 px-6 py-3 rounded-full inline-block">Previous</a>
-	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-300 px-6 py-3 rounded-full inline-block ">Next</a>
+	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block">Previous</a>
+	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block ">Next</a>
+
 </div>
 
 
-			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-24">
-				<section class="p-8 hover:bg-gray-200 flex flex-col md:flex-row justify-center rounded-xl">
-					<div class="self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
+			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
+				<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+					<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
 					<div class="self-center w-full md:max-w-1/2">
 						<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
-
 						<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
 						<div class="mt-6">
 	<a href="" class="learn-more italic hover:not-italic hover:font-bold">
@@ -93,76 +95,80 @@
 			</div>
 
 			<div class="flex">
-	<div class="bg-gray-300 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
-		<span class="inline-block bg-gray-900 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-500 w-2 h-2 rounded-full"></span>
+	<div class="bg-gray-900 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
+		<span class="inline-block bg-white w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
 	</div>
 </div>
 
 		</section>
 
-		<div class="bg-red-200">
+		<div class="bg-secondary">
 			<div class="px-5 py-24 mx-auto w-full max-w-screen-md text-center">
-	<h3 class="text-3xl mb-6 font-bold">Would you like to work with us?</h3>
-	<a href="/contact.html" class="leading-10 bg-white px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
+	<h3 class="text-translucentDark text-3xl mb-6 font-bold">Would you like to work with us?</h3>
+	<a href="./contact.html" class="leading-10 theme-bg theme-text px-5 rounded inline-block font-semibold text-lg py-2">Contact Us</a>
 	<span class="block leading-10 text-xs">* You won’t regret it.</span>
 </div>
 
 		</div>
+	</main>
 
-		<a href="" class="z-10 sticky -mb-8 transform -translate-y-6 mr-8 bottom-0 bg-gray-300 px-6 py-3 inline-block rounded-full float-right">
+					</main>
+
+					<a id="back-to-top" class="cursor-pointer shadow-md z-10 sticky -mb-4 transform -translate-y-6 mr-8 bottom-0 bg-black text-white px-6 py-3 inline-block rounded-full float-right">
 	Back To Top
 </a>
 
-<footer class="bg-red-300 py-8 px-6">
-	<div class="max-w-screen-lg w-full mx-auto">
-		<div class="flex flex-wrap clear-both">
-			<section class="intro-animation col sm:max-w-4/12">
-				<a href="./index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
-				<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
-				</p>
+<footer class="bg-gray-900 text-white">
+	<div class="max-w-screen-lg w-full mx-auto flex flex-wrap clear-both py-8 px-6">
+		<section class="col sm:max-w-4/12">
+			<a href="./index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
+			<p class="text-lg leading-8 font-medium">Drive, Integrity, Professionalism, Teamwork & Innovation
+			</p>
+		</section>
+
+		<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
+			<h3 class="text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+
+			<section class="leading-8 lt-md:leading-10 flex flex-col">
+				<a href="./about.html" class="hover:underline">About Us</a>
+				<a href="./services.html" class="hover:underline">Our Services</a>
+				<a href="./contact.html" class="hover:underline">Contact Us</a>
+				<a href="" class="hover:underline">Our Blog</a>
 			</section>
+		</section>
 
-			<section class="col sm:max-w-4/12 sm:pl-8 lt-md:mt-12">
-				<h3 class="intro-animation text-xl mb-2 md:mb-6 font-semibold">Quick Links</h3>
+		<section class="col sm:max-w-4/12 lt-md:mt-12 md:text-right">
+			<p class="leading-8 font-medium">
+				<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
+				<strong>
+					<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
+					<br>
+					<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
+				</strong>
+			</p>
 
-				<section class="leading-8 intro-animation lt-md:leading-10 flex flex-col">
-					<a href="./about.html" class="hover:underline">About Us</a>
-					<a href="./services.html" class="hover:underline">Our Services</a>
-					<a href="./contact.html" class="hover:underline">Contact Us</a>
-					<a href="" class="hover:underline">Our Blog</a>
-				</section>
-			</section>
+			<div class="mt-10 space-x-2 text-2xl">
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+				<a href="" class="hover:underline">
+					<i class="icon p-2">add</i>
+				</a>
+			</div>
+		</section>
+	</div>
 
-			<section class="col intro-animation sm:max-w-4/12 lt-md:mt-12 md:text-right">
-				<p class="leading-8 font-medium">
-					<span>Plot E10A, Close 51, VGC Lekki<br>Peninsular, Lagos, Nigeria.<br></span>
-					<strong>
-						<a href="tel:+2348033324072" class="hover:underline">+2348033324072</a>
-						<br>
-						<a href="mailto:info@jabodent.com" class="hover:underline">info@jabodent.com</a>
-					</strong>
-				</p>
-
-				<div class="mt-10 space-x-2 text-2xl">
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-					<a href="" class="hover:underline">
-						<i class="icon p-2">add</i>
-					</a>
-				</div>
-			</section>
-		</div>
-		<div class="flex flex-wrap mt-10 intro-animation">
+	<div class="bg-gray-700">
+		<div class="max-w-screen-lg flex flex-wrap mt-10 w-full mx-auto py-4 px-6 leading-10">
 			<section>© 2020 Jabodent. All rights reserved.</section>
 			<section class="flex-grow"></section>
 			<section>Made with
@@ -170,17 +176,13 @@
 				by
 				<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
 			</section>
-
 		</div>
+
 	</div>
 </footer>
 
-	</main>
-
-				</div>
-			</section>
-
-
+				</section>
+			</div>
 			<script src="./js/main.js" type="module"></script>
 		</body>
 	</html>

@@ -1,9 +1,9 @@
+{% include '../data/data.html' %}
+{% import '../macros/macros.html' as macro %}
+
 <!DOCTYPE html>
 <html lang="en" theme="light">
 	<head>
-		{% include '../data/data.html' %}
-		{% import '../macros/macros.html' as macro %}
-
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		{% block title %}
@@ -12,21 +12,21 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link rel="preload" href="https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp" as="image">
 
-
-		<link rel="stylesheet" href="./css/tailwind.css">
-		<link rel="stylesheet" href="./css/app.css">
+		<link rel="stylesheet" href="./css/tailwind.css" async>
+		<link rel="stylesheet" href="./css/app.css" async>
 	</head>
-
 	<body>
 		{% include "../partials/navbar.html" %}
+		<div data-wrapper> {% block hero %}{% endblock %}
+			<section>
+				<main id="main"> {% block content %}{% endblock %}
+					</main>
 
-		<section>
-			<div data-wrapper> {% block content %}{% endblock %}
-				</div>
-			</section>
-
-
+					{% include "../partials/footer.html" %}
+				</section>
+			</div>
 			<script src="./js/main.js" type="module"></script>
 		</body>
 	</html>

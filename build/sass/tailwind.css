@@ -16,26 +16,9 @@
     padding-left: theme("space.8");
 }
 
-.yellow-gradient:before {
-    background-color: #faf089;
-    position: absolute;
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0.8;
-}
-
 @screen sm {
     .sm\:spread-x-8 > * + * {
         padding-left: theme("space.8");
-    }
-
-    .yellow-gradient:before {
-        background: linear-gradient(90deg, #faf089 80%, transparent);
-        opacity: 1;
     }
 }
 

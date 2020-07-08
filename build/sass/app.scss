@@ -1,5 +1,97 @@
 // CODEPEN CODE [https://codepen.io/okikio/pen/zYrzdma]
+$theme: (
+    "background": (
+        "light": #ffffff,
+        "dark": #000000,
+    ),
+    "surface": (
+        "light": #f1effc,
+        "dark": #1b1b1b,
+    ),
+    "text": (
+        "light": #000000,
+        "dark": #ffffff,
+    ),
+);
+
+:root {
+    --background: map-get(map-get($theme, "background"), "light");
+}
+
+.theme {
+    &-bg {
+        & {
+            background-color: map-get(map-get($theme, "background"), "light");
+        }
+
+        html[theme="dark"] & {
+            background-color: map-get(
+                map-get($theme, "background"),
+                "dark"
+            ) !important;
+        }
+    }
+
+    &-surface {
+        & {
+            background-color: map-get(map-get($theme, "surface"), "light");
+        }
+
+        html[theme="dark"] & {
+            background-color: map-get(
+                map-get($theme, "surface"),
+                "dark"
+            ) !important;
+        }
+    }
+
+    &-text {
+        & {
+            color: map-get(map-get($theme, "text"), "light");
+        }
+
+        html[theme="dark"] & {
+            color: map-get(map-get($theme, "text"), "dark") !important;
+        }
+    }
+}
+
+.gradient:before {
+    background-color: map-get(map-get($theme, "surface"), "light");
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+}
+
+html[theme="dark"] .gradient:before {
+    background-color: map-get(map-get($theme, "surface"), "dark");
+}
+
+@media (min-width: 680px) {
+    .gradient:before {
+        background: linear-gradient(
+            90deg,
+            map-get(map-get($theme, "surface"), "light") 80%,
+            transparent
+        );
+        opacity: 1;
+    }
+    html[theme="dark"] .gradient:before {
+        background: linear-gradient(
+            90deg,
+            map-get(map-get($theme, "surface"), "dark") 80%,
+            transparent
+        );
+    }
+}
+
 html {
+    background-color: map-get(map-get($theme, "background"), "light");
     // font-family: Arial, Helvetica, sans-serif;
     font-family: "Manrope", sans-serif;
 
@@ -8,13 +100,18 @@ html {
     text-rendering: optimizeSpeed;
 }
 
+html[theme="dark"] {
+    background-color: map-get(map-get($theme, "background"), "dark");
+}
+
 .font {
     &-default {
         font-family: "Manrope", sans-serif;
     }
 
     &-title {
-        font-family: "Abril Fatface", cursive;
+        font-family: "Abril Fatface", serif;
+        font-weight: 900;
     }
 }
 
@@ -59,10 +156,19 @@ html {
     // overflow: hidden;
 }
 
+html[theme="dark"] {
+    .navbar.focus,
+    .navbar:hover {
+        color: map-get(map-get($theme, "text"), "dark");
+    }
+}
+
 .navbar {
+    transition: color 0.2s ease-out;
     $height: 60px;
     height: $height;
     line-height: $height;
+
     // overflow: hidden;
     &.active {
         height: 100%;
@@ -70,6 +176,26 @@ html {
         .navbar-bg {
             // transform: translateY(100%);
         }
+    }
+
+    &-mini {
+        transition: transform ease-out 0.3s;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: $height;
+        transform: translateY(-100%);
+    }
+
+    &.focus,
+    &:hover {
+        .navbar-mini {
+            transform: translateY(0%);
+        }
+    }
+
+    &.light:not(:hover):not(.focus) {
+        color: map-get(map-get($theme, "text"), "dark");
     }
 
     &-logo {
@@ -115,6 +241,17 @@ html {
     }
 }
 
+.hero-img {
+    background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
+    background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
+    // background-position: center;
+    background-size: cover;
+}
+
+.hero-overlay {
+    background: linear-gradient(transparent, black);
+}
+
 .scroll {
     position: absolute;
     bottom: 0;
@@ -126,7 +263,7 @@ html {
         height: 50px;
         content: "";
         width: 1px;
-        border-left: 1px solid black;
+        border-left: 1px solid currentColor;
         display: block;
     }
 }
@@ -138,7 +275,7 @@ html {
         width: 50px;
         content: "";
         height: 1px;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid currentColor;
         display: inline-block;
         vertical-align: middle;
     }

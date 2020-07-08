@@ -1,153 +1,161 @@
 {% extends "../layouts/layout.html" %}
-
-{% block content %}
-	<main>
-		<section class="relative flex flex-col h-screen justify-center bg-red-500">
-			<div class="self-center text-center px-5">
-				<h1 class="text-5xl font-semibold font-title tracking-wider">JABODENT</h1>
+{% block hero %}
+	<section class="relative h-screen bg-primary hero-img bg-fixed">
+		<div class="hero-overlay absolute top-0 left-0 h-full w-full"></div>
+		<div class="relative flex flex-col h-full justify-center text-white z-5">
+			<section class="self-center text-center px-5">
+				<h1 class="text-5xl font-semibold font-title tracking-wider layer">JABODENT</h1>
 				<h2 class="text-lg leading-7">Integrity, Professionalism, Teamwork, Innovation & Excellence</h2>
 
-				<a class="scroll hover:underline z-10">
+				<a id="scroll-btn" class="cursor-pointer scroll text-secondary hover:underline z-10">
 					<div class="text-sm p-5 pt-2 font-normal tracking-widest uppercase">
 						scroll
 					</div>
 				</a>
-			</div>
-		</section>
+			</section>
+		</div>
+	</section>
 
-		<section class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
+	<section class="bg-black text-white w-full">
+		<div class="px-5 mx-auto w-full max-w-screen-md py-24 intro-animation">
 			<h3 class="text-2xl mb-6 font-bold">About Us</h3>
 			<p class="leading-8">We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.</p>
 
 			<div class="mt-16">
-				{{ macro.learnMore("/about.html") }}
+				{{ macro.learnMore("./about.html") }}
 			</div>
+		</div>
+	</section>
+{% endblock %}
 
-		</section>
-		<section class="bg-red-300">
-			<div class="px-5 pt-24 mx-auto w-full max-w-screen-md">
-				<h3 class="text-2xl mb-6 font-bold intro-animation">Mission & Vision</h3>
+{% block content %}
+	<section class="theme-bg">
+		<div class="theme-text px-5 pt-24 mx-auto w-full max-w-screen-md">
+			<h3 class="text-2xl mb-6 font-bold intro-animation">Mission & Vision</h3>
+			<p class="leading-8 intro-animation">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.</p>
+		</div>
 
-				<p class="leading-8 intro-animation">Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well prices services.</p>
-			</div>
+		<div class="flex w-full pt-24">
+			<div class="flex-grow"></div>
+			<section class="bg-secondary w-full max-w-screen-md">
+				<div class="py-12 pl-10 w-full">
+					<h3 class="text-2xl mb-6 font-bold intro-animation">Skills & Services</h3>
 
-			<div class="flex w-full pt-24">
-				<div class="flex-grow"></div>
-				<section class="bg-blue-400 w-full max-w-screen-md">
-					<div class="py-12 pl-10 w-full">
-						<h3 class="text-2xl mb-6 font-bold intro-animation">Skills & Services</h3>
+					<ul class="leading-8 list-disc list-inside">
+						{% for service in services %}
+							{% if loop.index0 < 8 %}
+								<li>{{ service.title }}</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+					<p>etc...</p>
 
-						<ul class="leading-8 list-disc list-inside">
-							{% for service in services %}
-								{% if loop.index0 < 8 %}
-									<li>{{ service.title }}</li>
-								{% endif %}
-							{% endfor %}
-						</ul>
-						<p>etc...</p>
+					<div class="mt-16">
+						{{ macro.learnMore("./services.html") }}
+					</div>
+				</div>
 
-						<div class="mt-16">
-							{{ macro.learnMore("./services.html") }}
-						</div>
+			</section>
+			<div class="bg-secondary flex-grow"></div>
+		</div>
+
+		<div class="theme-text mx-auto w-full max-w-screen-lg flex flex-wrap overflow-hidden py-5">
+
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">more_time</i>
 					</div>
 
-				</section>
-				<div class="bg-blue-400 flex-grow"></div>
-			</div>
-
-			<div class="mx-auto w-full max-w-screen-lg flex flex-wrap overflow-hidden py-5">
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-				<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
-					<div class="w-full flex mx-auto my-5">
-						<div class="h-12 w-12 bg-blue-400 mr-5"></div>
-
-						<section class="self-center">
-							<h4 class="text-lg font-bold">Title</h4>
-							<p>Description</p>
-						</section>
-
-					</div>
-				</section>
-			</div>
-		</section>
-
-		<section class="bg-yellow-300 overflow-hidden city-image bg-fixed">
-			<div class="px-16 py-24 w-full md:w-10/12 relative yellow-gradient">
-				<section class="max-w-screen-md mx-auto">
-					<section class="relative max-width">
-						<h3 class="text-3xl mb-10 font-bold">Why Choose Us?</h3>
-
-						<h4 class="text-xl mb-2">Certified Experience</h4>
-						<p class="leading-8 mb-12">Experience of Certified industry professionals.</p>
-
-						<h4 class="text-xl mb-2">Great Teamwork</h4>
-						<p class="leading-8 mb-12">Teamwork that makes dreams work.</p>
-
-						<h4 class="text-xl mb-2">Modern Technology</h4>
-						<p class="leading-8 mb-12">High quality equipment. Tools used by the best of the best.</p>
-
-						<div class="mt-16">
-							{{ macro.learnMore("./about.html") }}
-						</div>
-
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">20</h4>
+						<p>Years of Experience</p>
 					</section>
-				</section>
-			</div>
-		</section>
 
-		<section class="bg-white relative">
-			<h3 class="text-3xl my-6 font-medium text-center">Clients & Testimonials</h3>
-			{% include "../partials/carousel-buttons.html" %}
-
-			<div class="px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
-				<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
-				<section class="flex justify-center w-full px-5 mx-auto">
-					<div class="mt-10 flex">
-						<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-						<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+				</div>
+			</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">book</i>
 					</div>
+
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">154</h4>
+						<p>Projects Completed</p>
+					</section>
+				</div>
+			</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">thumb_up_alt</i>
+					</div>
+
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">785</h4>
+						<p>Happy Clients</p>
+					</section>
+				</div>
+			</section>
+			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
+				<div class="w-full flex mx-auto my-5">
+					<div class="h-12 w-12 flex justify-center bg- mr-5">
+						<i class="icon text-3xl self-center text-secondary">emoji_events</i>
+					</div>
+
+					<section class="self-center">
+						<h4 class="text-lg font-extrabold">14</h4>
+						<p>Awards Won</p>
+					</section>
+
+				</div>
+			</section>
+		</div>
+	</section>
+
+	<section class="theme-bg overflow-hidden city-image">
+		<div class="px-16 py-24 w-full md:w-10/12 relative gradient theme-text">
+			<section class="max-w-screen-md mx-auto">
+				<section class="relative max-width">
+					<h3 class="text-3xl mb-10 font-bold">Why Choose Us?</h3>
+
+					<h4 class="text-xl mb-2">Certified Experience</h4>
+					<p class="leading-8 mb-12">Experience of Certified industry professionals.</p>
+
+					<h4 class="text-xl mb-2">Great Teamwork</h4>
+					<p class="leading-8 mb-12">Teamwork that makes dreams work.</p>
+
+					<h4 class="text-xl mb-2">Modern Technology</h4>
+					<p class="leading-8 mb-12">High quality equipment. Tools used by the best of the best.</p>
+
+					<div class="mt-16">
+						{{ macro.learnMore("./about.html") }}
+					</div>
+
 				</section>
-			</div>
+			</section>
+		</div>
+	</section>
 
-			{% include "../partials/carousel-dots.html" %}
-		</section>
+	<section class="theme-bg relative pt-6">
+		<h3 class="theme-text text-3xl font-medium text-center">Clients & Testimonials</h3>
+		{% include "../partials/carousel-buttons.html" %}
 
-		<section class="bg-red-200">
-			{% include "../partials/contact.html" %}
-		</section>
+		<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+			<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
+			<section class="flex justify-center w-full px-5 mx-auto">
+				<div class="mt-10 flex">
+					<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+					<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+				</div>
+			</section>
+		</div>
 
-		{% include "../partials/footer.html" %}
-	</main>
+		{% include "../partials/carousel-dots.html" %}
+	</section>
+
+	<section class="bg-secondary">
+		{% include "../partials/contact.html" %}
+	</section>
 {% endblock %}
