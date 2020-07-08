@@ -1162,7 +1162,7 @@ try {
     let layers = document.getElementsByClassName("layer") || [];
     layer = layers[0] || null;
     top = layer ? layer.getBoundingClientRect().y : null;
-    if (/^\/(index(.html)?|$)/.test(window.location.pathname))
+    if (/^\/(index(.html)?|$)/.test(window.location.pathname) || /\/$/.test(window.location.pathname))
       navbar.navbar.classList.add("light");
     else
       navbar.navbar.classList.remove("light");
