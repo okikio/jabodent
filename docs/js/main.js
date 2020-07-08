@@ -1045,7 +1045,7 @@ class Navbar extends Service {
   constructor() {
     super();
     this.navbar = document.getElementsByClassName("navbar")[0];
-    this.elements = [...this.navbar.getElementsByClassName("navbar-link")];
+    this.elements = [...this.navbar.getElementsByClassName("navbar-item")];
     this.menu = document.getElementsByClassName("navbar-menu")[0];
     this.click = this.click.bind(this);
   }
@@ -1158,7 +1158,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
 });
 try {
   let layer, top, navHeight = navbar.navbar.getBoundingClientRect().height;
-  app.on("GO READY", () => {
+  app.on("CONTENT_REPLACED READY", () => {
     let layers = document.getElementsByClassName("layer") || [];
     layer = layers[0] || null;
     top = layer ? layer.getBoundingClientRect().y : null;
@@ -1167,19 +1167,20 @@ try {
     else
       navbar.navbar.classList.remove("light");
     navbar.navbar.classList.remove("focus");
-    document.getElementById("back-to-top").addEventListener("click", () => {
+    navbar.navbar.classList.remove("active");
+    let backToTop = document.getElementsByClassName("back-to-top")[0];
+    backToTop.addEventListener("click", () => {
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
     });
-  });
-  router.add({
-    path: /index(.html)?/g,
-    method() {
-      let scrollBtn = document.getElementById("scroll-btn");
-      scrollBtn.addEventListener("click", () => {
-        document.getElementById("main").scrollIntoView({behavior: "smooth"});
+    let scrollBtn = document.getElementsByClassName("scroll-btn");
+    if (scrollBtn[0]) {
+      scrollBtn[0].addEventListener("click", () => {
+        let scrollPt = document.getElementsByClassName("scroll-point");
+        if (scrollPt[0])
+          scrollPt[0].scrollIntoView({behavior: "smooth"});
       });
     }
   });

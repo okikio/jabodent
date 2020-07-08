@@ -47,7 +47,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
 
 try {
     let layer: HTMLElement, top: number, navHeight: number = navbar.navbar.getBoundingClientRect().height;
-    app.on("GO READY", () => {
+    app.on("CONTENT_REPLACED READY", () => {
         let layers = document.getElementsByClassName("layer") || [];
         layer = layers[0] as HTMLElement || null;
         top = layer ? layer.getBoundingClientRect().y : null;
@@ -55,22 +55,23 @@ try {
         if (/^\/(index(.html)?|$)/.test(window.location.pathname))
             navbar.navbar.classList.add("light");
         else navbar.navbar.classList.remove("light");
-        navbar.navbar.classList.remove("focus");
 
-        document.getElementById("back-to-top").addEventListener("click", () => {
+        navbar.navbar.classList.remove("focus");
+        navbar.navbar.classList.remove("active");
+
+        let backToTop = document.getElementsByClassName("back-to-top")[0];
+        backToTop.addEventListener("click", () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
-    });
 
-    router.add({
-        path: /index(.html)?/g,
-        method() {
-            let scrollBtn = document.getElementById("scroll-btn");
-            scrollBtn.addEventListener("click", () => {
-                document.getElementById("main").scrollIntoView({ behavior: 'smooth' });
+        let scrollBtn = document.getElementsByClassName("scroll-btn");
+        if (scrollBtn[0]) {
+            scrollBtn[0].addEventListener("click", () => {
+                let scrollPt = document.getElementsByClassName("scroll-point")
+                if (scrollPt[0]) scrollPt[0].scrollIntoView({ behavior: 'smooth' });
             });
         }
     });
@@ -79,7 +80,7 @@ try {
     window.addEventListener("scroll", () => {
         let scrollTop = window.scrollY;
         requestAnimationFrame(() => {
-            if (top && scrollTop + 10 + navHeight >= top) {
+            if (top && ((scrollTop + 10 + navHeight) >= top)) {
                 navbar.navbar.classList.add("focus");
             } else navbar.navbar.classList.remove("focus");
         });

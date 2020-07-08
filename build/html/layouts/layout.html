@@ -12,7 +12,6 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-		<link rel="preload" href="https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp" as="image">
 
 		<link rel="stylesheet" href="./css/tailwind.css" async>
 		<link rel="stylesheet" href="./css/app.css" async>
@@ -21,7 +20,7 @@
 		{% include "../partials/navbar.html" %}
 		<div data-wrapper> {% block hero %}{% endblock %}
 			<section>
-				<main id="main"> {% block content %}{% endblock %}
+				<main id="main" class="scroll-point"> {% block content %}{% endblock %}
 					</main>
 
 					{% include "../partials/footer.html" %}

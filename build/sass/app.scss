@@ -157,6 +157,7 @@ html[theme="dark"] {
 }
 
 html[theme="dark"] {
+    .navbar.active,
     .navbar.focus,
     .navbar:hover {
         color: map-get(map-get($theme, "text"), "dark");
@@ -164,37 +165,65 @@ html[theme="dark"] {
 }
 
 .navbar {
-    transition: color 0.2s ease-out;
+    transition: color 0.25s ease-out;
     $height: 60px;
-    height: $height;
-    line-height: $height;
 
-    // overflow: hidden;
-    &.active {
-        height: 100%;
-
-        .navbar-bg {
-            // transform: translateY(100%);
-        }
+    &,
+    &-height {
+        height: $height;
+        line-height: $height;
     }
 
+    &.active {
+        height: 100%;
+    }
+
+    &-large,
+    &-overlay,
     &-mini {
-        transition: transform ease-out 0.3s;
+        transition: transform ease-out 0.25s;
         position: absolute;
         top: 0;
         left: 0;
-        height: $height;
         transform: translateY(-100%);
     }
 
+    &-large {
+        transition: transform ease-out 0.75s;
+        height: 100vh;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    &-overlay {
+        transition: opacity ease 0.65s;
+        background-color: black;
+        transform: translateY(0%);
+        opacity: 0;
+        height: 100vh;
+        pointer-events: none;
+    }
+
     &.focus,
+    &.active,
     &:hover {
         .navbar-mini {
             transform: translateY(0%);
         }
     }
 
-    &.light:not(:hover):not(.focus) {
+    &.active {
+        .navbar-large {
+            transform: translateY(0%);
+        }
+
+        .navbar-overlay {
+            opacity: 0.8;
+            pointer-events: auto;
+        }
+    }
+
+    &.light:not(:hover):not(.active):not(.focus) {
         color: map-get(map-get($theme, "text"), "dark");
     }
 
@@ -202,38 +231,77 @@ html[theme="dark"] {
         vertical-align: top;
         font-size: 1.5rem;
         font-weight: 800 !important;
-        line-height: $height;
-        height: $height;
-    }
-
-    &-bg {
-        transition: transform ease 0.5s;
-        position: fixed;
-        left: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        opacity: 0;
     }
 
     &-list {
-        transition: opacity ease 0.5s;
+        transition: opacity ease-out 0.45s;
         left: 0;
         top: 0;
         opacity: 1;
+        pointer-events: auto;
     }
 
     &-link {
+        transition: transform ease-out 0.45s, opacity ease-out 0.65s;
         line-height: inherit;
         vertical-align: middle;
+        pointer-events: auto;
         // text-transform: uppercase;
         font-weight: 500;
         padding: 0 1.25rem;
+
+        &.active {
+            font-weight: 800 !important;
+        }
     }
 
-    &-link.active {
-        font-weight: 800 !important;
+    @for $i from 5 through 1 {
+        .navbar-item:nth-of-type(#{5-$i}) {
+            transition-delay: (($i - 1) * 4) * 50ms;
+        }
+    }
+
+    @media (min-width: 768px) {
+        &-item {
+            opacity: 1;
+        }
+
+        &-large,
+        &-overlay {
+            pointer-events: none;
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        &:not(.active) {
+            .navbar-list,
+            .navbar-item {
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .navbar-item {
+                transform: translateY(50%);
+            }
+        }
+
+        &.active {
+            .navbar-list,
+            .navbar-item {
+                pointer-events: auto;
+            }
+
+            .navbar-item {
+                transform: translateY(0%);
+            }
+
+            @for $i from 1 through 5 {
+                .navbar-item:nth-of-type(#{$i}) {
+                    transition-delay: ($i * 4) * 35ms;
+                }
+            }
+        }
     }
 
     &-icon {

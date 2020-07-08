@@ -17517,12 +17517,6 @@ video {
   }
 }
 
-@media (max-width: 768px) {
-  .navbar:not(.active) .navbar-list {
-    opacity: 0;
-  }
-}
-
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

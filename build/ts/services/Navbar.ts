@@ -9,7 +9,7 @@ export class Navbar extends Service {
         super();
         // Elements
         this.navbar = (document.getElementsByClassName("navbar")[0] as HTMLElement)
-        this.elements = ([...this.navbar.getElementsByClassName('navbar-link')] as HTMLElement[]);
+        this.elements = ([...this.navbar.getElementsByClassName('navbar-item')] as HTMLElement[]);
         this.menu = (document.getElementsByClassName("navbar-menu")[0] as HTMLElement);
 
         this.click = this.click.bind(this);
