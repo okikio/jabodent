@@ -72,36 +72,55 @@
 	<main>
 		<section class="theme-surface overflow-hidden city-image py-32 bg-fixed"></section>
 
-		<section class="theme-bg theme-text pt-6 relative">
+		<section class="carousel theme-bg theme-text relative pt-6" data-block="Carousel">
 			<h3 class="text-3xl font-bold text-center intro-animation">Our Team</h3>
-			<div class="top-half w-full font-semibold text-lg lt-md:hidden z-10">
+			<div class="carousel-btn top-half w-full font-semibold text-lg lt-md:hidden z-10">
 	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block">Previous</a>
 	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block ">Next</a>
-
 </div>
 
 
-			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
-				<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
-					<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
-					<div class="self-center w-full md:max-w-1/2">
-						<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
-						<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
-						<div class="mt-6">
+			<section class="carousel-container relative w-full">
+				<div class="carousel-viewport flex flex-no-wrap">
+					<section class="carousel-item">
+						<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
+							<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+								<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
+								<div class="self-center w-full md:max-w-1/2">
+									<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
+									<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
+									<div class="mt-6">
 	<a href="" class="learn-more italic hover:not-italic hover:font-bold">
 		Learn more
 	</a>
 </div>
-					</div>
-				</section>
-			</div>
+								</div>
+							</section>
+						</div>
+					</section>
+
+					<section class="carousel-item">
+						<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
+							<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+								<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
+								<div class="self-center w-full md:max-w-1/2">
+									<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
+									<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
+									<div class="mt-6">
+	<a href="" class="learn-more italic hover:not-italic hover:font-bold">
+		Learn more
+	</a>
+</div>
+								</div>
+							</section>
+						</div>
+					</section>
+				</div>
+			</section>
 
 			<div class="flex">
-	<div class="bg-gray-900 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
-		<span class="inline-block bg-white w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+	<div class="carousel-dots px-6 py-3 rounded-full mx-auto mb-5">
+		<button type="button" class="carousel-dot"></button>
 	</div>
 </div>
 

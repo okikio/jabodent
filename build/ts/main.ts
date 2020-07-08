@@ -6,6 +6,8 @@ import { Splashscreen } from "./services/Splashscreen";
 import { IntroAnimation } from "./services/IntroAnimation";
 import { Navbar } from "./services/Navbar";
 
+import { CarouselBlockIntent } from "./blocks/Carousel";
+
 import { Fade } from "./transitions/Fade";
 // import { BigTransition } from "./transitions/BigTransition";
 // import { Slide, SlideLeft, SlideRight } from "./transitions/Slide";
@@ -20,6 +22,7 @@ app
     .addService(navbar = new Navbar())
     .addService(router = new Router())
 
+    .add("block", CarouselBlockIntent)
     .add("transition", new Fade());
 // .addTransition(new BigTransition())
 // .addTransition(new Slide())

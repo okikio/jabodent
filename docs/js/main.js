@@ -402,6 +402,50 @@ class TransitionManager extends AdvancedManager {
   }
 }
 
+class Block extends Service {
+  init({name, rootElement, selector, index, length}) {
+    this.rootElement = rootElement;
+    this.name = name;
+    this.selector = selector;
+    this.index = index;
+    this.slideLen = length;
+  }
+  getRootElement() {
+    return this.rootElement;
+  }
+  getSelector() {
+    return this.selector;
+  }
+  getLength() {
+    return this.slideLen;
+  }
+  getIndex() {
+    return this.index;
+  }
+  getID() {
+    return this.id;
+  }
+  setID(id) {
+    this.id = id;
+    return this;
+  }
+  getName() {
+    return this.name;
+  }
+}
+class BlockIntent extends ManagerItem {
+  constructor({name, block}) {
+    super();
+    this.name = name;
+    this.block = block;
+  }
+  getName() {
+    return this.name;
+  }
+  getBlock() {
+    return this.block;
+  }
+}
 class BlockManager extends AdvancedManager {
   constructor(app2) {
     super(app2);
@@ -1096,6 +1140,161 @@ class Navbar extends Service {
   }
 }
 
+function _getClosest(item, array, getDiff) {
+  var closest, diff;
+  if (!Array.isArray(array)) {
+    throw new Error("Get closest expects an array as second argument");
+  }
+  array.forEach(function(comparedItem, comparedItemIndex) {
+    var thisDiff = getDiff(comparedItem, item);
+    if (thisDiff >= 0 && (typeof diff == "undefined" || thisDiff < diff)) {
+      diff = thisDiff;
+      closest = comparedItemIndex;
+    }
+  });
+  return closest;
+}
+function number(item, array) {
+  return _getClosest(item, array, function(comparedItem, item2) {
+    return Math.abs(comparedItem - item2);
+  });
+}
+function lerp(a, b, n) {
+  return (1 - n) * a + n * b;
+}
+class Carousel extends Block {
+  constructor() {
+    super(...arguments);
+    this.ease = 0.1;
+    this.speed = 1.5;
+  }
+  init(value) {
+    super.init(value);
+    this.widths = [];
+    this.dots = [];
+    this.container = this.rootElement.getElementsByClassName("carousel-container")[0];
+    this.viewport = this.rootElement.getElementsByClassName("carousel-viewport")[0];
+    this.slides = [...this.rootElement.getElementsByClassName("carousel-item")];
+    this.dots = [...this.rootElement.getElementsByClassName("carousel-dot")];
+    this.dotContainer = this.rootElement.getElementsByClassName("carousel-dots")[0];
+    this.dot = this.dots[0];
+    this.slideLen = this.slides.length;
+    this.centerX = window.innerWidth / 2;
+    this.viewportWidth = 0;
+    this.currentX = 0;
+    this.index = 0;
+    this.lastX = 0;
+    this.maxX = 0;
+    this.minX = 0;
+    this.offX = 0;
+    this.onX = 0;
+    this.isDragging = false;
+    this.clearDots();
+    this.setDots();
+    this.setBounds();
+    this.setPos = this.setPos.bind(this);
+    this.on = this.on.bind(this);
+    this.off = this.off.bind(this);
+    this.run = this.run.bind(this);
+    this.resize = this.resize.bind(this);
+  }
+  setDots() {
+    for (let i = 0; i < this.slideLen; i++) {
+      const newDot = this.dot.cloneNode();
+      if (i === this.index)
+        newDot.classList.add("active");
+      this.dotContainer.appendChild(newDot);
+      this.dots[i] = newDot;
+    }
+  }
+  clearDots() {
+    for (let i = this.dots.length; --i >= 0; ) {
+      this.dots[i].classList.remove("active");
+      this.dots[i].remove();
+      this.dots.pop();
+    }
+  }
+  setBounds() {
+    this.viewportWidth = 0;
+    for (let i = 0; i < this.slideLen; i++) {
+      const slide = this.slides[i];
+      const {width} = slide.getBoundingClientRect();
+      this.widths[i] = width;
+      this.viewportWidth += width;
+    }
+    this.maxX = -(this.viewportWidth - window.innerWidth);
+  }
+  setPos(e) {
+    if (!this.isDragging)
+      return;
+    this.currentX = this.offX + (e.clientX - this.onX) * this.speed;
+    this.clamp();
+  }
+  clamp() {
+    this.currentX = Math.max(Math.min(this.currentX, this.minX), this.maxX);
+  }
+  run() {
+    this.lastX = lerp(this.lastX, this.currentX, this.ease);
+    this.lastX = Math.floor(this.lastX * 100) / 100;
+    this.viewport.style.transform = `translate3d(${this.lastX}px, 0, 0)`;
+    this.requestAnimationFrame();
+  }
+  requestAnimationFrame() {
+    this.rAF = requestAnimationFrame(this.run);
+  }
+  on(e) {
+    this.isDragging = true;
+    this.onX = e.clientX;
+    this.rootElement.classList.add("is-grabbing");
+  }
+  closest() {
+    const numbers = [];
+    this.slides.forEach((slide, index) => {
+      const bounds = slide.getBoundingClientRect();
+      const diff = this.currentX - this.lastX;
+      const center = bounds.x + diff + bounds.width / 2;
+      const fromCenter = this.centerX - center;
+      numbers.push(fromCenter);
+    });
+    let closest = number(0, numbers);
+    closest = numbers[closest];
+    return closest;
+  }
+  snap() {
+    this.currentX = this.currentX + this.closest();
+    this.clamp();
+  }
+  off(e) {
+    this.snap();
+    this.isDragging = false;
+    this.offX = this.currentX;
+    this.rootElement.classList.remove("is-grabbing");
+  }
+  cancelAnimationFrame() {
+    cancelAnimationFrame(this.rAF);
+  }
+  resize() {
+    this.setBounds();
+  }
+  initEvents() {
+    this.run();
+    this.rootElement.addEventListener("mousemove", this.setPos, {passive: true});
+    this.rootElement.addEventListener("mousedown", this.on, false);
+    this.rootElement.addEventListener("mouseup", this.off, false);
+    window.addEventListener("resize", this.resize, false);
+  }
+  stopEvents() {
+    this.cancelAnimationFrame();
+    this.rootElement.removeEventListener("mousemove", this.setPos, {passive: true});
+    this.rootElement.removeEventListener("mousedown", this.on, false);
+    this.rootElement.removeEventListener("mouseup", this.off, false);
+  }
+}
+const CarouselBlockIntent = new BlockIntent({
+  name: "Carousel",
+  block: Carousel
+});
+
 class Fade extends Transition {
   constructor() {
     super(...arguments);
@@ -1139,7 +1338,7 @@ class Fade extends Transition {
 
 const app = new App();
 let navbar, router;
-app.addService(new IntroAnimation()).add("service", new PJAX()).addService(navbar = new Navbar()).addService(router = new Router()).add("transition", new Fade());
+app.addService(new IntroAnimation()).add("service", new PJAX()).addService(navbar = new Navbar()).addService(router = new Router()).add("block", CarouselBlockIntent).add("transition", new Fade());
 const html = document.querySelector("html");
 try {
   let theme2 = getTheme();

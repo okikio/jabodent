@@ -138,19 +138,49 @@
 		</div>
 	</section>
 
-	<section class="theme-bg relative pt-6">
+	<section class="carousel theme-bg relative pt-6" data-block="Carousel">
 		<h3 class="theme-text text-3xl font-medium text-center">Clients & Testimonials</h3>
 		{% include "../partials/carousel-buttons.html" %}
 
-		<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
-			<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
-			<section class="flex justify-center w-full px-5 mx-auto">
-				<div class="mt-10 flex">
-					<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-					<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
-				</div>
-			</section>
-		</div>
+		<section class="carousel-container relative w-full">
+			<div class="carousel-viewport flex flex-no-wrap">
+				<section class="carousel-item">
+					<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+						<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
+						<section class="flex justify-center w-full px-5 mx-auto">
+							<div class="mt-10 flex">
+								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<section class="carousel-item">
+					<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+						<h4 class="text-4xl text-center tracking-wide font-bold">“Amazing support, and the dedication to complete tasks”</h4>
+						<section class="flex justify-center w-full px-5 mx-auto">
+							<div class="mt-10 flex">
+								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<section class="carousel-item">
+					<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+						<h4 class="text-4xl text-center tracking-wide font-bold">“Amazing support, and the dedication to complete tasks”</h4>
+						<section class="flex justify-center w-full px-5 mx-auto">
+							<div class="mt-10 flex">
+								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+							</div>
+						</section>
+					</div>
+				</section>
+			</div>
+		</section>
 
 		{% include "../partials/carousel-dots.html" %}
 	</section>

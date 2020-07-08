@@ -22,20 +22,39 @@
 	<main>
 		<section class="theme-surface overflow-hidden city-image py-32 bg-fixed"></section>
 
-		<section class="theme-bg theme-text pt-6 relative">
+		<section class="carousel theme-bg theme-text relative pt-6" data-block="Carousel">
 			<h3 class="text-3xl font-bold text-center intro-animation">Our Team</h3>
 			{% include "../partials/carousel-buttons.html" %}
 
-			<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
-				<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
-					<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
-					<div class="self-center w-full md:max-w-1/2">
-						<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
-						<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
-						<div class="mt-6">{{ macro.learnMore("") }}</div>
-					</div>
-				</section>
-			</div>
+			<section class="carousel-container relative w-full">
+				<div class="carousel-viewport flex flex-no-wrap">
+					<section class="carousel-item">
+						<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
+							<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+								<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
+								<div class="self-center w-full md:max-w-1/2">
+									<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
+									<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
+									<div class="mt-6">{{ macro.learnMore("") }}</div>
+								</div>
+							</section>
+						</div>
+					</section>
+
+					<section class="carousel-item">
+						<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
+							<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+								<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
+								<div class="self-center w-full md:max-w-1/2">
+									<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
+									<p class="leading-8">She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government…</p>
+									<div class="mt-6">{{ macro.learnMore("") }}</div>
+								</div>
+							</section>
+						</div>
+					</section>
+				</div>
+			</section>
 
 			{% include "../partials/carousel-dots.html" %}
 		</section>

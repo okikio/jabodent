@@ -245,31 +245,57 @@
 		</div>
 	</section>
 
-	<section class="theme-bg relative pt-6">
+	<section class="carousel theme-bg relative pt-6" data-block="Carousel">
 		<h3 class="theme-text text-3xl font-medium text-center">Clients & Testimonials</h3>
-		<div class="top-half w-full font-semibold text-lg lt-md:hidden z-10">
+		<div class="carousel-btn top-half w-full font-semibold text-lg lt-md:hidden z-10">
 	<a href="" class="absolute top-0 left-0 ml-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block">Previous</a>
 	<a href="" class="absolute top-0 right-0 mr-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block ">Next</a>
-
 </div>
 
 
-		<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
-			<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
-			<section class="flex justify-center w-full px-5 mx-auto">
-				<div class="mt-10 flex">
-					<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-					<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
-				</div>
-			</section>
-		</div>
+		<section class="carousel-container relative w-full">
+			<div class="carousel-viewport flex flex-no-wrap">
+				<section class="carousel-item">
+					<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+						<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
+						<section class="flex justify-center w-full px-5 mx-auto">
+							<div class="mt-10 flex">
+								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<section class="carousel-item">
+					<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+						<h4 class="text-4xl text-center tracking-wide font-bold">“Amazing support, and the dedication to complete tasks”</h4>
+						<section class="flex justify-center w-full px-5 mx-auto">
+							<div class="mt-10 flex">
+								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+							</div>
+						</section>
+					</div>
+				</section>
+
+				<section class="carousel-item">
+					<div class="theme-text px-5 lt-md:py-6 py-24 mx-auto w-full max-w-screen-sm">
+						<h4 class="text-4xl text-center tracking-wide font-bold">“Amazing support, and the dedication to complete tasks”</h4>
+						<section class="flex justify-center w-full px-5 mx-auto">
+							<div class="mt-10 flex">
+								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
+							</div>
+						</section>
+					</div>
+				</section>
+			</div>
+		</section>
 
 		<div class="flex">
-	<div class="bg-gray-900 px-6 py-3 rounded-full mx-auto inline-block space-x-1 mb-5">
-		<span class="inline-block bg-white w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
-		<span class="inline-block bg-gray-700 w-2 h-2 rounded-full"></span>
+	<div class="carousel-dots px-6 py-3 rounded-full mx-auto mb-5">
+		<button type="button" class="carousel-dot"></button>
 	</div>
 </div>
 

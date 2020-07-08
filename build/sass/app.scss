@@ -309,6 +309,50 @@ html[theme="dark"] {
     }
 }
 
+.carousel {
+    &-container {
+        overflow: hidden;
+        position: relative;
+        display: block;
+        cursor: move;
+        cursor: grab;
+        height: 400px;
+        width: 100%;
+        touch-action: pan-y;
+    }
+
+    &-viewport {
+        position: absolute;
+        height: 100%;
+        left: 0px;
+        transform: translate3d(0px, 0px, 0px);
+    }
+
+    &-item {
+        // position: absolute;
+        // left: 0%;
+        user-select: none;
+        width: 100vw;
+    }
+
+    &-dots {
+        background-color: #1a202c;
+    }
+
+    &-dot {
+        background-color: #4d5567;
+        border-radius: 900rem;
+        width: 10px;
+        height: 10px;
+        margin-left: 2px;
+        margin-right: 2px;
+
+        &.active {
+            background-color: #fff;
+        }
+    }
+}
+
 .hero-img {
     background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
     background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");

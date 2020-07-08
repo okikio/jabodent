@@ -70,7 +70,7 @@ export class Block extends Service {
      * @type number
      * @memberof Block
      */
-    protected length: number;
+    protected slideLen: number;
 
     /**
      * It initializes the Block
@@ -83,7 +83,7 @@ export class Block extends Service {
         this.name = name;
         this.selector = selector;
         this.index = index;
-        this.length = length;
+        this.slideLen = length;
     }
 
     /**
@@ -113,7 +113,7 @@ export class Block extends Service {
      * @memberof Block
      */
     public getLength(): number {
-        return this.length;
+        return this.slideLen;
     }
 
     /**
