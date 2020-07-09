@@ -1146,7 +1146,7 @@ class Carousel extends Block {
     super(...arguments);
     this.ease = 0.1;
     this.speed = 1.5;
-    this.delay = 1200;
+    this.delay = 3e3;
   }
   init(value) {
     super.init(value);
@@ -1183,7 +1183,7 @@ class Carousel extends Block {
     this.run = this.run.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
-    this.loop = this.prev.bind(this);
+    this.loop = this.loop.bind(this);
     this.resize = this.resize.bind(this);
   }
   setDots() {
@@ -1240,6 +1240,7 @@ class Carousel extends Block {
     this.select(closest);
   }
   on(e) {
+    window.clearInterval(this.interval);
     this.isDragging = true;
     this.onX = e.clientX;
     this.rootElement.classList.add("is-grabbing");

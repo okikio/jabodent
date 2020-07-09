@@ -6,7 +6,7 @@ const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 export class Carousel extends Block {
     public ease: number = 0.1;
     public speed: number = 1.5;
-    public delay: number = 1200;
+    public delay: number = 3000;
 
     public carouselBtn: HTMLElement;
     public prevBtn: HTMLElement;
@@ -87,7 +87,7 @@ export class Carousel extends Block {
         this.run = this.run.bind(this);
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
-        this.loop = this.prev.bind(this);
+        this.loop = this.loop.bind(this);
         this.resize = this.resize.bind(this);
     }
 
@@ -154,6 +154,7 @@ export class Carousel extends Block {
     }
 
     public on(e: MouseEvent) {
+        window.clearInterval(this.interval);
         this.isDragging = true;
         this.onX = e.clientX;
         this.rootElement.classList.add('is-grabbing');
@@ -212,10 +213,9 @@ export class Carousel extends Block {
     }
 
     private loop() {
-        if (this.index < this.slideLen - 1)
+        if (this.index < (this.slideLen - 1))
             this.next();
-        else
-            this.select(0);
+        else this.select(0);
     }
 
     private prev() {
