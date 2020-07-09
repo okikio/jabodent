@@ -1144,8 +1144,8 @@ const lerp = (a, b, n) => (1 - n) * a + n * b;
 class Carousel extends Block {
   constructor() {
     super(...arguments);
-    this.ease = 0.1;
-    this.speed = 1.5;
+    this.ease = 0.15;
+    this.speed = 2.5;
     this.delay = 3e3;
   }
   init(value) {
@@ -1177,20 +1177,22 @@ class Carousel extends Block {
     this.setDots();
     this.setBounds();
     this.select(this.index);
-    this.setPos = this.setPos.bind(this);
     this.on = this.on.bind(this);
     this.off = this.off.bind(this);
     this.run = this.run.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
     this.loop = this.loop.bind(this);
+    this.setPos = this.setPos.bind(this);
     this.resize = this.resize.bind(this);
+    this.dotClick = this.dotClick.bind(this);
   }
   setDots() {
     for (let i = 0; i < this.slideLen; i++) {
       const newDot = this.dot.cloneNode();
       if (i === this.index)
         newDot.classList.add("active");
+      newDot.setAttribute("data-index", `${i}`);
       this.dotContainer.appendChild(newDot);
       this.dots[i] = newDot;
     }
@@ -1202,6 +1204,7 @@ class Carousel extends Block {
   clearDots() {
     for (let i = this.dots.length; --i >= 0; ) {
       this.dots[i].classList.remove("active");
+      this.dots[i].removeAttribute("data-index");
       this.dots[i].remove();
       this.dots.pop();
     }
@@ -1226,8 +1229,7 @@ class Carousel extends Block {
     let minDist, closest;
     const difference = this.parsePercent(this.currentX);
     for (let i = 0; i < this.slideLen; i++) {
-      const fromCenter = i * this.width + difference + this.width / 2;
-      const dist = Math.abs(this.center - fromCenter);
+      const dist = Math.abs(i * this.width + difference);
       if (dist < minDist || typeof minDist == "undefined") {
         minDist = dist;
         closest = i;
@@ -1281,10 +1283,18 @@ class Carousel extends Block {
     this.interval = window.setInterval(this.loop, this.delay);
     this.nextBtn.addEventListener("click", this.next, false);
     this.prevBtn.addEventListener("click", this.prev, false);
+    this.dotContainer.addEventListener("click", this.dotClick, false);
     window.addEventListener("pointermove", this.setPos, {passive: true});
     window.addEventListener("pointerdown", this.on, false);
     window.addEventListener("pointerup", this.off, false);
     window.addEventListener("resize", this.resize, false);
+  }
+  dotClick(e) {
+    let target = e.target;
+    if (target.classList && target.classList.contains("carousel-dot")) {
+      let index = +target.getAttribute("data-index");
+      this.select(index);
+    }
   }
   loop() {
     if (this.index < this.slideLen - 1)
@@ -1303,6 +1313,7 @@ class Carousel extends Block {
     this.cancelAnimationFrame();
     this.nextBtn.removeEventListener("click", this.next, false);
     this.prevBtn.removeEventListener("click", this.prev, false);
+    this.dotContainer.removeEventListener("click", this.dotClick, false);
     window.removeEventListener("pointermove", this.setPos);
     window.removeEventListener("pointerdown", this.on, false);
     window.removeEventListener("pointerup", this.off, false);

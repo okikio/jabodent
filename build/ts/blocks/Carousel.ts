@@ -4,8 +4,8 @@ import { Block, IBlockInit, BlockIntent } from "../framework/api";
 const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
 export class Carousel extends Block {
-    public ease: number = 0.1;
-    public speed: number = 1.5;
+    public ease: number = 0.15;
+    public speed: number = 2.5;
     public delay: number = 3000;
 
     public carouselBtn: HTMLElement;
@@ -81,20 +81,22 @@ export class Carousel extends Block {
         this.setBounds();
         this.select(this.index);
 
-        this.setPos = this.setPos.bind(this);
         this.on = this.on.bind(this);
         this.off = this.off.bind(this);
         this.run = this.run.bind(this);
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
         this.loop = this.loop.bind(this);
+        this.setPos = this.setPos.bind(this);
         this.resize = this.resize.bind(this);
+        this.dotClick = this.dotClick.bind(this);
     }
 
     public setDots() {
         for (let i = 0; i < this.slideLen; i++) {
             const newDot = this.dot.cloneNode() as HTMLElement;
             if (i === this.index) newDot.classList.add("active");
+            newDot.setAttribute("data-index", `${i}`);
             this.dotContainer.appendChild(newDot);
             this.dots[i] = newDot;
         }
@@ -108,6 +110,7 @@ export class Carousel extends Block {
     public clearDots() {
         for (let i = this.dots.length; --i >= 0;) {
             this.dots[i].classList.remove("active");
+            this.dots[i].removeAttribute("data-index");
             this.dots[i].remove();
             this.dots.pop();
         }
@@ -136,8 +139,7 @@ export class Carousel extends Block {
         let minDist: number, closest: number;
         const difference = this.parsePercent(this.currentX);
         for (let i = 0; i < this.slideLen; i++) {
-            const fromCenter = ((i * this.width) + difference) + (this.width / 2);
-            const dist = Math.abs(this.center - fromCenter);
+            const dist = Math.abs((i * this.width) + difference);
 
             if (dist < minDist || typeof minDist == "undefined") {
                 minDist = dist;
@@ -206,10 +208,20 @@ export class Carousel extends Block {
         this.nextBtn.addEventListener("click", this.next, false);
         this.prevBtn.addEventListener("click", this.prev, false);
 
+        this.dotContainer.addEventListener("click", this.dotClick, false);
+
         window.addEventListener('pointermove', this.setPos, { passive: true });
         window.addEventListener('pointerdown', this.on, false);
         window.addEventListener('pointerup', this.off, false);
         window.addEventListener('resize', this.resize, false);
+    }
+
+    private dotClick(e: MouseEvent) {
+        let target = e.target as HTMLElement;
+        if (target.classList && target.classList.contains("carousel-dot")) {
+            let index = +target.getAttribute("data-index");
+            this.select(index);
+        }
     }
 
     private loop() {
@@ -232,6 +244,8 @@ export class Carousel extends Block {
 
         this.nextBtn.removeEventListener("click", this.next, false);
         this.prevBtn.removeEventListener("click", this.prev, false);
+
+        this.dotContainer.removeEventListener("click", this.dotClick, false);
 
         window.removeEventListener('pointermove', this.setPos);
         window.removeEventListener('pointerdown', this.on, false);

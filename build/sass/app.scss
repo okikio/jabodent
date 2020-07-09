@@ -319,7 +319,7 @@ html[theme="dark"] {
         cursor: grab;
         height: 400px;
         width: 100%;
-        touch-action: pan-y;
+        // touch-action: pan-y;
     }
 
     &-viewport {
@@ -330,8 +330,6 @@ html[theme="dark"] {
     }
 
     &-item {
-        // position: absolute;
-        // left: 0%;
         user-select: none;
         width: 100vw;
     }
