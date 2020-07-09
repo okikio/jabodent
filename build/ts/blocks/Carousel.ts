@@ -1,194 +1,16 @@
 import { Block, IBlockInit, BlockIntent } from "../framework/api";
 
 //== Blocks
-function _getClosest(item, array, getDiff) {
-    var closest,
-        diff;
-
-    if (!Array.isArray(array)) {
-        throw new Error("Get closest expects an array as second argument");
-    }
-
-    array.forEach(function (comparedItem, comparedItemIndex) {
-        var thisDiff = getDiff(comparedItem, item);
-
-        if (thisDiff >= 0 && (typeof diff == "undefined" || thisDiff < diff)) {
-            diff = thisDiff;
-            closest = comparedItemIndex;
-        }
-    });
-
-    return closest;
-}
-
-function number(item, array) {
-    return _getClosest(item, array, function (comparedItem, item) {
-        return Math.abs(comparedItem - item);
-    });
-}
-
-function lerp(a, b, n) {
-    return (1 - n) * a + n * b
-}
-
-// class Slider {
-//   constructor(options = {}) {
-//     this.bind()
-
-//     this.opts = {
-//       el: options.el || '.js-slider',
-//       ease: options.ease || 0.1,
-//       speed: options.speed || 1.5,
-//       velocity: 25,
-//       scroll: options.scroll || false
-//     }
-
-//     this.slider = document.querySelector('.js-slider')
-//     this.sliderInner = this.slider.querySelector('.js-slider__inner')
-//     this.slides = [...this.slider.querySelectorAll('.js-slide')]
-//     this.slidesNumb = this.slides.length
-
-//     this.rAF = undefined
-
-//     this.sliderWidth = 0
-
-//     this.onX = 0
-//     this.offX = 0
-
-//     this.currentX = 0
-//     this.lastX = 0
-
-//     this.min = 0
-//     this.max = 0
-
-//     this.centerX = window.innerWidth / 2
-//   }
-
-//   bind() {
-//     ['setPos', 'run', 'on', 'off', 'resize'].forEach((fn) => this[fn] = this[fn].bind(this))
-//   }
-
-//   setBounds() {
-//     const bounds = this.slides[0].getBoundingClientRect()
-//     const slideWidth = bounds.width
-
-//     this.sliderWidth = this.slidesNumb * slideWidth
-//     this.max = -(this.sliderWidth - window.innerWidth)
-
-//     this.slides.forEach((slide, index) => {
-//       slide.style.left = `${index * slideWidth}px`
-//     })
-//   }
-
-//   setPos(e) {
-//     if (!this.isDragging) return
-//     this.currentX = this.offX + ((e.clientX - this.onX) * this.opts.speed)
-//     this.clamp()
-//   }
-
-//   clamp() {
-//     this.currentX = Math.max(Math.min(this.currentX, this.min), this.max)
-//   }
-
-//   run() {
-//     this.lastX = lerp(this.lastX, this.currentX, this.opts.ease)
-//     this.lastX = Math.floor(this.lastX * 100) / 100 
-
-//     const sd = this.currentX - this.lastX
-//     const acc = sd / window.innerWidth
-//     let velo =+ acc
-
-//     this.sliderInner.style.transform = `translate3d(${this.lastX}px, 0, 0) skewX(${velo * this.opts.velocity}deg)`
-
-//     this.requestAnimationFrame()
-//   }
-
-//   on(e) {
-//     this.isDragging = true
-//     this.onX = e.clientX
-//     this.slider.classList.add('is-grabbing')
-//   }
-
-//   off(e) {
-//     this.snap()
-//     this.isDragging = false
-//     this.offX = this.currentX
-//     this.slider.classList.remove('is-grabbing')
-//   }
-
-//   closest() {
-//     const numbers = []
-//     this.slides.forEach((slide, index) => {
-//       const bounds = slide.getBoundingClientRect()
-//       const diff = this.currentX - this.lastX
-//       const center = (bounds.x + diff) + (bounds.width / 2)
-//       const fromCenter = this.centerX - center
-//       numbers.push(fromCenter)
-//     })
-
-//     let closest = number(0, numbers)
-//     closest = numbers[closest]
-
-//     return {
-//       closest
-//     }
-//   }
-
-//   snap() {
-//     const { closest } = this.closest()
-
-//     this.currentX = this.currentX + closest
-//     this.clamp()
-//   }
-
-//   requestAnimationFrame() {
-//     this.rAF = requestAnimationFrame(this.run)
-//   }
-
-//   cancelAnimationFrame() {
-//     cancelAnimationFrame(this.rAF)
-//   }
-
-//   addEvents() {
-//     this.run()
-
-//     this.slider.addEventListener('mousemove', this.setPos, { passive: true })
-//     this.slider.addEventListener('mousedown', this.on, false)
-//     this.slider.addEventListener('mouseup', this.off, false)
-
-//     window.addEventListener('resize', this.resize, false)
-//   }
-
-//   removeEvents() {
-//     this.cancelAnimationFrame(this.rAF)
-
-//     this.slider.removeEventListener('mousemove', this.setPos, { passive: true })
-//     this.slider.removeEventListener('mousedown', this.on, false)
-//     this.slider.removeEventListener('mouseup', this.off, false)
-//   }
-
-//   resize() {
-//     this.setBounds()
-//   }
-
-//   destroy() {
-//     this.removeEvents()
-
-//     this.opts = {}
-//   }
-
-//   init() {
-//     this.setBounds()
-//     this.addEvents()
-//   }
-// }
-
-// const slider = new Slider()
-// slider.init()
+const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
 export class Carousel extends Block {
     public ease: number = 0.1;
     public speed: number = 1.5;
+    public delay: number = 1200;
+
+    public carouselBtn: HTMLElement;
+    public prevBtn: HTMLElement;
+    public nextBtn: HTMLElement;
 
     public container: HTMLElement;
     public viewport: HTMLElement;
@@ -199,9 +21,12 @@ export class Carousel extends Block {
     public dot: HTMLElement;
 
     public viewportWidth: number;
-    public widths: number[];
+    public width: number;
+
+    public interval: number;
     public rAF: number;
 
+    public lastIndex: number;
     public index: number;
     public slideLen: number;
 
@@ -213,29 +38,35 @@ export class Carousel extends Block {
     public offX: number;
     public onX: number;
 
-    public centerX: number;
+    public center: number;
     public isDragging: boolean;
 
     public init(value: IBlockInit) {
         super.init(value);
-
-        this.widths = [];
         this.dots = [];
 
         this.container = this.rootElement.getElementsByClassName("carousel-container")[0] as HTMLElement;
         this.viewport = this.rootElement.getElementsByClassName("carousel-viewport")[0] as HTMLElement;
         this.slides = [...this.rootElement.getElementsByClassName("carousel-item")] as HTMLElement[];
-        this.dots = [...this.rootElement.getElementsByClassName("carousel-dot")] as HTMLElement[];
+
+        this.carouselBtn = this.rootElement.getElementsByClassName("carousel-btn")[0] as HTMLElement;
+        this.prevBtn = this.carouselBtn.getElementsByClassName("prev-btn")[0] as HTMLElement;
+        this.nextBtn = this.carouselBtn.getElementsByClassName("next-btn")[0] as HTMLElement;
+
         this.dotContainer = this.rootElement.getElementsByClassName("carousel-dots")[0] as HTMLElement;
+        this.dots = [...this.rootElement.getElementsByClassName("carousel-dot")] as HTMLElement[];
         this.dot = this.dots[0] as HTMLElement;
 
         this.slideLen = this.slides.length;
-        this.centerX = window.innerWidth / 2;
+        this.center = window.innerWidth / 2;
 
         this.viewportWidth = 0;
         this.currentX = 0;
+        this.width = 0;
 
         this.index = 0;
+        this.lastIndex = this.index;
+
         this.lastX = 0;
         this.maxX = 0;
         this.minX = 0;
@@ -248,11 +79,15 @@ export class Carousel extends Block {
         this.clearDots();
         this.setDots();
         this.setBounds();
+        this.select(this.index);
 
         this.setPos = this.setPos.bind(this);
         this.on = this.on.bind(this);
         this.off = this.off.bind(this);
         this.run = this.run.bind(this);
+        this.next = this.next.bind(this);
+        this.prev = this.prev.bind(this);
+        this.loop = this.prev.bind(this);
         this.resize = this.resize.bind(this);
     }
 
@@ -265,6 +100,11 @@ export class Carousel extends Block {
         }
     }
 
+    public setActiveDot() {
+        this.dots[this.lastIndex].classList.remove("active");
+        this.dots[this.index].classList.add("active");
+    }
+
     public clearDots() {
         for (let i = this.dots.length; --i >= 0;) {
             this.dots[i].classList.remove("active");
@@ -273,38 +113,44 @@ export class Carousel extends Block {
         }
     }
 
-    public setBounds() {
-        this.viewportWidth = 0;
-        for (let i = 0; i < this.slideLen; i++) {
-            const slide = this.slides[i];
-            const { width } = slide.getBoundingClientRect();
-            this.widths[i] = width;
-            this.viewportWidth += width;
-        }
+    public setHeight() {
+        let { height } = (this.slides[this.index].children[0] as HTMLElement).getBoundingClientRect();
+        this.container.style.height = `${height}px`;
+    }
 
+    public setBounds() {
+        const { width } = this.slides[0].getBoundingClientRect();
+
+        this.width = width;
+        this.viewportWidth = this.width * this.slideLen;
         this.maxX = -(this.viewportWidth - window.innerWidth);
+        this.setHeight();
     }
 
     public setPos(e: MouseEvent) {
         if (!this.isDragging) return;
-        this.currentX = this.offX + ((e.clientX - this.onX) * this.speed);
-        this.clamp();
+        this.setCurrentX(this.offX + ((e.clientX - this.onX) * this.speed));
     }
 
-    public clamp() {
-        this.currentX = Math.max(Math.min(this.currentX, this.minX), this.maxX);
+    public closest() {
+        let minDist: number, closest: number;
+        const difference = this.parsePercent(this.currentX);
+        for (let i = 0; i < this.slideLen; i++) {
+            const fromCenter = ((i * this.width) + difference) + (this.width / 2);
+            const dist = Math.abs(this.center - fromCenter);
+
+            if (dist < minDist || typeof minDist == "undefined") {
+                minDist = dist;
+                closest = i;
+            }
+        }
+
+        return closest;
     }
 
-    public run() {
-        this.lastX = lerp(this.lastX, this.currentX, this.ease);
-        this.lastX = Math.floor(this.lastX * 100) / 100;
-
-        this.viewport.style.transform = `translate3d(${this.lastX}px, 0, 0)`;
-        this.requestAnimationFrame();
-    }
-
-    public requestAnimationFrame() {
-        this.rAF = requestAnimationFrame(this.run);
+    public snap() {
+        let closest = this.closest();
+        this.select(closest);
     }
 
     public on(e: MouseEvent) {
@@ -313,32 +159,84 @@ export class Carousel extends Block {
         this.rootElement.classList.add('is-grabbing');
     }
 
-
-    public closest() {
-        const numbers = []
-        this.slides.forEach((slide, index) => {
-            const bounds = slide.getBoundingClientRect();
-            const diff = this.currentX - this.lastX;
-            const center = (bounds.x + diff) + (bounds.width / 2);
-            const fromCenter = this.centerX - center;
-            numbers.push(fromCenter);
-        });
-
-        let closest = number(0, numbers);
-        closest = numbers[closest];
-        return closest;
-    }
-
-    public snap() {
-        this.currentX = this.currentX + this.closest();
-        this.clamp();
+    public parsePercent(value: number) {
+        return (value * this.viewportWidth) / 100;
     }
 
     public off(e: MouseEvent) {
         this.snap();
         this.isDragging = false;
-        this.offX = this.currentX;
+        this.offX = this.parsePercent(this.currentX);
         this.rootElement.classList.remove('is-grabbing');
+    }
+
+    public toPercent(value: number) {
+        return (value / this.viewportWidth) * 100;
+    }
+
+    public setCurrentX(value: number) {
+        this.currentX = this.toPercent(value);
+    }
+
+    public select(index: number) {
+        this.lastIndex = this.index;
+        this.index = Math.min(Math.max(index, 0), this.slideLen - 1);
+        this.setCurrentX(-this.index * this.width);
+        this.setActiveDot();
+        this.setHeight();
+    }
+
+    public run() {
+        this.lastX = lerp(this.lastX, this.currentX, this.ease);
+        this.lastX = Math.floor(this.lastX * 100) / 100;
+
+        this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
+        this.requestAnimationFrame();
+    }
+
+    public requestAnimationFrame() {
+        this.rAF = requestAnimationFrame(this.run);
+    }
+
+    public initEvents() {
+        this.run();
+        this.interval = window.setInterval(this.loop, this.delay);
+
+        this.nextBtn.addEventListener("click", this.next, false);
+        this.prevBtn.addEventListener("click", this.prev, false);
+
+        window.addEventListener('pointermove', this.setPos, { passive: true });
+        window.addEventListener('pointerdown', this.on, false);
+        window.addEventListener('pointerup', this.off, false);
+        window.addEventListener('resize', this.resize, false);
+    }
+
+    private loop() {
+        if (this.index < this.slideLen - 1)
+            this.next();
+        else
+            this.select(0);
+    }
+
+    private prev() {
+        this.select(this.index - 1);
+    }
+
+    private next() {
+        this.select(this.index + 1);
+    }
+
+    public stopEvents() {
+        window.clearInterval(this.interval);
+        this.cancelAnimationFrame();
+
+        this.nextBtn.removeEventListener("click", this.next, false);
+        this.prevBtn.removeEventListener("click", this.prev, false);
+
+        window.removeEventListener('pointermove', this.setPos);
+        window.removeEventListener('pointerdown', this.on, false);
+        window.removeEventListener('pointerup', this.off, false);
+        window.removeEventListener('resize', this.resize, false);
     }
 
     public cancelAnimationFrame() {
@@ -347,35 +245,6 @@ export class Carousel extends Block {
 
     public resize() {
         this.setBounds();
-    }
-
-    public initEvents() {
-        this.run();
-
-        this.rootElement.addEventListener('touchmove', this.setPos, { passive: true });
-        this.rootElement.addEventListener('mousemove', this.setPos, { passive: true });
-        this.rootElement.addEventListener('mousedown', this.on, false);
-        this.rootElement.addEventListener('touchstart', this.on, false);
-        this.rootElement.addEventListener('mouseup', this.off, false);
-        this.rootElement.addEventListener('touchend', this.off, false);
-
-        window.addEventListener('resize', this.resize, false);
-    }
-
-    public stopEvents() {
-        this.cancelAnimationFrame();
-
-        // @ts-ignore
-        this.rootElement.removeEventListener('touchmove', this.setPos, { passive: true });
-
-        // @ts-ignore
-        this.rootElement.removeEventListener('mousemove', this.setPos, { passive: true });
-        this.rootElement.removeEventListener('touchstart', this.on, false);
-        this.rootElement.removeEventListener('mousedown', this.on, false);
-        this.rootElement.removeEventListener('touchend', this.off, false);
-        this.rootElement.removeEventListener('mouseup', this.off, false);
-
-        window.removeEventListener('resize', this.resize, false);
     }
 }
 

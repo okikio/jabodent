@@ -311,6 +311,7 @@ html[theme="dark"] {
 
 .carousel {
     &-container {
+        transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
         display: block;
@@ -344,8 +345,8 @@ html[theme="dark"] {
         border-radius: 900rem;
         width: 10px;
         height: 10px;
-        margin-left: 2px;
-        margin-right: 2px;
+        margin-left: 4px;
+        margin-right: 4px;
 
         &.active {
             background-color: #fff;
@@ -361,7 +362,11 @@ html[theme="dark"] {
 }
 
 .hero-overlay {
-    background: linear-gradient(transparent, black);
+    background-color: rgba(0, 0, 0, 0.3);
+
+    &.loaded {
+        background: linear-gradient(transparent, black);
+    }
 }
 
 .scroll {

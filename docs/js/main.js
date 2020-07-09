@@ -1140,49 +1140,33 @@ class Navbar extends Service {
   }
 }
 
-function _getClosest(item, array, getDiff) {
-  var closest, diff;
-  if (!Array.isArray(array)) {
-    throw new Error("Get closest expects an array as second argument");
-  }
-  array.forEach(function(comparedItem, comparedItemIndex) {
-    var thisDiff = getDiff(comparedItem, item);
-    if (thisDiff >= 0 && (typeof diff == "undefined" || thisDiff < diff)) {
-      diff = thisDiff;
-      closest = comparedItemIndex;
-    }
-  });
-  return closest;
-}
-function number(item, array) {
-  return _getClosest(item, array, function(comparedItem, item2) {
-    return Math.abs(comparedItem - item2);
-  });
-}
-function lerp(a, b, n) {
-  return (1 - n) * a + n * b;
-}
+const lerp = (a, b, n) => (1 - n) * a + n * b;
 class Carousel extends Block {
   constructor() {
     super(...arguments);
     this.ease = 0.1;
     this.speed = 1.5;
+    this.delay = 1200;
   }
   init(value) {
     super.init(value);
-    this.widths = [];
     this.dots = [];
     this.container = this.rootElement.getElementsByClassName("carousel-container")[0];
     this.viewport = this.rootElement.getElementsByClassName("carousel-viewport")[0];
     this.slides = [...this.rootElement.getElementsByClassName("carousel-item")];
-    this.dots = [...this.rootElement.getElementsByClassName("carousel-dot")];
+    this.carouselBtn = this.rootElement.getElementsByClassName("carousel-btn")[0];
+    this.prevBtn = this.carouselBtn.getElementsByClassName("prev-btn")[0];
+    this.nextBtn = this.carouselBtn.getElementsByClassName("next-btn")[0];
     this.dotContainer = this.rootElement.getElementsByClassName("carousel-dots")[0];
+    this.dots = [...this.rootElement.getElementsByClassName("carousel-dot")];
     this.dot = this.dots[0];
     this.slideLen = this.slides.length;
-    this.centerX = window.innerWidth / 2;
+    this.center = window.innerWidth / 2;
     this.viewportWidth = 0;
     this.currentX = 0;
+    this.width = 0;
     this.index = 0;
+    this.lastIndex = this.index;
     this.lastX = 0;
     this.maxX = 0;
     this.minX = 0;
@@ -1192,10 +1176,14 @@ class Carousel extends Block {
     this.clearDots();
     this.setDots();
     this.setBounds();
+    this.select(this.index);
     this.setPos = this.setPos.bind(this);
     this.on = this.on.bind(this);
     this.off = this.off.bind(this);
     this.run = this.run.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
+    this.loop = this.prev.bind(this);
     this.resize = this.resize.bind(this);
   }
   setDots() {
@@ -1207,6 +1195,10 @@ class Carousel extends Block {
       this.dots[i] = newDot;
     }
   }
+  setActiveDot() {
+    this.dots[this.lastIndex].classList.remove("active");
+    this.dots[this.index].classList.add("active");
+  }
   clearDots() {
     for (let i = this.dots.length; --i >= 0; ) {
       this.dots[i].classList.remove("active");
@@ -1214,87 +1206,112 @@ class Carousel extends Block {
       this.dots.pop();
     }
   }
+  setHeight() {
+    let {height} = this.slides[this.index].children[0].getBoundingClientRect();
+    this.container.style.height = `${height}px`;
+  }
   setBounds() {
-    this.viewportWidth = 0;
-    for (let i = 0; i < this.slideLen; i++) {
-      const slide = this.slides[i];
-      const {width} = slide.getBoundingClientRect();
-      this.widths[i] = width;
-      this.viewportWidth += width;
-    }
+    const {width} = this.slides[0].getBoundingClientRect();
+    this.width = width;
+    this.viewportWidth = this.width * this.slideLen;
     this.maxX = -(this.viewportWidth - window.innerWidth);
+    this.setHeight();
   }
   setPos(e) {
     if (!this.isDragging)
       return;
-    this.currentX = this.offX + (e.clientX - this.onX) * this.speed;
-    this.clamp();
+    this.setCurrentX(this.offX + (e.clientX - this.onX) * this.speed);
   }
-  clamp() {
-    this.currentX = Math.max(Math.min(this.currentX, this.minX), this.maxX);
+  closest() {
+    let minDist, closest;
+    const difference = this.parsePercent(this.currentX);
+    for (let i = 0; i < this.slideLen; i++) {
+      const fromCenter = i * this.width + difference + this.width / 2;
+      const dist = Math.abs(this.center - fromCenter);
+      if (dist < minDist || typeof minDist == "undefined") {
+        minDist = dist;
+        closest = i;
+      }
+    }
+    return closest;
   }
-  run() {
-    this.lastX = lerp(this.lastX, this.currentX, this.ease);
-    this.lastX = Math.floor(this.lastX * 100) / 100;
-    this.viewport.style.transform = `translate3d(${this.lastX}px, 0, 0)`;
-    this.requestAnimationFrame();
-  }
-  requestAnimationFrame() {
-    this.rAF = requestAnimationFrame(this.run);
+  snap() {
+    let closest = this.closest();
+    this.select(closest);
   }
   on(e) {
     this.isDragging = true;
     this.onX = e.clientX;
     this.rootElement.classList.add("is-grabbing");
   }
-  closest() {
-    const numbers = [];
-    this.slides.forEach((slide, index) => {
-      const bounds = slide.getBoundingClientRect();
-      const diff = this.currentX - this.lastX;
-      const center = bounds.x + diff + bounds.width / 2;
-      const fromCenter = this.centerX - center;
-      numbers.push(fromCenter);
-    });
-    let closest = number(0, numbers);
-    closest = numbers[closest];
-    return closest;
-  }
-  snap() {
-    this.currentX = this.currentX + this.closest();
-    this.clamp();
+  parsePercent(value) {
+    return value * this.viewportWidth / 100;
   }
   off(e) {
     this.snap();
     this.isDragging = false;
-    this.offX = this.currentX;
+    this.offX = this.parsePercent(this.currentX);
     this.rootElement.classList.remove("is-grabbing");
+  }
+  toPercent(value) {
+    return value / this.viewportWidth * 100;
+  }
+  setCurrentX(value) {
+    this.currentX = this.toPercent(value);
+  }
+  select(index) {
+    this.lastIndex = this.index;
+    this.index = Math.min(Math.max(index, 0), this.slideLen - 1);
+    this.setCurrentX(-this.index * this.width);
+    this.setActiveDot();
+    this.setHeight();
+  }
+  run() {
+    this.lastX = lerp(this.lastX, this.currentX, this.ease);
+    this.lastX = Math.floor(this.lastX * 100) / 100;
+    this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
+    this.requestAnimationFrame();
+  }
+  requestAnimationFrame() {
+    this.rAF = requestAnimationFrame(this.run);
+  }
+  initEvents() {
+    this.run();
+    this.interval = window.setInterval(this.loop, this.delay);
+    this.nextBtn.addEventListener("click", this.next, false);
+    this.prevBtn.addEventListener("click", this.prev, false);
+    window.addEventListener("pointermove", this.setPos, {passive: true});
+    window.addEventListener("pointerdown", this.on, false);
+    window.addEventListener("pointerup", this.off, false);
+    window.addEventListener("resize", this.resize, false);
+  }
+  loop() {
+    if (this.index < this.slideLen - 1)
+      this.next();
+    else
+      this.select(0);
+  }
+  prev() {
+    this.select(this.index - 1);
+  }
+  next() {
+    this.select(this.index + 1);
+  }
+  stopEvents() {
+    window.clearInterval(this.interval);
+    this.cancelAnimationFrame();
+    this.nextBtn.removeEventListener("click", this.next, false);
+    this.prevBtn.removeEventListener("click", this.prev, false);
+    window.removeEventListener("pointermove", this.setPos);
+    window.removeEventListener("pointerdown", this.on, false);
+    window.removeEventListener("pointerup", this.off, false);
+    window.removeEventListener("resize", this.resize, false);
   }
   cancelAnimationFrame() {
     cancelAnimationFrame(this.rAF);
   }
   resize() {
     this.setBounds();
-  }
-  initEvents() {
-    this.run();
-    this.rootElement.addEventListener("touchmove", this.setPos, {passive: true});
-    this.rootElement.addEventListener("mousemove", this.setPos, {passive: true});
-    this.rootElement.addEventListener("mousedown", this.on, false);
-    this.rootElement.addEventListener("touchstart", this.on, false);
-    this.rootElement.addEventListener("mouseup", this.off, false);
-    this.rootElement.addEventListener("touchend", this.off, false);
-    window.addEventListener("resize", this.resize, false);
-  }
-  stopEvents() {
-    this.cancelAnimationFrame();
-    this.rootElement.removeEventListener("touchmove", this.setPos, {passive: true});
-    this.rootElement.removeEventListener("mousemove", this.setPos, {passive: true});
-    this.rootElement.removeEventListener("touchstart", this.on, false);
-    this.rootElement.removeEventListener("mousedown", this.on, false);
-    this.rootElement.removeEventListener("touchend", this.off, false);
-    this.rootElement.removeEventListener("mouseup", this.off, false);
-    window.removeEventListener("resize", this.resize, false);
   }
 }
 const CarouselBlockIntent = new BlockIntent({
@@ -1390,6 +1407,13 @@ try {
       });
     }
   });
+  let heroImg = new Image();
+  heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
+  heroImg.onload = () => {
+    let overlay = document.getElementsByClassName("hero-overlay")[0];
+    if (overlay)
+      overlay.classList.add("loaded");
+  };
   app.boot();
   window.addEventListener("scroll", () => {
     let scrollTop = window.scrollY;

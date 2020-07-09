@@ -3,6 +3,7 @@
         "Jabodent",
         "endmacro",
         "esnext",
+        "lerp",
         "tailwindcss"
     ],
     "workbench.colorCustomizations": {

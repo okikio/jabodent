@@ -79,6 +79,13 @@ try {
         }
     });
 
+    let heroImg = new Image();
+    heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
+    heroImg.onload = () => {
+        let overlay = document.getElementsByClassName("hero-overlay")[0];
+        if (overlay) overlay.classList.add("loaded");
+    };
+
     app.boot();
     window.addEventListener("scroll", () => {
         let scrollTop = window.scrollY;
