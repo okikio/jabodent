@@ -4,9 +4,8 @@ import { Block, IBlockInit, BlockIntent } from "../framework/api";
 const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
 export class Carousel extends Block {
-    public ease: number = 0.15;
-    public speed: number = 2.5;
-    public delay: number = 3000;
+    public ease: number = 0.25;
+    public speed: number = 3;
 
     public carouselBtn: HTMLElement;
     public prevBtn: HTMLElement;
@@ -23,7 +22,6 @@ export class Carousel extends Block {
     public viewportWidth: number;
     public width: number;
 
-    public interval: number;
     public rAF: number;
 
     public lastIndex: number;
@@ -37,9 +35,11 @@ export class Carousel extends Block {
 
     public offX: number;
     public onX: number;
-
     public center: number;
+
     public isDragging: boolean;
+    public snapOnce: boolean;
+    public isScrolling: boolean;
 
     public init(value: IBlockInit) {
         super.init(value);
@@ -74,7 +74,9 @@ export class Carousel extends Block {
         this.offX = 0;
         this.onX = 0;
 
+        this.snapOnce = false;
         this.isDragging = false;
+        this.isScrolling = false;
 
         this.clearDots();
         this.setDots();
@@ -86,9 +88,10 @@ export class Carousel extends Block {
         this.run = this.run.bind(this);
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
-        this.loop = this.loop.bind(this);
+        this.scroll = this.scroll.bind(this);
         this.setPos = this.setPos.bind(this);
         this.resize = this.resize.bind(this);
+        this.keypress = this.keypress.bind(this);
         this.dotClick = this.dotClick.bind(this);
     }
 
@@ -117,8 +120,12 @@ export class Carousel extends Block {
     }
 
     public setHeight() {
-        let { height } = (this.slides[this.index].children[0] as HTMLElement).getBoundingClientRect();
-        this.container.style.height = `${height}px`;
+        let maxHeight = this.slides[0].getBoundingClientRect().height;
+        for (let i = 0; i < this.slideLen; i++) {
+            let height = this.slides[i].scrollHeight;
+            if (height > maxHeight) maxHeight = height;
+        }
+        this.container.style.height = `${maxHeight}px`;
     }
 
     public setBounds() {
@@ -130,9 +137,11 @@ export class Carousel extends Block {
         this.setHeight();
     }
 
-    public setPos(e: MouseEvent) {
+    public setPos(e: MouseEvent | TouchEvent | number) {
         if (!this.isDragging) return;
-        this.setCurrentX(this.offX + ((e.clientX - this.onX) * this.speed));
+        let touches = (e as TouchEvent).changedTouches;
+        let x = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].pageX);
+        this.setCurrentX(this.offX + ((x - this.onX) * this.speed));
     }
 
     public closest() {
@@ -155,10 +164,10 @@ export class Carousel extends Block {
         this.select(closest);
     }
 
-    public on(e: MouseEvent) {
-        window.clearInterval(this.interval);
+    public on(e: MouseEvent | TouchEvent | number) {
+        let touches = (e as TouchEvent).changedTouches;
         this.isDragging = true;
-        this.onX = e.clientX;
+        this.onX = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].pageX);
         this.rootElement.classList.add('is-grabbing');
     }
 
@@ -166,7 +175,7 @@ export class Carousel extends Block {
         return (value * this.viewportWidth) / 100;
     }
 
-    public off(e: MouseEvent) {
+    public off() {
         this.snap();
         this.isDragging = false;
         this.offX = this.parsePercent(this.currentX);
@@ -190,8 +199,14 @@ export class Carousel extends Block {
     }
 
     public run() {
-        this.lastX = lerp(this.lastX, this.currentX, this.ease);
+        this.isScrolling = false;
+        this.lastX = this.lastX + ((this.currentX - this.lastX) * this.ease);// lerp(this.lastX, this.currentX, this.ease);
         this.lastX = Math.floor(this.lastX * 100) / 100;
+
+        if (!this.isScrolling && !this.snapOnce) {
+            this.snap();
+            this.snapOnce = true;
+        }
 
         this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
         this.requestAnimationFrame();
@@ -203,17 +218,40 @@ export class Carousel extends Block {
 
     public initEvents() {
         this.run();
-        this.interval = window.setInterval(this.loop, this.delay);
 
         this.nextBtn.addEventListener("click", this.next, false);
         this.prevBtn.addEventListener("click", this.prev, false);
 
         this.dotContainer.addEventListener("click", this.dotClick, false);
 
-        window.addEventListener('pointermove', this.setPos, { passive: true });
-        window.addEventListener('pointerdown', this.on, false);
-        window.addEventListener('pointerup', this.off, false);
+        window.addEventListener('mousemove', this.setPos, { passive: true });
+        window.addEventListener('mousedown', this.on, false);
+        window.addEventListener('mouseup', this.off, false);
+
+        window.addEventListener('touchmove', this.setPos, { passive: true });
+        window.addEventListener('touchstart', this.on, false);
+        window.addEventListener('touchend', this.off, false);
+
+        this.rootElement.addEventListener('wheel', this.scroll, false);
+        window.addEventListener('keydown', this.keypress, false);
+
         window.addEventListener('resize', this.resize, false);
+    }
+
+    public keypress(evt: KeyboardEvent) {
+        if (evt.code === "ArrowRight") this.next();
+        if (evt.code === "ArrowLeft") this.prev();
+    }
+
+    public scroll(evt: any) {
+        this.isScrolling = true;
+        this.snapOnce = false;
+        if (this.isDragging) return;
+
+        let { deltaX } = evt;
+        let currentX = this.parsePercent(this.currentX);
+        this.setCurrentX(currentX + (-deltaX * (this.speed * 2)));
+        if (Math.abs(deltaX) > 0) evt.preventDefault();
     }
 
     private dotClick(e: MouseEvent) {
@@ -222,12 +260,6 @@ export class Carousel extends Block {
             let index = +target.getAttribute("data-index");
             this.select(index);
         }
-    }
-
-    private loop() {
-        if (this.index < (this.slideLen - 1))
-            this.next();
-        else this.select(0);
     }
 
     private prev() {
@@ -239,7 +271,6 @@ export class Carousel extends Block {
     }
 
     public stopEvents() {
-        window.clearInterval(this.interval);
         this.cancelAnimationFrame();
 
         this.nextBtn.removeEventListener("click", this.next, false);
@@ -247,10 +278,18 @@ export class Carousel extends Block {
 
         this.dotContainer.removeEventListener("click", this.dotClick, false);
 
-        window.removeEventListener('pointermove', this.setPos);
-        window.removeEventListener('pointerdown', this.on, false);
-        window.removeEventListener('pointerup', this.off, false);
+        window.removeEventListener('mousemove', this.setPos, false);
+        window.removeEventListener('mousedown', this.on, false);
+        window.removeEventListener('mouseup', this.off, false);
+
+        window.removeEventListener('touchmove', this.setPos, false);
+        window.removeEventListener('touchstart', this.on, false);
+        window.removeEventListener('touchend', this.off, false);
+
         window.removeEventListener('resize', this.resize, false);
+
+        this.rootElement.removeEventListener('wheel', this.scroll, false);
+        window.removeEventListener('keydown', this.keypress, false);
     }
 
     public cancelAnimationFrame() {

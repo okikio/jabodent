@@ -319,17 +319,20 @@ html[theme="dark"] {
         cursor: grab;
         height: 400px;
         width: 100%;
-        // touch-action: pan-y;
+        touch-action: pan-y;
     }
 
     &-viewport {
-        position: absolute;
+        position: relative;
         height: 100%;
-        left: 0px;
-        transform: translate3d(0px, 0px, 0px);
+        left: 0;
+        top: 0;
+        width: fit-content;
     }
 
     &-item {
+        scroll-snap-align: start start;
+        align-self: center;
         user-select: none;
         width: 100vw;
     }

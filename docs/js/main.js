@@ -1140,13 +1140,11 @@ class Navbar extends Service {
   }
 }
 
-const lerp = (a, b, n) => (1 - n) * a + n * b;
 class Carousel extends Block {
   constructor() {
     super(...arguments);
-    this.ease = 0.15;
-    this.speed = 2.5;
-    this.delay = 3e3;
+    this.ease = 0.25;
+    this.speed = 3;
   }
   init(value) {
     super.init(value);
@@ -1172,7 +1170,9 @@ class Carousel extends Block {
     this.minX = 0;
     this.offX = 0;
     this.onX = 0;
+    this.snapOnce = false;
     this.isDragging = false;
+    this.isScrolling = false;
     this.clearDots();
     this.setDots();
     this.setBounds();
@@ -1182,9 +1182,10 @@ class Carousel extends Block {
     this.run = this.run.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
-    this.loop = this.loop.bind(this);
+    this.scroll = this.scroll.bind(this);
     this.setPos = this.setPos.bind(this);
     this.resize = this.resize.bind(this);
+    this.keypress = this.keypress.bind(this);
     this.dotClick = this.dotClick.bind(this);
   }
   setDots() {
@@ -1210,8 +1211,13 @@ class Carousel extends Block {
     }
   }
   setHeight() {
-    let {height} = this.slides[this.index].children[0].getBoundingClientRect();
-    this.container.style.height = `${height}px`;
+    let maxHeight = this.slides[0].getBoundingClientRect().height;
+    for (let i = 0; i < this.slideLen; i++) {
+      let height = this.slides[i].scrollHeight;
+      if (height > maxHeight)
+        maxHeight = height;
+    }
+    this.container.style.height = `${maxHeight}px`;
   }
   setBounds() {
     const {width} = this.slides[0].getBoundingClientRect();
@@ -1223,7 +1229,9 @@ class Carousel extends Block {
   setPos(e) {
     if (!this.isDragging)
       return;
-    this.setCurrentX(this.offX + (e.clientX - this.onX) * this.speed);
+    let touches = e.changedTouches;
+    let x = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].pageX;
+    this.setCurrentX(this.offX + (x - this.onX) * this.speed);
   }
   closest() {
     let minDist, closest;
@@ -1242,15 +1250,15 @@ class Carousel extends Block {
     this.select(closest);
   }
   on(e) {
-    window.clearInterval(this.interval);
+    let touches = e.changedTouches;
     this.isDragging = true;
-    this.onX = e.clientX;
+    this.onX = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].pageX;
     this.rootElement.classList.add("is-grabbing");
   }
   parsePercent(value) {
     return value * this.viewportWidth / 100;
   }
-  off(e) {
+  off() {
     this.snap();
     this.isDragging = false;
     this.offX = this.parsePercent(this.currentX);
@@ -1270,8 +1278,13 @@ class Carousel extends Block {
     this.setHeight();
   }
   run() {
-    this.lastX = lerp(this.lastX, this.currentX, this.ease);
+    this.isScrolling = false;
+    this.lastX = this.lastX + (this.currentX - this.lastX) * this.ease;
     this.lastX = Math.floor(this.lastX * 100) / 100;
+    if (!this.isScrolling && !this.snapOnce) {
+      this.snap();
+      this.snapOnce = true;
+    }
     this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
     this.requestAnimationFrame();
   }
@@ -1280,14 +1293,35 @@ class Carousel extends Block {
   }
   initEvents() {
     this.run();
-    this.interval = window.setInterval(this.loop, this.delay);
     this.nextBtn.addEventListener("click", this.next, false);
     this.prevBtn.addEventListener("click", this.prev, false);
     this.dotContainer.addEventListener("click", this.dotClick, false);
-    window.addEventListener("pointermove", this.setPos, {passive: true});
-    window.addEventListener("pointerdown", this.on, false);
-    window.addEventListener("pointerup", this.off, false);
+    window.addEventListener("mousemove", this.setPos, {passive: true});
+    window.addEventListener("mousedown", this.on, false);
+    window.addEventListener("mouseup", this.off, false);
+    window.addEventListener("touchmove", this.setPos, {passive: true});
+    window.addEventListener("touchstart", this.on, false);
+    window.addEventListener("touchend", this.off, false);
+    this.rootElement.addEventListener("wheel", this.scroll, false);
+    window.addEventListener("keydown", this.keypress, false);
     window.addEventListener("resize", this.resize, false);
+  }
+  keypress(evt) {
+    if (evt.code === "ArrowRight")
+      this.next();
+    if (evt.code === "ArrowLeft")
+      this.prev();
+  }
+  scroll(evt) {
+    this.isScrolling = true;
+    this.snapOnce = false;
+    if (this.isDragging)
+      return;
+    let {deltaX} = evt;
+    let currentX = this.parsePercent(this.currentX);
+    this.setCurrentX(currentX + -deltaX * (this.speed * 2));
+    if (Math.abs(deltaX) > 0)
+      evt.preventDefault();
   }
   dotClick(e) {
     let target = e.target;
@@ -1296,12 +1330,6 @@ class Carousel extends Block {
       this.select(index);
     }
   }
-  loop() {
-    if (this.index < this.slideLen - 1)
-      this.next();
-    else
-      this.select(0);
-  }
   prev() {
     this.select(this.index - 1);
   }
@@ -1309,15 +1337,19 @@ class Carousel extends Block {
     this.select(this.index + 1);
   }
   stopEvents() {
-    window.clearInterval(this.interval);
     this.cancelAnimationFrame();
     this.nextBtn.removeEventListener("click", this.next, false);
     this.prevBtn.removeEventListener("click", this.prev, false);
     this.dotContainer.removeEventListener("click", this.dotClick, false);
-    window.removeEventListener("pointermove", this.setPos);
-    window.removeEventListener("pointerdown", this.on, false);
-    window.removeEventListener("pointerup", this.off, false);
+    window.removeEventListener("mousemove", this.setPos, false);
+    window.removeEventListener("mousedown", this.on, false);
+    window.removeEventListener("mouseup", this.off, false);
+    window.removeEventListener("touchmove", this.setPos, false);
+    window.removeEventListener("touchstart", this.on, false);
+    window.removeEventListener("touchend", this.off, false);
     window.removeEventListener("resize", this.resize, false);
+    this.rootElement.removeEventListener("wheel", this.scroll, false);
+    window.removeEventListener("keydown", this.keypress, false);
   }
   cancelAnimationFrame() {
     cancelAnimationFrame(this.rAF);
