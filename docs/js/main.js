@@ -1140,6 +1140,7 @@ class Navbar extends Service {
   }
 }
 
+const lerp = (a, b, n) => (1 - n) * a + n * b;
 class Carousel extends Block {
   constructor() {
     super(...arguments);
@@ -1279,7 +1280,7 @@ class Carousel extends Block {
   }
   run() {
     this.isScrolling = false;
-    this.lastX = this.lastX + (this.currentX - this.lastX) * this.ease;
+    this.lastX = lerp(this.lastX, this.currentX, this.ease);
     this.lastX = Math.floor(this.lastX * 100) / 100;
     if (!this.isScrolling && !this.snapOnce) {
       this.snap();

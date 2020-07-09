@@ -200,7 +200,7 @@ export class Carousel extends Block {
 
     public run() {
         this.isScrolling = false;
-        this.lastX = this.lastX + ((this.currentX - this.lastX) * this.ease);// lerp(this.lastX, this.currentX, this.ease);
+        this.lastX = lerp(this.lastX, this.currentX, this.ease);
         this.lastX = Math.floor(this.lastX * 100) / 100;
 
         if (!this.isScrolling && !this.snapOnce) {
