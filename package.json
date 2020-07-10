@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "description": "The website for Jabodent, an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.",
     "scripts": {
+        "netlify": "ultra build",
         "build": "gulp build",
         "watch": "gulp"
     },
