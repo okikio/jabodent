@@ -9,13 +9,13 @@
 		{% block title %}
 			<title>Jabodent</title>
 		{% endblock %}
-        <base href="{% raw %}{{ site.baseurl }}{% endraw %}/">
+		{# <base href="{% raw %}{{ site.baseurl }}{% endraw %}/"> #}
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-		<link rel="stylesheet" href="/css/tailwind.css" async>
-		<link rel="stylesheet" href="/css/app.css" async>
+		<link rel="stylesheet" href="css/tailwind.css" async>
+		<link rel="stylesheet" href="css/app.css" async>
 	</head>
 	<body>
 		{% include "../partials/navbar.html" %}
@@ -29,6 +29,6 @@
 					{% include "../partials/footer.html" %}
 				</section>
 			</div>
-			<script src="/js/main.js" type="module"></script>
+			<script src="js/main.js" type="module"></script>
 		</body>
 	</html>
