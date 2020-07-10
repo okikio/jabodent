@@ -31,5 +31,7 @@
         "ur lmatch",
         "waapi",
         "walijs"
-    ]
+    ],
+    "netlify.api_token": "",
+    "netlify.site_id": "jabodent.netlify.app"
 }
