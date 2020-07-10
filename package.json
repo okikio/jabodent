@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "description": "The website for Jabodent, an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.",
     "scripts": {
-        "prebuild": "[[ $CI = true ]] && npx pnpm install --store=node_modules/.pnpm-store || echo skipping pnpm install",
         "build": "gulp build",
         "watch": "gulp"
     },
