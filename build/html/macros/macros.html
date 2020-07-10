@@ -4,14 +4,43 @@
 	</a>
 {% endmacro %}
 
+{%- macro urlParse(effects, url, external) -%}
+	{% set origin = "https://res.cloudinary.com/okikio-assets/image/upload/dpr_auto,f_auto,fl_progressive:steep" %}
+	{%- if external- %}
+		{{- url -}}
+	{%- else -%}
+		{{- origin + effects -}}/{{- url -}}
+	{%- endif -%}
+{%- endmacro -%}
+
+{% macro image(value) %}
+	{% set src = value.src|default("city") %}
+	{% set alt = value.alt|default("Alternate") %}
+
+	<figure class="img" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+		<picture>
+			<source media='(max-width: 600px)' srcset="{{- urlParse(",w_600,q_90", src, value.external) -}}.webp" sizes="100vw" width="100vw" type='image/webp'>
+			<source media='(min-width: 1200px)' srcset="{{- urlParse(",w_1100,q_100", src, value.external) -}}.webp" sizes="100vw" width="100vw" type='image/webp'>
+
+			<img src="{{- urlParse(",w_850,q_90", src, value.external) -}}.jpeg" sizes="(max-width: 500px) 500px,(max-width: 700px) 700px,(max-width: 900px) 900px, 100vw" alt="{{ alt }}" loading="lazy" width="100vw" itemprop="url" class="img-core">
+		</picture>
+		<div class="img-overlay"></div>
+	</figure>
+{% endmacro %}
+
 {% macro card(service, even) %}
-	<div class="col intro-animation cursor-pointer sm:max-w-1/2 group {% if even %} sm:pr-8 {% endif %} pb-8">
-		<section class="rounded-md relative h-72 {% if service.class %}  {{ service.class }} {% else %} bg-blue-400 {% endif %}">
+	<div class="col intro-animation cursor-pointer sm:max-w-1/2 group {% if !even %} sm:pl-8 {% endif %} pb-8">
+		<section class="rounded-md relative overflow-hidden h-72 bg-primary text-white">
+			{{ 
+                image({
+                    src: "city"
+                })
+            }}
 			<div class="p-5 left-half w-full">
-				<h3 class="text-base mb-3 font-bold group-hover:underline">{{ service.title }}</h3>
+				<h3 class="text-xl mb-3 font-bold group-hover:underline">{{ service.title }}</h3>
 				<p class="line-clamp">{{ service.description }}</p>
-				<div class="mt-8 text-right transform group-hover:translate-x-8">
-					{{ learnMore("") }}
+				<div class="mt-8 text-right">
+					{{ learnMore( service.href|default("") ) }}
 				</div>
 			</div>
 		</section>

@@ -1,0 +1,17 @@
+{% extends "../../layouts/layout.html" %}
+
+{% block content %}
+	<main>
+		<section class="theme-bg relative px-5 pt-8 mx-auto w-full max-w-screen-lg">
+			<div class="row">
+				{% for service in services %}
+					{{ macro.card(service, loop.index % 2) }}
+				{% endfor %}
+			</div>
+		</section>
+
+		<div class="bg-secondary">
+			{% include "../../partials/contact.html" %}
+		</div>
+	</main>
+{% endblock %}

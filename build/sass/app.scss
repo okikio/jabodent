@@ -104,6 +104,18 @@ html[theme="dark"] {
     background-color: map-get(map-get($theme, "background"), "dark");
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.5;
+    z-index: 12;
+    pointer-events: visiblePainted;
+}
+
 .font {
     &-default {
         font-family: "Manrope", sans-serif;
@@ -139,7 +151,7 @@ html[theme="dark"] {
 
 .icon {
     -webkit-font-smoothing: antialiased;
-    font-family: "Material Icons";
+    font-family: "Material Icons Round";
     vertical-align: middle;
     line-height: inherit;
     font-style: normal;
@@ -152,9 +164,49 @@ html[theme="dark"] {
     word-wrap: normal;
 }
 
-[data-wrapper] {
-    // overflow: hidden;
+img {
+    object-fit: cover;
+    min-height: 300px;
+    display: block;
+    border: none;
+    width: 100%;
 }
+
+.img {
+    position: relative;
+    contain: strict;
+    display: block;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    left: 0;
+    top: 0;
+
+    &-core {
+        image-rendering: auto;
+        image-rendering: high-quality;
+        position: absolute;
+        min-width: 100%;
+        left: 0;
+        top: 0;
+    }
+
+    &-overlay {
+        background: #000;
+        opacity: 0.25;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: fill;
+        // z-index: 50;
+    }
+}
+
+// [data-wrapper] {
+//     // overflow: hidden;
+// }
 
 html[theme="dark"] {
     .navbar.active,

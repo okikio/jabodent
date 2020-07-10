@@ -225,17 +225,17 @@ export class Carousel extends Block {
         this.dotContainer.addEventListener("click", this.dotClick, false);
 
         window.addEventListener('mousemove', this.setPos, { passive: true });
-        window.addEventListener('mousedown', this.on, false);
-        window.addEventListener('mouseup', this.off, false);
+        window.addEventListener('mousedown', this.on, { passive: true });
+        window.addEventListener('mouseup', this.off, { passive: true });
 
         window.addEventListener('touchmove', this.setPos, { passive: true });
-        window.addEventListener('touchstart', this.on, false);
-        window.addEventListener('touchend', this.off, false);
+        window.addEventListener('touchstart', this.on, { passive: true });
+        window.addEventListener('touchend', this.off, { passive: true });
 
-        this.rootElement.addEventListener('wheel', this.scroll, false);
+        this.rootElement.addEventListener('wheel', this.scroll, { passive: false });
         window.addEventListener('keydown', this.keypress, false);
 
-        window.addEventListener('resize', this.resize, false);
+        window.addEventListener('resize', this.resize, { passive: true });
     }
 
     public keypress(evt: KeyboardEvent) {

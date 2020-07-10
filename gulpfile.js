@@ -97,7 +97,7 @@ let js = (watching) => {
             plugins: [
                 nodeResolve(),
                 esbuild({
-                    watch: watching,
+                    // watch: watching,
                     target: "es2020", // default, or 'es20XX', 'esnext'
                 }),
             ],

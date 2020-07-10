@@ -8,12 +8,13 @@
 		
 			<title>Jabodent</title>
 		
+		<base href="jabodent/">
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round&family=Abril+Fatface&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-		<link rel="stylesheet" href="./css/tailwind.css" async>
-		<link rel="stylesheet" href="./css/app.css" async>
+		<link rel="stylesheet" href="/css/tailwind.css" async>
+		<link rel="stylesheet" href="/css/app.css" async>
 	</head>
 	<body>
 		<!-- https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56 -->
@@ -50,6 +51,8 @@
 	</div>
 </nav>
 
+
+		
 		<div data-wrapper> 
 	<section class="py-24 bg-primary">
 		<div class="mx-auto max-w-3xl px-5 mt-5 w-full">
@@ -74,9 +77,13 @@
 
 		<section class="carousel theme-bg theme-text relative pt-6" data-block="Carousel">
 			<h3 class="text-3xl font-bold text-center intro-animation">Our Team</h3>
-			<div class="carousel-btn top-half w-full font-semibold text-lg lt-md:hidden z-10">
-	<button type="button" class="prev-btn absolute top-0 left-0 ml-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block">Previous</button>
-	<button type="button" class="next-btn absolute top-0 right-0 mr-5 bg-gray-900 text-white px-6 py-3 rounded-full inline-block ">Next</button>
+			<div class="carousel-btn top-half w-full lt-md:hidden z-10 text-3xl">
+	<button type="button" class="prev-btn absolute top-0 left-0 ml-5 bg-gray-900 hover:bg-gray-700 text-white rounded-full flex w-14 h-14" title="Previous text-lg">
+		<i class="icon w-full justify-center self-center">chevron_left</i>
+	</button>
+	<button type="button" class="next-btn absolute top-0 right-0 mr-5 bg-gray-900 hover:bg-gray-700 text-white rounded-full flex w-14 h-14" title="Next">
+		<i class="icon w-full justify-center self-center">chevron_right</i>
+	</button>
 </div>
 
 
@@ -84,7 +91,7 @@
 				<div class="carousel-viewport flex flex-no-wrap">
 					<section class="carousel-item">
 						<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
-							<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+							<section class="p-8 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
 								<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
 								<div class="self-center w-full md:max-w-1/2">
 									<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
@@ -101,7 +108,7 @@
 
 					<section class="carousel-item">
 						<div class="mx-auto px-5 sm:px-24 md:px-5 w-full max-w-screen-lg lt-md:py-6 py-12">
-							<section class="p-8 hover:bg-gray-700 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
+							<section class="p-8 hover:text-white flex flex-col md:flex-row justify-center rounded-xl">
 								<div class="cursor-pointer self-center w-full md:max-w-1/2 md:mr-5 h-auto bg-blue-400 rounded-lg person img"></div>
 								<div class="self-center w-full md:max-w-1/2">
 									<h3 class="text-lg font-bold mb-4 md:mt-0 mt-4">Jane Doe — Principal Partner</h3>
@@ -204,6 +211,6 @@
 
 				</section>
 			</div>
-			<script src="./js/main.js" type="module"></script>
+			<script src="/js/main.js" type="module"></script>
 		</body>
 	</html>

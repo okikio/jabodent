@@ -982,12 +982,12 @@ class Router extends Service {
   parsePath(path) {
     if (typeof path === "string")
       return new RegExp(path, "i");
-    else if (path instanceof RegExp)
+    else if (path instanceof RegExp || typeof path === "boolean")
       return path;
-    throw "[Router] only regular expressions and strings are accepted as paths.";
+    throw "[Router] only regular expressions, strings and booleans are accepted as paths.";
   }
   isPath(input) {
-    return typeof input === "string" || input instanceof RegExp;
+    return typeof input === "string" || input instanceof RegExp || typeof input === "boolean";
   }
   parse(input) {
     let route = input;
@@ -997,8 +997,8 @@ class Router extends Service {
     };
     if (this.isPath(input))
       toFromPath = {
-        from: input,
-        to: /(.*)/g
+        from: true,
+        to: input
       };
     else if (this.isPath(route.from) && this.isPath(route.to))
       toFromPath = route;
@@ -1011,25 +1011,31 @@ class Router extends Service {
     };
   }
   route() {
-    let from = this.HistoryManager.last().getURLPathname();
+    let from = this.HistoryManager[this.HistoryManager.size > 1 ? "prev" : "last"]().getURLPathname();
     let to = window.location.pathname;
     this.routes.forEach((method, path) => {
       let fromRegExp = path.from;
       let toRegExp = path.to;
-      if (fromRegExp.test(from) && toRegExp.test(to)) {
-        let fromExec = fromRegExp.exec(from);
-        let toExec = toRegExp.exec(to);
-        method({from: fromExec, to: toExec});
+      if (typeof fromRegExp === "boolean" && typeof toRegExp === "boolean") {
+        throw `[Router] path ({ from: ${fromRegExp}, to: ${toRegExp} }) is not valid, remember paths can only be strings, regular expressions, or a boolean; however, both the from and to paths cannot be both booleans.`;
       }
+      let fromParam = fromRegExp;
+      let toParam = toRegExp;
+      if (fromRegExp instanceof RegExp && fromRegExp.test(from))
+        fromParam = fromRegExp.exec(from);
+      if (toRegExp instanceof RegExp && toRegExp.test(to))
+        toParam = toRegExp.exec(to);
+      if (Array.isArray(toParam) && Array.isArray(fromParam) || Array.isArray(toParam) && (typeof fromParam == "boolean" && fromParam) || Array.isArray(fromParam) && (typeof toParam == "boolean" && toParam))
+        method({from: fromParam, to: toParam, path: {from, to}});
     });
   }
   initEvents() {
     this.EventEmitter.on("READY", this.route, this);
-    this.EventEmitter.on("PAGE_LOADED", this.route, this);
+    this.EventEmitter.on("CONTENT_REPLACED", this.route, this);
   }
   stopEvents() {
     this.EventEmitter.off("READY", this.route, this);
-    this.EventEmitter.off("PAGE_LOADED", this.route, this);
+    this.EventEmitter.off("CONTENT_REPLACED", this.route, this);
   }
 }
 
@@ -1069,18 +1075,15 @@ class IntroAnimation extends Service {
   async show() {
     return await B({
       target: this.elements,
-      keyframes: [
-        {opacity: 0},
-        {opacity: 1}
-      ],
+      opacity: [0, 1],
       delay(i) {
-        return 200 * (i + 1);
+        return 300 * (i + 1);
       },
       onfinish(el) {
         el.style.opacity = "1";
       },
-      easing: "out-cubic",
-      duration: 500
+      easing: "ease-out",
+      duration: 650
     });
   }
 }
@@ -1298,14 +1301,14 @@ class Carousel extends Block {
     this.prevBtn.addEventListener("click", this.prev, false);
     this.dotContainer.addEventListener("click", this.dotClick, false);
     window.addEventListener("mousemove", this.setPos, {passive: true});
-    window.addEventListener("mousedown", this.on, false);
-    window.addEventListener("mouseup", this.off, false);
+    window.addEventListener("mousedown", this.on, {passive: true});
+    window.addEventListener("mouseup", this.off, {passive: true});
     window.addEventListener("touchmove", this.setPos, {passive: true});
-    window.addEventListener("touchstart", this.on, false);
-    window.addEventListener("touchend", this.off, false);
-    this.rootElement.addEventListener("wheel", this.scroll, false);
+    window.addEventListener("touchstart", this.on, {passive: true});
+    window.addEventListener("touchend", this.off, {passive: true});
+    this.rootElement.addEventListener("wheel", this.scroll, {passive: false});
     window.addEventListener("keydown", this.keypress, false);
-    window.addEventListener("resize", this.resize, false);
+    window.addEventListener("resize", this.resize, {passive: true});
   }
   keypress(evt) {
     if (evt.code === "ArrowRight")
@@ -1425,15 +1428,12 @@ window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
   themeSet(e.matches ? "dark" : "light");
 });
 try {
+  let waitOnScroll = false;
   let layer, top, navHeight = navbar.navbar.getBoundingClientRect().height;
   app.on("CONTENT_REPLACED READY", () => {
     let layers = document.getElementsByClassName("layer") || [];
     layer = layers[0] || null;
-    top = layer ? layer.getBoundingClientRect().y : null;
-    if (/(index(.html)?|\/$)/.test(window.location.pathname))
-      navbar.navbar.classList.add("light");
-    else
-      navbar.navbar.classList.remove("light");
+    top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
     navbar.navbar.classList.remove("focus");
     navbar.navbar.classList.remove("active");
     let backToTop = document.getElementsByClassName("back-to-top")[0];
@@ -1452,23 +1452,42 @@ try {
       });
     }
   });
-  let heroImg = new Image();
-  heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
-  heroImg.onload = () => {
-    let overlay = document.getElementsByClassName("hero-overlay")[0];
-    if (overlay)
-      overlay.classList.add("loaded");
-  };
-  app.boot();
   window.addEventListener("scroll", () => {
-    let scrollTop = window.scrollY;
-    requestAnimationFrame(() => {
-      if (top && scrollTop + 10 + navHeight >= top) {
-        navbar.navbar.classList.add("focus");
-      } else
-        navbar.navbar.classList.remove("focus");
-    });
+    if (!waitOnScroll) {
+      let scrollTop = window.scrollY;
+      requestAnimationFrame(() => {
+        if (scrollTop + 10 + navHeight >= top) {
+          navbar.navbar.classList.add("focus");
+        } else
+          navbar.navbar.classList.remove("focus");
+        waitOnScroll = true;
+      });
+    }
+    waitOnScroll = false;
+  }, {passive: true});
+  router.add({
+    path: {
+      from: /(index(.html)?|\/$)/,
+      to: true
+    },
+    method() {
+      navbar.navbar.classList.remove("light");
+    }
   });
+  router.add({
+    path: /(index(.html)?|\/$)/,
+    method() {
+      let heroImg = new Image();
+      heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
+      heroImg.onload = () => {
+        let overlay = document.getElementsByClassName("hero-overlay")[0];
+        if (overlay)
+          overlay.classList.add("loaded");
+      };
+      navbar.navbar.classList.add("light");
+    }
+  });
+  app.boot();
 } catch (err) {
   console.warn("[App] boot failed,", err);
 }

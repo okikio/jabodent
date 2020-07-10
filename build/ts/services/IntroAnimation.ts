@@ -48,20 +48,15 @@ export class IntroAnimation extends Service {
     public async show() {
         return await animate({
             target: (this.elements as HTMLElement[]),
-            keyframes: [
-                { opacity: 0 },
-                { opacity: 1 },
-            ],
-            // @ts-ignore
+            opacity: [0, 1],
             delay(i: number) {
-                return 200 * (i + 1);
+                return 300 * (i + 1);
             },
             onfinish(el: { style: { opacity: string; }; }) {
-                // el.style.transform = "translateY(0px)";
                 el.style.opacity = "1";
             },
-            easing: "out-cubic",
-            duration: 500
+            easing: "ease-out",
+            duration: 650
         });
     }
 }

@@ -140,7 +140,21 @@
 
 	<section class="carousel theme-bg relative pt-6" data-block="Carousel">
 		<h3 class="theme-text text-3xl font-medium text-center">Clients & Testimonials</h3>
-		{% include "../partials/carousel-buttons.html" %}
+        {% include "../partials/carousel-buttons.html" %}
+        
+        {% macro carousel-item(args) %}
+        <section class="carousel-item">
+            <div class="theme-text px-5 lt-md:py-12 py-24 mx-auto w-full max-w-screen-sm">
+                <h4 class="text-4xl text-center tracking-wide font-bold">“{{ args.quote }}”</h4>
+                <section class="flex justify-center w-full px-5 mx-auto">
+                    <div class="mt-10 flex">
+                        <div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+                        <p class="self-center text-lg font-semibold">{{ args.name }}</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+        {% endmacro %}
 
 		<section class="carousel-container relative w-full">
 			<div class="carousel-viewport flex flex-no-wrap">

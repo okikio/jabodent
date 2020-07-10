@@ -49,15 +49,12 @@ window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
 });
 
 try {
+    let waitOnScroll = false;
     let layer: HTMLElement, top: number, navHeight: number = navbar.navbar.getBoundingClientRect().height;
     app.on("CONTENT_REPLACED READY", () => {
         let layers = document.getElementsByClassName("layer") || [];
         layer = layers[0] as HTMLElement || null;
-        top = layer ? layer.getBoundingClientRect().y : null;
-
-        if (/(index(.html)?|\/$)/.test(window.location.pathname))
-            navbar.navbar.classList.add("light");
-        else navbar.navbar.classList.remove("light");
+        top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
 
         navbar.navbar.classList.remove("focus");
         navbar.navbar.classList.remove("active");
@@ -79,22 +76,45 @@ try {
         }
     });
 
-    let heroImg = new Image();
-    heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
-    heroImg.onload = () => {
-        let overlay = document.getElementsByClassName("hero-overlay")[0];
-        if (overlay) overlay.classList.add("loaded");
-    };
+    window.addEventListener("scroll", () => {
+        if (!waitOnScroll) {
+            let scrollTop = window.scrollY;
+            requestAnimationFrame(() => {
+                if ((scrollTop + 10 + navHeight) >= top) {
+                    navbar.navbar.classList.add("focus");
+                } else navbar.navbar.classList.remove("focus");
+                waitOnScroll = true;
+            });
+        }
+        
+        waitOnScroll = false;
+    }, { passive: true });
+
+    router.add({
+        path: {
+            from: /(index(.html)?|\/$)/,
+            to: true
+        },
+        method() {
+            navbar.navbar.classList.remove("light");
+        }
+    });
+
+    router.add({
+        path: /(index(.html)?|\/$)/,
+        method() {
+            let heroImg = new Image();
+            heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
+            heroImg.onload = () => {
+                let overlay = document.getElementsByClassName("hero-overlay")[0];
+                if (overlay) overlay.classList.add("loaded");
+            };
+
+            navbar.navbar.classList.add("light");
+        }
+    });
 
     app.boot();
-    window.addEventListener("scroll", () => {
-        let scrollTop = window.scrollY;
-        requestAnimationFrame(() => {
-            if (top && ((scrollTop + 10 + navHeight) >= top)) {
-                navbar.navbar.classList.add("focus");
-            } else navbar.navbar.classList.remove("focus");
-        });
-    });
 } catch (err) {
     // splashscreen.show();
     console.warn("[App] boot failed,", err);
