@@ -33,5 +33,5 @@
         "walijs"
     ],
     "netlify.api_token": "",
-    "netlify.site_id": "jabodent.netlify.app"
+    "netlify.site_id": ""
 }
