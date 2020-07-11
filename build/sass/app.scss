@@ -14,50 +14,56 @@ $theme: (
     ),
 );
 
-:root {
-    --background: map-get(map-get($theme, "background"), "light");
+html:not([theme="dark"]) {
+    --bg: #{map-get(map-get($theme, "background"), "light")};
+    --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
+
+    --surface: #{map-get(map-get($theme, "surface"), "light")};
+    --surface-invert: #{map-get(map-get($theme, "surface"), "dark")};
+
+    --text: #{map-get(map-get($theme, "text"), "light")};
+    --text-invert: #{map-get(map-get($theme, "text"), "dark")};
+}
+
+html[theme="dark"] {
+    --bg: #{map-get(map-get($theme, "background"), "dark")};
+    --bg-invert: #{map-get(map-get($theme, "background"), "light")};
+
+    --surface: #{map-get(map-get($theme, "surface"), "dark")};
+    --surface-invert: #{map-get(map-get($theme, "surface"), "light")};
+
+    --text: #{map-get(map-get($theme, "text"), "dark")};
+    --text-invert: #{map-get(map-get($theme, "text"), "light")};
 }
 
 .theme {
     &-bg {
-        & {
-            background-color: map-get(map-get($theme, "background"), "light");
-        }
+        background-color: var(--bg);
 
-        html[theme="dark"] & {
-            background-color: map-get(
-                map-get($theme, "background"),
-                "dark"
-            ) !important;
+        &-invert {
+            background-color: var(--bg-invert);
         }
     }
 
     &-surface {
-        & {
-            background-color: map-get(map-get($theme, "surface"), "light");
-        }
+        background-color: var(--surface);
 
-        html[theme="dark"] & {
-            background-color: map-get(
-                map-get($theme, "surface"),
-                "dark"
-            ) !important;
+        &-invert {
+            background-color: var(--surface-invert);
         }
     }
 
     &-text {
-        & {
-            color: map-get(map-get($theme, "text"), "light");
-        }
+        color: var(--text);
 
-        html[theme="dark"] & {
-            color: map-get(map-get($theme, "text"), "dark") !important;
+        &-invert {
+            color: var(--text-invert);
         }
     }
 }
 
 .gradient:before {
-    background-color: map-get(map-get($theme, "surface"), "light");
+    background-color: var(--surface);
     position: absolute;
     content: "";
     display: block;
@@ -68,40 +74,30 @@ $theme: (
     opacity: 0.8;
 }
 
-html[theme="dark"] .gradient:before {
-    background-color: map-get(map-get($theme, "surface"), "dark");
-}
-
 @media (min-width: 680px) {
     .gradient:before {
-        background: linear-gradient(
-            90deg,
-            map-get(map-get($theme, "surface"), "light") 80%,
-            transparent
-        );
+        background: linear-gradient(90deg, var(--surface) 80%, transparent);
         opacity: 1;
-    }
-    html[theme="dark"] .gradient:before {
-        background: linear-gradient(
-            90deg,
-            map-get(map-get($theme, "surface"), "dark") 80%,
-            transparent
-        );
     }
 }
 
 html {
-    background-color: map-get(map-get($theme, "background"), "light");
+    background-color: var(--bg);
     // font-family: Arial, Helvetica, sans-serif;
     font-family: "Manrope", sans-serif;
 
     font-size: 15px;
     font-weight: 500;
     text-rendering: optimizeSpeed;
+    scroll-behavior: smooth;
 }
 
-html[theme="dark"] {
-    background-color: map-get(map-get($theme, "background"), "dark");
+.back-to-top {
+    position: sticky;
+    bottom: 0;
+    float: right;
+    transform: translateY(-50%);
+    margin-bottom: -100%;
 }
 
 .overlay {
@@ -214,18 +210,9 @@ img {
     }
 }
 
-
 // [data-wrapper] {
 //     // overflow: hidden;
 // }
-
-html[theme="dark"] {
-    .navbar.active,
-    .navbar.focus,
-    .navbar:hover {
-        color: map-get(map-get($theme, "text"), "dark");
-    }
-}
 
 .navbar {
     transition: color 0.25s ease-out;
@@ -270,6 +257,8 @@ html[theme="dark"] {
     &.focus,
     &.active,
     &:hover {
+        color: var(--text);
+
         .navbar-mini {
             transform: translateY(0%);
         }
@@ -401,19 +390,21 @@ html[theme="dark"] {
     }
 
     &-dots {
-        background-color: #1a202c;
+        // background-color: var(--surface);
     }
 
     &-dot {
-        background-color: #4d5567;
+        background-color: var(--bg-invert);
         border-radius: 900rem;
         width: 10px;
         height: 10px;
         margin-left: 4px;
         margin-right: 4px;
+        opacity: 0.3;
 
         &.active {
-            background-color: #fff;
+            // background-color: #fff;
+            opacity: 1;
         }
     }
 }
@@ -499,26 +490,4 @@ html[theme="dark"] {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-html {
-}
-
-// .group:hover > .group-hover\:* {
-//     content: "";
-// }
-
-// .h-72 {
-//     // height: 24rem;
-// }
-
-// .max-w-1\/2 {
-//     // max-width: 100%;
-// }
-
-.main-footer {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    border: 5px dotted red;
 }

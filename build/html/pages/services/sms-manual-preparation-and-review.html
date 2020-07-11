@@ -2,8 +2,8 @@
 
 {% block hero %}
 	<section class="bg-black text-white w-full relative">
-		<div class="mb-24 px-5 pt-32 mx-auto w-full container">
-			<div class="mx-auto w-full tracking-wide max-w-screen-md">
+		<div class="pb-24 md:px-5 pt-32 mx-auto w-full container">
+			<div class="lt-md:px-5 mx-auto w-full tracking-wide max-w-screen-md">
 				<div class="text-lg w-full leading-snug tracking-wider layer">
 					<h1 class="text-5xl font-title font-medium">SMS Manual Preparation
 						{{ "/"|escape }}
@@ -15,19 +15,19 @@
 			<div class="relative w-full h-72">
 				{{ macro.image( ) }}
 
-				<p class="w-full block italic font-light font-mono tracking-wide text-gray-600 text-center py-4">Figure: An image of a sky scraper by ... on Unsplash.</p>
+				<p class="w-full block font-light font-mono tracking-wide text-gray-600 text-center py-4">Figure: An image of a sky scraper by ... on Unsplash.</p>
 			</div>
 		</div>
 	</section>
 {% endblock %}
 
 {% block content %}
-	<div>
-		<section class="bg-black mx-auto text-white w-full max-w-screen-md">
+	<div class="bg-black">
+		<section class="mx-auto text-white w-full max-w-screen-md">
 			<div class="px-5 mx-auto w-full tracking-wide container">
 				<section class="pb-24 text-lg leading-9 font-normal">
 					<section class="clearfix">
-						<span class="float-left pr-4 py-4 text-6xl font-extrabold">L</span>
+						<span class="float-left pr-4 py-4 text-6xl font-title font-extrabold">L</span>
 						<p>
 							orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sollicitudin ac orci phasellus egestas tellus. Habitant morbi tristique senectus et. Purus ut faucibus pulvinar elementum integer enim. In ornare quam viverra orci sagittis. Eros donec ac odio tempor. Amet porttitor eget dolor morbi. Enim sed faucibus turpis in eu mi. Habitasse platea dictumst quisque sagittis purus sit amet volutpat. Praesent semper feugiat nibh sed. Aliquam sem fringilla ut morbi tincidunt. Amet cursus sit amet dictum. Sed sed risus pretium quam. Neque egestas congue quisque egestas diam in arcu. Interdum posuere lorem ipsum dolor. Imperdiet nulla malesuada pellentesque elit eget gravida. Turpis egestas sed tempus urna et. Tellus id interdum velit laoreet. Ut ornare lectus sit amet est placerat in egestas. Lacinia at quis risus sed vulputate.
 							<br><br>
@@ -41,26 +41,27 @@
 
 						</p>
 					</section>
-				</div>
-			</section>
+				</section>
+			</div>
+		</section>
 
-			<section class="social left-0 top-0 cursor-pointer z-10 text-white">
-				<a class="px-6 py-3 cursor-pointer underline inline-block">
-					Twitter
-				</a>
-				<a class="px-6 py-3 cursor-pointer underline inline-block">
-					Facebook
-				</a>
-				<a class="px-6 py-3 cursor-pointer underline inline-block">
-					Instagram
-				</a>
-				<a class="px-6 py-3 cursor-pointer underline inline-block">
-					Medium
-				</a>
-			</section>
-		</div>
+		<section class="social flex-wrap left-0 top-0 cursor-pointer z-10 text-white mx-auto max-w-screen-md">
+			<a class="px-6 py-3 cursor-pointer underline inline-block">
+				Twitter
+			</a>
+			<a class="px-6 py-3 cursor-pointer underline inline-block">
+				Facebook
+			</a>
+			<a class="px-6 py-3 cursor-pointer underline inline-block">
+				Instagram
+			</a>
+			<a class="px-6 py-3 cursor-pointer underline inline-block">
+				Medium
+			</a>
+		</section>
+	</div>
+</div>
 
-		<div class="bg-secondary">
-			{% include "../../partials/contact.html" %}
-		</div>
-	{% endblock %}
+<section class="bg-primary">
+	{% include "../../partials/contact.html" %}
+</section>{% endblock %}

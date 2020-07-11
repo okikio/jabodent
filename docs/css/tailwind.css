@@ -18228,7 +18228,7 @@ video {
   position: relative;
   display: flex;
   justify-content: center;
-  margin-bottom: 25px;
+  padding-bottom: 25px;
   width: 100%;
   max-width: 1024px;
   margin-left: auto;
@@ -18242,9 +18242,11 @@ video {
     flex-direction: column;
     position: sticky;
     /* top: 50%; */
+    height: auto;
     left: 0;
     bottom: 50%;
-    margin-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: -20%;
     /* bottom: 50%; */
     /* transform: translateY(-50%); */
   }

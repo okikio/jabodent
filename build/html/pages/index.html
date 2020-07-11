@@ -63,8 +63,8 @@
 
 			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
 				<div class="w-full flex mx-auto my-5">
-					<div class="h-12 w-12 flex justify-center bg- mr-5">
-						<i class="icon text-3xl self-center text-secondary">more_time</i>
+					<div class="h-12 w-12 flex justify-center bg-secondary mr-5">
+						<i class="icon text-3xl self-center text-black">more_time</i>
 					</div>
 
 					<section class="self-center">
@@ -76,8 +76,8 @@
 			</section>
 			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
 				<div class="w-full flex mx-auto my-5">
-					<div class="h-12 w-12 flex justify-center bg- mr-5">
-						<i class="icon text-3xl self-center text-secondary">book</i>
+					<div class="h-12 w-12 flex justify-center bg-secondary mr-5">
+						<i class="icon text-3xl self-center text-black">book</i>
 					</div>
 
 					<section class="self-center">
@@ -88,8 +88,8 @@
 			</section>
 			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
 				<div class="w-full flex mx-auto my-5">
-					<div class="h-12 w-12 flex justify-center bg- mr-5">
-						<i class="icon text-3xl self-center text-secondary">thumb_up_alt</i>
+					<div class="h-12 w-12 flex justify-center bg-secondary mr-5">
+						<i class="icon text-3xl self-center text-black">thumb_up_alt</i>
 					</div>
 
 					<section class="self-center">
@@ -100,8 +100,8 @@
 			</section>
 			<section class="col sm:max-w-1/2 md:max-w-1/4 px-5">
 				<div class="w-full flex mx-auto my-5">
-					<div class="h-12 w-12 flex justify-center bg- mr-5">
-						<i class="icon text-3xl self-center text-secondary">emoji_events</i>
+					<div class="h-12 w-12 flex justify-center bg-secondary mr-5">
+						<i class="icon text-3xl self-center text-black">emoji_events</i>
 					</div>
 
 					<section class="self-center">
@@ -140,66 +140,51 @@
 
 	<section class="carousel theme-bg relative pt-6" data-block="Carousel">
 		<h3 class="theme-text text-3xl font-medium text-center">Clients & Testimonials</h3>
-        {% include "../partials/carousel-buttons.html" %}
-        
-        {% macro carousel-item(args) %}
-        <section class="carousel-item">
-            <div class="theme-text px-5 lt-md:py-12 py-24 mx-auto w-full max-w-screen-sm">
-                <h4 class="text-4xl text-center tracking-wide font-bold">“{{ args.quote }}”</h4>
-                <section class="flex justify-center w-full px-5 mx-auto">
-                    <div class="mt-10 flex">
-                        <div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-                        <p class="self-center text-lg font-semibold">{{ args.name }}</p>
-                    </div>
-                </section>
-            </div>
-        </section>
-        {% endmacro %}
+		{% include "../partials/carousel-buttons.html" %}
+
+		{% macro carousel_item(args) %}
+			<section class="carousel-item">
+				<div class="theme-text px-5 lt-md:py-12 py-24 mx-auto w-full max-w-screen-sm">
+					<h4 class="text-4xl text-center tracking-wide font-bold">“{{ args.quote }}”</h4>
+					<section class="flex justify-center w-full px-5 mx-auto">
+						<div class="mt-10 flex">
+							<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
+							<p class="self-center text-lg font-semibold">{{ args.name }}</p>
+						</div>
+					</section>
+				</div>
+			</section>
+		{% endmacro %}
 
 		<section class="carousel-container relative w-full">
 			<div class="carousel-viewport flex flex-no-wrap">
-				<section class="carousel-item">
-					<div class="theme-text px-5 lt-md:py-12 py-24 mx-auto w-full max-w-screen-sm">
-						<h4 class="text-4xl text-center tracking-wide font-bold">“Absolutely the best video call solution for medium sized teams”</h4>
-						<section class="flex justify-center w-full px-5 mx-auto">
-							<div class="mt-10 flex">
-								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
-							</div>
-						</section>
-					</div>
-				</section>
+				{{ 
+                    carousel_item({
+                        quote: "Absolutely the best video call solution for medium sized teams.",
+                        name: "Jane Doe — Tesla"
+                    }) 
+                }}
 
-				<section class="carousel-item">
-					<div class="theme-text px-5 lt-md:py-12 py-24 mx-auto w-full max-w-screen-sm">
-						<h4 class="text-4xl text-center tracking-wide font-bold">“Amazing support, and the dedication to complete tasks”</h4>
-						<section class="flex justify-center w-full px-5 mx-auto">
-							<div class="mt-10 flex">
-								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
-							</div>
-						</section>
-					</div>
-				</section>
+				{{ 
+                    carousel_item({
+                        quote: "Amazing support, and the dedication to complete tasks.",
+                        name: "Jane Doe — Tesla"
+                    }) 
+                }}
 
-				<section class="carousel-item">
-					<div class="theme-text px-5 lt-md:py-12 py-24 mx-auto w-full max-w-screen-sm">
-						<h4 class="text-4xl text-center tracking-wide font-bold">“Amazing support, and the dedication to complete tasks. Absolutely the best video call solution for medium sized teams.”</h4>
-						<section class="flex justify-center w-full px-5 mx-auto">
-							<div class="mt-10 flex">
-								<div class="h-12 w-12 bg-blue-400 mr-5 rounded-md person"></div>
-								<p class="self-center text-lg font-semibold">Jane Doe — Tesla</p>
-							</div>
-						</section>
-					</div>
-				</section>
+				{{ 
+                    carousel_item({
+                        quote: "Amazing support, and the dedication to complete tasks. Absolutely the best video call solution for medium sized teams.",
+                        name: "Jane Doe — Tesla"
+                    }) 
+                }}
 			</div>
 		</section>
 
 		{% include "../partials/carousel-dots.html" %}
 	</section>
 
-	<section class="bg-secondary">
+	<section class="bg-primary">
 		{% include "../partials/contact.html" %}
 	</section>
 {% endblock %}

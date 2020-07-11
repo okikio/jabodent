@@ -16,7 +16,7 @@ export class Navbar extends Service {
     }
 
     public validLink(el: HTMLAnchorElement): boolean {
-        return el && el.tagName && el.tagName.toLowerCase() === 'a';
+        return el && el.tagName && (el.tagName.toLowerCase() === 'a' || el.tagName.toLowerCase() === 'button');
     }
 
     public getLink({ target }): HTMLAnchorElement {
@@ -29,7 +29,7 @@ export class Navbar extends Service {
         return el;
     }
 
-    public click(event) {
+    public click({ target }: Event) {
         let el = this.getLink(event);
         if (!el) return;
 

@@ -1097,7 +1097,7 @@ class Navbar extends Service {
     this.click = this.click.bind(this);
   }
   validLink(el) {
-    return el && el.tagName && el.tagName.toLowerCase() === "a";
+    return el && el.tagName && (el.tagName.toLowerCase() === "a" || el.tagName.toLowerCase() === "button");
   }
   getLink({target}) {
     let el = target;
@@ -1108,7 +1108,7 @@ class Navbar extends Service {
       return;
     return el;
   }
-  click(event) {
+  click({target}) {
     let el = this.getLink(event);
     if (!el)
       return;
@@ -1426,6 +1426,9 @@ let themeSet = (theme2) => {
 };
 window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
   themeSet(e.matches ? "dark" : "light");
+});
+window.matchMedia("(prefers-color-scheme: light)").addListener((e) => {
+  themeSet(e.matches ? "light" : "dark");
 });
 try {
   let waitOnScroll = false;

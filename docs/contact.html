@@ -42,9 +42,9 @@
 				<i class="icon hover:font-extrabold text-xl">search</i>
 			</a>
 			
-			<a class="block navbar-menu md:hidden navbar-icon cursor-pointer" title="Menu button">
-				<i class="icon text-2xl">menu</i>
-			</a>
+			<button type="button" role="menu" class="block focus:outline-none navbar-menu md:hidden navbar-icon cursor-pointer">
+				<i class="icon text-2xl">notes</i>
+			</button>
 			
 
 		</section>
@@ -74,11 +74,11 @@
 	<main></main>
 
 					</main>
-					<a class="back-to-top cursor-pointer shadow-md z-10 sticky -mb-4 transform -translate-y-6 mr-8 bottom-0 bg-black text-white px-6 py-3 inline-block rounded-full float-right">
-	Back To Top
-</a>
+					<button type="button" class="back-to-top z-10 mr-5 bg-secondary border-2 border-solid border-secondary hover:border-black focus:outline-none text-black rounded-full flex w-12 h-12" title="Back To Top">
+	<i class="icon text-3xl w-full justify-center self-center">expand_less</i>
+</button>
 
-<footer class="bg-gray-900 text-white">
+<footer class="theme-bg theme-text">
 	<div class="max-w-screen-lg w-full mx-auto flex flex-wrap clear-both py-8 px-6">
 		<section class="col sm:max-w-4/12">
 			<a href="/index.html" class="inline-block w-20 h-16 bg-yellow-300 mb-5"></a>
@@ -124,16 +124,14 @@
 		</section>
 	</div>
 
-	<div class="bg-gray-700">
-		<div class="max-w-screen-lg flex flex-wrap mt-10 w-full mx-auto py-4 px-6 leading-10">
-			<section>© 2020 Jabodent. All rights reserved.</section>
-			<section class="flex-grow"></section>
-			<section>Made with
-				<i class="icon text-xl text-red-600 mx-1">favorite</i>
-				by
-				<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
-			</section>
-		</div>
+	<div class="max-w-screen-lg flex flex-wrap mt-10 w-full mx-auto py-4 px-6 leading-10">
+		<section>© 2020 Jabodent. All rights reserved.</section>
+		<section class="flex-grow"></section>
+		<section>Made with
+			<i class="icon text-xl text-red-600 mx-1">favorite</i>
+			by
+			<a class="underline" href="https://okikio.dev" target="_blank">Okiki Ojo</a>
+		</section>
 
 	</div>
 </footer>

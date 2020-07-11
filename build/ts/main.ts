@@ -48,6 +48,10 @@ window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
     themeSet(e.matches ? "dark" : "light");
 });
 
+window.matchMedia('(prefers-color-scheme: light)').addListener(e => {
+    themeSet(e.matches ? "light" : "dark");
+});
+
 try {
     let waitOnScroll = false;
     let layer: HTMLElement, top: number, navHeight: number = navbar.navbar.getBoundingClientRect().height;
