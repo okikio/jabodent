@@ -158,6 +158,8 @@ module.exports = {
             "56": "14rem",
             "64": "16rem",
             "72": "24rem",
+            "84": "32rem",
+            "96": "40rem",
         },
         backgroundColor: (theme) => theme("colors"),
         backgroundOpacity: (theme) => theme("opacity"),
@@ -276,7 +278,7 @@ module.exports = {
                 "monospace",
             ],
         },
-        fontSize: {
+        fontSize: (theme) => ({
             xs: "0.75rem",
             sm: "0.875rem",
             base: "1rem",
@@ -287,7 +289,8 @@ module.exports = {
             "4xl": "2.25rem",
             "5xl": "3rem",
             "6xl": "4rem",
-        },
+            ...theme("spacing"),
+        }),
         fontWeight: {
             hairline: "100",
             thin: "200",

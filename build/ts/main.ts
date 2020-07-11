@@ -86,9 +86,26 @@ try {
                 waitOnScroll = true;
             });
         }
-        
+
         waitOnScroll = false;
     }, { passive: true });
+
+    router.add({
+        path: {
+            from: /services\/+/,
+            to: true
+        },
+        method() {
+            navbar.navbar.classList.remove("light");
+        }
+    });
+
+    router.add({
+        path: /services\/+/,
+        method() {
+            navbar.navbar.classList.add("light");
+        }
+    });
 
     router.add({
         path: {

@@ -21,3 +21,27 @@
         padding-left: theme("space.8");
     }
 }
+
+.social {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    @apply w-full max-w-screen-lg mx-auto;
+}
+
+@screen lg {
+    .social {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        position: sticky;
+        /* top: 50%; */
+        left: 0;
+        bottom: 50%;
+        margin-bottom: 0;
+        /* bottom: 50%; */
+        /* transform: translateY(-50%); */
+    }
+}

@@ -78,9 +78,9 @@ export class Carousel extends Block {
         this.isDragging = false;
         this.isScrolling = false;
 
+        this.setBounds();
         this.clearDots();
         this.setDots();
-        this.setBounds();
         this.select(this.index);
 
         this.on = this.on.bind(this);

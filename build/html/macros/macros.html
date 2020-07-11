@@ -29,7 +29,7 @@
 {% endmacro %}
 
 {% macro card(service, even) %}
-	<div class="col intro-animation cursor-pointer sm:max-w-1/2 group {% if !even %} sm:pl-8 {% endif %} pb-8">
+	<a href="{{ service.href|default("") }}" class="card col block intro-animation cursor-pointer sm:max-w-1/2 group {% if !even %} sm:pl-8 {% endif %} pb-8">
 		<section class="rounded-md relative overflow-hidden h-72 bg-primary text-white">
 			{{ 
                 image({
@@ -39,10 +39,7 @@
 			<div class="p-5 left-half w-full">
 				<h3 class="text-xl mb-3 font-bold group-hover:underline">{{ service.title }}</h3>
 				<p class="line-clamp">{{ service.description }}</p>
-				<div class="mt-8 text-right">
-					{{ learnMore( service.href|default("") ) }}
-				</div>
 			</div>
 		</section>
-	</div>
+	</a>
 {% endmacro %}

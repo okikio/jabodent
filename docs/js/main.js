@@ -1177,9 +1177,9 @@ class Carousel extends Block {
     this.snapOnce = false;
     this.isDragging = false;
     this.isScrolling = false;
+    this.setBounds();
     this.clearDots();
     this.setDots();
-    this.setBounds();
     this.select(this.index);
     this.on = this.on.bind(this);
     this.off = this.off.bind(this);
@@ -1465,6 +1465,21 @@ try {
     }
     waitOnScroll = false;
   }, {passive: true});
+  router.add({
+    path: {
+      from: /services\/+/,
+      to: true
+    },
+    method() {
+      navbar.navbar.classList.remove("light");
+    }
+  });
+  router.add({
+    path: /services\/+/,
+    method() {
+      navbar.navbar.classList.add("light");
+    }
+  });
   router.add({
     path: {
       from: /(index(.html)?|\/$)/,
