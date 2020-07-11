@@ -81,10 +81,9 @@ try {
             });
         }
 
-
         if (/(index(.html)?|\/$)|(services\/+)/g.test(window.location.pathname)) {
             navbar.navbar.classList.add("light");
-        } else {
+        } else if (navbar.navbar.classList.contains("light")) {
             navbar.navbar.classList.remove("light");
         }
     });
