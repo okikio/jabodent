@@ -1440,19 +1440,26 @@ try {
     navbar.navbar.classList.remove("focus");
     navbar.navbar.classList.remove("active");
     let backToTop = document.getElementsByClassName("back-to-top")[0];
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+    if (backToTop) {
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       });
-    });
-    let scrollBtn = document.getElementsByClassName("scroll-btn");
-    if (scrollBtn[0]) {
-      scrollBtn[0].addEventListener("click", () => {
-        let scrollPt = document.getElementsByClassName("scroll-point");
-        if (scrollPt[0])
-          scrollPt[0].scrollIntoView({behavior: "smooth"});
+    }
+    let scrollBtn = document.getElementsByClassName("scroll-btn")[0];
+    if (scrollBtn) {
+      scrollBtn.addEventListener("click", () => {
+        let scrollPt = document.getElementsByClassName("scroll-point")[0];
+        if (scrollPt)
+          scrollPt.scrollIntoView({behavior: "smooth"});
       });
+    }
+    if (/(index(.html)?|\/$)|(services\/+)/g.test(window.location.pathname)) {
+      navbar.navbar.classList.add("light");
+    } else {
+      navbar.navbar.classList.remove("light");
     }
   });
   window.addEventListener("scroll", () => {
@@ -1469,30 +1476,6 @@ try {
     waitOnScroll = false;
   }, {passive: true});
   router.add({
-    path: {
-      from: /services\/+/,
-      to: true
-    },
-    method() {
-      navbar.navbar.classList.remove("light");
-    }
-  });
-  router.add({
-    path: /services\/+/,
-    method() {
-      navbar.navbar.classList.add("light");
-    }
-  });
-  router.add({
-    path: {
-      from: /(index(.html)?|\/$)/,
-      to: true
-    },
-    method() {
-      navbar.navbar.classList.remove("light");
-    }
-  });
-  router.add({
     path: /(index(.html)?|\/$)/,
     method() {
       let heroImg = new Image();
@@ -1502,7 +1485,6 @@ try {
         if (overlay)
           overlay.classList.add("loaded");
       };
-      navbar.navbar.classList.add("light");
     }
   });
   app.boot();
