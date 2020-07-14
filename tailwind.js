@@ -1,5 +1,5 @@
 module.exports = {
-    purge: [],
+    purge: [],//[`${pugFolder}/**/*.pug`],
     target: "relaxed",
     prefix: "",
     important: false,
