@@ -89,7 +89,7 @@ html {
     font-size: 15px;
     font-weight: 500;
     text-rendering: optimizeSpeed;
-    scroll-behavior: smooth;
+    // scroll-behavior: smooth;
 }
 
 .back-to-top {
@@ -123,28 +123,7 @@ html {
     }
 }
 
-/* -- Icons & Font -- */
-.material-icons {
-    font-family: "Material Icons", "MaterialIcons-Regular";
-    // -webkit-font-smoothing: antialiased;
-    // text-rendering: optimizeLegibility;
-    // -moz-osx-font-smoothing: grayscale;
-    // font-feature-settings: 'liga';
-    // vertical-align: middle;
-    // letter-spacing: normal;
-    // display: inline-block;
-    // text-decoration: none;
-    // text-transform: none;
-    // white-space: nowrap;
-    // font-weight: normal;
-    // position: relative;
-    // font-size: inherit;
-    // font-style: normal;
-    // word-wrap: normal;
-    // line-height: inherit;
-    // direction: ltr;
-}
-
+/* -- Icons & Font -- */ // direction: ltr;
 .icon {
     -webkit-font-smoothing: antialiased;
     font-family: "Material Icons Round";
@@ -210,10 +189,6 @@ img {
     }
 }
 
-// [data-wrapper] {
-//     // overflow: hidden;
-// }
-
 .navbar {
     transition: color 0.25s ease-out;
     $height: 60px;
@@ -239,14 +214,14 @@ img {
     }
 
     &-large {
-        transition: transform ease-out 0.75s;
+        transition: transform ease-out 0.65s 0.05s;
         height: 100vh;
         opacity: 1;
         pointer-events: auto;
     }
 
     &-overlay {
-        transition: opacity ease 0.65s;
+        transition: opacity ease 0.55s;
         background-color: black;
         transform: translateY(0%);
         opacity: 0;
@@ -294,7 +269,7 @@ img {
     }
 
     &-link {
-        transition: transform ease-out 0.45s, opacity ease-out 0.65s;
+        transition: transform ease-out 0.45s, opacity ease-out 0.55s;
         line-height: inherit;
         vertical-align: middle;
         pointer-events: auto;

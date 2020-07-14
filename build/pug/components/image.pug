@@ -1,0 +1,19 @@
+mixin image(value = {})
+  -
+    let _class = value.class;
+    let src = value.src || "cloudinary/city";
+    let alt = value.alt || "Alternate text";
+    let cloudinaryTest = /^cloudinary\//.test(src);
+    let origin = "https://res.cloudinary.com/okikio-assets/image/upload/dpr_auto,f_auto,fl_progressive:steep";
+    let urlParse = (filters = "") => cloudinaryTest ? `${origin + filters}/${src.replace(/^cloudinary\//, "")}` : src;
+
+  figure.img(class=_class itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
+    picture
+      source(media='(max-width: 600px)' srcset!=`${urlParse(",w_600,q_70")}.webp` sizes="600px" width="600px" type='image/webp')
+      source(media='(max-width: 600px)' srcset!=`${urlParse(",w_600,q_70")}.jpeg` sizes="600px" width="600px" type='image/jpeg')
+
+      source(media='(min-width: 1200px)' srcset!=`${urlParse(",w_1100,q_100")}.webp` sizes="1100px" width="1100px" type='image/webp')
+      source(media='(min-width: 1200px)' srcset!=`${urlParse(",w_1100,q_100")}.jpeg` sizes="1100px" width="1100px" type='image/jpeg')
+
+      img.core-img(src!=`${urlParse(",w_850,q_100")}.jpeg` sizes="(max-width: 500px) 500px,(max-width: 700px) 700px,(max-width: 900px) 900px, 100vw" alt=alt loading="lazy" width="100vw" itemprop="url")
+    .img-overlay

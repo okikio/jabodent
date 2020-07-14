@@ -1,0 +1,23 @@
+//-  https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56
+mixin navbar()
+  nav.navbar.bg-transparent.fixed.w-full.z-20
+    .navbar-overlay.w-full
+    .navbar-height.navbar-mini.theme-bg.w-full
+      .navbar-large.theme-bg.w-full
+    .h-full.w-full.max-w-screen-lg.flex.mx-auto.z-5
+      a.navbar-height.navbar-logo.navbar-link.cursor-pointer.relative.z-10(href="/index.html") Jabodent
+      section(class="md:flex-row lt-md:h-screen md:relative md:leading-inherit md:text-base").navbar-list.flex.flex-col.whitespace-no-wrap.justify-center.absolute.leading-loose.text-4xl
+        a.navbar-link.navbar-item.font-thin(href="/about.html") About Us
+        a.navbar-link.navbar-item.font-thin(href="/services.html") Our Services
+        a.navbar-link.navbar-item.font-thin(href="/contact.html") Contact Us
+        a.block.navbar-link.navbar-item.font-thin(href="/404.html" class="md:hidden") Our Blog
+
+      section.navbar-height.flex.w-full.whitespace-no-wrap.relative
+        .flex-grow
+        a.hidden.navbar-link.navbar-item.font-thin(href="/404.html" class="md:block") Our Blog
+
+        button.block.navbar-icon.cursor-pointer.group(class="focus:outline-none" type="button", role="search", title="Search")
+          i.icon.text-xl(class="group-hover:opacity-65") search
+
+        button.block.navbar-menu.navbar-icon.cursor-pointer.group(class="focus:outline-none md:hidden" type="button", role="menu", title="Menu")
+          i.icon.text-2xl(class="group-hover:opacity-65") menu

@@ -1,0 +1,125 @@
+extends /layouts/layout.pug
+
+block hero
+  section.relative.h-screen.bg-primary.hero-img.bg-fixed
+    .hero-overlay.absolute.top-0.left-0.h-full.w-full
+    .relative.flex.flex-col.h-full.justify-center.text-white.z-5
+      section.self-center.text-center.px-5
+        h1.text-5xl.font-semibold.font-title.tracking-wider.layer JABODENT
+        h2.text-lg.leading-7 Integrity, Professionalism, Teamwork, Innovation & Excellence
+        a.scroll-btn.cursor-pointer.scroll.text-secondary.z-10(class="hover:underline")
+          .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
+
+  section.bg-black.text-white.w-full.scroll-point
+    .px-5.mx-auto.w-full.max-w-screen-md.py-24.intro-animation
+      h3.text-2xl.mb-6.font-bold About Us
+      p.leading-8 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
+      .mt-16
+        +learn-more("./about.html")
+
+
+block content
+  section.theme-bg.theme-text
+    .px-5.pt-24.mx-auto.w-full.max-w-screen-md
+      h3.text-2xl.mb-6.font-bold.intro-animation Mission & Vision
+      p.leading-8.intro-animation Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.
+
+    .flex.w-full.pt-24
+      .flex-grow
+      section.bg-secondary.w-full.max-w-screen-md
+        .py-12.pl-10.w-full
+          h3.text-2xl.mb-6.font-bold.intro-animation Skills & Services
+
+          ul.leading-8.list-disc.list-inside
+            each service, index in services
+              if index < 8
+                li=service.title
+
+          p etc...
+          .mt-16
+            +learn-more("./services.html")
+
+      .bg-secondary.flex-grow
+
+    .theme-text.mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
+        .w-full.flex.mx-auto.my-5
+          .h-12.w-12.flex.justify-center.bg-secondary.mr-5
+            i.icon.text-3xl.self-center.text-black more_time
+          section.self-center
+            h4.text-lg.font-extrabold 20+
+            p Years of Experience
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
+        .w-full.flex.mx-auto.my-5
+          .h-12.w-12.flex.justify-center.bg-secondary.mr-5
+            i.icon.text-3xl.self-center.text-black book
+          section.self-center
+            h4.text-lg.font-extrabold 154+
+            p Projects Completed
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
+        .w-full.flex.mx-auto.my-5
+          .h-12.w-12.flex.justify-center.bg-secondary.mr-5
+            i.icon.text-3xl.self-center.text-black thumb_up_alt
+          section.self-center
+            h4.text-lg.font-extrabold 785+
+            p Happy Clients
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
+        .w-full.flex.mx-auto.my-5
+          .h-12.w-12.flex.justify-center.bg-secondary.mr-5
+            i.icon.text-3xl.self-center.text-black emoji_events
+          section.self-center
+            h4.text-lg.font-extrabold 14+
+            p Awards Won
+
+  section.theme-bg.overflow-hidden.city-image
+    .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
+      section.max-w-screen-md.mx-auto
+        section.relative.max-width
+          h3.text-3xl.mb-10.font-bold Why Choose Us?
+          h4.text-xl.mb-2 Certified Experience
+          p.leading-8.mb-12 Experience of Certified industry professionals.
+          h4.text-xl.mb-2 Great Teamwork
+          p.leading-8.mb-12 Teamwork that makes dreams work.
+          h4.text-xl.mb-2 Modern Technology
+          p.leading-8.mb-12 High quality equipment. Tools used by the best of the best.
+          .mt-16
+            +learn-more("./about.html")
+
+  section.carousel.theme-bg.relative.pt-6(data-block="Carousel")
+    h3.theme-text.text-3xl.font-medium.text-center Clients & Testimonials
+    +carousel-buttons
+
+    mixin carousel-item(value)
+      -
+        let quote = value.quote;
+        let name = value.name;
+
+      section.carousel-item
+        .theme-text.px-5.py-24.mx-auto.w-full.max-w-screen-sm(class="lt-md:py-12")
+          h4.text-4xl.text-center.tracking-wide.font-bold “#{quote}”
+          section.flex.justify-center.w-full.px-5.mx-auto
+            .mt-10.flex
+              .h-12.w-12.bg-blue-400.mr-5.rounded-md.person
+              p.self-center.text-lg.font-semibold= name
+
+    section.carousel-container.relative.w-full
+      .carousel-viewport.flex.flex-no-wrap
+        +carousel-item({
+          quote: "Absolutely the best video call solution for medium sized teams.",
+          name: "Jane Doe — Tesla"
+        })
+
+        +carousel-item({
+          quote: "Amazing support, and the dedication to complete tasks.",
+          name: "Jane Doe — Tesla"
+        })
+
+        +carousel-item({
+          quote: "Amazing support, and the dedication to complete tasks. Absolutely the best video call solution for medium sized teams.",
+          name: "Jane Doe — Tesla"
+        })
+
+    +carousel-dots
+
+  section.bg-primary
+    +contact

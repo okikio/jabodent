@@ -1,0 +1,61 @@
+extends /layouts/layout.pug
+
+block hero
+  section.py-24.bg-primary
+    .mx-auto.max-w-3xl.px-5.mt-5.w-full
+      h1.h1.text-3xl.font-bold.mb-4.text-center.layer About Us
+      h2.text-2xl.font-thin.leading-10 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
+  section.theme-bg.theme-text
+    .px-5.mx-auto.w-full.max-w-screen-md.py-24
+      h3.text-2xl.mb-6.font-bold.intro-animation Our Story
+      p.leading-8.intro-animation Established in 2017 out of the necessity for the marine, oil and gas offshore industry to be provided with professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments as safe as practicable.
+      br
+      br
+      p.leading-8.intro-animation Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers and master mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of different types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and production platform e.g. FPSOFSO and FOI
+
+block content
+  section.theme-surface.overflow-hidden.city-image.py-32.bg-fixed
+  section.carousel.theme-bg.theme-text.relative.pt-6(data-block="Carousel")
+    h3.text-3xl.font-bold.text-center.intro-animation Our Team
+    +carousel-buttons
+
+    mixin carousel-item(value)
+      -
+        let url = value.url;
+        let name = value.name;
+        let description = value.description;
+
+      section.carousel-item
+        .mx-auto.px-5.w-full.max-w-screen-lg.py-12(class="sm:px-24 md:px-5 lt-md:py-6")
+          section.p-8.flex.flex-col.justify-center.rounded-xl(class="md:flex-row")
+            .cursor-pointer.self-center.w-full.h-auto.bg-blue-400.rounded-lg.person.img(class="md:max-w-1/2 md:mr-5")
+            .self-center.w-full(class="md:max-w-1/2")
+              h3(class="md:mt-0").text-lg.font-bold.mb-4.mt-4= name
+              p.leading-8 #{description}...
+              .mt-6
+                +learn-more( url )
+
+    section.carousel-container.relative.w-full
+      .carousel-viewport.flex.flex-no-wrap
+        +carousel-item({
+          name: "Jane Doe — Principal Partner",
+          description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+          url: "404.html"
+        })
+
+        +carousel-item({
+          name: "Jane Doe — Principal Partner",
+          description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+          url: "404.html"
+        })
+
+        +carousel-item({
+          name: "Jane Doe — Principal Partner",
+          description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+          url: "404.html"
+        })
+
+    +carousel-dots
+
+  section.bg-primary
+    +contact

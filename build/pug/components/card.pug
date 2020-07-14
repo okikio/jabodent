@@ -1,0 +1,13 @@
+include /components/image.pug
+mixin card(service = {}, even = false)
+  -
+    let url = service.url;
+    let title = service.title;
+    let description = service.description;
+
+  a(href=url class=`${!even ? "sm:pr-8" : ""} sm:max-w-1/2`).card.col.block.intro-animation.cursor-pointer.group.pb-8
+    section.rounded-md.relative.overflow-hidden.h-72.bg-primary.text-white
+      +image
+      .p-5.left-half.w-full
+        h3(class="group-hover:underline").text-xl.mb-3.font-bold= title
+        p.line-clamp= description

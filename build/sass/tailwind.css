@@ -30,21 +30,3 @@
 
     @apply w-full max-w-screen-lg mx-auto;
 }
-
-@screen lg {
-    .social {
-        display: flex;
-        justify-content: start;
-        flex-direction: column;
-        position: sticky;
-        /* top: 50%; */
-        height: auto;
-        left: 0;
-        bottom: 50%;
-        padding-bottom: 0;
-
-        margin-bottom: -20%;
-        /* bottom: 50%; */
-        /* transform: translateY(-50%); */
-    }
-}

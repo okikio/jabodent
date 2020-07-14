@@ -1,0 +1,64 @@
+include /components/seo.pug
+include /components/navbar.pug
+include /components/contact.pug
+include /components/learn-more.pug
+include /components/card.pug
+include /components/image.pug
+include /components/carousel-dots.pug
+include /components/carousel-buttons.pug
+include /components/back-to-top.pug
+include /components/footer.pug
+
+//- https://github.com/okikio/joseph/blob/master/views/app.pug
+doctype html
+html(lang="en" theme="light")
+  head
+    meta(charset="utf-8")
+    meta(name="color-scheme" content="dark light")
+    meta(http-equiv="Accept-CH" content="DPR, Viewport-Width, Width")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    -
+      let defaults = {
+        url: "/",
+        // websiteURL,
+        name: "index",
+        title: "Jabodent — ...",
+        description: "..."
+      };
+
+    block pageInfo
+      - let page = Object.assign({}, defaults);
+
+    block seo
+      +seo(page)
+
+    meta(name="web-author" content="Okiki Ojo")
+    meta(name="robots" content="index, follow")
+    meta(name="copyright" content="Jabodent")
+    meta(name="contact" content="info@jabodent.com")
+
+    title
+      block title
+        | Jabodent
+
+    link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
+    link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
+
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Material+Icons+Round&family=Manrope:wght@400;500;600;700;800&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/css/tailwind.css", async)
+    link(rel="stylesheet", href="/css/app.min.css", async)
+
+  body
+    +navbar
+
+    div(data-wrapper)
+      block hero
+      section
+        block social
+        main#main.scroll-point
+          block content
+          block footer
+            +back-to-top
+            +footer
+
+    script(src="/js/main.js", type="module")

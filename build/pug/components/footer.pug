@@ -1,0 +1,43 @@
+mixin footer()
+  footer.theme-bg.theme-text
+    .max-w-screen-lg.w-full.mx-auto.flex.flex-wrap.clear-both.py-8.px-6
+      section.col(class="sm:max-w-4/12")
+        a.inline-block.w-20.h-16.bg-yellow-300.mb-5(href="/index.html")
+        p.text-lg.leading-8.font-medium.
+          Drive, Integrity, Professionalism, Teamwork & Innovation
+
+      section(class="lt-md:mt-12 sm:max-w-4/12 sm:pl-8").col
+        h3.text-xl.mb-2.font-semibold(class="md:mb-6") Quick Links
+        section.leading-8.flex.flex-col(class="lt-md:leading-10")
+          a(href="/about.html" class="hover:underline") About Us
+          a(href="/services.html" class="hover:underline") Our Services
+          a(href="/contact.html" class="hover:underline") Contact Us
+          a(href class="hover:underline") Our Blog
+      section.col(class="hover:underline sm:max-w-4/12 lt-md:mt-12 md:text-right")
+        p.leading-8.font-medium
+          span
+            | Plot E10A, Close 51, VGC Lekki
+            br
+            | Peninsular, Lagos, Nigeria.
+            br
+          strong
+            a(class="hover:underline" href="tel:+2348033324072") +2348033324072
+            br
+            a(class="hover:underline" href="mailto:info@jabodent.com") info@jabodent.com
+        .mt-10.space-x-2.text-2xl
+          a(class="hover:underline"  href)
+            i.icon.p-2 add
+          a(class="hover:underline"  href)
+            i.icon.p-2 add
+          a(class="hover:underline"  href)
+            i.icon.p-2 add
+          a(class="hover:underline"  href)
+            i.icon.p-2 add
+    .max-w-screen-lg.flex.flex-wrap.mt-10.w-full.mx-auto.py-4.px-6.leading-10
+      section © 2020 Jabodent. All rights reserved.
+      section.flex-grow
+      section
+        | Made with
+        i.icon.text-xl.text-red-600.mx-1 favorite
+        | by
+        a.underline(href="https://okikio.dev", target="_blank") Okiki Ojo
