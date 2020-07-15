@@ -14,7 +14,7 @@ module.exports = {
                 "Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment. \n\nSafety management system is a vital part of the international safety management code as developed by the International Maritime Organization and it ensures that policies, practices and procedures are established and implemented for the safety of the ships at sea.\n\nThe safety management system also ensures that ships comply with internationally accepted mandatory safety rules and regulation, codes, guidelines and international standard recommended by the various ﬂag administrations, classiﬁcation society and the international maritime organization. \n\nJOCL prepare the safety management system manual as per your organizations structure (whether small or big), train your employees how to implement procedure as per the manual, organize your system to operate effectively and efﬁciently.",
         },
         {
-            title: "MARINE FACILITY/EQUIPMENT CONDITION AND VALUE",
+            title: "MARINE FACILITY / EQUIPMENT CONDITION AND VALUE",
             image: {
                 src:
                     "https://images.unsplash.com/photo-1559255223-59d17c7fdb16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=100",
@@ -40,7 +40,7 @@ module.exports = {
                 "Purchasing a Marine facility is a very capital intensive venture and absolute care is necessary to ensure you get the value for your money’s worth.\n\n A condition and value survey (in this case pre-purchase survey) is possibly the most comprehensive and detailed type of survey and it's a prerequisite in the buying of marine oil and gas facilities as surveyors inspects facilities as per their Class notations, ages, maintenance history and compliance to various standard e.g. Classiﬁcation society, Flag administrations, USCG, API.\n\nThese surveys are mostly conducted aﬂoat and on the dock as status reveals with an inclusion of sea trials.\n\n All ﬁndings during the survey are noted and clearly explained in the written survey report.\n\n An appraisal of the facilities/equipment fair market value in comparison to actual selling prices of comparable facilities/equipment is also included.\n\n These survey and value inspection could also be utilized for insurance and ﬁnancing purposes and JOCL survey reports are acceptable by all insurance companies.\n\n A Condition and Value Surveycan also be used for insurance and ﬁnancing purposes.",
         },
         {
-            title: "INSURANCE/APPRAISAL SURVEY",
+            title: "INSURANCE / APPRAISAL SURVEY",
             image: {
                 src:
                     "https://images.unsplash.com/photo-1555069811-3fce6ac918e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=100",
@@ -53,7 +53,7 @@ module.exports = {
                 "This form of survey is a summarized version of condition and value survey which mostly includes close visual inspection of structures and facility/equipment function- ability with concentration on worthiness and safety of the facility/equipment, the appraisal will also treat the fair market value. JOCL insurance/appraisal survey reports are acceptable by all insurance companies and ﬁnancing institutions.",
         },
         {
-            title: "ON AND OFF HIRE BUNKER/CONDITION SURVEYS",
+            title: "ON AND OFF HIRE BUNKER / CONDITION SURVEYS",
             image: {
                 src:
                     "https://images.unsplash.com/photo-1584476318078-d38baa6edb77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=100",
@@ -86,7 +86,7 @@ module.exports = {
                 "As implied, Draft Surveys are mostly performed for shippers, receivers, ship owners and ship charterer as well as offshore and shore terminals with the intention of ascertaining the amount of cargo loaded or discharged from a vessel.\n\n Draft survey governs accurate measurement of the vessel's displacement before and after loading and the difference between these two displacements is the weight of cargo loaded or discharged.\n\n JOCL quality personnel meticulously conduct draft surveys that serves the purpose and beneﬁt of all parties involved.",
         },
         {
-            title: "DAMAGE/REPAIR SURVEY",
+            title: "DAMAGE / REPAIR SURVEY",
             image: {
                 src:
                     "https://images.unsplash.com/photo-1561553797-81f7083bb21b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=100",
@@ -165,7 +165,7 @@ module.exports = {
                 'There is a saying that "failure to plan, is planning to fail", maintenance of equipment installed on your facility is top priority as this is a function of the facilities reliability, consistency, safety of personnel, assets and the environment.\n\n JOCL have made planned maintenance system an off the shelf process as our expertise goes beyond hookup, we start the process by evaluating your facility, your requirement which includes the capacity to which you want the planned maintenance system (PMS) to function, it could be used for maintenance purpose only or used for maintenance monitoring, requisition, HSE management and others. \n\nWe provide ﬂexible speciﬁcation of required maintenance integration with spare inventory, all class surveys and survey check sheets.\n\n JOCL Marine Chief Engineers will embark your facility to populate every details concerning installed equipment, this can be done on newly built facilities or existing facilities, history of repeated failures and incident will be factored into the maintenance system and Future prediction can be instituted in the system.\n\n JOCL machines planned maintenance system to suit speciﬁc needs.',
         },
         {
-            title: "MARINE ENGINEERING/NAVAL ARCHITECTURE",
+            title: "MARINE ENGINEERING / NAVAL ARCHITECTURE",
             image: {
                 src:
                     "https://images.unsplash.com/photo-1572407271596-f9949a97944a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=100",

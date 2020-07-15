@@ -35,6 +35,7 @@ export class Carousel extends Block {
 
     public offX: number;
     public onX: number;
+    public onY: number;
     public center: number;
 
     public isDragging: boolean;
@@ -73,6 +74,7 @@ export class Carousel extends Block {
 
         this.offX = 0;
         this.onX = 0;
+        this.onY = 0;
 
         this.snapOnce = false;
         this.isDragging = false;
@@ -140,8 +142,31 @@ export class Carousel extends Block {
     public setPos(e: MouseEvent | TouchEvent | number) {
         if (!this.isDragging) return;
         let touches = (e as TouchEvent).changedTouches;
-        let x = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].pageX);
+        if (e instanceof TouchEvent) {
+            e.stopPropagation();
+            let deltaX = Math.abs(this.onX - touches[touches.length - 1].clientX);
+            let deltaY = Math.abs(this.onY - touches[touches.length - 1].clientY);
+
+            // If vertically scrolling using touch, don't move horizontally & visa-versa
+            if (deltaX < deltaY) return;
+        }
+
+        let x = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].clientX);
         this.setCurrentX(this.offX + ((x - this.onX) * this.speed));
+    }
+
+    public on(e: MouseEvent | TouchEvent | number) {
+        let touches = (e as TouchEvent).changedTouches;
+        if (e instanceof TouchEvent) e.stopPropagation();
+
+        this.isDragging = true;
+        this.onX = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].clientX);
+        this.onY = e instanceof MouseEvent ? e.clientY : (typeof e === "number" ? 0 : touches[touches.length - 1].clientY);
+        this.rootElement.classList.add('is-grabbing');
+    }
+
+    public parsePercent(value: number) {
+        return (value * this.viewportWidth) / 100;
     }
 
     public closest() {
@@ -164,22 +189,15 @@ export class Carousel extends Block {
         this.select(closest);
     }
 
-    public on(e: MouseEvent | TouchEvent | number) {
-        let touches = (e as TouchEvent).changedTouches;
-        this.isDragging = true;
-        this.onX = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].pageX);
-        this.rootElement.classList.add('is-grabbing');
-    }
+    public off(e?: TouchEvent | MouseEvent) {
+        if (e instanceof TouchEvent) e.stopPropagation();
 
-    public parsePercent(value: number) {
-        return (value * this.viewportWidth) / 100;
-    }
-
-    public off() {
         this.snap();
         this.isDragging = false;
         this.offX = this.parsePercent(this.currentX);
         this.rootElement.classList.remove('is-grabbing');
+        this.onX = 0;
+        this.onY = 0;
     }
 
     public toPercent(value: number) {

@@ -1199,6 +1199,7 @@ class Carousel extends Block {
     this.minX = 0;
     this.offX = 0;
     this.onX = 0;
+    this.onY = 0;
     this.snapOnce = false;
     this.isDragging = false;
     this.isScrolling = false;
@@ -1259,8 +1260,27 @@ class Carousel extends Block {
     if (!this.isDragging)
       return;
     let touches = e.changedTouches;
-    let x = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].pageX;
+    if (e instanceof TouchEvent) {
+      e.stopPropagation();
+      let deltaX = Math.abs(this.onX - touches[touches.length - 1].clientX);
+      let deltaY = Math.abs(this.onY - touches[touches.length - 1].clientY);
+      if (deltaX < deltaY)
+        return;
+    }
+    let x = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].clientX;
     this.setCurrentX(this.offX + (x - this.onX) * this.speed);
+  }
+  on(e) {
+    let touches = e.changedTouches;
+    if (e instanceof TouchEvent)
+      e.stopPropagation();
+    this.isDragging = true;
+    this.onX = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].clientX;
+    this.onY = e instanceof MouseEvent ? e.clientY : typeof e === "number" ? 0 : touches[touches.length - 1].clientY;
+    this.rootElement.classList.add("is-grabbing");
+  }
+  parsePercent(value) {
+    return value * this.viewportWidth / 100;
   }
   closest() {
     let minDist, closest;
@@ -1278,20 +1298,15 @@ class Carousel extends Block {
     let closest = this.closest();
     this.select(closest);
   }
-  on(e) {
-    let touches = e.changedTouches;
-    this.isDragging = true;
-    this.onX = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].pageX;
-    this.rootElement.classList.add("is-grabbing");
-  }
-  parsePercent(value) {
-    return value * this.viewportWidth / 100;
-  }
-  off() {
+  off(e) {
+    if (e instanceof TouchEvent)
+      e.stopPropagation();
     this.snap();
     this.isDragging = false;
     this.offX = this.parsePercent(this.currentX);
     this.rootElement.classList.remove("is-grabbing");
+    this.onX = 0;
+    this.onY = 0;
   }
   toPercent(value) {
     return value / this.viewportWidth * 100;
@@ -1499,6 +1514,7 @@ try {
   load();
   app.on("CONTENT_REPLACED", load);
   window.addEventListener("scroll", scroll, {passive: true});
+  app.boot();
   router.add({
     path: /(index(.html)?|\/$)/,
     method() {
@@ -1511,7 +1527,6 @@ try {
       };
     }
   });
-  app.boot();
 } catch (err) {
   console.warn("[App] boot failed,", err);
 }
