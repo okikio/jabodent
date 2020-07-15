@@ -59,7 +59,7 @@ export class PJAX extends Service {
      * @type boolean
      * @memberof PJAX
      */
-    protected stickyScroll: boolean = true;
+    protected stickyScroll: boolean = false;
 
     /**
      * Force load a page if an error occurs
@@ -78,6 +78,16 @@ export class PJAX extends Service {
      * @memberof PJAX
      */
     protected autoScrollOnHash: boolean = true;
+
+    /**
+     * Disables all extra scroll effects of PJAX, however, it won't affect scroll on hash,
+     * since scrolling when an hash is in the URL is the default behavior
+     *
+     * @private
+     * @type boolean
+     * @memberof PJAX
+     */
+    protected dontScroll: boolean = true;
 
     /**
      * Sets the transition state, sets isTransitioning to true
@@ -289,14 +299,17 @@ export class PJAX extends Service {
             trigger = this.getDirection(difference);
             transitionName = transition;
 
-            // If page remains the same on state change DO NOT run this, it's pointless
-            if (trigger !== "popstate") {
-                // Keep scroll position
-                let { x, y } = data.scroll;
-                window.scroll({
-                    top: y, left: x,
-                    behavior: 'smooth'  // 👈 
-                });
+            if (!this.dontScroll) {
+                console.log("Dont scroll")
+                // If the page remains on the same history state DO NOT scroll, it's pointless
+                if (trigger !== "popstate" && this.stickyScroll) {
+                    // Keep scroll position
+                    let { x, y } = data.scroll;
+                    window.scroll({
+                        top: y, left: x,
+                        behavior: 'smooth'  // 👈
+                    });
+                }
             }
 
             // Based on the direction of the state change either remove or add a state
@@ -318,18 +331,20 @@ export class PJAX extends Service {
                 data: { scroll }
             });
 
-            if (this.stickyScroll) {
-                // Keep scroll position
-                let { x, y } = scroll;
-                window.scroll({
-                    top: y, left: x,
-                    behavior: 'smooth'  // 👈 
-                });
-            } else {
-                window.scroll({
-                    top: 0, left: 0,
-                    behavior: 'smooth'  // 👈 
-                });
+            if (!this.dontScroll) {
+                if (this.stickyScroll) {
+                    // Keep scroll position
+                    let { x, y } = scroll;
+                    window.scroll({
+                        top: y, left: x,
+                        behavior: 'smooth'  // 👈
+                    });
+                } else {
+                    window.scroll({
+                        top: 0, left: 0,
+                        behavior: 'smooth'  // 👈
+                    });
+                }
             }
 
             this.HistoryManager.add(state);
@@ -444,10 +459,10 @@ export class PJAX extends Service {
 
                 if (el) {
                     if (el.scrollIntoView) {
-                        el.scrollIntoView({ behavior: 'smooth' });
+                        el.scrollIntoView();
                     } else {
                         let { left, top } = el.getBoundingClientRect();
-                        window.scroll({ left, top, behavior: 'smooth' });
+                        window.scroll({ left, top });
                     }
                 }
             }

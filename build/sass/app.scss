@@ -1,4 +1,5 @@
 // CODEPEN CODE [https://codepen.io/okikio/pen/zYrzdma]
+@import "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Material+Icons+Round&family=Manrope:wght@400;500;600;700;800&display=swap";
 $theme: (
     "background": (
         "light": #ffffff,
@@ -76,7 +77,7 @@ html[theme="dark"] {
 
 @media (min-width: 680px) {
     .gradient:before {
-        background: linear-gradient(90deg, var(--surface) 80%, transparent);
+        background: linear-gradient(90deg, var(--bg) 80%, transparent);
         opacity: 1;
     }
 }
@@ -85,6 +86,7 @@ html {
     background-color: var(--bg);
     // font-family: Arial, Helvetica, sans-serif;
     font-family: "Manrope", sans-serif;
+    overflow-x: hidden;
 
     font-size: 15px;
     font-weight: 500;
@@ -141,7 +143,6 @@ html {
 
 img {
     object-fit: cover;
-    min-height: 300px;
     display: block;
     border: none;
     width: 100%;
@@ -162,7 +163,8 @@ img {
         image-rendering: auto;
         image-rendering: high-quality;
         position: absolute;
-        min-width: 100%;
+        height: 100%;
+        width: 100%;
         left: 0;
         top: 0;
     }
@@ -190,7 +192,8 @@ img {
 }
 
 .navbar {
-    transition: color 0.25s ease-out;
+    transition: color 0.25s ease;
+    color: black;
     $height: 60px;
 
     &,
@@ -206,24 +209,30 @@ img {
     &-large,
     &-overlay,
     &-mini {
-        transition: transform ease-out 0.25s;
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    &-large,
+    &-mini {
         transform: translateY(-100%);
     }
 
-    &-large {
-        transition: transform ease-out 0.65s 0.05s;
-        height: 100vh;
+    &-mini {
+        transition: transform 0.35s ease-out;
         opacity: 1;
+    }
+
+    &-large {
+        transition: transform 0.7s ease-out;
+        height: 100vh;
         pointer-events: auto;
     }
 
     &-overlay {
-        transition: opacity ease 0.55s;
-        background-color: black;
-        transform: translateY(0%);
+        transition: opacity 0.7s ease-out;
+        background-color: var(--surface);
         opacity: 0;
         height: 100vh;
         pointer-events: none;
@@ -261,7 +270,7 @@ img {
     }
 
     &-list {
-        transition: opacity ease-out 0.45s;
+        transition: opacity ease-out 0.65s;
         left: 0;
         top: 0;
         opacity: 1;
@@ -276,9 +285,56 @@ img {
         // text-transform: uppercase;
         font-weight: 500;
         padding: 0 1.25rem;
+        position: relative;
+        opacity: 1;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            &:before {
+                transition: opacity ease-out 0.45s,
+                    background-color ease-out 0.25s;
+                position: absolute;
+                border-radius: 4px;
+                content: "";
+                display: block;
+                width: 10px;
+                height: 10px;
+                background-color: currentColor;
+                transform: translateY(-50%);
+                top: 50%;
+                left: 15%;
+                opacity: 0;
+            }
+        }
+
+        // @media (min-width: 768px) {
+        //     &:after {
+        //         transition: opacity ease-out 0.45s,
+        //             background-color ease-out 0.25s;
+        //         position: absolute;
+        //         border-radius: 4px;
+        //         content: "";
+        //         display: block;
+        //         width: 6px;
+        //         height: 6px;
+        //         background-color: currentColor;
+        //         transform: translateX(-50%);
+        //         left: 50%;
+        //         bottom: 15%;
+        //         opacity: 0;
+        //     }
+        // }
 
         &.active {
-            font-weight: 800 !important;
+            // font-weight: 700 !important;
+            &,
+            &:before,
+            &:after {
+                opacity: 0.6;
+            }
         }
     }
 
@@ -293,14 +349,17 @@ img {
             opacity: 1;
         }
 
-        &-large,
-        &-overlay {
+        &-large {
             pointer-events: none;
             opacity: 0;
         }
     }
 
     @media (max-width: 768px) {
+        .navbar-item {
+            padding-left: 5rem;
+        }
+
         &:not(.active) {
             .navbar-list,
             .navbar-item {
@@ -426,10 +485,6 @@ img {
         display: inline-block;
         vertical-align: middle;
     }
-}
-
-.img {
-    min-height: 250px;
 }
 
 .city-image {

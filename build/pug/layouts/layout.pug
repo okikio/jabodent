@@ -11,11 +11,11 @@ include /components/footer.pug
 
 //- https://github.com/okikio/joseph/blob/master/views/app.pug
 doctype html
-html(lang="en" theme="light")
+html(lang="en" theme="dark")
   head
     meta(charset="utf-8")
     meta(name="color-scheme" content="dark light")
-    meta(http-equiv="Accept-CH" content="DPR, Viewport-Width, Width")
+    meta(http-equiv="Accept-CH" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     -
       let defaults = {
@@ -44,7 +44,7 @@ html(lang="en" theme="light")
     link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
     link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
 
-    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Material+Icons+Round&family=Manrope:wght@400;500;600;700;800&display=swap", rel="stylesheet")
+    //- link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Material+Icons+Round&family=Manrope:wght@400;500;600;700;800&display=swap", rel="stylesheet", async)
     link(rel="stylesheet", href="/css/tailwind.css", async)
     link(rel="stylesheet", href="/css/app.min.css", async)
 

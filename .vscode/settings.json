@@ -19,7 +19,14 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#dd0531",
-    "cSpell.ignoreWords": ["lmatch", "ur", "ur lmatch", "waapi", "walijs"],
+    "cSpell.ignoreWords": [
+        "dont",
+        "lmatch",
+        "ur",
+        "ur lmatch",
+        "waapi",
+        "walijs"
+    ],
     "editor.quickSuggestions": {
         "other": true,
         "comments": true,

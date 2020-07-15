@@ -5,30 +5,30 @@ block hero
     .hero-overlay.absolute.top-0.left-0.h-full.w-full
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
       section.self-center.text-center.px-5
-        h1.text-5xl.font-semibold.font-title.tracking-wider.layer JABODENT
-        h2.text-lg.leading-7 Integrity, Professionalism, Teamwork, Innovation & Excellence
+        h1.text-5xl.font-extrabold.font-title.tracking-wider.layer Jabodent Offshore Consultant Limited
+        h2.text-lg.leading-7.pt-3 Integrity, Professionalism, Teamwork, Innovation & Excellence
         a.scroll-btn.cursor-pointer.scroll.text-secondary.z-10(class="hover:underline")
           .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
 
   section.bg-black.text-white.w-full.scroll-point
     .px-5.mx-auto.w-full.max-w-screen-md.py-24.intro-animation
-      h3.text-2xl.mb-6.font-bold About Us
+      h3.text-2xl.mb-6.font-extrabold About Us
       p.leading-8 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
       .mt-16
         +learn-more("./about.html")
 
 
 block content
-  section.theme-bg.theme-text
+  section.theme-surface.theme-text
     .px-5.pt-24.mx-auto.w-full.max-w-screen-md
-      h3.text-2xl.mb-6.font-bold.intro-animation Mission & Vision
+      h3.text-2xl.mb-6.font-extrabold.intro-animation Mission & Vision
       p.leading-8.intro-animation Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.
 
-    .flex.w-full.pt-24
+    .text-black.flex.w-full.pt-24
       .flex-grow
       section.bg-secondary.w-full.max-w-screen-md
         .py-12.pl-10.w-full
-          h3.text-2xl.mb-6.font-bold.intro-animation Skills & Services
+          h3.text-2xl.mb-6.font-extrabold.intro-animation Skills & Services
 
           ul.leading-8.list-disc.list-inside
             each service, index in services
@@ -41,7 +41,7 @@ block content
 
       .bg-secondary.flex-grow
 
-    .theme-text.mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
+    .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
@@ -75,7 +75,7 @@ block content
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
       section.max-w-screen-md.mx-auto
         section.relative.max-width
-          h3.text-3xl.mb-10.font-bold Why Choose Us?
+          h3.text-3xl.mb-10.font-extrabold Why Choose Us?
           h4.text-xl.mb-2 Certified Experience
           p.leading-8.mb-12 Experience of Certified industry professionals.
           h4.text-xl.mb-2 Great Teamwork
@@ -85,7 +85,7 @@ block content
           .mt-16
             +learn-more("./about.html")
 
-  section.carousel.theme-bg.relative.pt-6(data-block="Carousel")
+  section.carousel.theme-surface.relative.pt-6(data-block="Carousel")
     h3.theme-text.text-3xl.font-medium.text-center Clients & Testimonials
     +carousel-buttons
 
@@ -93,13 +93,15 @@ block content
       -
         let quote = value.quote;
         let name = value.name;
+        let image = value.image;
 
       section.carousel-item
         .theme-text.px-5.py-24.mx-auto.w-full.max-w-screen-sm(class="lt-md:py-12")
-          h4.text-4xl.text-center.tracking-wide.font-bold “#{quote}”
+          h4.text-4xl.text-center.tracking-wide.font-extrabold “#{quote}”
           section.flex.justify-center.w-full.px-5.mx-auto
             .mt-10.flex
-              .h-12.w-12.bg-blue-400.mr-5.rounded-md.person
+              .h-12.w-12.bg-blue-400.mr-5.rounded-md.person.overflow-hidden
+                +image(image)
               p.self-center.text-lg.font-semibold= name
 
     section.carousel-container.relative.w-full

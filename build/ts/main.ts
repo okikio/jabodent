@@ -20,7 +20,7 @@ app
     .add("service", new PJAX())
 
     .addService(navbar = new Navbar())
-    .addService(router = new Router())
+    .setService("router", router = new Router())
 
     .add("block", CarouselBlockIntent)
     .add("transition", new Fade());
@@ -55,13 +55,34 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(e => {
 try {
     let waitOnScroll = false;
     let layer: HTMLElement, top: number, navHeight: number = navbar.navbar.getBoundingClientRect().height;
-    app.on("CONTENT_REPLACED READY", () => {
+    const scroll = () => {
+        if (!waitOnScroll) {
+            let scrollTop = window.scrollY;
+            requestAnimationFrame(() => {
+                if ((scrollTop + 10 + navHeight) >= top) {
+                    navbar.navbar.classList.add("focus");
+                } else navbar.navbar.classList.remove("focus");
+                waitOnScroll = true;
+            });
+        }
+
+        waitOnScroll = false;
+    };
+
+    const load = () => {
         let layers = document.getElementsByClassName("layer") || [];
-        layer = layers[0] as HTMLElement || null;
-        top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
 
         navbar.navbar.classList.remove("focus");
         navbar.navbar.classList.remove("active");
+
+        if (/(index(.html)?|\/$)|(services\/+)/g.test(window.location.pathname)) {
+            navbar.navbar.classList.add("light");
+        } else if (navbar.navbar.classList.contains("light")) {
+            navbar.navbar.classList.remove("light");
+        }
+
+        layer = layers[0] as HTMLElement || null;
+        top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
 
         let backToTop = document.getElementsByClassName("back-to-top")[0];
         if (backToTop) {
@@ -81,26 +102,12 @@ try {
             });
         }
 
-        if (/(index(.html)?|\/$)|(services\/+)/g.test(window.location.pathname)) {
-            navbar.navbar.classList.add("light");
-        } else if (navbar.navbar.classList.contains("light")) {
-            navbar.navbar.classList.remove("light");
-        }
-    });
+        scroll();
+    };
 
-    window.addEventListener("scroll", () => {
-        if (!waitOnScroll) {
-            let scrollTop = window.scrollY;
-            requestAnimationFrame(() => {
-                if ((scrollTop + 10 + navHeight) >= top) {
-                    navbar.navbar.classList.add("focus");
-                } else navbar.navbar.classList.remove("focus");
-                waitOnScroll = true;
-            });
-        }
-
-        waitOnScroll = false;
-    }, { passive: true });
+    load();
+    app.on("CONTENT_REPLACED", load);
+    window.addEventListener("scroll", scroll, { passive: true });
 
     router.add({
         path: /(index(.html)?|\/$)/,

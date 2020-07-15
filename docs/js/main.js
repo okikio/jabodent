@@ -15,6 +15,25 @@ const mediaTheme = () => {
     return mql.matches ? "dark" : "light";
   return null;
 };
+const html = document.querySelector("html");
+try {
+  let theme = getTheme();
+  if (theme === null)
+    theme = mediaTheme();
+  theme && html.setAttribute("theme", theme);
+} catch (e) {
+  console.warn("Theming isn't available on this browser.");
+}
+let themeSet = (theme) => {
+  html.setAttribute("theme", theme);
+  setTheme(theme);
+};
+window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
+  themeSet(e.matches ? "dark" : "light");
+});
+window.matchMedia("(prefers-color-scheme: light)").addListener((e) => {
+  themeSet(e.matches ? "light" : "dark");
+});
 
 const CONFIG_DEFAULTS = {
   wrapperAttr: "wrapper",
@@ -694,9 +713,10 @@ class PJAX extends Service {
     this.prefetchIgnore = false;
     this.isTransitioning = false;
     this.stopOnTransitioning = false;
-    this.stickyScroll = true;
+    this.stickyScroll = false;
     this.forceOnError = false;
     this.autoScrollOnHash = true;
+    this.dontScroll = true;
   }
   transitionStart() {
     this.isTransitioning = true;
@@ -795,13 +815,16 @@ class PJAX extends Service {
       let difference = currentIndex - index;
       trigger = this.getDirection(difference);
       transitionName = transition;
-      if (trigger !== "popstate") {
-        let {x, y} = data.scroll;
-        window.scroll({
-          top: y,
-          left: x,
-          behavior: "smooth"
-        });
+      if (!this.dontScroll) {
+        console.log("Dont scroll");
+        if (trigger !== "popstate" && this.stickyScroll) {
+          let {x, y} = data.scroll;
+          window.scroll({
+            top: y,
+            left: x,
+            behavior: "smooth"
+          });
+        }
       }
       if (trigger === "back") {
         this.HistoryManager.delete(currentIndex);
@@ -820,19 +843,21 @@ class PJAX extends Service {
         transition: transitionName,
         data: {scroll}
       });
-      if (this.stickyScroll) {
-        let {x, y} = scroll;
-        window.scroll({
-          top: y,
-          left: x,
-          behavior: "smooth"
-        });
-      } else {
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: "smooth"
-        });
+      if (!this.dontScroll) {
+        if (this.stickyScroll) {
+          let {x, y} = scroll;
+          window.scroll({
+            top: y,
+            left: x,
+            behavior: "smooth"
+          });
+        } else {
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+          });
+        }
       }
       this.HistoryManager.add(state);
       this.changeState("push", state);
@@ -908,10 +933,10 @@ class PJAX extends Service {
         let el = document.getElementById(hashID);
         if (el) {
           if (el.scrollIntoView) {
-            el.scrollIntoView({behavior: "smooth"});
+            el.scrollIntoView();
           } else {
             let {left, top} = el.getBoundingClientRect();
-            window.scroll({left, top, behavior: "smooth"});
+            window.scroll({left, top});
           }
         }
       }
@@ -1121,10 +1146,10 @@ class Navbar extends Service {
   activateLink() {
     let {href} = window.location;
     for (let item of this.elements) {
-      let itemHref = item.href;
+      let itemHref = item.getAttribute("data-path") || item.href;
       if (!itemHref || itemHref.length < 1)
         continue;
-      let URLmatch = _URL.equal(itemHref, href);
+      let URLmatch = new RegExp(itemHref).test(href);
       let isActive = item.classList.contains("active");
       if (!(URLmatch && isActive)) {
         item.classList[URLmatch ? "add" : "remove"]("active");
@@ -1376,10 +1401,6 @@ class Fade extends Transition {
   out({from}) {
     let {duration} = this;
     let fromWrapper = from.getWrapper();
-    window.scroll({
-      top: 0,
-      behavior: "smooth"
-    });
     return new Promise(async (resolve) => {
       await B({
         target: fromWrapper,
@@ -1389,7 +1410,6 @@ class Fade extends Transition {
           el.style.opacity = "0";
         }
       });
-      window.scrollTo(0, 0);
       resolve();
     });
   }
@@ -1410,35 +1430,53 @@ class Fade extends Transition {
 
 const app = new App();
 let navbar, router;
-app.addService(new IntroAnimation()).add("service", new PJAX()).addService(navbar = new Navbar()).addService(router = new Router()).add("block", CarouselBlockIntent).add("transition", new Fade());
-const html = document.querySelector("html");
+app.addService(new IntroAnimation()).add("service", new PJAX()).addService(navbar = new Navbar()).setService("router", router = new Router()).add("block", CarouselBlockIntent).add("transition", new Fade());
+const html$1 = document.querySelector("html");
 try {
   let theme2 = getTheme();
   if (theme2 === null)
     theme2 = mediaTheme();
-  theme2 && html.setAttribute("theme", theme2);
+  theme2 && html$1.setAttribute("theme", theme2);
 } catch (e) {
   console.warn("Theming isn't available on this browser.");
 }
-let themeSet = (theme2) => {
-  html.setAttribute("theme", theme2);
+let themeSet$1 = (theme2) => {
+  html$1.setAttribute("theme", theme2);
   setTheme(theme2);
 };
 window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
-  themeSet(e.matches ? "dark" : "light");
+  themeSet$1(e.matches ? "dark" : "light");
 });
 window.matchMedia("(prefers-color-scheme: light)").addListener((e) => {
-  themeSet(e.matches ? "light" : "dark");
+  themeSet$1(e.matches ? "light" : "dark");
 });
 try {
   let waitOnScroll = false;
   let layer, top, navHeight = navbar.navbar.getBoundingClientRect().height;
-  app.on("CONTENT_REPLACED READY", () => {
+  const scroll = () => {
+    if (!waitOnScroll) {
+      let scrollTop = window.scrollY;
+      requestAnimationFrame(() => {
+        if (scrollTop + 10 + navHeight >= top) {
+          navbar.navbar.classList.add("focus");
+        } else
+          navbar.navbar.classList.remove("focus");
+        waitOnScroll = true;
+      });
+    }
+    waitOnScroll = false;
+  };
+  const load = () => {
     let layers = document.getElementsByClassName("layer") || [];
-    layer = layers[0] || null;
-    top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
     navbar.navbar.classList.remove("focus");
     navbar.navbar.classList.remove("active");
+    if (/(index(.html)?|\/$)|(services\/+)/g.test(window.location.pathname)) {
+      navbar.navbar.classList.add("light");
+    } else if (navbar.navbar.classList.contains("light")) {
+      navbar.navbar.classList.remove("light");
+    }
+    layer = layers[0] || null;
+    top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
     let backToTop = document.getElementsByClassName("back-to-top")[0];
     if (backToTop) {
       backToTop.addEventListener("click", () => {
@@ -1456,25 +1494,11 @@ try {
           scrollPt.scrollIntoView({behavior: "smooth"});
       });
     }
-    if (/(index(.html)?|\/$)|(services\/+)/g.test(window.location.pathname)) {
-      navbar.navbar.classList.add("light");
-    } else if (navbar.navbar.classList.contains("light")) {
-      navbar.navbar.classList.remove("light");
-    }
-  });
-  window.addEventListener("scroll", () => {
-    if (!waitOnScroll) {
-      let scrollTop = window.scrollY;
-      requestAnimationFrame(() => {
-        if (scrollTop + 10 + navHeight >= top) {
-          navbar.navbar.classList.add("focus");
-        } else
-          navbar.navbar.classList.remove("focus");
-        waitOnScroll = true;
-      });
-    }
-    waitOnScroll = false;
-  }, {passive: true});
+    scroll();
+  };
+  load();
+  app.on("CONTENT_REPLACED", load);
+  window.addEventListener("scroll", scroll, {passive: true});
   router.add({
     path: /(index(.html)?|\/$)/,
     method() {

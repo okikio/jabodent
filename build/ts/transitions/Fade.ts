@@ -9,11 +9,6 @@ export class Fade extends Transition {
     out({ from }: ITransitionData) {
         let { duration } = this;
         let fromWrapper = from.getWrapper();
-        window.scroll({
-            top: 0,
-            behavior: 'smooth'  // 👈 
-        });
-
         return new Promise(async resolve => {
             await animate({
                 target: fromWrapper,
@@ -24,7 +19,10 @@ export class Fade extends Transition {
                 }
             });
 
-            window.scrollTo(0, 0);
+            // window.scroll({
+            //     top: 0,
+            //     behavior: 'auto'  // 👈
+            // });
             resolve();
         });
     }

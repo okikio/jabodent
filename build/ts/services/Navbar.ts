@@ -44,10 +44,10 @@ export class Navbar extends Service {
         let { href } = window.location;
 
         for (let item of this.elements) {
-            let itemHref = (item as HTMLAnchorElement).href;
+            let itemHref = item.getAttribute("data-path") || (item as HTMLAnchorElement).href;
             if (!itemHref || itemHref.length < 1) continue;
 
-            let URLmatch = _URL.equal(itemHref, href);
+            let URLmatch = new RegExp(itemHref).test(href);
             let isActive = item.classList.contains("active");
             if (!(URLmatch && isActive)) {
                 item.classList[URLmatch ? "add" : "remove"]("active");

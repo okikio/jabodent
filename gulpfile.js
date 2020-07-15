@@ -71,6 +71,9 @@ const jsFolder = `${destFolder}/js`;
 const cssFolder = `${destFolder}/css`;
 const htmlFolder = `${destFolder}`;
 
+// BrowserSync
+const browserSync = bs.create();
+
 // HTML Tasks
 const dataPath = `./data.js`;
 const resolve = require.resolve(dataPath);
@@ -88,6 +91,7 @@ task("html", async () => {
                         data,
                     }),
                 ],
+                end: browserSync.reload,
                 dest: htmlFolder,
             },
         ],
@@ -118,12 +122,14 @@ task("html", async () => {
                     }),
                     rename(pageURL),
                 ],
+                end: browserSync.reload,
                 dest: `${htmlFolder}/services`,
             },
         ]);
     }
 
     let pipe = await streamList(pages);
+
     delete require.cache[resolve];
     return Promise.resolve(pipe);
 });
@@ -168,13 +174,17 @@ tasks({
                         whitelistPatterns: [/active/, /focus/, /show/, /hide/],
                         keyframes: false,
                         fontFace: false,
-                        defaultExtractor: content => {
+                        defaultExtractor: (content) => {
                             // Capture as liberally as possible, including things like `h-(screen-1.5)`
-                            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+                            const broadMatches =
+                                content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
 
-                            const innerMatches = content.match(/[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g) || [];
+                            const innerMatches =
+                                content.match(
+                                    /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
+                                ) || [];
                             return broadMatches.concat(innerMatches);
-                          },
+                        },
                     }),
                     // Prefix & Compress CSS
                     postcss([
@@ -185,7 +195,6 @@ tasks({
                     ]),
                 ],
                 dest: cssFolder, // Output
-                end: [browserSync.stream()],
             }
         );
     },
@@ -210,7 +219,7 @@ let onwarn = ({ loc, message, code, frame }, warn) => {
 };
 
 task("js", async () => {
-    const bundle = await rollup({
+    let bundle = await rollup({
         input: `${tsFolder}/main.ts`,
         treeshake: true,
         preserveEntrySignatures: false,
@@ -231,15 +240,8 @@ task("js", async () => {
 
     return new Promise((resolve) => {
         browserSync.reload();
-        resolve();
+        resolve(bundle);
     });
-});
-
-const browserSync = bs.create();
-task("reload", async (done) => {
-    await stream(`${htmlFolder}/**/*.html`, {});
-    browserSync.reload();
-    done();
 });
 
 // Build & Watch Tasks
@@ -260,7 +262,7 @@ task("watch", () => {
         }
     );
 
-    watch([`${pugFolder}/**/*.pug`, dataPath], series("html", "reload"));
+    watch([`${pugFolder}/**/*.pug`, dataPath], series("html"));
     watch(`${sassFolder}/**/*.scss`, series("app-css"));
     watch(
         [`${sassFolder}/tailwind.css`, `./tailwind.js`],
@@ -269,4 +271,7 @@ task("watch", () => {
     watch(`${tsFolder}/**/*.ts`, series("js"));
 });
 
-task("default", series("build", "watch"));
+task(
+    "default",
+    series(parallel("html", "app-css", "tailwind-css", "js"), "watch")
+);

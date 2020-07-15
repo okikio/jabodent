@@ -1,55 +1,52 @@
 extends /layouts/layout.pug
 
 block hero
-  section.bg-black.text-white.w-full.relative
-    .pb-2.pt-32.mx-auto.w-full.container(class="md:px-5")
-      .mx-auto.w-full.tracking-wide.max-w-screen-md(class="lt-md:px-5")
-        .text-lg.w-full.leading-snug.tracking-wider.layer
-          h1.text-5xl.font-title.font-medium= service.title
-        p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-16= service.description
-
-      .relative.w-full.h-72
-        +image
-      p.w-full.block.font-light.font-default.tracking-wide.text-gray-600.text-center.py-4 Figure: An image of a sky scraper by ... on Unsplash.
 
 block content
   .bg-black.block.relative
-    section.mx-auto.text-white.w-full.max-w-screen-md
-      .px-5.mx-auto.w-full.tracking-wide.container
-        section.pb-24.text-lg.leading-9.font-normal
-          section.clearfix
-            span.float-left.pr-4.py-4.text-6xl.font-title.font-extrabold L
-            p
-              | orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sollicitudin ac orci phasellus egestas tellus. Habitant morbi tristique senectus et. Purus ut faucibus pulvinar elementum integer enim. In ornare quam viverra orci sagittis. Eros donec ac odio tempor. Amet porttitor eget dolor morbi. Enim sed faucibus turpis in eu mi. Habitasse platea dictumst quisque sagittis purus sit amet volutpat. Praesent semper feugiat nibh sed. Aliquam sem fringilla ut morbi tincidunt. Amet cursus sit amet dictum. Sed sed risus pretium quam. Neque egestas congue quisque egestas diam in arcu. Interdum posuere lorem ipsum dolor. Imperdiet nulla malesuada pellentesque elit eget gravida. Turpis egestas sed tempus urna et. Tellus id interdum velit laoreet. Ut ornare lectus sit amet est placerat in egestas. Lacinia at quis risus sed vulputate.
-              br
-              br
-              | Vitae suscipit tellus mauris a diam maecenas sed enim ut. A pellentesque sit amet porttitor eget dolor morbi. Sapien faucibus et molestie ac feugiat sed lectus. Vitae aliquet nec ullamcorper sit amet risus nullam eget felis. Ultrices dui sapien eget mi proin. Elit duis tristique sollicitudin nibh sit. Sit amet mauris commodo quis imperdiet massa tincidunt nunc. Enim sed faucibus turpis in eu mi. Velit laoreet id donec ultrices tincidunt arcu. Scelerisque fermentum dui faucibus in. Eget est lorem ipsum dolor sit amet consectetur adipiscing.
+    -
+      let { title, description, article } = service;
+      let image = Object.assign({ src: "cloudinary/city", alt: "An image of ... by ... on unsplash." }, service.image);
 
-              br
-              br
-              | Scelerisque in dictum non consectetur a erat nam. At in tellus integer feugiat scelerisque varius morbi enim. Sit amet massa vitae tortor. Tellus molestie nunc non blandit massa enim nec dui nunc. Sed libero enim sed faucibus turpis in. Viverra aliquet eget sit amet. Ut pharetra sit amet aliquam id diam. Nulla pellentesque dignissim enim sit. Sed enim ut sem viverra aliquet eget sit amet tellus. Nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Sagittis vitae et leo duis ut diam quam. Felis bibendum ut tristique et egestas quis. Orci ac auctor augue mauris augue neque gravida. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Enim lobortis scelerisque fermentum dui faucibus. Ultrices neque ornare aenean euismod elementum nisi quis eleifend.
+    section.text-white.w-full.relative.block
+      .pt-32.mx-auto.w-full.max-w-screen-xl.container(class="md:px-5")
+        .mx-auto.w-full.tracking-wide.max-w-screen-md(class="lt-md:px-5")
+          span.font-light.lowercase.capitalize.text-gray-600.tracking-wider.text-sm
+            a.underline(href="/services.html") Our Services
+            |  \
+          .text-lg.w-full.leading-snug.tracking-wider.layer
+            h1.text-5xl.font-title.font-medium= title
+          p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-12= description
 
-              br
-              br
-              | Facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. Placerat vestibulum lectus mauris ultrices. Venenatis lectus magna fringilla urna. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Cras pulvinar mattis nunc sed blandit libero volutpat sed cras. Augue interdum velit euismod in pellentesque massa placerat duis. Viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Montes nascetur ridiculus mus mauris vitae ultricies leo. Et egestas quis ipsum suspendisse. Ut tellus elementum sagittis vitae. Ultricies integer quis auctor elit sed vulputate mi sit. Arcu ac tortor dignissim convallis aenean et tortor at risus. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+        .relative.w-full.h-84.clearfix
+          +image(image)
+          figcaption.relative.block.w-full.max-w-screen-md.mx-auto.block.tracking-wide.font-light.font-default.text-gray-600.text-center.text-sm.py-4.leading-relaxed Figure: #{image.alt}
 
-              br
-              br
-              | Quam pellentesque nec nam aliquam sem et. Quam quisque id diam vel quam elementum pulvinar etiam. At tellus at urna condimentum. Volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque. A arcu cursus vitae congue. Eros in cursus turpis massa. Ultricies mi eget mauris pharetra et. Sit amet volutpat consequat mauris. Nulla facilisi etiam dignissim diam quis. Libero enim sed faucibus turpis. Sodales ut eu sem integer vitae justo eget magna fermentum. Orci phasellus egestas tellus rutrum tellus pellentesque eu. Nulla pharetra diam sit amet nisl. Vitae suscipit tellus mauris a diam. Donec et odio pellentesque diam volutpat commodo sed egestas. Congue nisi vitae suscipit tellus mauris a diam maecenas. At in tellus integer feugiat. Condimentum mattis pellentesque id nibh tortor id. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Ultrices vitae auctor eu augue ut lectus arcu bibendum.
+    div.pt-24
+      section.mx-auto.text-white.w-full.max-w-screen-md
+        .px-5.tracking-wide
+          section.pb-10.text-lg.leading-9.font-normal
+            section.clearfix
+              if article[0] !== "_"
+                span.float-left.pr-2.py-3.text-6xl.font-title.font-extrabold= article[0]
+              p!= article.substring(1).replace(/\n/g, "<br>")
 
-    section.social.flex-wrap.cursor-pointer.z-10.text-white.mx-auto.max-w-screen-md
-      a.px-6.py-3.cursor-pointer.underline.inline-block Twitter
-      a.px-6.py-3.cursor-pointer.underline.inline-block Facebook
-      a.px-6.py-3.cursor-pointer.underline.inline-block Instagram
-      a.px-6.py-3.cursor-pointer.underline.inline-block Medium
+      .mx-auto.w-full.max-w-screen-md.px-5
+        hr.border-white.border-opacity-25.mb-14
 
-    .mx-auto.w-full.max-w-screen-md(class="lt-md:px-5")
-      hr.border-white.border-opacity-25.my-14
+      section.social.flex-wrap.cursor-pointer.z-10.text-white.mx-auto.max-w-screen-md
+        a.px-6.py-3.cursor-pointer.underline.inline-block Twitter
+        a.px-6.py-3.cursor-pointer.underline.inline-block Facebook
+        a.px-6.py-3.cursor-pointer.underline.inline-block Instagram
+        a.px-6.py-3.cursor-pointer.underline.inline-block Medium
 
-    +back-to-top
+      .mx-auto.w-full.max-w-screen-md.px-5
+        hr.border-white.border-opacity-25.my-8
+
+      +back-to-top
 
     .text-white(class="bg-white bg-opacity-15 hover:bg-gray-600 hover:bg-opacity-15")
-      .py-8.mx-auto.w-full.tracking-wide.max-w-screen-md.relative(class="lt-md:px-5")
+      .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-md.relative
         a.rounded-lg.py-5.block(href=next.url)
           p.text-gray-600.mb-5 Next
           section.flex

@@ -1,5 +1,5 @@
 module.exports = {
-    purge: [],//[`${pugFolder}/**/*.pug`],
+    purge: [], //[`${pugFolder}/**/*.pug`],
     target: "relaxed",
     prefix: "",
     important: false,
@@ -371,6 +371,7 @@ module.exports = {
         minHeight: {
             "0": "0",
             "1": "1px",
+            "300": "300px",
             full: "100%",
             screen: "100vh",
         },
@@ -378,17 +379,17 @@ module.exports = {
             "0": "0",
             full: "100%",
         },
-        // objectPosition: {
-        //     bottom: "bottom",
-        //     center: "center",
-        //     left: "left",
-        //     "left-bottom": "left bottom",
-        //     "left-top": "left top",
-        //     right: "right",
-        //     "right-bottom": "right bottom",
-        //     "right-top": "right top",
-        //     top: "top",
-        // },
+        objectPosition: {
+            bottom: "bottom",
+            center: "center",
+            left: "left",
+            "left-bottom": "left bottom",
+            "left-top": "left top",
+            right: "right",
+            "right-bottom": "right bottom",
+            "right-top": "right top",
+            top: "top",
+        },
         opacity: {
             "0": "0",
             "15": "0.15",
