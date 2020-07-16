@@ -109,8 +109,6 @@ try {
     app.on("CONTENT_REPLACED", load);
     window.addEventListener("scroll", scroll, { passive: true });
 
-    app.boot();
-
     router.add({
         path: /(index(.html)?|\/$)/,
         method() {
@@ -122,6 +120,15 @@ try {
             };
         }
     });
+
+    router.add({
+        path: /about.html\#jane-doe/,
+        method() {
+            console.log("Jane Doe");
+        }
+    });
+
+    app.boot();
 } catch (err) {
     // splashscreen.show();
     console.warn("[App] boot failed,", err);

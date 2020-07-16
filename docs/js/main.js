@@ -1036,8 +1036,8 @@ class Router extends Service {
     };
   }
   route() {
-    let from = this.HistoryManager[this.HistoryManager.size > 1 ? "prev" : "last"]().getURLPathname();
-    let to = window.location.pathname;
+    let from = this.HistoryManager[this.HistoryManager.size > 1 ? "prev" : "last"]().getURL().getFullPath();
+    let to = new _URL().getFullPath();
     this.routes.forEach((method, path) => {
       let fromRegExp = path.from;
       let toRegExp = path.to;
@@ -1207,16 +1207,9 @@ class Carousel extends Block {
     this.clearDots();
     this.setDots();
     this.select(this.index);
-    this.on = this.on.bind(this);
-    this.off = this.off.bind(this);
-    this.run = this.run.bind(this);
-    this.next = this.next.bind(this);
-    this.prev = this.prev.bind(this);
-    this.scroll = this.scroll.bind(this);
-    this.setPos = this.setPos.bind(this);
-    this.resize = this.resize.bind(this);
-    this.keypress = this.keypress.bind(this);
-    this.dotClick = this.dotClick.bind(this);
+    ["on", "off", "run", "next", "prev", "scroll", "setPos", "resize", "keypress", "dotClick"].forEach((key) => {
+      this[key] = this[key]?.bind(this);
+    });
   }
   setDots() {
     for (let i = 0; i < this.slideLen; i++) {
@@ -1269,6 +1262,8 @@ class Carousel extends Block {
     }
     let x = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].clientX;
     this.setCurrentX(this.offX + (x - this.onX) * this.speed);
+    if (this.rAF === null)
+      this.requestAnimationFrame();
   }
   on(e) {
     let touches = e.changedTouches;
@@ -1278,6 +1273,8 @@ class Carousel extends Block {
     this.onX = e instanceof MouseEvent ? e.clientX : typeof e === "number" ? e : touches[touches.length - 1].clientX;
     this.onY = e instanceof MouseEvent ? e.clientY : typeof e === "number" ? 0 : touches[touches.length - 1].clientY;
     this.rootElement.classList.add("is-grabbing");
+    if (this.rAF === null)
+      this.requestAnimationFrame();
   }
   parsePercent(value) {
     return value * this.viewportWidth / 100;
@@ -1307,6 +1304,8 @@ class Carousel extends Block {
     this.rootElement.classList.remove("is-grabbing");
     this.onX = 0;
     this.onY = 0;
+    if (this.rAF === null)
+      this.requestAnimationFrame();
   }
   toPercent(value) {
     return value / this.viewportWidth * 100;
@@ -1320,6 +1319,8 @@ class Carousel extends Block {
     this.setCurrentX(-this.index * this.width);
     this.setActiveDot();
     this.setHeight();
+    if (this.rAF === null)
+      this.requestAnimationFrame();
   }
   run() {
     this.isScrolling = false;
@@ -1330,10 +1331,13 @@ class Carousel extends Block {
       this.snapOnce = true;
     }
     this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
-    this.requestAnimationFrame();
+    if (Math.abs(this.lastX) === Math.floor(Math.abs(this.currentX) * 100) / 100) {
+      this.cancelAnimationFrame();
+    } else
+      this.requestAnimationFrame();
   }
   requestAnimationFrame() {
-    this.rAF = requestAnimationFrame(this.run);
+    this.rAF = window.requestAnimationFrame(this.run);
   }
   initEvents() {
     this.run();
@@ -1366,6 +1370,8 @@ class Carousel extends Block {
     this.setCurrentX(currentX + -deltaX * (this.speed * 2));
     if (Math.abs(deltaX) > 0)
       evt.preventDefault();
+    if (this.rAF === null)
+      this.requestAnimationFrame();
   }
   dotClick(e) {
     let target = e.target;
@@ -1396,7 +1402,8 @@ class Carousel extends Block {
     window.removeEventListener("keydown", this.keypress, false);
   }
   cancelAnimationFrame() {
-    cancelAnimationFrame(this.rAF);
+    window.cancelAnimationFrame(this.rAF);
+    this.rAF = null;
   }
   resize() {
     this.setBounds();
@@ -1514,7 +1521,6 @@ try {
   load();
   app.on("CONTENT_REPLACED", load);
   window.addEventListener("scroll", scroll, {passive: true});
-  app.boot();
   router.add({
     path: /(index(.html)?|\/$)/,
     method() {
@@ -1527,6 +1533,13 @@ try {
       };
     }
   });
+  router.add({
+    path: /about.html\#jane-doe/,
+    method() {
+      console.log("Jane Doe");
+    }
+  });
+  app.boot();
 } catch (err) {
   console.warn("[App] boot failed,", err);
 }

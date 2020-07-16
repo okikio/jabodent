@@ -85,16 +85,10 @@ export class Carousel extends Block {
         this.setDots();
         this.select(this.index);
 
-        this.on = this.on.bind(this);
-        this.off = this.off.bind(this);
-        this.run = this.run.bind(this);
-        this.next = this.next.bind(this);
-        this.prev = this.prev.bind(this);
-        this.scroll = this.scroll.bind(this);
-        this.setPos = this.setPos.bind(this);
-        this.resize = this.resize.bind(this);
-        this.keypress = this.keypress.bind(this);
-        this.dotClick = this.dotClick.bind(this);
+        ["on", "off", "run", "next", "prev", "scroll", "setPos", "resize", "keypress", "dotClick"]
+            .forEach((key: string) => {
+                this[key] = this[key]?.bind(this);
+            });
     }
 
     public setDots() {
@@ -153,6 +147,8 @@ export class Carousel extends Block {
 
         let x = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].clientX);
         this.setCurrentX(this.offX + ((x - this.onX) * this.speed));
+
+        if (this.rAF === null) this.requestAnimationFrame();
     }
 
     public on(e: MouseEvent | TouchEvent | number) {
@@ -163,6 +159,8 @@ export class Carousel extends Block {
         this.onX = e instanceof MouseEvent ? e.clientX : (typeof e === "number" ? e : touches[touches.length - 1].clientX);
         this.onY = e instanceof MouseEvent ? e.clientY : (typeof e === "number" ? 0 : touches[touches.length - 1].clientY);
         this.rootElement.classList.add('is-grabbing');
+
+        if (this.rAF === null) this.requestAnimationFrame();
     }
 
     public parsePercent(value: number) {
@@ -198,6 +196,8 @@ export class Carousel extends Block {
         this.rootElement.classList.remove('is-grabbing');
         this.onX = 0;
         this.onY = 0;
+
+        if (this.rAF === null) this.requestAnimationFrame();
     }
 
     public toPercent(value: number) {
@@ -214,6 +214,8 @@ export class Carousel extends Block {
         this.setCurrentX(-this.index * this.width);
         this.setActiveDot();
         this.setHeight();
+
+        if (this.rAF === null) this.requestAnimationFrame();
     }
 
     public run() {
@@ -227,11 +229,15 @@ export class Carousel extends Block {
         }
 
         this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
-        this.requestAnimationFrame();
+
+        // No point in requesting animation frame, when you know nothing is going to change
+        if (Math.abs(this.lastX) === Math.floor(Math.abs(this.currentX) * 100) / 100) {
+            this.cancelAnimationFrame();
+        } else this.requestAnimationFrame();
     }
 
     public requestAnimationFrame() {
-        this.rAF = requestAnimationFrame(this.run);
+        this.rAF = window.requestAnimationFrame(this.run);
     }
 
     public initEvents() {
@@ -270,6 +276,8 @@ export class Carousel extends Block {
         let currentX = this.parsePercent(this.currentX);
         this.setCurrentX(currentX + (-deltaX * (this.speed * 2)));
         if (Math.abs(deltaX) > 0) evt.preventDefault();
+
+        if (this.rAF === null) this.requestAnimationFrame();
     }
 
     private dotClick(e: MouseEvent) {
@@ -311,7 +319,8 @@ export class Carousel extends Block {
     }
 
     public cancelAnimationFrame() {
-        cancelAnimationFrame(this.rAF);
+        window.cancelAnimationFrame(this.rAF);
+        this.rAF = null;
     }
 
     public resize() {

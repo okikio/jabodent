@@ -1,5 +1,6 @@
 import { Service } from "./service";
 import { Manager } from "./manager";
+import { _URL } from "./url";
 
 export type RouteMethod = (...args: any) => any;
 export type RouteStyle = string | RegExp | boolean;
@@ -32,7 +33,7 @@ export class Router extends Service {
 
     /**
      * Creates an instance of Router.
-     * 
+     *
      * @param {Array<IRoute>} [routes=[]]
      * @memberof Router
      */
@@ -120,8 +121,8 @@ export class Router extends Service {
      * @memberof Router
      */
     public route() {
-        let from: string = this.HistoryManager[this.HistoryManager.size > 1 ? "prev" : "last"]().getURLPathname();
-        let to: string = window.location.pathname;
+        let from: string = this.HistoryManager[this.HistoryManager.size > 1 ? "prev" : "last"]().getURL().getFullPath();
+        let to: string = new _URL().getFullPath();
 
         this.routes.forEach((method: RouteMethod, path: IRouteToFrom) => {
             let fromRegExp = (path.from as RegExp | boolean);
@@ -143,7 +144,7 @@ export class Router extends Service {
                 (Array.isArray(toParam) && Array.isArray(fromParam)) ||
                 (Array.isArray(toParam) && (typeof fromParam == "boolean" && fromParam)) ||
                 (Array.isArray(fromParam) && (typeof toParam == "boolean" && toParam))
-                ) method({ from: fromParam, to: toParam, path: { from, to } });
+            ) method({ from: fromParam, to: toParam, path: { from, to } });
         });
     }
 
