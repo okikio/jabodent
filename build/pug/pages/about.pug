@@ -29,10 +29,7 @@ block content
         .mx-auto.px-5.w-full.max-w-screen-lg.py-12(class="sm:px-24 md:px-5 lt-md:py-6")
           section.p-8.flex.flex-col.justify-center.rounded-xl(class="md:flex-row")
             .cursor-pointer.self-center.w-full.h-auto.bg-blue-400.rounded-lg.overflow-hidden.person(class="md:max-w-1/2 md:mr-5")
-              +image({
-                figclass: "min-h-300",
-                class: "min-h-300"
-              })
+              +image()
             .self-center.w-full(class="md:ml-5 md:max-w-1/2")
               h3(class="md:mt-0").text-lg.font-extrabold.mb-4.mt-4= name
               p.leading-8 #{description}...

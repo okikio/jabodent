@@ -1,7 +1,7 @@
 mixin image(value = {})
   -
     let _class = value.class;
-    let _figClass = value.figclass;
+    let _figClass = value.figclass || "min-h-300";
     let src = value.src || "cloudinary/city";
     let alt = value.alt || "Alternate text";
 

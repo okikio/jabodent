@@ -51,13 +51,15 @@ html(lang="en" theme="dark")
 
   body
     .overlay
-      .modal.py-24.px-5.flex
-        .relative.w-48.h-48.clearfix.justify-center
+      button.close.z-10.ml-5.mt-5.fixed.top-0.left-0.mr-5.bg-white.text-black.rounded-full.flex.w-14.h-14.text-lg(type="button", title="Close")
+        i.icon.w-full.justify-center.self-center close
+      .modal.py-24.px-5.flex.w-full.max-w-screen-xl.mx-auto.flex-col(class="md:flex-row md:px-12")
+        div.w-full.h-full.justify-center(class="md:max-w-2/6 lt-md:mb-5 md:pr-5")
           +image()
-        .content
+        .content.w-full(class="md:max-w-4/6 md:pl-5")
           .text-lg.w-full.leading-snug.tracking-wider.break-words
-          h1(class="sm:text-4xl md:text-5xl").text-3xl.font-title.fot-medium Title
-          p.leading-8.text-lg.text-gray-400.pt-8.pb-12 description
+          h1(class="sm:text-4xl md:text-5xl").text-3xl.font-title Title
+          p.leading-8.text-lg.text-gray-400.pt-8.pb-2 description
           div.pt-2
             section.pb-10.text-lg.leading-9.font-normal
               p
