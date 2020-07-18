@@ -56,7 +56,7 @@
         "rollup-plugin-esbuild": "^2.1.0",
         "rollup-plugin-terser": "^6.1.0",
         "tailwindcss": "^1.4.6",
-        "ultra": "^0.7.2"
+        "ultra-runner": "^3.5.0"
     },
     "dependencies": {
         "@okikio/animate": "^0.0.7",
