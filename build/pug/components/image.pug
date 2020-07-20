@@ -1,18 +1,16 @@
 mixin image(value = {})
   -
     let _class = value.class;
-    let _figClass = value.figclass || "min-h-300";
+    let _figClass = value.figclass !== "" ? (value.figclass || "min-h-300") : "";
     let src = value.src || "cloudinary/city";
     let alt = value.alt || "Alternate text";
-    let noOverlay = value.noOverlay;
 
     let cloudinaryTest = /^cloudinary\//.test(src);
     let origin = "https://res.cloudinary.com/okikio-assets/image/upload/dpr_auto,f_auto,fl_progressive:steep";
     let urlParse = (filters = "") => cloudinaryTest ? `${origin + filters}/${src.replace(/^cloudinary\//, "")}` : src;
 
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
-    if !noOverlay
-      .img-overlay
+    .img-overlay
     picture
       source(media='(max-width: 600px)' srcset!=`${urlParse(",w_600,q_70")}.webp` sizes="600px" width="600px" type='image/webp')
       source(media='(max-width: 600px)' srcset!=`${urlParse(",w_600,q_70")}.jpeg` sizes="600px" width="600px" type='image/jpeg')

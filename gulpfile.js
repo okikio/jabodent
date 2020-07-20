@@ -46,6 +46,7 @@ import moment from 'moment';
  */
 // Gulp utilities
 const {
+    gulp,
     stream,
     streamList,
     tasks,
@@ -56,6 +57,7 @@ const {
     parallelFn,
     seriesFn,
 } = require("./util");
+gulp.watch_initialized = false;
 
 // Origin folders (source and destination folders)
 const srcFolder = `build`;
@@ -246,7 +248,7 @@ task("js", async () => {
 
 // Build & Watch Tasks
 task("build", parallel("html", "css", "js"));
-task("watch", () => {
+task("serve", () => {
     browserSync.init(
         {
             notify: false,
@@ -261,17 +263,24 @@ task("watch", () => {
             });
         }
     );
+});
+task("watch", (done) => {
+    if (gulp.watch_initialized == false) {
+        watch([`${pugFolder}/**/*.pug`, dataPath], series("html"));
+        watch(`${sassFolder}/**/*.scss`, series("app-css"));
+        watch(
+            [`${sassFolder}/tailwind.css`, `./tailwind.js`],
+            series("tailwind-css")
+        );
+        watch(`${tsFolder}/**/*.ts`, series("js"));
+        watch("gulpfile.js", series("default"));
 
-    watch([`${pugFolder}/**/*.pug`, dataPath], series("html"));
-    watch(`${sassFolder}/**/*.scss`, series("app-css"));
-    watch(
-        [`${sassFolder}/tailwind.css`, `./tailwind.js`],
-        series("tailwind-css")
-    );
-    watch(`${tsFolder}/**/*.ts`, series("js"));
+        gulp.watch_initialized = true;
+    }
+    done();
 });
 
 task(
     "default",
-    series(parallel("html", "app-css", "tailwind-css", "js"), "watch")
+    series(parallel("html", "app-css", "tailwind-css", "js"), "watch", "serve")
 );

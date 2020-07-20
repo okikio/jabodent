@@ -1,4 +1,5 @@
-const { src, dest, parallel, watch, task, series } = require("gulp");
+const gulp = require("gulp");
+const { src, dest, parallel, watch, task, series } = gulp;
 
 // Streamline Gulp Tasks
 const stream = (_src, _opt = {}) => {
@@ -66,4 +67,5 @@ module.exports = {
     stream,
     streamList,
     tasks,
+    gulp
 };

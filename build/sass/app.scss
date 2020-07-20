@@ -134,18 +134,6 @@ html.no-scroll {
     top: 0;
     left: 0;
 }
-// .info-modal {
-//     transform: translate(-50%, -50%) scale(1);
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     width: 100%;
-//     max-width: 700px;
-//     height: 500px;
-//     background: red;
-//     border-radius: 25px;
-//     z-index: 30;
-// }
 
 .font {
     &-default {
@@ -339,6 +327,10 @@ img {
             text-decoration: underline;
         }
 
+        &.active {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             &:before {
                 transition: opacity ease-out 0.45s,
@@ -356,24 +348,6 @@ img {
                 opacity: 0;
             }
         }
-
-        // @media (min-width: 768px) {
-        //     &:after {
-        //         transition: opacity ease-out 0.45s,
-        //             background-color ease-out 0.25s;
-        //         position: absolute;
-        //         border-radius: 4px;
-        //         content: "";
-        //         display: block;
-        //         width: 6px;
-        //         height: 6px;
-        //         background-color: currentColor;
-        //         transform: translateX(-50%);
-        //         left: 50%;
-        //         bottom: 15%;
-        //         opacity: 0;
-        //     }
-        // }
 
         &.active {
             // font-weight: 700 !important;
@@ -471,10 +445,6 @@ img {
         width: 100vw;
     }
 
-    &-dots {
-        // background-color: var(--surface);
-    }
-
     &-dot {
         background-color: var(--bg-invert);
         border-radius: 900rem;
@@ -491,11 +461,52 @@ img {
     }
 }
 
+[data-wrapper] {
+    // position: relative;
+    // z-index: auto;
+    // height: 100%;
+    // margin: 0;
+    will-change: opacity;
+}
+
 .hero-img {
-    background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
-    background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
+    // position: absolute;
+    // overflow: hidden;
+    // min-height: 100%;
+    // width: 100%;
+
+    // &:before {
     // background-position: center;
-    background-size: cover;
+    // background-attachment: fixed;
+    // background-size: cover;
+    // content: "";
+    // height: 100%;
+    // left: 0;
+    // position: fixed;
+    // top: 0;
+    // width: 100%;
+    will-change: transform;
+    // z-index: -1;
+    // }
+
+    overflow: hidden; // added for pseudo-element
+    position: relative; // added for pseudo-element
+
+    // Fixed-position background image
+    &::before {
+        content: " ";
+        position: fixed; // instead of background-attachment
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
+        background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
+        // background: url('/img/front/strategy.jpg') no-repeat center center;
+        background-size: cover;
+        will-change: transform; // creates a new paint layer
+        z-index: -1;
+    }
 }
 
 .hero-overlay {

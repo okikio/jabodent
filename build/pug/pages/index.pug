@@ -1,7 +1,7 @@
 extends /layouts/layout.pug
 
 block hero
-  section.relative.h-screen.bg-primary.hero-img.bg-fixed
+  section.relative.h-screen.bg-primary.hero-img
     .hero-overlay.absolute.top-0.left-0.h-full.w-full
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
       section.self-center.text-center.px-5
@@ -101,7 +101,7 @@ block content
           section.flex.justify-center.w-full.px-5.mx-auto
             .mt-10.flex
               .h-12.w-12.bg-blue-400.mr-5.rounded-md.person.overflow-hidden
-                +image(image)
+                +image(Object.assign({ figclass: "" }, image))
               p.self-center.text-lg.font-semibold= name
 
     section.carousel-container.relative.w-full
