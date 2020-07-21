@@ -1,4 +1,20 @@
-mixin seo(page)
-  -
-    let description = page.description;
-  meta(name="description", content=description)
+mixin seo(arg = {})
+  - let { title, url, description, websiteURL } = arg;
+  meta(property="og:type" content="website")
+
+  title= title
+  meta(name='title' content=title)
+  meta(itemprop='name' content=title)
+  meta(property='og:title' content=title)
+  meta(name='twitter:title' content=title)
+  meta(name="apple-mobile-web-app-title", content=title)
+
+  link(rel="canonical" href=`${websiteURL}${url}`)
+  meta(itemprop='url' content=`${websiteURL}${url}`)
+  meta(name="shortlink" content=`${websiteURL}${url}`)
+  meta(property='og:url' content=`${websiteURL}${url}`)
+  meta(name='twitter:url' content=`${websiteURL}${url}`)
+
+  meta(name='description' itemprop='description' content=description)
+  meta(property='og:description' content=description)
+  meta(property='twitter:description' content=description)

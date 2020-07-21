@@ -35,8 +35,9 @@ export class Fade extends Transition {
             target: toWrapper,
             opacity: [0, 1],
             duration,
-            onfinish(el: { style: { opacity: string; }; }) {
+            onfinish(el: { style: { opacity?: string; }; }) {
                 el.style.opacity = '1';
+                el.style = {};
             }
         });
     }

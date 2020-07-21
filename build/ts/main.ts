@@ -1,5 +1,4 @@
-
-import { getTheme, setTheme, mediaTheme } from "./theme";
+// import { getTheme, setTheme, mediaTheme } from "./theme";
 import { PJAX, App, _URL, Router } from "./framework/api";
 
 import { Splashscreen } from "./services/Splashscreen";
@@ -24,33 +23,6 @@ app
 
     .add("block", CarouselBlockIntent)
     .add("transition", new Fade());
-// .addTransition(new BigTransition())
-// .addTransition(new Slide())
-// .add("transition", new SlideLeft())
-// .add("transition", new SlideRight());
-
-const html = document.querySelector("html");
-try {
-    let theme = getTheme();
-    if (theme === null) theme = mediaTheme();
-    theme && html.setAttribute("theme", theme);
-} catch (e) {
-    console.warn("Theming isn't available on this browser.");
-}
-
-// Set theme in localStorage, as well as in the html tag
-let themeSet = (theme: string) => {
-    html.setAttribute("theme", theme);
-    setTheme(theme);
-};
-
-window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-    themeSet(e.matches ? "dark" : "light");
-});
-
-window.matchMedia('(prefers-color-scheme: light)').addListener(e => {
-    themeSet(e.matches ? "light" : "dark");
-});
 
 try {
     let waitOnScroll = false;
@@ -82,7 +54,7 @@ try {
         }
 
         layer = layers[0] as HTMLElement || null;
-        top = layer ? layer.getBoundingClientRect().top + window.pageYOffset : null;
+        top = layer ? layer.getBoundingClientRect().top + window.pageYOffset - navHeight / 2 : 0;
 
         let backToTop = document.getElementsByClassName("back-to-top")[0];
         if (backToTop) {
@@ -105,28 +77,9 @@ try {
         scroll();
     };
 
-    load();
+    app.on("READY", load);
     app.on("CONTENT_REPLACED", load);
     window.addEventListener("scroll", scroll, { passive: true });
-
-    router.add({
-        path: /(index(.html)?|\/$)/,
-        method() {
-            let heroImg = new Image();
-            heroImg.src = "https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp";
-            heroImg.onload = () => {
-                let overlay = document.getElementsByClassName("hero-overlay")[0];
-                if (overlay) overlay.classList.add("loaded");
-            };
-        }
-    });
-
-    router.add({
-        path: /about.html\#jane-doe/,
-        method() {
-            console.log("Jane Doe");
-        }
-    });
 
     app.boot();
 } catch (err) {

@@ -1,11 +1,5 @@
 {
-    "cSpell.words": [
-        "Jabodent",
-        "endmacro",
-        "esnext",
-        "lerp",
-        "tailwindcss"
-    ],
+    "cSpell.words": ["Jabodent", "endmacro", "esnext", "lerp", "tailwindcss"],
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#fa1b49",
         "activityBar.activeBorder": "#155e02",
@@ -37,6 +31,11 @@
         "other": true,
         "comments": true,
         "strings": true
+    },
+    "[pug]": {
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
     },
     "netlify.api_token": "",
     "netlify.site_id": "",

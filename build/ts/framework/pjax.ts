@@ -300,7 +300,6 @@ export class PJAX extends Service {
             transitionName = transition;
 
             if (!this.dontScroll) {
-                console.log("Dont scroll")
                 // If the page remains on the same history state DO NOT scroll, it's pointless
                 if (trigger !== "popstate" && this.stickyScroll) {
                     // Keep scroll position
@@ -425,7 +424,6 @@ export class PJAX extends Service {
                         trigger
                     });
 
-                    this.hashAction();
                     this.EventEmitter.emit("TRANSITION_END", { transition });
                 } catch (err) {
                     throw `[PJAX] transition error: ${err}`;
@@ -459,10 +457,10 @@ export class PJAX extends Service {
 
                 if (el) {
                     if (el.scrollIntoView) {
-                        el.scrollIntoView();
+                        el.scrollIntoView({ behavior: "smooth" });
                     } else {
                         let { left, top } = el.getBoundingClientRect();
-                        window.scroll({ left, top });
+                        window.scroll({ left, top, behavior: "smooth" });
                     }
                 }
             }
@@ -547,6 +545,7 @@ export class PJAX extends Service {
 
         document.addEventListener('click', this.onClick);
         window.addEventListener('popstate', this.onStateChange);
+        this.EventEmitter.on("CONTENT_REPLACED", this.hashAction, this);
     }
 
     /**

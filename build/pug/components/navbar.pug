@@ -1,6 +1,6 @@
 //-  https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56
 mixin navbar()
-  nav.navbar.bg-transparent.fixed.w-full.z-20.light
+  nav.navbar.bg-transparent.fixed.w-full.z-20.focus
     .navbar-overlay.w-full
     .navbar-height.navbar-mini.theme-bg.w-full
     .navbar-large.theme-bg.w-full
@@ -20,4 +20,6 @@ mixin navbar()
           i.icon.text-xl(class="group-hover:opacity-65") search
 
         button.block.navbar-menu.navbar-icon.cursor-pointer.group(class="focus:outline-none md:hidden" type="button", role="menu", title="Menu")
-          i.icon.text-2xl(class="group-hover:opacity-65") menu
+          i.icon.text-2xl(class="group-hover:opacity-65")
+            //- menu
+            +icon("menu")

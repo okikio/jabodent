@@ -23,7 +23,6 @@ export const mediaTheme = (): string | null => {
     return null;
 };
 
-
 const html = document.querySelector("html");
 try {
     let theme = getTheme();

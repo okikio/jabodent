@@ -264,23 +264,21 @@ task("serve", () => {
         }
     );
 });
-task("watch", (done) => {
-    if (gulp.watch_initialized == false) {
-        watch([`${pugFolder}/**/*.pug`, dataPath], series("html"));
-        watch(`${sassFolder}/**/*.scss`, series("app-css"));
-        watch(
-            [`${sassFolder}/tailwind.css`, `./tailwind.js`],
-            series("tailwind-css")
-        );
-        watch(`${tsFolder}/**/*.ts`, series("js"));
-        watch("gulpfile.js", series("default"));
 
-        gulp.watch_initialized = true;
-    }
-    done();
+task("watch", () => {
+    watch([`${pugFolder}/**/*.pug`, dataPath], series("html"));
+    watch(`${sassFolder}/**/*.scss`, series("app-css"));
+    watch(
+        [`${sassFolder}/tailwind.css`, `./tailwind.js`],
+        series("tailwind-css")
+    );
+    watch(`${tsFolder}/**/*.ts`, series("js"));
 });
 
 task(
     "default",
-    series(parallel("html", "app-css", "tailwind-css", "js"), "watch", "serve")
+    series(
+        parallel("html", "app-css", "tailwind-css", "js"),
+        parallel("watch", "serve")
+    )
 );

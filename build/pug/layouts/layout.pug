@@ -4,6 +4,8 @@ include /components/contact.pug
 include /components/learn-more.pug
 include /components/card.pug
 include /components/image.pug
+include /components/link.pug
+include /components/icon.pug
 include /components/carousel-dots.pug
 include /components/carousel-buttons.pug
 include /components/back-to-top.pug
@@ -11,7 +13,7 @@ include /components/footer.pug
 
 //- https://github.com/okikio/joseph/blob/master/views/app.pug
 doctype html
-html(lang="en" theme="dark")
+html(lang="en" theme="light")
   head
     meta(charset="utf-8")
     meta(name="color-scheme" content="dark light")
@@ -21,7 +23,7 @@ html(lang="en" theme="dark")
     -
       let defaults = {
         url: "/",
-        // websiteURL,
+        websiteURL: "https://jabodent.netlify.app",
         name: "index",
         title: "Jabodent — ...",
         description: "..."
@@ -51,7 +53,7 @@ html(lang="en" theme="dark")
 
   body
     .overlay
-    
+
     +navbar
 
     div(data-wrapper)
