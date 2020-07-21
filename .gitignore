@@ -111,3 +111,7 @@ coverage/
 
 # Ignore VS Code Settings
 .vscode/
+
+# Ignore Docs folder for developement
+docs/
+public/
