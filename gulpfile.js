@@ -46,15 +46,15 @@ import moment from 'moment';
  */
 // Gulp utilities
 const {
-  stream,
-  streamList,
-  tasks,
-  task,
-  watch,
-  parallel,
-  series,
-  parallelFn,
-  seriesFn,
+    stream,
+    streamList,
+    tasks,
+    task,
+    watch,
+    parallel,
+    series,
+    parallelFn,
+    seriesFn,
 } = require("./util");
 
 // Origin folders (source and destination folders)
@@ -80,205 +80,209 @@ const iconPath = `./icons.js`;
 const resolve = require.resolve(dataPath);
 const iconResolve = require.resolve(iconPath);
 task("html", async () => {
-  let data = require(resolve);
-  let icons = require(iconResolve);
-  let pages = [
-    [
-      `${pugFolder}/pages/**/*.pug`,
-      {
-        pipes: [
-          plumber(), // Recover from errors without cancelling build task
-          // Compile src html using Pug
-          pug({
-            basedir: pugFolder,
-            data: { ...data, icons },
-            self: true,
-          }),
+    let data = require(resolve);
+    let icons = require(iconResolve);
+    let pages = [
+        [
+            `${pugFolder}/pages/**/*.pug`,
+            {
+                pipes: [
+                    plumber(), // Recover from errors without cancelling build task
+                    // Compile src html using Pug
+                    pug({
+                        basedir: pugFolder,
+                        data: { ...data, icons },
+                        self: true,
+                    }),
+                ],
+                end: browserSync.reload,
+                dest: htmlFolder,
+            },
         ],
-        end: browserSync.reload,
-        dest: htmlFolder,
-      },
-    ],
-  ];
+    ];
 
-  let values = Object.values(data.services);
-  for (let i = 0, len = values.length; i < len; i++) {
-    let next = i + 1 < len ? values[i + 1] : values[0];
-    let service = values[i];
-    let { pageURL } = service;
-    pages.push([
-      `${pugFolder}/layouts/service.pug`,
-      {
-        pipes: [
-          plumber(), // Recover from errors without cancelling build task
-          // Compile src html using Pug
-          pug({
-            basedir: pugFolder,
-            self: true,
-            data: Object.assign(
-              {
-                index: i,
-                len,
-                next,
-                service,
-                icons,
-              },
-              data
-            ),
-          }),
-          rename(pageURL),
-        ],
-        end: browserSync.reload,
-        dest: `${htmlFolder}/services`,
-      },
-    ]);
-  }
+    let values = Object.values(data.services);
+    for (let i = 0, len = values.length; i < len; i++) {
+        let next = i + 1 < len ? values[i + 1] : values[0];
+        let service = values[i];
+        let { pageURL } = service;
+        pages.push([
+            `${pugFolder}/layouts/service.pug`,
+            {
+                pipes: [
+                    plumber(), // Recover from errors without cancelling build task
+                    // Compile src html using Pug
+                    pug({
+                        basedir: pugFolder,
+                        self: true,
+                        data: Object.assign(
+                            {
+                                index: i,
+                                len,
+                                next,
+                                service,
+                                icons,
+                            },
+                            data
+                        ),
+                    }),
+                    rename(pageURL),
+                ],
+                end: browserSync.reload,
+                dest: `${htmlFolder}/services`,
+            },
+        ]);
+    }
 
-  let pipe = await streamList(pages);
-  delete require.cache[resolve];
-  delete require.cache[iconResolve];
-  return Promise.resolve(pipe);
+    let pipe = await streamList(pages);
+    delete require.cache[resolve];
+    delete require.cache[iconResolve];
+    return Promise.resolve(pipe);
 });
 
 // CSS Tasks
 const { logError } = sass;
 tasks({
-  "app-css": () => {
-    return stream(`${sassFolder}/**/*.scss`, {
-      pipes: [
-        rename({ suffix: ".min" }), // Rename
-        sass({ outputStyle: "compressed" }).on("error", logError),
-        // Prefix & Compress CSS
-        postcss([
-          autoprefixer({
-            overrideBrowserslist: ["defaults"],
-          }),
-          csso(),
-        ]),
-      ],
-      dest: cssFolder,
-      end: [browserSync.stream()],
-    });
-  },
+    "app-css": () => {
+        return stream(`${sassFolder}/**/*.scss`, {
+            pipes: [
+                rename({ suffix: ".min" }), // Rename
+                sass({ outputStyle: "compressed" }).on("error", logError),
+                // Prefix & Compress CSS
+                postcss([
+                    autoprefixer({
+                        overrideBrowserslist: ["defaults"],
+                    }),
+                    csso(),
+                ]),
+            ],
+            dest: cssFolder,
+            end: [browserSync.stream()],
+        });
+    },
 
-  "tailwind-css": () => {
-    return stream(`${sassFolder}/tailwind.css`, {
-      pipes: [postcss([tailwind("./tailwind.js")])],
-      dest: cssFolder,
-      end: [browserSync.stream()],
-    });
-  },
+    "tailwind-css": () => {
+        return stream(`${sassFolder}/tailwind.css`, {
+            pipes: [postcss([tailwind("./tailwind.js")])],
+            dest: cssFolder,
+            end: [browserSync.stream()],
+        });
+    },
 
-  purge: () => {
-    return stream([`${cssFolder}/tailwind.css`, `!${cssFolder}/**/*.min.css`], {
-      pipes: [
-        // Remove unused CSS
-        purge({
-          content: [`${pugFolder}/**/*.pug`],
-          whitelistPatterns: [/active/, /focus/, /show/, /hide/],
-          keyframes: false,
-          fontFace: false,
-          defaultExtractor: (content) => {
-            // Capture as liberally as possible, including things like `h-(screen-1.5)`
-            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+    purge: () => {
+        return stream(
+            [`${cssFolder}/tailwind.css`, `!${cssFolder}/**/*.min.css`],
+            {
+                pipes: [
+                    // Remove unused CSS
+                    purge({
+                        content: [`${pugFolder}/**/*.pug`],
+                        whitelistPatterns: [/active/, /focus/, /show/, /hide/],
+                        keyframes: false,
+                        fontFace: false,
+                        defaultExtractor: (content) => {
+                            // Capture as liberally as possible, including things like `h-(screen-1.5)`
+                            const broadMatches =
+                                content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
 
-            const innerMatches =
-              content.match(
-                /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
-              ) || [];
-            return broadMatches.concat(innerMatches);
-          },
-        }),
-        // Prefix & Compress CSS
-        postcss([
-          autoprefixer({
-            overrideBrowserslist: ["defaults"],
-          }),
-          csso(),
-        ]),
-      ],
-      dest: cssFolder, // Output
-    });
-  },
+                            const innerMatches =
+                                content.match(
+                                    /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
+                                ) || [];
+                            return broadMatches.concat(innerMatches);
+                        },
+                    }),
+                    // Prefix & Compress CSS
+                    postcss([
+                        autoprefixer({
+                            overrideBrowserslist: ["defaults"],
+                        }),
+                        csso(),
+                    ]),
+                ],
+                dest: cssFolder, // Output
+            }
+        );
+    },
 
-  css: parallelFn("app-css", seriesFn("tailwind-css", "purge")),
+    css: parallelFn("app-css", seriesFn("tailwind-css", "purge")),
 });
 
 // JS Tasks
 // Rollup warnings are annoying
 let ignoreLog = [
-  "CIRCULAR_DEPENDENCY",
-  "UNRESOLVED_IMPORT",
-  "EXTERNAL_DEPENDENCY",
-  "THIS_IS_UNDEFINED",
+    "CIRCULAR_DEPENDENCY",
+    "UNRESOLVED_IMPORT",
+    "EXTERNAL_DEPENDENCY",
+    "THIS_IS_UNDEFINED",
 ];
 let onwarn = ({ loc, message, code, frame }, warn) => {
-  if (ignoreLog.indexOf(code) > -1) return;
-  if (loc) {
-    warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
-    if (frame) warn(frame);
-  } else warn(message);
+    if (ignoreLog.indexOf(code) > -1) return;
+    if (loc) {
+        warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
+        if (frame) warn(frame);
+    } else warn(message);
 };
 
 task("js", async () => {
-  let bundle = await rollup({
-    input: `${tsFolder}/main.ts`,
-    treeshake: true,
-    preserveEntrySignatures: false,
-    plugins: [
-      nodeResolve(),
-      esbuild({
-        // watch: watching,
-        target: "es2020", // default, or 'es20XX', 'esnext'
-      }),
-    ],
-    onwarn,
-  });
+    let bundle = await rollup({
+        input: `${tsFolder}/main.ts`,
+        treeshake: true,
+        preserveEntrySignatures: false,
+        plugins: [
+            nodeResolve(),
+            esbuild({
+                // watch: watching,
+                target: "es2020", // default, or 'es20XX', 'esnext'
+            }),
+        ],
+        onwarn,
+    });
 
-  await bundle.write({
-    format: "es",
-    file: `${jsFolder}/main.js`,
-  });
+    await bundle.write({
+        format: "es",
+        file: `${jsFolder}/main.js`,
+    });
 
-  return new Promise((resolve) => {
-    browserSync.reload();
-    resolve(bundle);
-  });
+    return new Promise((resolve) => {
+        browserSync.reload();
+        resolve(bundle);
+    });
 });
 
 // Build & Watch Tasks
 task("build", parallel("html", "css", "js"));
 task("serve", () => {
-  browserSync.init(
-    {
-      notify: false,
-      server: destFolder,
-    },
-    (_err, bs) => {
-      bs.addMiddleware("*", (_req, res) => {
-        res.writeHead(302, {
-          location: `/404.html`,
-        });
-        res.end("404 Error");
-      });
-    }
-  );
+    browserSync.init(
+        {
+            notify: false,
+            server: destFolder,
+        },
+        (_err, bs) => {
+            bs.addMiddleware("*", (_req, res) => {
+                res.writeHead(302, {
+                    location: `/404.html`,
+                });
+                res.end("404 Error");
+            });
+        }
+    );
 });
 
 task("watch", () => {
-  watch([`${pugFolder}/**/*.pug`, dataPath, iconPath], series("html"));
-  watch(`${sassFolder}/**/*.scss`, series("app-css"));
-  watch(
-    [`${sassFolder}/tailwind.css`, `./tailwind.js`],
-    series("tailwind-css")
-  );
-  watch(`${tsFolder}/**/*.ts`, series("js"));
+    watch([`${pugFolder}/**/*.pug`, dataPath, iconPath], series("html"));
+    watch(`${sassFolder}/**/*.scss`, series("app-css"));
+    watch(
+        [`${sassFolder}/tailwind.css`, `./tailwind.js`],
+        series("tailwind-css")
+    );
+    watch(`${tsFolder}/**/*.ts`, series("js"));
 });
 
 task(
-  "default",
-  series(
-    parallel("html", "app-css", "tailwind-css", "js"),
-    parallel("watch", "serve")
-  )
+    "default",
+    series(
+        parallel("html", "app-css", "tailwind-css", "js"),
+        parallel("watch", "serve")
+    )
 );
