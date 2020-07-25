@@ -162,8 +162,10 @@ html.no-scroll {
     word-wrap: normal;
 
     & svg {
-        display: inline-block;
-        vertical-align: baseline;
+        margin: 0 auto;
+        vertical-align: middle;
+        height: 1em;
+        width: 1em;
     }
 }
 
