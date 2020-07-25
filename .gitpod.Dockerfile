@@ -1,8 +1,7 @@
 FROM gitpod/workspace-full
 
 USER root
-RUN bash -c ". .nvm/nvm.sh \
-    && nvm install v14  --reinstall-packages-from=node && nvm alias default v14 && nvm use default" \
+RUN bash -c ". .nvm/nvm.sh && nvm install v14 --reinstall-packages-from=node && nvm alias default v14 && nvm use default" 
 
 USER gitpod
 # Install custom tools, runtime, etc. using apt-get

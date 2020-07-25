@@ -1,6 +1,9 @@
 extends /layouts/layout.pug
 
 block hero
+  -
+    let { services } = self;
+    
   section.relative.h-screen.bg-primary.hero-img
     .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
@@ -45,28 +48,32 @@ block content
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black more_time
+            i.icon.text-3xl.self-center.text-black 
+              +icon("more_time")
           section.self-center
             h4.text-lg.font-extrabold 20+
             p Years of Experience
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black book
+            i.icon.text-3xl.self-center.text-black
+              +icon("book") 
           section.self-center
             h4.text-lg.font-extrabold 154+
             p Projects Completed
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black thumb_up_alt
+            i.icon.text-3xl.self-center.text-black
+              +icon("thumb_up_alt") 
           section.self-center
             h4.text-lg.font-extrabold 785+
             p Happy Clients
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black emoji_events
+            i.icon.text-3xl.self-center.text-black
+              +icon("emoji_events")  
           section.self-center
             h4.text-lg.font-extrabold 14+
             p Awards Won

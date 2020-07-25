@@ -5,6 +5,7 @@ block hero
 block content
   .bg-black.block.relative
     -
+      let { next, service } = self; 
       let { title, description, article } = service;
       let image = Object.assign({ src: "cloudinary/city", alt: "An image of ... by ... on unsplash." }, service.image);
 

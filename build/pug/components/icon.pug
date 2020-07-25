@@ -1,9 +1,3 @@
 mixin icon(name = "menu")
-  -
-    let icons = {
-      "menu": "M4.016 8.008a1.007 1.007 0 100 2.014h15.968a1.007 1.007 0 100-2.014H4.016zm-1.007 6.954c0 .556.45 1.007 1.007 1.007h15.968a1.007 1.007 0 100-2.014H4.016c-.556 0-1.007.45-1.007 1.007z",
-      "add": "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-    };
-
   svg(viewBox="0 0 24 24" fill="currentcolor" width="24" height="24")
-    path(d=`${icons[name]}`)&attributes(attributes)
+    path(d=`${self.icons[name]}`)&attributes(attributes)

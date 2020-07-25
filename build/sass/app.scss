@@ -160,6 +160,11 @@ html.no-scroll {
     display: inline-block;
     white-space: nowrap;
     word-wrap: normal;
+
+    & svg {
+        display: inline-block;
+        vertical-align: baseline;
+    }
 }
 
 img {

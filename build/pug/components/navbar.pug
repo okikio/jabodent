@@ -17,9 +17,11 @@ mixin navbar()
         a.hidden.navbar-link.navbar-item.font-thin(href="/404.html" class="md:block") Our Blog
 
         button.block.navbar-icon.cursor-pointer.group(class="focus:outline-none" type="button", role="search", title="Search")
-          i.icon.text-xl(class="group-hover:opacity-65") search
+          i.icon.text-xl(class="group-hover:opacity-65") 
+            //- search
+            +icon("search")
 
         button.block.navbar-menu.navbar-icon.cursor-pointer.group(class="focus:outline-none md:hidden" type="button", role="menu", title="Menu")
           i.icon.text-2xl(class="group-hover:opacity-65")
             //- menu
-            +icon("menu")
+            +icon("menu_double_bar")
