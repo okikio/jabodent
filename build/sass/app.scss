@@ -243,6 +243,7 @@ img {
   transition: color 0.25s ease;
   color: black;
   $height: 60px;
+contain: strict;
 
   &,
   &-height {
