@@ -47,9 +47,11 @@ html(lang="en" theme="light")
     link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
     link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
 
-    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Material+Icons+Round&family=Manrope:wght@400;500;600;700;800&display=swap", rel="stylesheet", async)
+    link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&display=swap", rel="stylesheet", async)
     link(rel="stylesheet", href="/css/tailwind.css", async)
     link(rel="stylesheet", href="/css/app.min.css", async)
+
+    script(src="/js/theme.min.js", inline async)
 
   body
     .overlay
@@ -65,4 +67,5 @@ html(lang="en" theme="light")
             +back-to-top
             +footer
 
-    script(src="/js/main.js", type="module")
+    script(src="/js/modern.min.js", type="module" async)
+    script(src="/js/legacy.min.js", nomodule)

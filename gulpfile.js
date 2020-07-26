@@ -1,7 +1,9 @@
 // Import external modules
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const esbuild = require("rollup-plugin-esbuild");
-const { rollup } = require("rollup");
+const buble = require("@rollup/plugin-buble");
+const rollup = require("gulp-better-rollup");
+const babel = require("gulp-babel");
 
 const autoprefixer = require("autoprefixer");
 const postcss = require("gulp-postcss");
@@ -17,44 +19,30 @@ const pug = require("gulp-pug");
 
 /**
  * import { websiteURL, dev, debug, author, homepage, license, copyright, github, netlify } from './config';
-import nodeResolve from '@rollup/plugin-node-resolve';
 import querySelector from "posthtml-match-helper";
 import minifyJSON from 'gulp-minify-inline-json';
 import phTransformer from 'posthtml-transformer';
-import commonJS from '@rollup/plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import { init, write } from 'gulp-sourcemaps';
-const rollupBabel from '@rollup/plugin-babel';
-import browserSyncModule from 'browser-sync';
 import icons from './material-design-icons';
 import postHTMLTextr from "posthtml-textr";
 import postHTMLLorem from "posthtml-lorem";
-import sass, { logError } from 'gulp-sass';
-import buble from '@rollup/plugin-buble';
-import sitemapModule from 'gulp-sitemap';
-import autoprefixer from 'autoprefixer';
-import rollup from 'gulp-better-rollup';
-import { spawn } from 'child_process';
 import posthtml from 'gulp-posthtml';
 import htmlmin from 'gulp-htmlmin';
-import postcss from 'gulp-postcss';
 import header from 'gulp-header';
 import rename from 'gulp-rename';
 import csso from "postcss-csso";
-import moment from 'moment';
-
  */
+
 // Gulp utilities
 const {
-    stream,
-    streamList,
-    tasks,
-    task,
-    watch,
-    parallel,
-    series,
-    parallelFn,
-    seriesFn,
+  stream,
+  streamList,
+  tasks,
+  task,
+  watch,
+  parallel,
+  series,
+  parallelFn,
+  seriesFn,
 } = require("./util");
 
 // Origin folders (source and destination folders)
@@ -71,8 +59,15 @@ const jsFolder = `${destFolder}/js`;
 const cssFolder = `${destFolder}/css`;
 const htmlFolder = `${destFolder}`;
 
+// Main ts file bane
+const tsFile = `main.ts`;
+
 // BrowserSync
 const browserSync = bs.create();
+task("reload", (resolve) => {
+  browserSync.reload();
+  resolve();
+});
 
 // HTML Tasks
 const dataPath = `./data.js`;
@@ -80,209 +75,307 @@ const iconPath = `./icons.js`;
 const resolve = require.resolve(dataPath);
 const iconResolve = require.resolve(iconPath);
 task("html", async () => {
-    let data = require(resolve);
-    let icons = require(iconResolve);
-    let pages = [
-        [
-            `${pugFolder}/pages/**/*.pug`,
-            {
-                pipes: [
-                    plumber(), // Recover from errors without cancelling build task
-                    // Compile src html using Pug
-                    pug({
-                        basedir: pugFolder,
-                        data: { ...data, icons },
-                        self: true,
-                    }),
-                ],
-                end: browserSync.reload,
-                dest: htmlFolder,
-            },
+  let data = require(resolve);
+  let icons = require(iconResolve);
+  let pages = [
+    [
+      `${pugFolder}/pages/**/*.pug`,
+      {
+        pipes: [
+          plumber(), // Recover from errors without cancelling build task
+          // Compile src html using Pug
+          pug({
+            basedir: pugFolder,
+            data: { ...data, icons },
+            self: true,
+          }),
         ],
-    ];
+        dest: htmlFolder,
+      },
+    ],
+  ];
 
-    let values = Object.values(data.services);
-    for (let i = 0, len = values.length; i < len; i++) {
-        let next = i + 1 < len ? values[i + 1] : values[0];
-        let service = values[i];
-        let { pageURL } = service;
-        pages.push([
-            `${pugFolder}/layouts/service.pug`,
-            {
-                pipes: [
-                    plumber(), // Recover from errors without cancelling build task
-                    // Compile src html using Pug
-                    pug({
-                        basedir: pugFolder,
-                        self: true,
-                        data: Object.assign(
-                            {
-                                index: i,
-                                len,
-                                next,
-                                service,
-                                icons,
-                            },
-                            data
-                        ),
-                    }),
-                    rename(pageURL),
-                ],
-                end: browserSync.reload,
-                dest: `${htmlFolder}/services`,
-            },
-        ]);
-    }
+  let values = Object.values(data.services);
+  for (let i = 0, len = values.length; i < len; i++) {
+    let next = i + 1 < len ? values[i + 1] : values[0];
+    let service = values[i];
+    let { pageURL } = service;
+    pages.push([
+      `${pugFolder}/layouts/service.pug`,
+      {
+        pipes: [
+          plumber(), // Recover from errors without cancelling build task
+          // Compile src html using Pug
+          pug({
+            basedir: pugFolder,
+            self: true,
+            data: Object.assign(
+              {
+                index: i,
+                len,
+                next,
+                service,
+                icons,
+              },
+              data
+            ),
+          }),
+          rename(pageURL),
+        ],
+        dest: `${htmlFolder}/services`,
+      },
+    ]);
+  }
 
-    let pipe = await streamList(pages);
-    delete require.cache[resolve];
-    delete require.cache[iconResolve];
-    return Promise.resolve(pipe);
+  let team = Object.values(data.team);
+  for (let i = 0, len = team.length; i < len; i++) {
+    let person = team[i];
+    let { pageURL } = person;
+    pages.push([
+      `${pugFolder}/layouts/person.pug`,
+      {
+        pipes: [
+          plumber(), // Recover from errors without cancelling build task
+          // Compile src html using Pug
+          pug({
+            basedir: pugFolder,
+            self: true,
+            data: Object.assign(
+              {
+                index: i,
+                len,
+                person,
+                icons,
+              },
+              data
+            ),
+          }),
+          rename(pageURL),
+        ],
+        dest: `${htmlFolder}/team`,
+      },
+    ]);
+  }
+
+  let pipe = await streamList(pages);
+  delete require.cache[resolve];
+  delete require.cache[iconResolve];
+  return Promise.resolve(pipe);
 });
 
 // CSS Tasks
 const { logError } = sass;
 tasks({
-    "app-css": () => {
-        return stream(`${sassFolder}/**/*.scss`, {
-            pipes: [
-                rename({ suffix: ".min" }), // Rename
-                sass({ outputStyle: "compressed" }).on("error", logError),
-                // Prefix & Compress CSS
-                postcss([
-                    autoprefixer({
-                        overrideBrowserslist: ["defaults"],
-                    }),
-                    csso(),
-                ]),
-            ],
-            dest: cssFolder,
-            end: [browserSync.stream()],
-        });
-    },
+  "app-css": () => {
+    return stream(`${sassFolder}/**/*.scss`, {
+      pipes: [
+        rename({ suffix: ".min" }), // Rename
+        sass({ outputStyle: "compressed" }).on("error", logError),
+        // Prefix & Compress CSS
+        postcss([
+          autoprefixer({
+            overrideBrowserslist: ["defaults"],
+          }),
+          csso(),
+        ]),
+      ],
+      dest: cssFolder,
+      end: [browserSync.stream()],
+    });
+  },
 
-    "tailwind-css": () => {
-        return stream(`${sassFolder}/tailwind.css`, {
-            pipes: [postcss([tailwind("./tailwind.js")])],
-            dest: cssFolder,
-            end: [browserSync.stream()],
-        });
-    },
+  "tailwind-css": () => {
+    return stream(`${sassFolder}/tailwind.css`, {
+      pipes: [postcss([tailwind("./tailwind.js")])],
+      dest: cssFolder,
+      end: [browserSync.stream()],
+    });
+  },
 
-    purge: () => {
-        return stream(
-            [`${cssFolder}/tailwind.css`, `!${cssFolder}/**/*.min.css`],
-            {
-                pipes: [
-                    // Remove unused CSS
-                    purge({
-                        content: [`${pugFolder}/**/*.pug`],
-                        whitelistPatterns: [/active/, /focus/, /show/, /hide/],
-                        keyframes: false,
-                        fontFace: false,
-                        defaultExtractor: (content) => {
-                            // Capture as liberally as possible, including things like `h-(screen-1.5)`
-                            const broadMatches =
-                                content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+  purge: () => {
+    return stream([`${cssFolder}/tailwind.css`, `!${cssFolder}/**/*.min.css`], {
+      pipes: [
+        // Remove unused CSS
+        purge({
+          content: [`${pugFolder}/**/*.pug`],
+          whitelistPatterns: [/active/, /focus/, /show/, /hide/],
+          keyframes: false,
+          fontFace: false,
+          defaultExtractor: (content) => {
+            // Capture as liberally as possible, including things like `h-(screen-1.5)`
+            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
 
-                            const innerMatches =
-                                content.match(
-                                    /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
-                                ) || [];
-                            return broadMatches.concat(innerMatches);
-                        },
-                    }),
-                    // Prefix & Compress CSS
-                    postcss([
-                        autoprefixer({
-                            overrideBrowserslist: ["defaults"],
-                        }),
-                        csso(),
-                    ]),
-                ],
-                dest: cssFolder, // Output
-            }
-        );
-    },
+            const innerMatches =
+              content.match(
+                /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
+              ) || [];
+            return broadMatches.concat(innerMatches);
+          },
+        }),
+        // Prefix & Compress CSS
+        postcss([
+          autoprefixer({
+            overrideBrowserslist: ["defaults"],
+          }),
+          csso(),
+        ]),
+      ],
+      dest: cssFolder, // Output
+    });
+  },
 
-    css: parallelFn("app-css", seriesFn("tailwind-css", "purge")),
+  css: parallelFn("app-css", seriesFn("tailwind-css", "purge")),
 });
 
 // JS Tasks
 // Rollup warnings are annoying
 let ignoreLog = [
-    "CIRCULAR_DEPENDENCY",
-    "UNRESOLVED_IMPORT",
-    "EXTERNAL_DEPENDENCY",
-    "THIS_IS_UNDEFINED",
+  "CIRCULAR_DEPENDENCY",
+  "UNRESOLVED_IMPORT",
+  "EXTERNAL_DEPENDENCY",
+  "THIS_IS_UNDEFINED",
 ];
 let onwarn = ({ loc, message, code, frame }, warn) => {
-    if (ignoreLog.indexOf(code) > -1) return;
-    if (loc) {
-        warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
-        if (frame) warn(frame);
-    } else warn(message);
+  if (ignoreLog.indexOf(code) > -1) return;
+  if (loc) {
+    warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
+    if (frame) warn(frame);
+  } else warn(message);
 };
 
-task("js", async () => {
-    let bundle = await rollup({
-        input: `${tsFolder}/main.ts`,
-        treeshake: true,
-        preserveEntrySignatures: false,
-        plugins: [
-            nodeResolve(),
-            esbuild({
+tasks({
+  "modern-js": () => {
+    return stream(`${tsFolder}/${tsFile}`, {
+      pipes: [
+        // Bundle Modules
+        rollup(
+          {
+            treeshake: true,
+            // preserveEntrySignatures: false,
+            plugins: [
+              nodeResolve(),
+              esbuild({
                 // watch: watching,
-                target: "es2020", // default, or 'es20XX', 'esnext'
-            }),
-        ],
-        onwarn,
+                minify: true,
+                target: "es2017", // default, or 'es20XX', 'esnext'
+              }),
+            ],
+            onwarn,
+          },
+          "es"
+        ),
+        rename("modern.min.js"), // Rename
+      ],
+      dest: jsFolder, // Output
     });
-
-    await bundle.write({
-        format: "es",
-        file: `${jsFolder}/main.js`,
+  },
+  "legacy-js": () => {
+    return stream(`${tsFolder}/${tsFile}`, {
+      pipes: [
+        // Bundle Modules
+        rollup(
+          {
+            treeshake: true,
+            // preserveEntrySignatures: false,
+            plugins: [
+              nodeResolve(),
+              esbuild({
+                // watch: watching,
+                minify: true,
+                target: "es2015", // default, or 'es20XX', 'esnext'
+              }),
+            ],
+            onwarn,
+          },
+          "umd"
+        ),
+        babel({
+          compact: true,
+          presets: [
+            [
+              "@babel/env",
+              {
+                targets: {
+                  ie: "11",
+                },
+              },
+            ],
+          ],
+        }),
+        rename("legacy.min.js"), // Rename
+      ],
+      dest: jsFolder, // Output
     });
-
-    return new Promise((resolve) => {
-        browserSync.reload();
-        resolve(bundle);
+  },
+  "other-js": () => {
+    return stream([`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`], {
+      pipes: [
+        // Bundle Modules
+        rollup(
+          {
+            treeshake: true,
+            // preserveEntrySignatures: false,
+            plugins: [
+              nodeResolve(),
+              esbuild({
+                // watch: watching,
+                minify: true,
+                target: "es2015", // default, or 'es20XX', 'esnext'
+              }),
+              buble({
+                // custom `Object.assign` (used in object spread)
+                objectAssign: "Object.assign",
+              }),
+            ],
+            onwarn,
+          },
+          "umd"
+        ),
+        rename({ suffix: ".min", extname: ".js" }), // Rename
+      ],
+      dest: jsFolder, // Output
     });
+  },
+  js: parallelFn(`modern-js`, `legacy-js`, `other-js`),
 });
 
 // Build & Watch Tasks
 task("build", parallel("html", "css", "js"));
-task("serve", () => {
-    browserSync.init(
-        {
-            notify: false,
-            server: destFolder,
-        },
-        (_err, bs) => {
-            bs.addMiddleware("*", (_req, res) => {
-                res.writeHead(302, {
-                    location: `/404.html`,
-                });
-                res.end("404 Error");
-            });
-        }
-    );
-});
-
 task("watch", () => {
-    watch([`${pugFolder}/**/*.pug`, dataPath, iconPath], series("html"));
-    watch(`${sassFolder}/**/*.scss`, series("app-css"));
-    watch(
-        [`${sassFolder}/tailwind.css`, `./tailwind.js`],
-        series("tailwind-css")
-    );
-    watch(`${tsFolder}/**/*.ts`, series("js"));
+  browserSync.init(
+    {
+      notify: false,
+      server: destFolder,
+    },
+    (_err, bs) => {
+      bs.addMiddleware("*", (_req, res) => {
+        res.writeHead(302, {
+          location: `/404.html`,
+        });
+        res.end("404 Error");
+      });
+    }
+  );
+  watch(
+    [`${pugFolder}/**/*.pug`, dataPath, iconPath],
+    series(`html`, `reload`)
+  );
+  watch(`${sassFolder}/**/*.scss`, series(`app-css`));
+  watch(
+    [`${sassFolder}/tailwind.css`, `./tailwind.js`],
+    series(`tailwind-css`)
+  );
+  watch(
+    [`${tsFolder}/${tsFile}`, `${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`],
+    series(parallel(`modern-js`, `legacy-js`), `reload`)
+  );
+  watch(
+    [`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`],
+    series(`other-js`, `reload`)
+  );
 });
 
 task(
-    "default",
-    series(
-        parallel("html", "app-css", "tailwind-css", "js"),
-        parallel("watch", "serve")
-    )
+  "default",
+  series(parallel("html", "app-css", "tailwind-css", "js"), "watch")
 );

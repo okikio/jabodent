@@ -14,7 +14,9 @@ block hero
       p.leading-8.intro-animation Our team of surveyors are ex-classification society principal and senior surveyors, Ex-ships Chief Engineers and master mariners onboard general cargo, tanker and offshore vessels including drill ships with extended knowledge of different types of ships, mobile offshore drilling vessels (MODU), self-elevating work over platform (SEWOP) and production platform e.g. FPSOFSO and FOI
 
 block content
-  section.theme-surface.overflow-hidden.city-image.py-32.bg-fixed
+  -
+    let { team } = self;
+  section.theme-surface.overflow-hidden.city-image.fixed-img.py-32
   section#team.carousel.theme-bg.theme-text.relative.pt-6(data-block="Carousel")
     h3.text-3xl.font-extrabold.text-center.intro-animation Our Team
     +carousel-buttons
@@ -34,27 +36,34 @@ block content
               h3(class="md:mt-0").text-lg.font-extrabold.mb-4.mt-4= name
               p.leading-8 #{description}...
               .mt-6
-                +learn-more( "/team.html" )
+                +learn-more( url )
 
     section.carousel-container.relative.w-full
       .carousel-viewport.flex.flex-no-wrap
-        +carousel-item({
-          name: "Jane Doe — Principal Partner",
-          description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
-          url: "404.html"
-        })
+        each person in team
+          +carousel-item({
+            name: person.name,
+            description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+            url: person.url
+          })
 
-        +carousel-item({
-          name: "Jane Doe — Principal Partner",
-          description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
-          url: "404.html"
-        })
+        //- +carousel-item({
+        //-   name: "Jane Doe — Principal Partner",
+        //-   description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+        //-   url: "404.html"
+        //- })
 
-        +carousel-item({
-          name: "Jane Doe — Principal Partner",
-          description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
-          url: "404.html"
-        })
+        //- +carousel-item({
+        //-   name: "Jane Doe — Principal Partner",
+        //-   description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+        //-   url: "404.html"
+        //- })
+
+        //- +carousel-item({
+        //-   name: "Jane Doe — Principal Partner",
+        //-   description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
+        //-   url: "404.html"
+        //- })
 
     +carousel-dots
 

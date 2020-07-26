@@ -1,0 +1,23 @@
+extends /layouts/layout.pug
+
+block hero
+  -
+    let { person } = self;
+    let { name, description, story } = person;
+      let image = Object.assign({ src: "cloudinary/city", alt: "An image of ... by ... on unsplash." }, person.image);
+  .py-24.max-w-screen-xl.mx-auto.relative.w-full.theme-text
+    .modal.px-5.flex.w-full.flex-col(class="md:flex-row md:px-12")
+      div.w-full.h-full.justify-center(class="md:max-w-2/6 lt-md:mb-5 md:pr-5")
+        +image(image)
+      .content.w-full(class="md:max-w-4/6 md:pl-5").text-lg.leading-snug.tracking-wide.break-words
+        h1(class="sm:text-4xl md:text-5xl").tracking-wider.text-3xl.font-title= name
+        p.leading-8.text-lg.opacity-75.pt-8.pb-2= description
+        div.pt-2
+          section.pb-10.text-lg.leading-9.font-normal
+            p!= story.replace(/\n/g, "<br>")
+
+    a.z-10.mt-5.bg-secondary.border-2.border-solid.border-secondary.text-black.rounded-full.flex.justify-c-center.w-14.h-14.mx-auto.text-lg(class="hover:border-black focus:outline-none" href="/about.html#team" title="Close")
+      i.icon.self-center
+        +icon("close")
+
+block footer
