@@ -366,11 +366,11 @@ task("watch", () => {
     series(`tailwind-css`)
   );
   watch(
-    [`${tsFolder}/${tsFile}`, `${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`],
+    [`${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`, `${tsFolder}/${tsFile}`],
     series(parallel(`modern-js`, `legacy-js`), `reload`)
   );
   watch(
-    [`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`],
+    [`!${tsFolder}/${tsFile}`, `${tsFolder}/*.ts`],
     series(`other-js`, `reload`)
   );
 });

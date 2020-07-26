@@ -15,7 +15,7 @@ $theme: (
   ),
 );
 
-html:not([theme="dark"]) {
+html:not([data-theme="dark"]) {
   --bg: #{map-get(map-get($theme, "background"), "light")};
   --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
 
@@ -26,7 +26,7 @@ html:not([theme="dark"]) {
   --text-invert: #{map-get(map-get($theme, "text"), "dark")};
 }
 
-html[theme="dark"] {
+html[data-theme="dark"] {
   --bg: #{map-get(map-get($theme, "background"), "dark")};
   --bg-invert: #{map-get(map-get($theme, "background"), "light")};
 
@@ -434,6 +434,7 @@ img {
 }
 
 .carousel {
+    touch-action: pan-y;
   &-container {
     transition: height ease-out 0.45s;
     overflow: hidden;
@@ -534,7 +535,7 @@ img {
   z-index: -1;
 
   &:before {
-    background-attachment: fixed;
+    // background-attachment: fixed;
     background-size: cover;
     contain: strict;
     will-change: transform; // creates a new paint layer
@@ -548,7 +549,6 @@ img {
 }
 
 .hero-img {
-    
     &, &:before {
   background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
   background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
