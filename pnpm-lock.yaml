@@ -9,8 +9,8 @@ devDependencies:
   '@rollup/plugin-buble': 0.21.3_rollup@2.23.0
   '@rollup/plugin-node-resolve': 8.4.0_rollup@2.23.0
   autoprefixer: 9.8.5
-  browser-sync: 2.26.10
-  esbuild: 0.6.7
+  browser-sync: 2.26.12
+  esbuild: 0.6.8
   gulp: 4.0.2
   gulp-babel: 8.0.0_@babel+core@7.10.5
   gulp-better-rollup: 4.0.1_rollup@2.23.0
@@ -24,11 +24,11 @@ devDependencies:
   gulp-rename: 2.0.0
   gulp-sass: 4.1.0
   moment: 2.27.0
-  pnpm: 5.4.4
+  pnpm: 5.4.6
   postcss-csso: 4.0.0
   posthtml-match-helper: 1.0.1
   rollup: 2.23.0
-  rollup-plugin-esbuild: 2.4.2_esbuild@0.6.7+rollup@2.23.0
+  rollup-plugin-esbuild: 2.4.2_esbuild@0.6.8+rollup@2.23.0
   rollup-plugin-terser: 6.1.0_rollup@2.23.0
   tailwindcss: 1.5.2
   ultra-runner: 3.5.0
@@ -1487,7 +1487,7 @@ packages:
   /autoprefixer/9.8.5:
     dependencies:
       browserslist: 4.13.0
-      caniuse-lite: 1.0.30001106
+      caniuse-lite: 1.0.30001107
       colorette: 1.2.1
       normalize-range: 0.1.2
       num2fraction: 1.2.2
@@ -1668,7 +1668,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
-  /browser-sync-client/2.26.10:
+  /browser-sync-client/2.26.12:
     dependencies:
       etag: 1.8.1
       fresh: 0.5.2
@@ -1678,8 +1678,8 @@ packages:
     engines:
       node: '>=8.0.0'
     resolution:
-      integrity: sha512-8pYitKwpVva7hzXJI8lTljNDbA9fjMEobHSxWqegIUon/GjJAG3UgHB/+lBWnOLzTY8rGX66MvGqL1Aknyrj7g==
-  /browser-sync-ui/2.26.10:
+      integrity: sha512-bEBDRkufKxrIfjOsIB1FN9itUEXr2oLtz1AySgSSr80K2AWzmtoYnxtVASx/i40qFrSdeI31pNvdCjHivihLVA==
+  /browser-sync-ui/2.26.12:
     dependencies:
       async-each-series: 0.1.1
       connect-history-api-fallback: 1.6.0
@@ -1689,11 +1689,11 @@ packages:
       stream-throttle: 0.1.3
     dev: true
     resolution:
-      integrity: sha512-UfNSBItlXcmEvJ9RE4JooNtIsiIfHowp+7/52Jz4VFfQD4v78QK5/NV9DVrG41oMM3zLyhW4f/RliOb4ysStZg==
-  /browser-sync/2.26.10:
+      integrity: sha512-PkAJNf/TfCFTCkQUfXplR2Kp/+/lbCWFO9lrgLZsmxIhvMLx2pYZFBbTBIaem8qjXhld9ZcESUC8EdU5VWFJgQ==
+  /browser-sync/2.26.12:
     dependencies:
-      browser-sync-client: 2.26.10
-      browser-sync-ui: 2.26.10
+      browser-sync-client: 2.26.12
+      browser-sync-ui: 2.26.12
       bs-recipes: 1.3.4
       bs-snippet-injector: 2.0.1
       chokidar: 3.4.1
@@ -1727,10 +1727,10 @@ packages:
       node: '>= 8.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-JeVQP3CARvNA1DELj+ZGWj+/0pzE8+Omvq1WNgzaTXVdP3lNEbGxZbkjvLK7hHpQywjQ1sDJWlJQZT6V59XDTg==
+      integrity: sha512-1GjAe+EpZQJgtKhWsxklEjpaMV0DrRylpHRvZWgOphDQt+bfLZjfynl/j1WjSFIx8ozj9j78g6Yk4TqD3gKaMA==
   /browserslist/4.13.0:
     dependencies:
-      caniuse-lite: 1.0.30001106
+      caniuse-lite: 1.0.30001107
       electron-to-chromium: 1.3.509
       escalade: 3.0.2
       node-releases: 1.1.60
@@ -1864,10 +1864,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
-  /caniuse-lite/1.0.30001106:
+  /caniuse-lite/1.0.30001107:
     dev: true
     resolution:
-      integrity: sha512-XqSQKt9Fd3Z9BoN0cpSaITcTInKhMNGkaWtQ4rDnyQU1BJzzWDWCUi3cJflaPWk2kbrkYkfMrMrjIFzb3kd6NQ==
+      integrity: sha512-86rCH+G8onCmdN4VZzJet5uPELII59cUzDphko3thQFgAQG1RNa+sVLDoALIhRYmflo5iSIzWY3vu1XTWtNMQQ==
   /caseless/0.12.0:
     dev: true
     resolution:
@@ -2611,12 +2611,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.6.7:
+  /esbuild/0.6.8:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-1c4ghK1LR4M5oUlkpN0dI5aMlEYks+QXGEGBTouR85YpdFJ8n7Vx11Rc6O1qccytnYodRE88R52gGW7BpyA06g==
+      integrity: sha512-Te8z2JXmwTHBU3P0u1WLWMtE80xttOVAKFfXHtpJs+zwLSK85BzbhWVz1mhYsuvTx+FhJVlUFZl9CO4FALA5GA==
   /escalade/3.0.2:
     dev: true
     engines:
@@ -4919,13 +4919,13 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-L1zP0dk7vGweZME2i+EeakvUNqSrdiI3F91TwEoYiGrAfUXmVv6fJIq4g82PAXxNsWOp0J7ZqQy/3Szz0ajTxA==
-  /pnpm/5.4.4:
+  /pnpm/5.4.6:
     dev: true
     engines:
       node: '>=10.13'
     hasBin: true
     resolution:
-      integrity: sha512-QE7/UpDhAhvQnj5gOL5e100kWB2gOnwXRNLkBMxGTsv6XJIVVTLODTyZYRSCmk/NZ+Ni1SOoO8v8KkhLHN9klg==
+      integrity: sha512-UZXIBwIlYkT+YbW8QjobVoppYT/hVphu1eu+ed60mGf+Ulz+suAR21zunWUGoETbibvetIkj8HLebsmz5tow8A==
   /portscanner/2.1.1:
     dependencies:
       async: 1.5.2
@@ -5548,10 +5548,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
-  /rollup-plugin-esbuild/2.4.2_esbuild@0.6.7+rollup@2.23.0:
+  /rollup-plugin-esbuild/2.4.2_esbuild@0.6.8+rollup@2.23.0:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.23.0
-      esbuild: 0.6.7
+      esbuild: 0.6.8
       joycon: 2.2.5
       strip-json-comments: 3.1.1
     dev: true
@@ -6907,8 +6907,8 @@ specifiers:
   '@rollup/plugin-buble': ^0.21.3
   '@rollup/plugin-node-resolve': ^8.4.0
   autoprefixer: ^9.8.5
-  browser-sync: ^2.26.10
-  esbuild: ^0.6.7
+  browser-sync: ^2.26.12
+  esbuild: ^0.6.8
   gulp: ^4.0.2
   gulp-babel: ^8.0.0
   gulp-better-rollup: ^4.0.1
@@ -6922,7 +6922,7 @@ specifiers:
   gulp-rename: ^2.0.0
   gulp-sass: ^4.1.0
   moment: ^2.27.0
-  pnpm: ^5.4.4
+  pnpm: ^5.4.6
   postcss-csso: ^4.0.0
   posthtml-match-helper: ^1.0.1
   rollup: ^2.23.0
