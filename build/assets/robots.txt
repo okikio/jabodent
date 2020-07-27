@@ -1,0 +1,2 @@
+Sitemap: https://jabodent.netlify.app/sitemap.xml
+User-agent: *

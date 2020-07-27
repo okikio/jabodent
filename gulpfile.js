@@ -28,8 +28,6 @@ import postHTMLLorem from "posthtml-lorem";
 import posthtml from 'gulp-posthtml';
 import htmlmin from 'gulp-htmlmin';
 import header from 'gulp-header';
-import rename from 'gulp-rename';
-import csso from "postcss-csso";
  */
 
 // Gulp utilities
@@ -53,6 +51,7 @@ const destFolder = `public`;
 const tsFolder = `${srcFolder}/ts`;
 const pugFolder = `${srcFolder}/pug`;
 const sassFolder = `${srcFolder}/sass`;
+const assetsFolder = `${srcFolder}/assets`;
 
 // Destination file folders
 const jsFolder = `${destFolder}/js`;
@@ -193,12 +192,13 @@ tasks({
   },
 
   purge: () => {
-    return stream([`${cssFolder}/tailwind.css`, `!${cssFolder}/**/*.min.css`], {
+    return stream(`${cssFolder}/tailwind.css`, {
       pipes: [
         // Remove unused CSS
         purge({
           content: [`${pugFolder}/**/*.pug`],
-          whitelistPatterns: [/active/, /focus/, /show/, /hide/],
+          //   whitelistPatterns: [/active/, /focus/, /show/, /hide/],
+          //   whitelist: ["active", "show", "focus", "hide"],
           keyframes: false,
           fontFace: false,
           defaultExtractor: (content) => {
@@ -339,8 +339,15 @@ tasks({
   js: parallelFn(`modern-js`, `legacy-js`, `other-js`),
 });
 
+// Other assets
+task("assets", () => {
+  return stream(`${assetsFolder}/**/*`, {
+    dest: destFolder,
+  });
+});
+
 // Build & Watch Tasks
-task("build", parallel("html", "css", "js"));
+task("build", parallel("html", "css", "js", "assets"));
 task("watch", () => {
   browserSync.init(
     {
@@ -373,9 +380,7 @@ task("watch", () => {
     [`!${tsFolder}/${tsFile}`, `${tsFolder}/*.ts`],
     series(`other-js`, `reload`)
   );
+  watch(`${assetsFolder}/**/*`, series(`assets`, `reload`));
 });
 
-task(
-  "default",
-  series(parallel("html", "app-css", "tailwind-css", "js"), "watch")
-);
+task("default", series("build", "watch"));

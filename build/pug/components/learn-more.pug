@@ -1,3 +1,8 @@
+
+include /components/link.pug
 mixin learn-more(href)
-  a.bold.learn-more.italic(href=href class="hover:not-italic hover:font-extrabold")
-    | Learn more
+  +link({
+    href: href,
+    class: "bold learn-more italic hover:not-italic hover:font-extrabold",
+    content: "Learn more"
+  }) 

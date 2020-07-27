@@ -9,9 +9,13 @@ block hero
       h1.text-5xl.font-title.font-black.tracking-wider.pb-8
         strong.layer 404 Page
       h2.text-2xl.leading-10.mb-16
-        | Oops, it seems you are lost would you like to return
-        |
-        a.underline(href="/") home
+        | Oops, it seems you are lost would you like to
+        |  
+        +link({
+          href: "/",
+          class: "underline",
+          content: "return home"
+        })
         | .
 
 block content

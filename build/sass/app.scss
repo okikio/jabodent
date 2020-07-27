@@ -229,10 +229,9 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-
-  &:hover {
+}
+.col:hover .lackluster {
     opacity: 0;
-  }
 }
 
 .text-shadow {
@@ -243,7 +242,7 @@ img {
   transition: color 0.25s ease;
   color: black;
   $height: 60px;
-contain: strict;
+    contain: size layout;
 
   &,
   &-height {

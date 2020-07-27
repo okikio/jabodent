@@ -6,12 +6,43 @@ block hero
       h1.text-5xl.text-center.font-title.font-black.tracking-wider.pb-8.layer Let's Talk.
       h2.text-2xl.font-thin.leading-10.mb-16 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
       section.text-center.py-2.font-semibold.text-lg.leading-10
-        a.inline-block.intro-animation.px-5.underline(href) Facebook
-        a.inline-block.intro-animation.px-5.underline(href) LinkedIn
-        a.inline-block.intro-animation.px-5.underline(href) Instagram
-        a.inline-block.intro-animation.px-5.underline(href) Twitter
-        a.inline-block.intro-animation.px-5.underline(href="mailto:info@jabodent.com") info@jabodent.com
-        a.inline-block.intro-animation.px-5.underline(href="tel:+2348033324072") +2348033324072
+        +link({
+          href: "/404",
+          class: "inline-block intro-animation px-5 underline",
+          content: "Facebook"
+        })
+
+        +link({
+          href: "/404",
+          class: "inline-block intro-animation px-5 underline",
+          content: "LinkedIn"
+        })
+        
+        +link({
+          href: "/404",
+          class: "inline-block intro-animation px-5 underline",
+          content: "Instagram"
+        })
+        
+        +link({
+          href: "/404",
+          class: "inline-block intro-animation px-5 underline",
+          content: "Twitter"
+        })
+        
+        br
+        
+        +link({
+          href: "mailto:info@jabodent.com",
+          class: "inline-block intro-animation px-5 underline",
+          content: "info@jabodent.com"
+        })
+        
+        +link({
+          href: "tel:+2348033324072",
+          class: "inline-block intro-animation px-5 underline",
+          content: "+2348033324072"
+        })
 
 block content
   main

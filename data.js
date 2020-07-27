@@ -1,23 +1,29 @@
 module.exports = {
   team: [
     {
-      name: "Jane Doe — Principal Partner",
+      name: "John A.B Oyedeji",
+      role: "Engineer, Principal Partner",
       image: {},
-      description: `She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government`,
-      story: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh ipsum consequat nisl vel pretium lectus. Sed pulvinar proin gravida hendrerit. Vitae elementum curabitur vitae nunc sed. Eget velit aliquet sagittis id consectetur purus ut faucibus. Nam at lectus urna duis convallis convallis. Nunc scelerisque viverra mauris in aliquam sem. Massa sapien faucibus et molestie ac feugiat sed lectus vestibulum. Pellentesque elit eget gravida cum sociis natoque penatibus et magnis. Aliquam nulla facilisi cras fermentum odio eu feugiat pretium nibh. Sit amet nisl suscipit adipiscing bibendum est ultricies. Nibh ipsum consequat nisl vel. Sed vulputate odio ut enim. Duis at consectetur lorem donec massa. Eu turpis egestas pretium aenean pharetra magna.
-        
-        Maecenas accumsan lacus vel facilisis volutpat est velit.Fringilla ut morbi tincidunt augue interdum.Risus nec feugiat in fermentum posuere urna nec tincidunt.Integer malesuada nunc vel risus commodo.Blandit aliquam etiam erat velit scelerisque.A pellentesque sit amet porttitor eget dolor morbi non arcu.Egestas diam in arcu cursus euismod quis viverra nibh.Praesent elementum facilisis leo vel.Felis donec et odio pellentesque diam.Fames ac turpis egestas maecenas pharetra convallis posuere.Non odio euismod lacinia at quis risus sed vulputate odio.At ultrices mi tempus imperdiet nulla malesuada pellentesque elit.Lacus sed viverra tellus in hac habitasse platea dictumst.Sed adipiscing diam donec adipiscing.Aliquet nec ullamcorper sit amet risus nullam eget.Elit ut aliquam purus sit amet luctus venenatis.`,
+      description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
+
+      story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Science\nJohn Moore University, Liverpool, UK\nMember, Nigeria Society of Engineers, British Engineering Council, Institute of Marine Engineers, UK
+      
+      A graduate of Manufacturing Engineering BSC from the John Moores University,Liverpool, school of Maritime Studies, college of Further Education, Plymouth, United Kingdom, A Class 1 Marine Engineering Certificate of Competency issued by MCA. He has over 43 years Experience in the Marine, Oil and Gas industry with position ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government, Non Exclusive Classification Society Surveyor for DNV and Principal Surveyor in-charge for Nigeria and angola with the American Bureau of Shipping (ABS)`,
     },
     {
-      name: "Title 2",
+      name: "Elizabeth Ufuoma A.",
+      role: "Engineer, Managing Director, IT Specialist",
       image: {},
-      description: "description",
-      story: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh ipsum consequat nisl vel pretium lectus. Sed pulvinar proin gravida hendrerit. Vitae elementum curabitur vitae nunc sed. Eget velit aliquet sagittis id consectetur purus ut faucibus. Nam at lectus urna duis convallis convallis. Nunc scelerisque viverra mauris in aliquam sem. Massa sapien faucibus et molestie ac feugiat sed lectus vestibulum. Pellentesque elit eget gravida cum sociis natoque penatibus et magnis. Aliquam nulla facilisi cras fermentum odio eu feugiat pretium nibh. Sit amet nisl suscipit adipiscing bibendum est ultricies. Nibh ipsum consequat nisl vel. Sed vulputate odio ut enim. Duis at consectetur lorem donec massa. Eu turpis egestas pretium aenean pharetra magna.
-        
-        Maecenas accumsan lacus vel facilisis volutpat est velit.Fringilla ut morbi tincidunt augue interdum.Risus nec feugiat in fermentum posuere urna nec tincidunt.Integer malesuada nunc vel risus commodo.Blandit aliquam etiam erat velit scelerisque.A pellentesque sit amet porttitor eget dolor morbi non arcu.Egestas diam in arcu cursus euismod quis viverra nibh.Praesent elementum facilisis leo vel.Felis donec et odio pellentesque diam.Fames ac turpis egestas maecenas pharetra convallis posuere.Non odio euismod lacinia at quis risus sed vulputate odio.At ultrices mi tempus imperdiet nulla malesuada pellentesque elit.Lacus sed viverra tellus in hac habitasse platea dictumst.Sed adipiscing diam donec adipiscing.Aliquet nec ullamcorper sit amet risus nullam eget.Elit ut aliquam purus sit amet luctus venenatis.`,
+      description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
+
+      story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Engineering, Master of Architecture 1995, Managing Partner and IT Specialist
+      
+      Managing Partner and IT Specialist Engr. ELIZABETH UFUOMA .A. is a Managing Partner and IT Specialist, a graduate from the Computer Engineering Department University of Benin, Edo State, and Nigeria. Over 8 years' experience as a Business owner, excellent leadership skills and visionary personality.`,
     },
   ].map((person) => {
-    let pageURL = `${person.name.toLowerCase().replace(/\s|\\|\//g, "-")}.html`;
+    let pageURL = `${person.name
+      .toLowerCase()
+      .replace(/\s|\\|\/|\./g, "-")}.html`;
     return Object.assign(
       {
         pageURL,

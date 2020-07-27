@@ -13,8 +13,12 @@ block content
       .px-5.pt-32.mx-auto.w-full.max-w-screen-xl.container
         .mx-auto.w-full.tracking-wide.max-w-screen-md
           span.font-light.lowercase.capitalize.text-gray-600.tracking-wider.text-sm
-            a.underline(href="/services.html") Our Services
-            |  \
+            +link({
+              href: "/services",
+              class: "underline",
+              content: "Our Services"
+            })
+            span  \
           .text-lg.w-full.leading-snug.tracking-wider.layer.break-words
             h1(class="sm:text-4xl md:text-5xl").text-3xl.font-title.font-medium= title
           p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-12= description
@@ -36,10 +40,33 @@ block content
         hr.border-white.border-opacity-25.mb-14
 
       section.social.flex-wrap.cursor-pointer.z-10.text-white.mx-auto.max-w-screen-md
-        a.px-6.py-3.cursor-pointer.underline.inline-block Twitter
-        a.px-6.py-3.cursor-pointer.underline.inline-block Facebook
-        a.px-6.py-3.cursor-pointer.underline.inline-block Instagram
-        a.px-6.py-3.cursor-pointer.underline.inline-block Medium
+        +link({
+          href: "/404",
+          class: "px-6 py-3 cursor-pointer underline inline-block",
+          content: "Twitter"
+        })
+
+        +link({
+          href: "/404",
+          class: "px-6 py-3 cursor-pointer underline inline-block",
+          content: "Facebook"
+        })
+
+        +link({
+          href: "/404",
+          class: "px-6 py-3 cursor-pointer underline inline-block",
+          content: "Instagram"
+        })
+
+        +link({
+          href: "/404",
+          class: "px-6 py-3 cursor-pointer underline inline-block",
+          content: "Medium"
+        })
+        //- a.px-6.py-3.cursor-pointer.underline.inline-block Twitter
+        //- a.px-6.py-3.cursor-pointer.underline.inline-block Facebook
+        //- a.px-6.py-3.cursor-pointer.underline.inline-block Instagram
+        //- a.px-6.py-3.cursor-pointer.underline.inline-block Medium
 
       .mx-auto.w-full.max-w-screen-md.px-5
         hr.border-white.border-opacity-25.my-8
@@ -48,7 +75,10 @@ block content
 
     .text-white(class="bg-white bg-opacity-15 hover:bg-gray-600 hover:bg-opacity-15")
       .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-md.relative
-        a.rounded-lg.py-5.block(href=next.url)
+        +link({
+          href: next.url,
+          class: "rounded-lg py-5 block"
+        })
           p.text-gray-600.mb-5 Next
           section.flex
             .w-full.max-w-screen-md
