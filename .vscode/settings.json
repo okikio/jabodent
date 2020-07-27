@@ -5,6 +5,8 @@
         "endmacro",
         "esnext",
         "lerp",
+        "preconnect",
+        "prefetch",
         "tailwindcss"
     ],
     "workbench.colorCustomizations": {

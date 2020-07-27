@@ -1,6 +1,6 @@
 //-  https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56
 mixin navbar()
-  nav.navbar.bg-transparent.fixed.w-full.z-20.focus(role="navigation")
+  nav.navbar.px-2.bg-transparent.fixed.w-full.z-20.focus(class="sm:px-5" role="navigation")
     .navbar-overlay.w-full
     .navbar-height.navbar-mini.theme-bg.w-full
     .navbar-large.theme-bg.w-full
@@ -44,11 +44,11 @@ mixin navbar()
           content: "Our Blog"
         })
 
-        button.block.navbar-icon.cursor-pointer.group(class="focus:outline-none" type="button", aria-label="Search button" role="search", title="Search")
+        button.block.navbar-icon.cursor-pointer.group(type="button", aria-label="Search button" role="search", title="Search")
           i.icon.text-2xl(class="group-hover:opacity-65") 
             +icon("search")
 
-        button.theme-switch.block.navbar-icon.cursor-pointer.group(class="focus:outline-none" type="button", role="button" aria-label="Light/Dark mode toggle" title="Switch Theme")
+        button.theme-switch.block.navbar-icon.cursor-pointer.group(type="button", role="button" aria-label="Light/Dark mode toggle" title="Switch Theme")
           i.icon.text-2xl(class="group-hover:opacity-65") 
             +icon("theme_switcher")
 
