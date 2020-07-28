@@ -20,6 +20,22 @@ html(lang="en" data-theme="light")
     meta(name="viewport", content="width=device-width,initial-scale=1")
     meta(http-equiv="Accept-CH" content="DPR, Viewport-Width, Width")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
+
+    link(rel="dns-prefetch" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
+    link(rel="preconnect" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
+
+    link(rel="dns-prefetch" href='https://fonts.googleapis.com' crossorigin)
+    link(rel="preconnect" href='https://fonts.googleapis.com' crossorigin)
+
+    link(rel="dns-prefetch" href='https://fonts.gstatic.com' crossorigin)
+    link(rel="preconnect" href='https://fonts.gstatic.com' crossorigin)
+
+    link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
+    link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
+
+    link(rel="dns-prefetch" href='https://polyfill.io' crossorigin)
+    link(rel="preconnect" href='https://polyfill.io' crossorigin)
+
     -
       let defaults = {
         url: "/",
@@ -44,14 +60,7 @@ html(lang="en" data-theme="light")
       block title
         | Jabodent
 
-    link(rel="dns-prefetch" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
-    link(rel="preconnect" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
-
-    link(rel="dns-prefetch" href='https://fonts.gstatic.com' crossorigin)
-    link(rel="preconnect" href='https://fonts.gstatic.com' crossorigin)
-
-    link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
-    link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
+    script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" async)
 
     link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&display=swap", rel="stylesheet", async)
     link(rel="stylesheet", href="/css/tailwind.css", async)
@@ -61,18 +70,19 @@ html(lang="en" data-theme="light")
 
   body
     .splashscreen
-      .splashscreen-inner
-        .spinner
-          svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
-            circle.length(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
-          svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
-            circle(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
-          svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
-            circle(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
-          svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
-            circle(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
-      .splashscreen-bg
-    .overlay
+      .splashscreen-overlay
+      .splashscreen-cover
+        .splashscreen-inner
+          .spinner
+            svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
+              circle.length(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
+            svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
+              circle(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
+            svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
+              circle(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
+            svg(viewBox="0 0 66 66", xmlns="http://www.w3.org/2000/svg")
+              circle(fill="none", stroke-width="8", stroke-linecap="round", cx="33", cy="33", r="28")
+        .splashscreen-bg
     +navbar
 
     div(data-wrapper)
