@@ -102,19 +102,24 @@ html {
   margin-bottom: -100%;
 }
 
-// .splashscreen-overlay {
-    
-//   animation: opacityanim 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1s
-//     forwards;
-//     background-color: var(--surface);
-//     opacity: 0.8;
-//     width: 100%;
-//     height: 100vh;
-//     pointer-events: none;
-// }
-@keyframes opacityanim {
+.splashscreen-overlay {
+  animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) 1s
+    forwards;
+  background-color: var(--surface);
+  position: fixed;
+  z-index: 1030;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+}
+@keyframes splashanimoverlay {
   0% {
-    opacity: 0.8;
+    opacity: 0.6;
   }
 
   100% {
@@ -123,6 +128,8 @@ html {
 }
 
 .splashscreen {
+  animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1s
+    forwards;
   // animation-fill-mode: both;
   // animation-delay: 1s;
   position: fixed;
@@ -142,7 +149,17 @@ html {
   pointer-events: auto;
 }
 
-.splashscreen-anim {
+@keyframes splashanimmove {
+  0% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.splashscreen-inner {
   animation: splashanim 0.5s ease 1s forwards;
   // animation-fill-mode: forwards;
   // animation-delay: 1s;
@@ -158,30 +175,9 @@ html {
   }
 
   100% {
-    opacity: 1;
+    opacity: 0;
   }
 }
-
-.splashscreen-cover {
-  animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1s
-    forwards;
-  position: relative;
-  z-index: 11;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-@keyframes splashanimmove {
-  0% {
-    transform: translateY(0%);
-  }
-
-  100% {
-    transform: translateY(100%);
-  }
-}
-
 
 .splashscreen-bg {
   position: absolute;
@@ -225,7 +221,7 @@ html {
 
     @for $i from 1 through 4 {
       &:nth-child(#{$i}) circle {
-        stroke: rgb($i * 175, $i * 125, $i * 45);
+        stroke: rgb($i * 45, $i * 175, $i * 125);
         stroke-dasharray: 1, 300;
         stroke-dashoffset: 0;
         animation: strokeanim 3s (0.2s * $i) ease infinite;
