@@ -16,6 +16,7 @@ let navbar: Navbar, router: Router, splashscreen: Splashscreen;
 
 app
   .addService(new IntroAnimation())
+  .addService(new Splashscreen())
   .add("service", new PJAX())
 
   .addService((navbar = new Navbar()))
