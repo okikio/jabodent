@@ -5,7 +5,7 @@ export class Splashscreen extends Service {
   protected rootElement: HTMLElement;
   protected innerEl: HTMLElement;
   protected bgEl: HTMLElement;
-  protected minimalDuration: number = 1000; // ms
+  protected delay: number = 800; // ms
   protected overlayEl: HTMLElement;
 
   public init() {
@@ -33,9 +33,9 @@ export class Splashscreen extends Service {
         overlayElAnim.pause();
         innerElAnim.pause();
 
-        rootElementAnim.currentTime = this.minimalDuration;
-        overlayElAnim.currentTime = this.minimalDuration;
-        innerElAnim.currentTime = this.minimalDuration;
+        rootElementAnim.currentTime = this.delay;
+        overlayElAnim.currentTime = this.delay;
+        innerElAnim.currentTime = this.delay;
         this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
 
         rootElementAnim.onfinish = () => {
@@ -57,7 +57,7 @@ export class Splashscreen extends Service {
           overlayElAnim.play();
           innerElAnim.play();
           this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
-        }, this.minimalDuration);
+        }, this.delay);
       }
     }
   }

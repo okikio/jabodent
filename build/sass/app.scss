@@ -102,8 +102,9 @@ html {
   margin-bottom: -100%;
 }
 
+$delay: 0.8s;
 .splashscreen-overlay {
-//   animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) 1s forwards;
+  animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) $delay forwards;
   background-color: var(--surface);
   position: fixed;
   z-index: 1030;
@@ -127,7 +128,7 @@ html {
 }
 
 .splashscreen {
-//   animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 1s forwards;
+  animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) $delay forwards;
   // animation-fill-mode: both;
   // animation-delay: 1s;
   position: fixed;
@@ -158,7 +159,7 @@ html {
 }
 
 .splashscreen-inner {
-//   animation: splashanim 0.5s ease 1s forwards;
+  animation: splashanim 0.5s ease $delay forwards;
   // animation-fill-mode: forwards;
   // animation-delay: 1s;
   position: relative;
