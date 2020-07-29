@@ -4,6 +4,7 @@ import { PJAX, App, _URL, Router } from "./framework/api";
 import { Splashscreen } from "./services/Splashscreen";
 import { IntroAnimation } from "./services/IntroAnimation";
 import { Navbar } from "./services/Navbar";
+import { Search } from "./services/Search";
 
 import { CarouselBlockIntent } from "./blocks/Carousel";
 
@@ -18,6 +19,7 @@ app
   .addService(new IntroAnimation())
   .addService(new Splashscreen())
   .add("service", new PJAX())
+  .add("service", new Search())
 
   .addService((navbar = new Navbar()))
   .setService("router", (router = new Router()))

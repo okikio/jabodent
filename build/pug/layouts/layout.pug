@@ -74,7 +74,12 @@ html(lang="en" data-theme="light")
       .splashscreen-inner
         p(class="md:text-4xl").theme-text.text-3xl.font-extrabold Jabodent
       .splashscreen-bg
-    .overlay
+    .search-overlay.px-5.py-24
+      input.max-w-screen-md.container.search-input.font-normal(type="text", placeholder="What to do?" name="")
+      .search-results
+        .search-result.p-5
+          h5.font-title.text-xl Title
+          p Description
     +navbar
 
     div(data-wrapper)

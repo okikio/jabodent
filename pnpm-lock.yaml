@@ -11,6 +11,7 @@ devDependencies:
   autoprefixer: 9.8.5
   browser-sync: 2.26.12
   esbuild: 0.6.8
+  fuse.js: 6.4.1
   gulp: 4.0.2
   gulp-babel: 8.0.0_@babel+core@7.10.5
   gulp-better-rollup: 4.0.1_rollup@2.23.0
@@ -3012,6 +3013,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
+  /fuse.js/6.4.1:
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-+hAS7KYgLXontDh/vqffs7wIBw0ceb9Sx8ywZQhOsiQGcSO5zInGhttWOUYQYlvV/yYMJOacQ129Xs3mP3+oZQ==
   /gauge/2.7.4:
     dependencies:
       aproba: 1.2.0
@@ -6909,6 +6916,7 @@ specifiers:
   autoprefixer: ^9.8.5
   browser-sync: ^2.26.12
   esbuild: ^0.6.8
+  fuse.js: ^6.4.1
   gulp: ^4.0.2
   gulp-babel: ^8.0.0
   gulp-better-rollup: ^4.0.1
