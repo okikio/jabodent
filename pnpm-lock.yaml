@@ -2,6 +2,7 @@ dependencies:
   '@okikio/animate': 0.0.7
   '@okikio/emitter': 0.0.7
   '@okikio/manager': 0.0.7
+  fuse.js: 6.4.1
 devDependencies:
   '@babel/core': 7.10.5
   '@babel/preset-env': 7.10.4_@babel+core@7.10.5
@@ -11,7 +12,6 @@ devDependencies:
   autoprefixer: 9.8.5
   browser-sync: 2.26.12
   esbuild: 0.6.8
-  fuse.js: 6.4.1
   gulp: 4.0.2
   gulp-babel: 8.0.0_@babel+core@7.10.5
   gulp-better-rollup: 4.0.1_rollup@2.23.0
@@ -3014,7 +3014,6 @@ packages:
     resolution:
       integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
   /fuse.js/6.4.1:
-    dev: true
     engines:
       node: '>=10'
     resolution:

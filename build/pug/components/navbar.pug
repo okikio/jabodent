@@ -7,9 +7,11 @@ mixin navbar()
     .h-full.w-full.max-w-screen-lg.flex.mx-auto.z-5
       +link({
         href: "/",
-        class: "navbar-height navbar-logo navbar-link cursor-pointer relative z-10",
-        content: "Jabodent"
+        class: "navbar-height navbar-logo navbar-link cursor-pointer relative z-10"
       })
+        .flex
+          +icon("jabodent")(class="self-center mr-4")
+          span Jabodent
 
       section(class="md:flex-row lt-md:h-screen md:relative md:leading-inherit md:text-base").navbar-list.flex.flex-col.whitespace-no-wrap.justify-center.absolute.leading-loose.text-4xl
         +link({

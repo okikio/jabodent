@@ -2,32 +2,21 @@ import Fuse from "fuse.js";
 
 const people = [
   {
-    name: {
-      firstName: "Jesse",
-      lastName: "Bowen",
-    },
-    state: "Seattle",
+    title: "Title 1",
+    description: "Description 1",
   },
   {
-    name: {
-      firstName: "Brown Jses",
-      lastName: "Bowen ",
-    },
-    state: "Califonia",
+    title: "Tlite 2",
+    description: "Desction 2",
   },
 ];
 
 const searcher = new Fuse(people, {
-  keys: ["name.firstName", "state"],
-
-  // @ts-ignore
-  caseSensitive: true,
+  keys: ["title", "description"],
 });
 
-let result: object[];
+let result: string;
 self.onmessage = ({ data }) => {
-  result = searcher.search(data);
+  result = JSON.stringify(searcher.search(data));
   self.postMessage(result);
 };
-// console.log(result);
-// send data from a worker to a JavaScript file

@@ -67,19 +67,26 @@ html(lang="en" data-theme="light")
     link(rel="stylesheet", href="/css/app.min.css", async)
 
     script(src="/js/theme.min.js", inline async)
-
+    
   body
     .splashscreen-overlay
     .splashscreen
-      .splashscreen-inner
-        p(class="md:text-4xl").theme-text.text-3xl.font-extrabold Jabodent
+      .splashscreen-inner.theme-text
+        .flex.flex-row(class="md:text-4xl").text-3xl.font-extrabold
+          +icon("jabodent")(class="splashscreen-icon self-center mt-1 mr-4")
+          div Jabodent
       .splashscreen-bg
-    .search-overlay.px-5.py-24
-      input.max-w-screen-md.container.search-input.font-normal(type="text", placeholder="What to do?" name="")
-      .search-results
-        .search-result.p-5
-          h5.font-title.text-xl Title
-          p Description
+    //- .search-overlay.px-5.py-24
+      .mx-auto.max-w-screen-sm.w-full.overflow-y-auto.h-full
+        input.search-input.font-normal(type="text", placeholder="Find what you are looking for easily..." name="")
+        .search-results.theme-text
+          mixin result
+            .search-result.p-5
+              h5.font-title.text-xl.search-result-title.pb-2.mb-4 Title
+              p Description
+          - for (let i = 0; i < 15; i ++) {
+            +result
+          - }
     +navbar
 
     div(data-wrapper)
