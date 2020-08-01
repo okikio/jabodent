@@ -3014,6 +3014,7 @@ packages:
     resolution:
       integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
   /fuse.js/6.4.1:
+    dev: false
     engines:
       node: '>=10'
     resolution:

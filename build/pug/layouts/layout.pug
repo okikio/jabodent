@@ -68,26 +68,29 @@ html(lang="en" data-theme="light")
     link(rel="stylesheet", href="/css/app.min.css", async)
 
     script(src="/js/theme.min.js", inline async)
-    
+
   body
-    .splashscreen-overlay
-    .splashscreen
-      .splashscreen-inner.theme-text
-        .flex.flex-row(class="md:text-4xl").text-3xl.font-extrabold
-          +icon("jabodent")(class="splashscreen-icon self-center mr-4")
-          div Jabodent
+    //- .splashscreen-overlay
+    //- .splashscreen
+    //-   .splashscreen-inner.theme-text
+    //-     .flex.flex-row(class="md:text-4xl").text-3xl.font-extrabold
+    //-       +icon("jabodent")(class="splashscreen-icon self-center mr-4")
+    //-       div Jabodent
       .splashscreen-bg
-    .search-overlay.px-5.py-24
-      .mx-auto.max-w-screen-sm.w-full.overflow-y-auto.h-full
-        input.search-input.font-normal(type="text", placeholder="Find what you are looking for easily..." name="")
-        .search-results.theme-text
-          mixin result
-            .search-result.p-5
-              h5.font-title.text-xl.search-result-title.pb-2.mb-4 Title
-              p Description
-          - for (let i = 0; i < 15; i ++) {
-            +result
-          - }
+    .search-overlay.px-5.py-24.overflow-y-auto.h-full
+      .search-inner.mx-auto.max-w-screen-sm.w-full.pt-5
+        .search-container
+          input.search-input.font-normal.self-center(type="text", placeholder="Start typing to search our site..." name="")
+          i.icon.text-2xl.self-center
+            +icon("search")
+        .search-results.theme-text.p-5
+          //- mixin result
+          //-   .search-result.py-5
+          //-     h5.font-title.text-xl.search-result-title.pb-2.mb-4 Title
+          //-     p Description
+          //- - for (let i = 0; i < 15; i ++) {
+          //-   +result
+          //- - }
     +navbar
 
     div(data-wrapper)

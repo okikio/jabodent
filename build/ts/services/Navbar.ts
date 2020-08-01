@@ -4,16 +4,14 @@ export class Navbar extends Service {
     public navbar: HTMLElement;
     public elements: HTMLElement[];
     public menu: HTMLElement;
-    public html: HTMLHtmlElement;
 
     constructor() {
         super();
 
         // Elements
-        this.html = document.querySelector("html");
-        this.navbar = (this.html.getElementsByClassName("navbar")[0] as HTMLElement)
+        this.navbar = (document.getElementsByClassName("navbar")[0] as HTMLElement)
         this.elements = Array.from(this.navbar.getElementsByClassName('navbar-item')) as HTMLElement[];
-        this.menu = (this.html.getElementsByClassName("navbar-menu")[0] as HTMLElement);
+        this.menu = (document.getElementsByClassName("navbar-menu")[0] as HTMLElement);
 
         this.click = this.click.bind(this);
     }
@@ -32,15 +30,13 @@ export class Navbar extends Service {
         return el;
     }
 
-    public click({ target }: Event) {
+    public click(event: Event) {
         let el = this.getLink(event);
         if (!el) return;
 
         if (el.classList.contains("navbar-menu")) {
-            this.html.classList.toggle("no-scroll");
             this.navbar.classList.toggle("active");
         } else if (el.classList.contains("navbar-link")) {
-            this.html.classList.remove("no-scroll");
             this.navbar.classList.remove("active");
         }
     }
