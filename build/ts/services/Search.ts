@@ -31,7 +31,7 @@ export class Search extends Service {
         this.input = this.rootElement.querySelector(".search-input");
         if (this.input) {
             this.results = this.rootElement.querySelector(".search-results");
-            this.worker = new Worker("js/FuzzySearch.min.js");
+            this.worker = new Worker("/js/FuzzySearch.min.js");
         }
     }
 

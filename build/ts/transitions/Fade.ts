@@ -4,7 +4,7 @@ import { animate } from "@okikio/animate";
 //== Transitions
 export class Fade extends Transition {
   protected name = "default";
-  protected duration = 400;
+  protected duration = 350;
 
   out({ from }: ITransitionData) {
     let { duration } = this;

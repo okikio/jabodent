@@ -133,7 +133,7 @@ export class Carousel extends Block {
   }
 
   public clearDots() {
-    for (let i = this.dots.length; --i >= 0; ) {
+    for (let i = this.dots.length; --i >= 0;) {
       this.dots[i].classList.remove("active");
       this.dots[i].removeAttribute("data-index");
       this.dots[i].remove();
@@ -162,7 +162,7 @@ export class Carousel extends Block {
   public setPos(e: MouseEvent | TouchEvent | number) {
     if (!this.isDragging) return;
     let touches = (e as TouchEvent).changedTouches;
-    if (e instanceof TouchEvent) {
+    if (window.TouchEvent && e instanceof window.TouchEvent) {
       e.stopPropagation();
       let deltaX = Math.abs(this.onX - touches[touches.length - 1].clientX);
       let deltaY = Math.abs(this.onY - touches[touches.length - 1].clientY);
@@ -172,11 +172,11 @@ export class Carousel extends Block {
     }
 
     let x =
-      e instanceof MouseEvent
+      window.MouseEvent && e instanceof window.MouseEvent
         ? e.clientX
         : typeof e === "number"
-        ? e
-        : touches[touches.length - 1].clientX;
+          ? e
+          : touches[touches.length - 1].clientX;
     this.setCurrentX(this.offX + (x - this.onX) * this.speed);
 
     if (this.rAF === null) this.requestAnimationFrame();
@@ -184,21 +184,21 @@ export class Carousel extends Block {
 
   public on(e: MouseEvent | TouchEvent | number) {
     let touches = (e as TouchEvent).changedTouches;
-    if (e instanceof TouchEvent) e.stopPropagation();
+    if (window.TouchEvent && e instanceof window.TouchEvent) e.stopPropagation();
 
     this.isDragging = true;
     this.onX =
-      e instanceof MouseEvent
+      window.MouseEvent && e instanceof window.MouseEvent
         ? e.clientX
         : typeof e === "number"
-        ? e
-        : touches[touches.length - 1].clientX;
+          ? e
+          : touches[touches.length - 1].clientX;
     this.onY =
-      e instanceof MouseEvent
+      window.MouseEvent && e instanceof window.MouseEvent
         ? e.clientY
         : typeof e === "number"
-        ? 0
-        : touches[touches.length - 1].clientY;
+          ? 0
+          : touches[touches.length - 1].clientY;
     this.rootElement.classList.add("is-grabbing");
 
     if (this.rAF === null) this.requestAnimationFrame();
@@ -229,7 +229,7 @@ export class Carousel extends Block {
   }
 
   public off(e?: TouchEvent | MouseEvent) {
-    if (e instanceof TouchEvent) e.stopPropagation();
+    if (window.TouchEvent && e instanceof window.TouchEvent) e.stopPropagation();
 
     this.snap();
     this.isDragging = false;
