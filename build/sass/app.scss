@@ -235,20 +235,26 @@ $delay: 0.8s;
     }
 
     &-container {
-        border: 2px solid var(--bg-invert);
+        box-shadow: 0 4px 12px 4px rgba(50, 50, 50, 0.1),
+            0 -2px 8px 2px rgba(50, 50, 50, 0.06);
+        border: 2px solid transparent;
         // padding: 0 1em;
         padding-top: 1em;
         padding-bottom: 1em;
         padding-right: 0.5em;
-        background: var(--bg);
+        background-color: var(--bg);
+        background-color: rgba(150, 150, 150, 0.6);
         border-radius: 5px;
         width: 100%;
         height: 3em;
 
         color: var(--text);
         display: flex;
-    }
 
+        &:focus-within {
+            border-color: var(--bg-invert);
+        }
+    }
     &-input {
         vertical-align: middle;
         // padding: 0 0.75em;

@@ -16,10 +16,10 @@ doctype html
 html(lang="en" data-theme="light")
   head
     meta(charset="utf-8")
-    meta(name="color-scheme" content="dark light")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width,initial-scale=1")
     meta(http-equiv="Accept-CH" content="DPR, Viewport-Width, Width")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="color-scheme" content="dark light")
 
     link(rel="dns-prefetch" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
     link(rel="preconnect" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
@@ -40,14 +40,14 @@ html(lang="en" data-theme="light")
       let defaults = {
         url: "/",
         websiteURL: "https://jabodent.netlify.app",
-        name: "index",
-        title: "Jabodent — ...",
-        description: "..."
+        title: "Jabodent — An independent marine specialist organization.",
+        description: "Jabodent is an independent marine specialist organization inspired to serve the Marine Oil and Gas industry with integrity, reliability and consistent delivery."
       };
 
     block pageInfo
-      - let page = Object.assign({}, defaults);
+      - let page = {};
 
+    - page = Object.assign({}, defaults, page);
     block seo
       +seo(page)
 
@@ -87,9 +87,12 @@ html(lang="en" data-theme="light")
           input.search-input.font-normal.self-center(type="text", placeholder="Start typing to search our site..." name="")
           i.icon.text-2xl.self-center
             +icon("search")
-        .search-results.theme-text.p-5
+        .search-results.theme-text.py-5
           //- mixin result
-          //-   .search-result.py-5
+          //-   +link({
+          //-     href: "/",
+          //-     class: "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block"
+          //-   })
           //-     h5.font-title.text-xl.search-result-title.pb-2.mb-4 Title
           //-     p Description
           //- - for (let i = 0; i < 15; i ++) {

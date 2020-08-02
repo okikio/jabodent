@@ -47,11 +47,14 @@ mixin navbar()
         })
 
         button.search-btn.block.navbar-icon.cursor-pointer.group(type="button", aria-label="Search button" role="search")
-          div.search-close(class="bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-12 h-12 mx-auto hover:border-black focus:outline-none text-xl", title="Close")
-            i.icon.self-center
-              +icon("close")
-          i.search-icon.icon.text-2xl(class="group-hover:opacity-65", title="Search")
-            +icon("search")
+          div.search-bg(class="rounded-full flex justify-c-center w-12 h-12 mx-auto hover:border-black focus:outline-none text-xl", title="Close")
+            .self-center
+              .search-close
+                i.icon
+                  +icon("close")
+              .search-icon
+                i.icon.text-2xl(class="group-hover:opacity-65", title="Search")
+                  +icon("search")
 
         button.theme-switch.block.navbar-icon.cursor-pointer.group(type="button", role="button" aria-label="Light/Dark mode toggle" title="Switch Theme")
           i.icon.text-2xl(class="group-hover:opacity-65")

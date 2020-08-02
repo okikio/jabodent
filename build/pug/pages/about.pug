@@ -1,5 +1,13 @@
 extends /layouts/layout.pug
 
+block pageInfo
+  -
+    let page = {
+      url: "/about",
+      title: "About Us — Jabodent",
+      description: "Established in 2017 out of the necessity for the marine, oil and gas offshore industry we provide professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments in a safe manner."
+    };
+
 block hero
   section.py-24.bg-primary
     .text-black.mx-auto.max-w-3xl.px-5.mt-5.w-full

@@ -1,5 +1,12 @@
 extends /layouts/layout.pug
 
+block pageInfo
+  -
+    let page = {
+      url: "/contact",
+      title: "Contact Us — Jabodent",
+    };
+
 block hero
   section.py-24.bg-primary
     .text-black.mx-auto.max-w-3xl.px-5.pt-24.pb-20.w-full
@@ -17,27 +24,27 @@ block hero
           class: "inline-block intro-animation px-5 underline",
           content: "LinkedIn"
         })
-        
+
         +link({
           href: "/404",
           class: "inline-block intro-animation px-5 underline",
           content: "Instagram"
         })
-        
+
         +link({
           href: "/404",
           class: "inline-block intro-animation px-5 underline",
           content: "Twitter"
         })
-        
+
         br
-        
+
         +link({
           href: "mailto:info@jabodent.com",
           class: "inline-block intro-animation px-5 underline",
           content: "info@jabodent.com"
         })
-        
+
         +link({
           href: "tel:+2348033324072",
           class: "inline-block intro-animation px-5 underline",

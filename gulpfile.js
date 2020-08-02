@@ -17,8 +17,11 @@ const rename = require("gulp-rename");
 const sass = require("gulp-sass");
 const pug = require("gulp-pug");
 
+const querySelector = require("posthtml-match-helper");
+const minifyJSON = require("gulp-minify-inline-json");
+const posthtml = require("gulp-posthtml");
+
 /**
- * import { websiteURL, dev, debug, author, homepage, license, copyright, github, netlify } from './config';
 import querySelector from "posthtml-match-helper";
 import minifyJSON from 'gulp-minify-inline-json';
 import phTransformer from 'posthtml-transformer';
@@ -88,6 +91,7 @@ task("html", async () => {
                         data: { ...data, icons },
                         self: true,
                     }),
+                    minifyJSON(), // Minify application/ld+json
                 ],
                 dest: htmlFolder,
             },
@@ -119,6 +123,7 @@ task("html", async () => {
                             data
                         ),
                     }),
+                    minifyJSON(), // Minify application/ld+json
                     rename(pageURL),
                 ],
                 dest: `${htmlFolder}/services`,
@@ -344,6 +349,42 @@ tasks({
 task("assets", () => {
     return stream(`${assetsFolder}/**/*`, {
         dest: destFolder,
+    });
+});
+
+// Search Indexer
+task("indexer", () => {
+    const data = {};
+    return stream(`${htmlFolder}/**/*.html`, {
+        pipes: [
+            posthtml([
+                (tree) => {
+                    tree.match(querySelector("title"), (node) => {
+                        // if (node) {
+                        //     const _attrs = node.attrs;
+                        //     const _content = node.content;
+                        //     delete _attrs['inline'];
+                        //     delete _attrs['async'];
+                        //     node = {
+                        //         tag: 'svg',
+                        //         attrs: {
+                        //             width: '24', height: '24',
+                        //             viewBox: '0 0 24 24',
+                        //             fill: 'currentcolor',
+                        //             ..._attrs
+                        //         },
+                        //         content: [{
+                        //             tag: 'path',
+                        //             attrs: { d: icons[_content] },
+                        //         }]
+                        //     };
+                        // }
+
+                        return node;
+                    });
+                },
+            ]),
+        ],
     });
 });
 
