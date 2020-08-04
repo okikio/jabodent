@@ -788,3 +788,18 @@ img {
 .highlight {
     color: rgb(54, 114, 204);
 }
+
+.letter-head {
+    padding-top: 0;
+    margin: 0;
+    margin-right: 8px;
+
+    line-height: 1;
+    // letter-spacing: -0.003em;
+    word-break: break-word;
+}
+
+// .leading-doc {
+//     // letter-spacing: 0;
+//     // font-weight: 400;
+// }

@@ -39,11 +39,11 @@ block content
     div.pt-24
       section.mx-auto.text-white.w-full.max-w-screen-md
         .px-5.tracking-wide
-          section.pb-10.text-lg.leading-9.font-normal
-            section.clearfix
+          section.pb-10.text-base.leading-8.font-normal
+            p.clearfix
               if article[0] !== "_"
-                span.float-left.pr-2.py-3.text-6xl.font-title.font-extrabold= article[0]
-              p!= article.substring(1).replace(/\n/g, "<br>")
+                span.float-left.letter-head.text-6xl.font-title.font-extrabold= article[0]
+              span!= article.substring(1).replace(/\n/g, "<br>")
 
       .mx-auto.w-full.max-w-screen-md.px-5
         hr.border-white.border-opacity-25.mb-14
