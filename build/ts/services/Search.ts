@@ -176,7 +176,7 @@ export class Search extends Service {
 
     public addResult({ title, description, href }: { title: string; description: string, href: string }) {
         let el = document.createElement("a");
-        el.href = `${href}.html`;
+        el.href = `${href}`;
         el.className = "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
         el.innerHTML = `
       <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
