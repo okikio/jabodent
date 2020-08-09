@@ -55,9 +55,9 @@ fetch("/searchindex.json")
 
         const searcher = new Fuse(searchindex as any, {
             keys: ["title", "description"],
-            findAllMatches: true,
+            // findAllMatches: true,
             includeMatches: true,
-            threshold: 0.35
+            threshold: 0.6
         });
         self.onmessage = ({ data }) => {
             let json = highlight(searcher.search(data));

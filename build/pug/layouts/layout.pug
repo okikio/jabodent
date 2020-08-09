@@ -83,11 +83,21 @@ html(lang="en" data-theme="light")
       .splashscreen-bg
     .search-overlay.px-5.py-24.overflow-y-auto.h-full
       .search-inner.mx-auto.max-w-screen-sm.w-full.pt-5
-        .search-container
-          input.search-input.font-normal.self-center(type="text", placeholder="Start typing to search our site..." name="")
+        .search-container.px-4
           i.icon.text-2xl.self-center
             +icon("search")
+          input.search-input.font-normal.self-center(type="text", placeholder="Type to start the search..." name="")
+          //- button.clear-search.self-center.z-10.ml-5.bg-translucentLight.text-black.rounded-full.flex.text-2xl(class="hover:bg-translucentDark hover:text-translucentLight" type="button", title="Clear search")
+            i.icon.w-full.justify-center.text-2xl.self-center
+              +icon("clear")
         .search-results.theme-text.py-5
+          .flex.justify-center.py-5
+            .self-center.text-center
+              .py-5
+                p.text-lg.font-bold Waiting for input
+                p.text-base Don't be shy start typing.
+              img(src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw.")
+              //- +icon("menu_book")
           //- mixin result
           //-   +link({
           //-     href: "/",

@@ -41,7 +41,7 @@ export class Search extends Service {
         return args.map((num: number) => `translateY(${num}%)`);
     }
 
-    public toggle() {
+    public async toggle() {
         const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(" ");
         this.active = !this.active;
         !this.navbar.classList.contains("focus") && this.navbar.classList.add("focus");
@@ -59,8 +59,9 @@ export class Search extends Service {
         animate({
             target: this.rootElement,
             transform,
-            duration: 900,
+            duration: 600,
             easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
+            // easing: "out-sine",
             onfinish(el: HTMLElement) {
                 el.style.transform = `${
                     transform[transform.length - 1]
@@ -69,10 +70,11 @@ export class Search extends Service {
             },
         });
 
-        animate({
+        await animate({
             target: this.inner,
             opacity,
             duration: 500,
+            delay: 100,
             easing: "ease",
             onfinish: (el: HTMLElement) => {
                 el.style.opacity = `${opacity[opacity.length - 1]}`;
@@ -80,21 +82,70 @@ export class Search extends Service {
         });
     }
 
+
+    /**
+     * Returns the href or an Anchor element
+     */
+    public getHref(el: HTMLAnchorElement): string | null {
+        if (
+            el &&
+            el.tagName &&
+            el.tagName.toLowerCase() === "a" &&
+            typeof el.href === "string"
+        )
+            return el.href;
+        return null;
+    }
+    /**
+     * Check if event target is a valid anchor with an href, if so, return the link
+     */
+    public getLink(event): HTMLAnchorElement {
+        let el = event.target as HTMLAnchorElement;
+        let href: string = this.getHref(el);
+
+        while (el && !href) {
+            el = (el as HTMLElement).parentNode as HTMLAnchorElement;
+            href = this.getHref(el);
+        }
+
+        // Check for a valid link
+        if (!el) return;
+        return el;
+    }
+
     public initEvents() {
         if (this.input) {
             this.btn.addEventListener("click", this.toggle.bind(this));
-            this.input.addEventListener("keyup", () => {
+            this.input.addEventListener("input", () => {
                 const { value } = this.input as HTMLInputElement;
                 this.value = value;
                 this.worker.postMessage(value);
             });
 
             this.results.addEventListener("click", e => {
-                if (e.target && (e.target as HTMLElement).classList.contains("search-result")) {
-                    this.toggle();
-                    (this.input as HTMLInputElement).value = "";
-                    this.value = "";
+                let el = this.getLink(event);
+                if (!el || !el.classList.contains("search-result")) return;
+
+                const href = this.getHref(el);
+                (this.input as HTMLInputElement).value = "";
+                this.value = "";
+                (async () => {
+                    await this.toggle();
+                    this.resetResults();
+                })();
+
+                if (window.location.href === href) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
                 }
+            });
+
+            this.navbar.addEventListener("click", e => {
+                let el = this.getLink(event);
+                if (!el) return;
+
+                if (this.active) this.toggle();
             });
 
             // Receive data from a worker
@@ -102,6 +153,8 @@ export class Search extends Service {
                 const data = JSON.parse(event.data);
                 if (data.length === 0 && this.value.length > 0) {
                     this.noResults();
+                } else if (this.value.length === 0) {
+                    this.resetResults();
                 } else {
                     this.removeResults();
                     for (let i = 0, len = data.length; i < len; i++) {
@@ -123,12 +176,26 @@ export class Search extends Service {
 
     public addResult({ title, description, href }: { title: string; description: string, href: string }) {
         let el = document.createElement("a");
-        el.href = href;
+        el.href = `${href}.html`;
         el.className = "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
         el.innerHTML = `
       <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
       <p>${description}</p>`;
         this.results.appendChild(el);
+    }
+
+    public resetResults() {
+        this.removeResults();
+        this.results.innerHTML = `
+        <div class="flex justify-center py-10">
+            <div class="self-center text-center">
+                <div class="py-5">
+                    <p class="text-lg font-bold">Waiting for input</p>
+                    <p class="text-base">Don't be shy start typing.</p>
+                </div>
+                <img src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw." />
+            </div>
+        </div>`;
     }
 
     public removeResults() {
