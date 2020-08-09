@@ -1,22 +1,5 @@
 import Fuse from "fuse.js";
-
-const people = [
-    {
-        title: "Title 1",
-        description: "Description 1",
-    },
-    {
-        title: "Tlite 2",
-        description: "Desction 2",
-    },
-];
-
-const searcher = new Fuse(people, {
-    keys: ["title", "description"],
-    findAllMatches: true,
-    includeMatches: true,
-    threshold: 0.35
-});
+import stringify from 'fast-stringify';
 
 // Based on: https://gist.github.com/evenfrost/1ba123656ded32fb7a0cd4651efd4db0
 const highlight = (fuseSearchResult: any, highlightClassName: string = 'highlight') => {
@@ -65,8 +48,21 @@ const highlight = (fuseSearchResult: any, highlightClassName: string = 'highligh
         });
 };
 
-self.onmessage = ({ data }) => {
-    let json = highlight(searcher.search(data));
-    let result: string = JSON.stringify(json);
-    self.postMessage(result);
-};
+fetch("/searchindex.json")
+    .then((response) => response.json())
+    .then((searchindex) => {
+        console.log("Search Index:", searchindex);
+
+        const searcher = new Fuse(searchindex as any, {
+            keys: ["title", "description"],
+            findAllMatches: true,
+            includeMatches: true,
+            threshold: 0.35
+        });
+        self.onmessage = ({ data }) => {
+            let json = highlight(searcher.search(data));
+            let result: string = stringify(json);
+            self.postMessage(result);
+        };
+
+    });

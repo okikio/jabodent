@@ -20,6 +20,9 @@ const pug = require("gulp-pug");
 const querySelector = require("posthtml-match-helper");
 const minifyJSON = require("gulp-minify-inline-json");
 const posthtml = require("gulp-posthtml");
+const stringify = require("fast-stringify");
+const path = require("path");
+const fs = require("fs");
 
 /**
 import querySelector from "posthtml-match-helper";
@@ -337,6 +340,19 @@ tasks({
                     },
                     "umd"
                 ),
+                // babel({
+                //     compact: true,
+                //     presets: [
+                //         [
+                //             "@babel/env",
+                //             {
+                //                 targets: {
+                //                     chrome: "58",
+                //                 },
+                //             },
+                //         ],
+                //     ],
+                // }),
                 rename({ suffix: ".min", extname: ".js" }), // Rename
             ],
             dest: jsFolder, // Output
@@ -354,42 +370,88 @@ task("assets", () => {
 
 // Search Indexer
 task("indexer", () => {
-    const data = {};
-    return stream(`${htmlFolder}/**/*.html`, {
+    const index = [];
+    return stream([`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`], {
         pipes: [
             posthtml([
                 (tree) => {
-                    tree.match(querySelector("title"), (node) => {
-                        // if (node) {
-                        //     const _attrs = node.attrs;
-                        //     const _content = node.content;
-                        //     delete _attrs['inline'];
-                        //     delete _attrs['async'];
-                        //     node = {
-                        //         tag: 'svg',
-                        //         attrs: {
-                        //             width: '24', height: '24',
-                        //             viewBox: '0 0 24 24',
-                        //             fill: 'currentcolor',
-                        //             ..._attrs
-                        //         },
-                        //         content: [{
-                        //             tag: 'path',
-                        //             attrs: { d: icons[_content] },
-                        //         }]
-                        //     };
-                        // }
+                    const data = {
+                        title: "",
+                        description: "",
+                    };
 
+                    const travel = (nodes) => {
+                        return nodes.forEach((node) => {
+                            if (!("image" in data) && node.tag === "img") {
+                                data.image = node.attrs;
+                            }
+
+                            if (
+                                node !== undefined &&
+                                node !== "<!DOCTYPE html>" &&
+                                node.tag !== "title" &&
+                                node.tag !== "img" &&
+                                node.tag !== "script" &&
+                                node.tag !== "style" &&
+                                node.tag !== "link" &&
+                                node.tag !== "meta" &&
+                                node.tag !== "nav" &&
+                                node.tag !== "footer" &&
+                                !(
+                                    node?.attrs?.class?.includes(
+                                        "splashscreen"
+                                    ) ||
+                                    node?.attrs?.class?.includes(
+                                        "search-overlay"
+                                    )
+                                )
+                            ) {
+                                if (Array.isArray(node.content)) {
+                                    // Now we recurse through the nested content if content exists
+                                    travel(node.content);
+                                } else if (typeof node === "string") {
+                                    data.description +=
+                                        node.replace(/\n/g, " ").trim() + " ";
+                                }
+                            }
+                        });
+                    };
+
+                    tree.match(querySelector("title"), (node) => {
+                        if (data.title === "" && node.tag === "title") {
+                            data.title = node.content.join("");
+                        }
                         return node;
                     });
+
+                    tree.match(
+                        querySelector('link[rel="canonical"]'),
+                        (node) => {
+                            data.href = node.attrs.href;
+                            return node;
+                        }
+                    );
+
+                    travel(tree);
+                    index.push(data);
                 },
             ]),
         ],
+        end() {
+            fs.writeFile(
+                path.join(__dirname, destFolder, "searchindex.json"),
+                stringify(index),
+                (err) => {
+                    if (err) throw err;
+                    console.log("Search index json created sucessfully.");
+                }
+            );
+        },
     });
 });
 
 // Build & Watch Tasks
-task("build", parallel("html", "css", "js", "assets"));
+task("build", series(parallel("html", "css", "js", "assets"), "indexer"));
 task("watch", () => {
     browserSync.init(
         {
@@ -407,7 +469,7 @@ task("watch", () => {
     );
     watch(
         [`${pugFolder}/**/*.pug`, dataPath, iconPath],
-        series(`html`, `reload`)
+        series(`html`, "indexer", `reload`)
     );
     watch(`${sassFolder}/**/*.scss`, series(`app-css`));
     watch(
@@ -427,5 +489,9 @@ task("watch", () => {
 
 task(
     "default",
-    series(parallel("html", "app-css", "tailwind-css", "js", "assets"), "watch")
+    series(
+        parallel("html", "app-css", "tailwind-css", "js", "assets"),
+        "indexer",
+        "watch"
+    )
 );

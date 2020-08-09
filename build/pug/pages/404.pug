@@ -1,5 +1,12 @@
 extends /layouts/layout.pug
 
+block pageInfo
+  -
+    let page = {
+      url: "/404",
+      title: "404 Page - Jabodent"
+    };
+
 block title
   | 404 Page
 
@@ -10,7 +17,7 @@ block hero
         strong.layer 404 Page
       h2.text-2xl.leading-10.mb-16
         | Oops, it seems you are lost would you like to
-        |  
+        |
         +link({
           href: "/",
           class: "underline",

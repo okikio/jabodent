@@ -64,6 +64,7 @@
     "@okikio/animate": "^0.0.7",
     "@okikio/emitter": "^0.0.7",
     "@okikio/manager": "^0.0.7",
+    "fast-stringify": "^2.0.0",
     "fuse.js": "^6.4.1"
   }
 }

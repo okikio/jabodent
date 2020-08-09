@@ -2,6 +2,7 @@ dependencies:
   '@okikio/animate': 0.0.7
   '@okikio/emitter': 0.0.7
   '@okikio/manager': 0.0.7
+  fast-stringify: 2.0.0
   fuse.js: 6.4.1
 devDependencies:
   '@babel/core': 7.10.5
@@ -2760,6 +2761,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
+  /fast-stringify/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-+b+ki4C5K/tw+RmyiehpRzHjWmeqPb3Wn0whMsi+JPrYjzdapybfGejhCTblfLBErPMRSToYXDObawLG9BN78A==
   /file-uri-to-path/1.0.0:
     dev: true
     optional: true
@@ -6759,6 +6764,7 @@ specifiers:
   autoprefixer: ^9.8.5
   browser-sync: ^2.26.12
   esbuild: ^0.6.8
+  fast-stringify: ^2.0.0
   fuse.js: ^6.4.1
   gulp: ^4.0.2
   gulp-babel: ^8.0.0

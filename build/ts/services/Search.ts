@@ -16,6 +16,7 @@ export class Search extends Service {
     protected btn: HTMLElement;
     protected icon: HTMLElement;
     protected bg: HTMLElement;
+    protected start = false;
 
     public init() {
         super.init();
@@ -33,7 +34,6 @@ export class Search extends Service {
         this.input = this.rootElement.querySelector(".search-input");
         if (this.input) {
             this.results = this.rootElement.querySelector(".search-results");
-            this.worker = new Worker("/js/FuzzySearch.min.js");
         }
     }
 
@@ -42,6 +42,10 @@ export class Search extends Service {
     }
 
     public toggle() {
+        if (this.worker === undefined) {
+            this.worker = new Worker("/js/FuzzySearch.min.js");
+            this.start = true;
+        }
         const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(" ");
         this.active = !this.active;
         !this.navbar.classList.contains("focus") && this.navbar.classList.add("focus");
@@ -84,6 +88,21 @@ export class Search extends Service {
         if (this.input) {
             this.btn.addEventListener("click", this.toggle.bind(this));
             this.input.addEventListener("keyup", () => {
+                // Receive data from a worker
+                if (this.start && typeof this.worker.onmessage !== "function") {
+                    this.worker.onmessage = (event) => {
+                        const data = JSON.parse(event.data);
+                        if (data.length === 0 && this.value.length > 0) {
+                            this.noResults();
+                        } else {
+                            this.removeResults();
+                            for (let i = 0, len = data.length; i < len; i++) {
+                                this.addResult(data[i]);
+                            }
+                        }
+                    };
+                }
+
                 const { value } = this.input as HTMLInputElement;
                 this.value = value;
                 this.worker.postMessage(value);
@@ -96,19 +115,6 @@ export class Search extends Service {
                     this.value = "";
                 }
             });
-
-            // receive data from a worker
-            this.worker.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                if (data.length === 0 && this.value.length > 0) {
-                    this.noResults();
-                } else {
-                    this.removeResults();
-                    for (let i = 0, len = data.length; i < len; i++) {
-                        this.addResult(data[i]);
-                    }
-                }
-            };
         }
     }
 
@@ -121,9 +127,9 @@ export class Search extends Service {
         this.results.innerHTML = "<span class='px-5'>No results...</span>";
     }
 
-    public addResult({ title, description }: { title: string; description: string }) {
+    public addResult({ title, description, href }: { title: string; description: string, href: string }) {
         let el = document.createElement("a");
-        el.href = "/index.html";
+        el.href = href;
         el.className = "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
         el.innerHTML = `
       <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
