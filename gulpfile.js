@@ -79,7 +79,7 @@ const dataPath = `./data.js`;
 const iconPath = `./icons.js`;
 const resolve = require.resolve(dataPath);
 const iconResolve = require.resolve(iconPath);
-task("html", async () => {
+task("html", () => {
     let data = require(resolve);
     let icons = require(iconResolve);
     let pages = [
@@ -164,10 +164,10 @@ task("html", async () => {
         ]);
     }
 
-    let pipe = await streamList(pages);
     delete require.cache[resolve];
     delete require.cache[iconResolve];
-    return Promise.resolve(pipe);
+
+    return streamList(pages);
 });
 
 // CSS Tasks
@@ -437,6 +437,7 @@ task("indexer", () => {
                 },
             ]),
         ],
+        dest: null,
         end() {
             fs.writeFile(
                 path.join(__dirname, destFolder, "searchindex.json"),

@@ -1,4 +1,5 @@
 const gulp = require("gulp");
+const mergeStream = require("merge-stream");
 const { src, dest, parallel, watch, task, series } = gulp;
 
 // Streamline Gulp Tasks
@@ -36,7 +37,7 @@ const stream = (_src, _opt = {}) => {
 
 // A list of streams
 const streamList = (...args) => {
-    return Promise.all(
+    return mergeStream.apply(null, 
         (Array.isArray(args[0]) ? args[0] : args).map((_stream) => {
             return Array.isArray(_stream) ? stream(..._stream) : _stream;
         })
@@ -67,5 +68,5 @@ module.exports = {
     stream,
     streamList,
     tasks,
-    gulp
+    gulp,
 };
