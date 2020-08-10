@@ -1,15 +1,15 @@
 tasks:
-    - command: npm install pnpm -g && pnpm i ultra-runner gulp -g && pnpm install && ultra watch
+  - command: nvm install v14 && nvm alias default v14 && nvm use default && npm install pnpm -g && pnpm i ultra-runner gulp -g && pnpm install && ultra watch
 ports:
-    - port: 3000
-      onOpen: ignore
-    - port: 3001
-      onOpen: ignore
+  - port: 3000
+    onOpen: ignore
+  - port: 3001
+    onOpen: ignore
 image:
-    file: .gitpod.Dockerfile
+  file: .gitpod.Dockerfile
 vscode:
-    extensions:
-        - JannisX11.batch-rename-extension@0.0.3:L1Oli3aUP8tMJti8am5DWw==
-        - ditto.convert-html-to-pug@0.0.5:O/5ew2/HTXd1DTftkQOVgQ==
-        - mrmlnc.vscode-pugbeautify@1.0.2:kWUMdVCzMXN/JGThqjT2nA==
-        - VisualStudioExptTeam.vscodeintellicode@1.2.9:LdmiMXKN8640kj+gwklZLA==
+  extensions:
+    - JannisX11.batch-rename-extension@0.0.3:L1Oli3aUP8tMJti8am5DWw==
+    - ditto.convert-html-to-pug@0.0.5:O/5ew2/HTXd1DTftkQOVgQ==
+    - mrmlnc.vscode-pugbeautify@1.0.2:kWUMdVCzMXN/JGThqjT2nA==
+    - VisualStudioExptTeam.vscodeintellicode@1.2.9:LdmiMXKN8640kj+gwklZLA==
