@@ -608,7 +608,7 @@ img {
     }
 
     &-icon {
-        padding: 0 0.875rem;
+        padding: 0 0.25rem;
     }
 }
 
@@ -653,11 +653,11 @@ img {
 
     &-dot {
         background-color: var(--bg-invert);
-        border-radius: 900rem;
-        width: 10px;
-        height: 10px;
-        margin-left: 4px;
-        margin-right: 4px;
+        border-radius: 999px;
+        width: 12px;
+        height: 12px;
+        margin-left: 0.4rem;
+        margin-right: 0.4rem;
         opacity: 0.3;
 
         &.active {

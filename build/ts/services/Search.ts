@@ -16,6 +16,7 @@ export class Search extends Service {
     protected btn: HTMLElement;
     protected icon: HTMLElement;
     protected bg: HTMLElement;
+    protected clearIcon: HTMLElement;
 
     public init() {
         super.init();
@@ -30,9 +31,10 @@ export class Search extends Service {
         this.bg = this.btn.querySelector(".search-bg");
 
         this.inner = this.rootElement.querySelector(".search-inner");
-        this.input = this.rootElement.querySelector(".search-input");
+        this.input = this.inner.querySelector(".search-input");
         if (this.input) {
-            this.results = this.rootElement.querySelector(".search-results");
+            this.results = this.inner.querySelector(".search-results");
+            this.clearIcon = this.inner.querySelector(".clear-search");
             this.worker = new Worker("/js/FuzzySearch.min.js");
         }
     }
@@ -116,7 +118,7 @@ export class Search extends Service {
     public initEvents() {
         if (this.input) {
             this.btn.addEventListener("click", this.toggle.bind(this));
-            this.input.addEventListener("input", () => {
+            this.input.addEventListener("keyup", () => {
                 const { value } = this.input as HTMLInputElement;
                 this.value = value;
                 this.worker.postMessage(value);
@@ -144,8 +146,13 @@ export class Search extends Service {
             this.navbar.addEventListener("click", e => {
                 let el = this.getLink(event);
                 if (!el) return;
-
                 if (this.active) this.toggle();
+            });
+
+            this.clearIcon.addEventListener("click", () => {
+                (this.input as HTMLInputElement).value = "";
+                this.value = "";
+                this.resetResults();
             });
 
             // Receive data from a worker

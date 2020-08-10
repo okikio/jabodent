@@ -4,8 +4,12 @@ mixin footer()
       section.col(class="sm:max-w-4/12")
         +link({
           href: "/",
-          class: "inline-block w-20 h-16 bg-yellow-300 mb-5",
+          class: "inline-block mb-5 hover:text-primary",
         })(aria-label="Jabodent")
+          .flex.font-bold.text-3xl
+            i.icon.self-center.mr-4.justify-center
+              +icon("jabodent")
+            span Jabodent
         p.text-lg.leading-8.font-medium.
           Drive, Integrity, Professionalism, Teamwork & Innovation
 
@@ -17,19 +21,19 @@ mixin footer()
             class: "hover:underline",
             content: "About Us"
           })
-          
+
           +link({
             href: "/services",
             class: "hover:underline",
             content: "Our Services"
           })
-          
+
           +link({
             href: "/contact",
             class: "hover:underline",
             content: "Contact Us"
           })
-          
+
           +link({
             href: "/404",
             class: "hover:underline",
@@ -61,28 +65,28 @@ mixin footer()
             class: "hover:underline",
           })(aria-label="twitter")
             i.icon.p-2
-              +icon("twitter") 
-              
+              +icon("twitter")
+
           +link({
             href: "/404",
             class: "hover:underline",
           })(aria-label="facebook")
             i.icon.p-2
-              +icon("facebook") 
-              
+              +icon("facebook")
+
           +link({
             href: "/404",
             class: "hover:underline",
           })(aria-label="linkedin")
             i.icon.p-2
-              +icon("linkedin") 
-              
+              +icon("linkedin")
+
           +link({
             href: "/404",
             class: "hover:underline",
           })(aria-label="instagram")
             i.icon.p-2
-              +icon("instagram") 
+              +icon("instagram")
     .theme-surface
       .max-w-screen-lg.flex.flex-wrap.mt-10.w-full.mx-auto.py-4.px-6.leading-10
         section © 2020 Jabodent. All rights reserved.
@@ -90,11 +94,11 @@ mixin footer()
         section
           | Made with
           i.icon.text-xl.text-red-600.mx-1
-            +icon("favorite")  
+            +icon("favorite")
           | by
-          | 
+          |
           +link({
             href: "https://okikio.dev",
             class: "underline",
             content: "Okiki Ojo"
-          })(target="_blank" rel="noopener") 
+          })(target="_blank" rel="noopener")
