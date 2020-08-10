@@ -742,10 +742,18 @@ img {
     }
 }
 
-.city-image {
+.cave-image {
     &,
     &:before {
-        background-image: url(https://images.unsplash.com/photo-1590771032944-0ad0a145ed2c?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/v1597088386/cave-water.jpg);
+        background-size: cover;
+    }
+}
+
+.water-image {
+    &,
+    &:before {
+        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/v1597088386/golden-hour.jpg);
         background-size: cover;
     }
 }
