@@ -44,16 +44,17 @@ export class Search extends Service {
     }
 
     public async toggle() {
-        const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(" ");
+        const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
+            " "
+        );
         this.active = !this.active;
-        !this.navbar.classList.contains("focus") && this.navbar.classList.add("focus");
+        !this.navbar.classList.contains("focus") &&
+            this.navbar.classList.add("focus");
         this.html.classList.toggle("no-scroll", this.active);
         this.bg.classList[this.active ? "add" : "remove"](...bgClass);
 
         let opacity = this.active ? [0, 1] : [1, 0];
-        let transform = this.transformArr(
-            this.active ? [-100, 0] : [0, -100]
-        );
+        let transform = this.transformArr(this.active ? [-100, 0] : [0, -100]);
         let pointerEvents = this.active ? "auto" : "none";
         this.close.style.display = this.active ? "flex" : "none";
         this.icon.style.display = !this.active ? "block" : "none";
@@ -65,9 +66,7 @@ export class Search extends Service {
             easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
             // easing: "out-sine",
             onfinish(el: HTMLElement) {
-                el.style.transform = `${
-                    transform[transform.length - 1]
-                    }`;
+                el.style.transform = `${transform[transform.length - 1]}`;
                 el.style.pointerEvents = `${pointerEvents}`;
             },
         });
@@ -77,13 +76,13 @@ export class Search extends Service {
             opacity,
             duration: 500,
             delay: 100,
+            endDelay: 200,
             easing: "ease",
             onfinish: (el: HTMLElement) => {
                 el.style.opacity = `${opacity[opacity.length - 1]}`;
             },
         });
     }
-
 
     /**
      * Returns the href or an Anchor element
@@ -124,7 +123,7 @@ export class Search extends Service {
                 this.worker.postMessage(value);
             });
 
-            this.results.addEventListener("click", e => {
+            this.results.addEventListener("click", (e) => {
                 let el = this.getLink(event);
                 if (!el || !el.classList.contains("search-result")) return;
 
@@ -143,7 +142,7 @@ export class Search extends Service {
                 }
             });
 
-            this.navbar.addEventListener("click", e => {
+            this.navbar.addEventListener("click", (e) => {
                 let el = this.getLink(event);
                 if (!el) return;
                 if (this.active) this.toggle();
@@ -181,10 +180,19 @@ export class Search extends Service {
         this.results.innerHTML = "<span class='px-5'>No results...</span>";
     }
 
-    public addResult({ title, description, href }: { title: string; description: string, href: string }) {
+    public addResult({
+        title,
+        description,
+        href,
+    }: {
+        title: string;
+        description: string;
+        href: string;
+    }) {
         let el = document.createElement("a");
         el.href = `${href}`;
-        el.className = "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
+        el.className =
+            "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
         el.innerHTML = `
       <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
       <p>${description}</p>`;
