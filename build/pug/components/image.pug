@@ -18,4 +18,5 @@ mixin image(value = {})
       source(media='(min-width: 1200px)' srcset!=`${urlParse(",w_1100,q_100")}.webp` sizes="1100px" width="1100px" type='image/webp')
       source(media='(min-width: 1200px)' srcset!=`${urlParse(",w_1100,q_100")}.jpeg` sizes="1100px" width="1100px" type='image/jpeg')
 
-      img.img-core(class=_class src!=`${urlParse(",w_850,q_100")}.jpeg` sizes="(max-width: 500px) 500px,(max-width: 700px) 700px,(max-width: 900px) 900px, 100vw" alt=alt loading="lazy" width="100vw" itemprop="url")&attributes(attributes)
+      source(srcset!=`${urlParse(",w_850,q_100")}.webp` sizes="100vw" width="100vw" type='image/webp')
+      img.img-core(class=_class src!=`${urlParse(",w_850,q_100")}.jpeg` sizes="100vw" width="100vw" alt=alt loading="lazy" itemprop="url")&attributes(attributes)

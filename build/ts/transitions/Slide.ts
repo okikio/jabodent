@@ -10,7 +10,7 @@ export class Slide extends Transition {
     init(value: ITransition) {
         super.init(value);
 
-        let trigger = (value.trigger as HTMLElement);
+        let trigger = value.trigger as HTMLElement;
         if (trigger instanceof Node && trigger.hasAttribute("data-direction")) {
             this.direction = trigger.getAttribute("data-direction");
         } else {
@@ -23,20 +23,31 @@ export class Slide extends Transition {
         let fromWrapper = from.getWrapper();
         window.scroll({
             top: 0,
-            behavior: 'smooth'  // 👈 
+            behavior: "smooth", // 👈
         });
         return animate({
             target: fromWrapper,
             keyframes: [
                 { transform: "translateX(0%)", opacity: 1 },
-                { transform: `translateX(${direction === "left" ? "-" : ""}25%)`, opacity: 0 },
+                {
+                    transform: `translateX(${
+                        direction === "left" ? "-" : ""
+                    }25%)`,
+                    opacity: 0,
+                },
             ],
             duration,
             easing: "in-quint",
-            onfinish: (el: { style: { opacity: string; transform: string; }; }) => {
-                el.style.opacity = '0';
-                el.style.transform = `translateX(${direction === "left" ? "-" : ""}25%)`;
-            }
+            onfinish: (el: {
+                style: { opacity: string; transform: string };
+            }) => {
+                requestAnimationFrame(() => {
+                    el.style.opacity = "0";
+                    el.style.transform = `translateX(${
+                        direction === "left" ? "-" : ""
+                    }25%)`;
+                });
+            },
         });
     }
 
@@ -46,15 +57,22 @@ export class Slide extends Transition {
         return animate({
             target: toWrapper,
             keyframes: [
-                { transform: `translateX(${this.direction === "right" ? "-" : ""}25%)`, opacity: 0 },
+                {
+                    transform: `translateX(${
+                        this.direction === "right" ? "-" : ""
+                    }25%)`,
+                    opacity: 0,
+                },
                 { transform: "translateX(0%)", opacity: 1 },
             ],
             duration,
             easing: "out-quint",
-            onfinish(el: { style: { opacity: string; transform: string; }; }) {
-                el.style.opacity = '1';
-                el.style.transform = `translateX(0%)`;
-            }
+            onfinish(el: { style: { opacity: string; transform: string } }) {
+                requestAnimationFrame(() => {
+                    el.style.opacity = "1";
+                    el.style.transform = `translateX(0%)`;
+                });
+            },
         });
     }
 }

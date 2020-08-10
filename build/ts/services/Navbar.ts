@@ -9,15 +9,26 @@ export class Navbar extends Service {
         super();
 
         // Elements
-        this.navbar = (document.getElementsByClassName("navbar")[0] as HTMLElement)
-        this.elements = Array.from(this.navbar.getElementsByClassName('navbar-item')) as HTMLElement[];
-        this.menu = (document.getElementsByClassName("navbar-menu")[0] as HTMLElement);
+        this.navbar = document.getElementsByClassName(
+            "navbar"
+        )[0] as HTMLElement;
+        this.elements = Array.from(
+            this.navbar.getElementsByClassName("navbar-item")
+        ) as HTMLElement[];
+        this.menu = document.getElementsByClassName(
+            "navbar-menu"
+        )[0] as HTMLElement;
 
         this.click = this.click.bind(this);
     }
 
     public validLink(el: HTMLAnchorElement): boolean {
-        return el && el.tagName && (el.tagName.toLowerCase() === 'a' || el.tagName.toLowerCase() === 'button');
+        return (
+            el &&
+            el.tagName &&
+            (el.tagName.toLowerCase() === "a" ||
+                el.tagName.toLowerCase() === "button")
+        );
     }
 
     public getLink({ target }): HTMLAnchorElement {
@@ -34,25 +45,31 @@ export class Navbar extends Service {
         let el = this.getLink(event);
         if (!el) return;
 
-        if (el.classList.contains("navbar-menu")) {
-            this.navbar.classList.toggle("active");
-        } else if (el.classList.contains("navbar-link")) {
-            this.navbar.classList.remove("active");
-        }
+        requestAnimationFrame(() => {
+            if (el.classList.contains("navbar-menu")) {
+                this.navbar.classList.toggle("active");
+            } else if (el.classList.contains("navbar-link")) {
+                this.navbar.classList.remove("active");
+            }
+        });
     }
 
     public activateLink() {
         let { href } = window.location;
 
         for (let item of this.elements) {
-            let itemHref = item.getAttribute("data-path") || (item as HTMLAnchorElement).href;
+            let itemHref =
+                item.getAttribute("data-path") ||
+                (item as HTMLAnchorElement).href;
             if (!itemHref || itemHref.length < 1) continue;
 
             let URLmatch = new RegExp(itemHref).test(href);
-            let isActive = item.classList.contains("active");
-            if (!(URLmatch && isActive)) {
-                item.classList[URLmatch ? "add" : "remove"]("active");
-            }
+            requestAnimationFrame(() => {
+                let isActive = item.classList.contains("active");
+                if (!(URLmatch && isActive)) {
+                    item.classList[URLmatch ? "add" : "remove"]("active");
+                }
+            });
         }
     }
 

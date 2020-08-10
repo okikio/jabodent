@@ -90,24 +90,14 @@ html(lang="en" data-theme="light")
           button.clear-search.self-center.z-10.ml-5.bg-translucentLight.text-black.rounded-full.flex.text-2xl(class="hover:bg-translucentDark hover:text-translucentLight" type="button", title="Clear search")
             i.icon.w-full.justify-center.text-2xl.self-center
               +icon("clear")
-        .search-results.theme-text.py-10
-          .flex.justify-center.py-5
-            .self-center.text-center
-              .py-5
-                p.text-lg.font-bold Waiting for input
-                p.text-base Don't be shy start typing.
-              img(src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw.")
-              //- +icon("menu_book")
-          //- mixin result
-          //-   +link({
-          //-     href: "/",
-          //-     class: "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block"
-          //-   })
-          //-     h5.font-title.text-xl.search-result-title.pb-2.mb-4 Title
-          //-     p Description
-          //- - for (let i = 0; i < 15; i ++) {
-          //-   +result
-          //- - }
+        .search-results.theme-text.py-5
+        .new-search.theme-text.show.flex.justify-center.py-5
+          .self-center.text-center
+            .py-5
+              p.text-lg.font-bold Waiting for input
+              p.text-base Don't be shy start typing.
+            img(src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw.")
+        .no-results.theme-text.hide.px-5.text-center.text-lg No results...
     +navbar
 
     div(data-wrapper)

@@ -57,6 +57,12 @@ try {
   const load = () => {
     let layers = document.getElementsByClassName("layer") || [];
 
+    layer = (layers[0] as HTMLElement) || null;
+    top = layer
+      ? layer.getBoundingClientRect().top + window.pageYOffset - navHeight / 2
+      : 0;
+
+      requestAnimationFrame(() => {
     navbar.navbar.classList.remove("focus");
     navbar.navbar.classList.remove("active");
 
@@ -65,27 +71,28 @@ try {
     } else if (navbar.navbar.classList.contains("light")) {
       navbar.navbar.classList.remove("light");
     }
-
-    layer = (layers[0] as HTMLElement) || null;
-    top = layer
-      ? layer.getBoundingClientRect().top + window.pageYOffset - navHeight / 2
-      : 0;
+      });
 
     let backToTop = document.getElementsByClassName("back-to-top")[0];
     if (backToTop) {
       backToTop.addEventListener("click", () => {
+          
+      requestAnimationFrame(() => {
         window.scrollTo({
           top: 0,
           behavior: "smooth",
         });
       });
+      });
     }
 
     let scrollBtn = document.getElementsByClassName("scroll-btn")[0];
+    let scrollPt = document.getElementsByClassName("scroll-point")[0];
     if (scrollBtn) {
       scrollBtn.addEventListener("click", () => {
-        let scrollPt = document.getElementsByClassName("scroll-point")[0];
-        if (scrollPt) scrollPt.scrollIntoView({ behavior: "smooth" });
+        requestAnimationFrame(() => {
+            if (scrollPt) scrollPt.scrollIntoView({ behavior: "smooth" });
+        });
       });
     }
 

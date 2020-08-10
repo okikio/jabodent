@@ -36,8 +36,10 @@ export const themeGet = () => {
 
 // Set theme in localStorage, as well as in the html tag
 export const themeSet = (theme: string) => {
-  html.setAttribute("data-theme", theme);
-  setTheme(theme);
+    requestAnimationFrame(() => {
+        html.setAttribute("data-theme", theme);
+    });
+    setTheme(theme);
 };
 
 try {

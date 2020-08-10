@@ -105,6 +105,7 @@ html {
     float: right;
     transform: translateY(-50%);
     margin-bottom: -100%;
+    contain: layout paint size;
 }
 
 $delay: 0.8s;
@@ -122,6 +123,7 @@ $delay: 0.8s;
     width: 100%;
     height: 100vh;
     pointer-events: none;
+    contain: layout size;
 }
 @keyframes splashanimoverlay {
     0% {
@@ -153,6 +155,7 @@ $delay: 0.8s;
     // pointer-events: none;
     visibility: visible;
     pointer-events: auto;
+    contain: layout size;
 
     &-icon {
         width: 1.5em;
@@ -177,6 +180,7 @@ $delay: 0.8s;
     position: relative;
     z-index: 11;
     display: block;
+    contain: layout paint;
     // opacity: 0;
 }
 
@@ -198,6 +202,7 @@ $delay: 0.8s;
     bottom: 0;
     left: 0;
     background-color: var(--bg);
+    contain: layout size paint;
 }
 
 .splashscreen-text {
@@ -209,6 +214,11 @@ $delay: 0.8s;
 }
 
 .search {
+    &-overlay,
+    &-inner, &-container {
+        contain: layout paint;
+    }
+
     &-overlay {
         position: fixed;
         z-index: 10;
@@ -285,6 +295,26 @@ $delay: 0.8s;
     }
 }
 
+.new-search {
+    pointer-events: none;
+    display: none;
+
+    &.show {
+    display: block;
+    pointer-events: auto;
+    }
+}
+
+.no-results {
+    opacity: 1;
+    pointer-events: auto;
+
+    &.hide {
+    pointer-events: none;
+    opacity: 0;
+    }
+}
+
 html.no-scroll {
     overflow: hidden;
     height: 100vh;
@@ -304,7 +334,7 @@ html.no-scroll {
 
 /* scrollbar itself */
 ::-webkit-scrollbar-thumb {
-    background-color: #bbb;
+    background-color: #FFD626;
 }
 
 /* set button(top and bottom of the scrollbar) */
@@ -363,6 +393,7 @@ img {
     z-index: 0;
     left: 0;
     top: 0;
+    contain: paint layout size;
 
     &-core {
         image-rendering: auto;
@@ -418,8 +449,8 @@ img {
 .navbar {
     // transition: color 0.35s ease;
     color: black;
-    $height: 60px;
-    contain: size layout;
+    $height: 60px; 
+    contain: layout size;
 
     &,
     &-height {
@@ -441,7 +472,8 @@ img {
 
     &-large,
     &-mini {
-        transform: translateY(-100%);
+        transform: translateY(-100%); 
+        contain: content;
     }
 
     &-mini {
@@ -461,6 +493,7 @@ img {
         opacity: 0;
         height: 100vh;
         pointer-events: none;
+        contain: layout paint size;
     }
 
     &.focus,
@@ -745,16 +778,22 @@ img {
 .cave-image {
     &,
     &:before {
-        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/v1597088386/cave-water.jpg);
-        background-size: cover;
+        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.jpg);
+        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.webp);
+        background-size: cover;    
+    object-fit: cover;
+    background-position: bottom;
     }
 }
 
 .water-image {
     &,
     &:before {
-        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/v1597088386/golden-hour.jpg);
-        background-size: cover;
+        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.jpg);
+        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.webp);
+        background-size: cover;    
+    object-fit: cover;
+    background-position: bottom;
     }
 }
 

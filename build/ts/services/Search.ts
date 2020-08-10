@@ -17,6 +17,8 @@ export class Search extends Service {
     protected icon: HTMLElement;
     protected bg: HTMLElement;
     protected clearIcon: HTMLElement;
+    protected newSearch: HTMLElement;
+    protected noResultsEl: HTMLElement;
 
     public init() {
         super.init();
@@ -35,6 +37,8 @@ export class Search extends Service {
         if (this.input) {
             this.results = this.inner.querySelector(".search-results");
             this.clearIcon = this.inner.querySelector(".clear-search");
+            this.newSearch = this.inner.querySelector(".new-search");
+            this.noResultsEl = this.inner.querySelector(".no-results");
             this.worker = new Worker("/js/FuzzySearch.min.js");
         }
     }
@@ -43,44 +47,51 @@ export class Search extends Service {
         return args.map((num: number) => `translateY(${num}%)`);
     }
 
-    public async toggle() {
+    public toggle() {
         const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
             " "
         );
         this.active = !this.active;
-        !this.navbar.classList.contains("focus") &&
-            this.navbar.classList.add("focus");
-        this.html.classList.toggle("no-scroll", this.active);
-        this.bg.classList[this.active ? "add" : "remove"](...bgClass);
 
         let opacity = this.active ? [0, 1] : [1, 0];
         let transform = this.transformArr(this.active ? [-100, 0] : [0, -100]);
-        let pointerEvents = this.active ? "auto" : "none";
-        this.close.style.display = this.active ? "flex" : "none";
-        this.icon.style.display = !this.active ? "block" : "none";
+        return new Promise((resolve) => {
+            requestAnimationFrame(() => {
+                !this.navbar.classList.contains("focus") &&
+                    this.navbar.classList.add("focus");
+                this.html.classList.toggle("no-scroll", this.active);
 
-        animate({
-            target: this.rootElement,
-            transform,
-            duration: 600,
-            easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
-            // easing: "out-sine",
-            onfinish(el: HTMLElement) {
-                el.style.transform = `${transform[transform.length - 1]}`;
-                el.style.pointerEvents = `${pointerEvents}`;
-            },
-        });
+                this.bg.classList[this.active ? "add" : "remove"](...bgClass);
+                let pointerEvents = this.active ? "auto" : "none";
+                this.close.style.display = this.active ? "flex" : "none";
+                this.icon.style.display = !this.active ? "block" : "none";
 
-        await animate({
-            target: this.inner,
-            opacity,
-            duration: 500,
-            delay: 100,
-            endDelay: 200,
-            easing: "ease",
-            onfinish: (el: HTMLElement) => {
-                el.style.opacity = `${opacity[opacity.length - 1]}`;
-            },
+                animate({
+                    target: this.rootElement,
+                    transform,
+                    duration: 600,
+                    easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
+                    // easing: "out-sine",
+                    onfinish(el: HTMLElement) {
+                        el.style.transform = `${
+                            transform[transform.length - 1]
+                        }`;
+                        el.style.pointerEvents = `${pointerEvents}`;
+                    },
+                });
+
+                animate({
+                    target: this.inner,
+                    opacity,
+                    duration: 500,
+                    delay: 100,
+                    easing: "ease",
+                    onfinish: (el: HTMLElement) => {
+                        el.style.opacity = `${opacity[opacity.length - 1]}`;
+                        resolve();
+                    },
+                });
+            });
         });
     }
 
@@ -142,16 +153,18 @@ export class Search extends Service {
                 }
             });
 
-            this.navbar.addEventListener("click", (e) => {
+            this.navbar.addEventListener("click", () => {
                 let el = this.getLink(event);
                 if (!el) return;
                 if (this.active) this.toggle();
             });
 
             this.clearIcon.addEventListener("click", () => {
-                (this.input as HTMLInputElement).value = "";
-                this.value = "";
-                this.resetResults();
+                requestAnimationFrame(() => {
+                    (this.input as HTMLInputElement).value = "";
+                    this.value = "";
+                    this.resetResults();
+                });
             });
 
             // Receive data from a worker
@@ -163,6 +176,8 @@ export class Search extends Service {
                     this.resetResults();
                 } else {
                     this.removeResults();
+                    this.noResultsEl.classList.add("hide");
+                    this.newSearch.classList.remove("show");
                     for (let i = 0, len = data.length; i < len; i++) {
                         this.addResult(data[i]);
                     }
@@ -177,7 +192,11 @@ export class Search extends Service {
     }
 
     public noResults() {
-        this.results.innerHTML = "<span class='px-5'>No results...</span>";
+        this.removeResults();
+        requestAnimationFrame(() => {
+            this.newSearch.classList.remove("show");
+            this.noResultsEl.classList.remove("hide");
+        });
     }
 
     public addResult({
@@ -190,35 +209,34 @@ export class Search extends Service {
         href: string;
     }) {
         let el = document.createElement("a");
-        el.href = `${href}`;
-        el.className =
-            "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
-        el.innerHTML = `
-      <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
-      <p>${description}</p>`;
-        this.results.appendChild(el);
+        requestAnimationFrame(() => {
+            el.href = `${href}`;
+            el.className =
+                "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
+            el.innerHTML = `
+            <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
+            <p>${description}</p>`;
+            this.results.appendChild(el);
+        });
     }
 
     public resetResults() {
         this.removeResults();
-        this.results.innerHTML = `
-        <div class="flex justify-center py-10">
-            <div class="self-center text-center">
-                <div class="py-5">
-                    <p class="text-lg font-bold">Waiting for input</p>
-                    <p class="text-base">Don't be shy start typing.</p>
-                </div>
-                <img src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw." />
-            </div>
-        </div>`;
+
+        requestAnimationFrame(() => {
+            this.newSearch.classList.add("show");
+            this.noResultsEl.classList.add("hide");
+        });
     }
 
     public removeResults() {
         let firstChild = this.results.firstChild;
 
-        while (firstChild) {
-            this.results.removeChild(firstChild);
-            firstChild = this.results.firstChild;
-        }
+        requestAnimationFrame(() => {
+            while (firstChild) {
+                this.results.removeChild(firstChild);
+                firstChild = this.results.firstChild;
+            }
+        });
     }
 }
