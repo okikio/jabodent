@@ -4,11 +4,20 @@ block hero
   -
     let { services } = self;
     
-  section.relative.h-screen.bg-primary.hero-img.fixed-img
+  section.relative.h-screen.bg-primary.fixed-img-container
+    .absolute.top-0.left-0.w-full.h-full
+      //- src: "cloudinary/e_improve/waves",
+      +image({ 
+        src: "cloudinary/stoney-wave",
+        alt: "An image of waves hitting the stoney edge of a beach by @johnonolan on unsplash.",
+        class: "fixed-img",
+        figclass: "theme-surface fixed-img-container min-h-300",
+        loading: "eager"
+      })
     .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
       section.self-center.text-center.px-5
-        h1.font-extrabold.font-title.tracking-wider.layer.text-3xl(class="lg:text-4xl xl:text-6xl") Jabodent Offshore Consultant Limited
+        h1.font-extrabold.font-title.tracking-wider.layer.text-3xl(class="md:text-4xl lg:text-5xl xl:text-6xl") Jabodent Offshore Consultant Limited
         h2(class="lg:text-xl").text-lg.leading-7.pt-3 Integrity, Professionalism, Teamwork, Innovation & Excellence
         button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10(class="hover:underline" type="button" role="button")
           .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
@@ -78,7 +87,13 @@ block content
             h4.text-lg.font-extrabold 14+
             p Awards Won
 
-  section.theme-bg.overflow-hidden.water-image
+  section.theme-bg.overflow-hidden.relative
+    .absolute.top-0.left-0.w-full.h-full
+      +image({ 
+        src: "cloudinary/e_improve,q_100/e_art:hokusai/golden-hour",
+        alt: "An image of a sunset over a large body of water, by @jbcreate_ on Unsplash.",
+        figclass: "theme-surface  w-full min-h-300"
+      })
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
       section.max-w-screen-md.mx-auto
         section.relative.max-width

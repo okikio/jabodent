@@ -215,7 +215,8 @@ $delay: 0.8s;
 
 .search {
     &-overlay,
-    &-inner, &-container {
+    &-inner,
+    &-container {
         contain: layout paint;
     }
 
@@ -300,8 +301,8 @@ $delay: 0.8s;
     display: none;
 
     &.show {
-    display: block;
-    pointer-events: auto;
+        display: block;
+        pointer-events: auto;
     }
 }
 
@@ -310,8 +311,8 @@ $delay: 0.8s;
     pointer-events: auto;
 
     &.hide {
-    pointer-events: none;
-    opacity: 0;
+        pointer-events: none;
+        opacity: 0;
     }
 }
 
@@ -334,7 +335,7 @@ html.no-scroll {
 
 /* scrollbar itself */
 ::-webkit-scrollbar-thumb {
-    background-color: #FFD626;
+    background-color: #ffd626;
 }
 
 /* set button(top and bottom of the scrollbar) */
@@ -386,14 +387,13 @@ img {
 .img {
     transition: transform ease 0.45s;
     position: relative;
-    contain: strict;
     display: block;
     height: 100%;
     width: 100%;
     z-index: 0;
     left: 0;
     top: 0;
-    contain: paint layout size;
+    // contain: size;
 
     &-core {
         image-rendering: auto;
@@ -449,7 +449,7 @@ img {
 .navbar {
     // transition: color 0.35s ease;
     color: black;
-    $height: 60px; 
+    $height: 60px;
     contain: layout size;
 
     &,
@@ -472,7 +472,7 @@ img {
 
     &-large,
     &-mini {
-        transform: translateY(-100%); 
+        transform: translateY(-100%);
         contain: content;
     }
 
@@ -685,15 +685,29 @@ img {
     }
 
     &-dot {
-        background-color: var(--bg-invert);
-        border-radius: 999px;
-        width: 12px;
-        height: 12px;
-        margin-left: 0.4rem;
-        margin-right: 0.4rem;
-        opacity: 0.3;
+        // margin: 0.rem;
+        padding: 0.2rem;
+        &:before {
+            background-color: var(--bg-invert);
+            border-radius: 999px;
+            width: 12px;
+            height: 12px;
+            opacity: 0.3;
+            margin: 0.2rem;
+            content: "";
+            display: block;
+        }
 
-        &.active {
+        @media (max-width: 640px) {
+        padding: 0.5rem;
+            &:before {
+                width: 15px;
+                height: 15px;
+                margin: 0.1rem;
+            }
+        }
+
+        &.active:before {
             // background-color: #fff;
             opacity: 1;
         }
@@ -711,32 +725,33 @@ img {
 }
 
 .fixed-img {
-    background-size: cover;
-    position: relative;
-    overflow: hidden;
-    z-index: -1;
+    // background-attachment: fixed;
+    // background-size: cover;
+    // contain: strict;
+    // will-change: transform; // creates a new paint layer
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    // top: initial;
+    // object-position: bottom;
+    // width: 100vw;
+    // height: 100vh;
 
-    &:before {
-        // background-attachment: fixed;
-        background-size: cover;
-        contain: strict;
-        will-change: transform; // creates a new paint layer
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        content: "";
+    &-container {
+        // background-size: cover;
+        position: relative;
+        overflow: hidden;
+        z-index: -1;
     }
 }
 
-.hero-img {
-    &,
-    &:before {
-        background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
-        background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
-    }
-}
+// .hero-img {
+//     &,
+//     &:before {
+//         background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
+//         background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
+//     }
+// }
 
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.3);
@@ -778,22 +793,22 @@ img {
 .cave-image {
     &,
     &:before {
-        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.jpg);
-        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.webp);
-        background-size: cover;    
-    object-fit: cover;
-    background-position: bottom;
+        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.jpg");
+        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.webp");
+        background-size: cover;
+        object-fit: cover;
+        background-position: bottom;
     }
 }
 
 .water-image {
     &,
     &:before {
-        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.jpg);
-        background-image: url(https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.webp);
-        background-size: cover;    
-    object-fit: cover;
-    background-position: bottom;
+        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.jpg");
+        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.webp");
+        background-size: cover;
+        object-fit: cover;
+        background-position: bottom;
     }
 }
 

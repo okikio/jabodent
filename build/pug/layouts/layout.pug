@@ -60,10 +60,9 @@ html(lang="en" data-theme="light")
       block title
         | Jabodent
 
-    link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKd3vXDXbtM.woff2" as="font" crossorigin)
-    link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7gYHE41ni1AdIRggexSg.woff2" as="font" crossorigin)
-    link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk4aE9_C-bk.woff2" as="font" crossorigin)
-    script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" async)
+    //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKd3vXDXbtM.woff2" as="font" crossorigin)
+    //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7gYHE41ni1AdIRggexSg.woff2" as="font" crossorigin)
+    //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk4aE9_C-bk.woff2" as="font" crossorigin)
 
     //- link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;900&family=Manrope:wght@400;500;600;700&display=swap", rel="stylesheet", async)
     link(rel="icon", type="image/svg+xml", href="/favicon.svg")
@@ -71,6 +70,7 @@ html(lang="en" data-theme="light")
     link(rel="stylesheet", href="/css/tailwind.css", async)
     link(rel="stylesheet", href="/css/app.min.css", async)
 
+    script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" async)
     script(src="/js/theme.min.js", inline async)
 
   body
@@ -86,7 +86,7 @@ html(lang="en" data-theme="light")
         .search-container.px-4
           i.icon.text-2xl.self-center
             +icon("search")
-          input.search-input.font-normal.self-center(type="text", placeholder="Type to start the search..." name="")
+          input.search-input.font-normal.self-center(type="text", placeholder="Type to start the search..." role="search" aria-label="Searchbox")
           button.clear-search.self-center.z-10.ml-5.bg-translucentLight.text-black.rounded-full.flex.text-2xl(class="hover:bg-translucentDark hover:text-translucentLight" type="button", title="Clear search")
             i.icon.w-full.justify-center.text-2xl.self-center
               +icon("clear")
@@ -96,7 +96,8 @@ html(lang="en" data-theme="light")
             .py-5
               p.text-lg.font-bold Waiting for input
               p.text-base Don't be shy start typing.
-            img(src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw.")
+            figure(itemprop="image")
+              img(src="/search-illustration.svg" alt="An image of a lady looking at a plant. From unDraw." loading="lazy" itemprop="url")
         .no-results.theme-text.hide.px-5.text-center.text-lg No results...
     +navbar
 

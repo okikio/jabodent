@@ -1,6 +1,8 @@
 mixin image(value = {})
   -
     let _class = value.class;
+    let _picClass = value.picclass;
+    let _loading = value.loading || "lazy";
     let _figClass = value.figclass !== "" ? (value.figclass || "min-h-300") : "";
     let src = value.src || "cloudinary/city";
     let alt = value.alt || "Alternate text";
@@ -11,12 +13,15 @@ mixin image(value = {})
 
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
     .img-overlay
-    picture
-      source(media='(max-width: 600px)' srcset!=`${urlParse(",w_600,q_70")}.webp` sizes="600px" width="600px" type='image/webp')
-      source(media='(max-width: 600px)' srcset!=`${urlParse(",w_600,q_70")}.jpeg` sizes="600px" width="600px" type='image/jpeg')
+    picture(class=_picClass)
+      //- for 
+      - var n = 1; 
+      while n <= 19
+        source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_100`)}.webp ${n}00w` type='image/webp')
+        source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_100`)}.jpeg ${n}00w` type='image/jpeg')
+        - n ++
 
-      source(media='(min-width: 1200px)' srcset!=`${urlParse(",w_1100,q_100")}.webp` sizes="1100px" width="1100px" type='image/webp')
-      source(media='(min-width: 1200px)' srcset!=`${urlParse(",w_1100,q_100")}.jpeg` sizes="1100px" width="1100px" type='image/jpeg')
+      source(media='(min-width: 1900px)' srcset!=`${urlParse(",w_1900,q_100")}.webp` sizes="1900px" type='image/webp')
+      source(media='(min-width: 1900px)' srcset!=`${urlParse(",w_1900,q_100")}.jpeg` sizes="1900px" type='image/jpeg')
 
-      source(srcset!=`${urlParse(",w_850,q_100")}.webp` sizes="100vw" width="100vw" type='image/webp')
-      img.img-core(class=_class src!=`${urlParse(",w_850,q_100")}.jpeg` sizes="100vw" width="100vw" alt=alt loading="lazy" itemprop="url")&attributes(attributes)
+      img.img-core(class=_class src!=`${urlParse(",w_850,q_100")}.jpeg` alt=alt loading=_loading itemprop="url")&attributes(attributes)

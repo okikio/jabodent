@@ -24,7 +24,12 @@ block hero
 block content
   -
     let { team } = self;
-  section.theme-surface.overflow-hidden.cave-image.fixed-img.py-32
+  //- src: "cloudinary/e_art:hokusai,q_100/cave-water",
+  +image({ 
+    src: "cloudinary/dock-waves",
+    class: "fixed-img",
+    figclass: "theme-surface fixed-img-container min-h-300"
+  })
   section#team.carousel.theme-bg.theme-text.relative.pt-6(data-block="Carousel")
     h3.text-3xl.font-extrabold.text-center.intro-animation Our Team
     +carousel-buttons
