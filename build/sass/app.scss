@@ -214,13 +214,33 @@ $delay: 0.8s;
 }
 
 .search {
-    &-overlay,
+&-overlay {
+    transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background-color: var(--surface);
+    position: fixed;
+    z-index: 8;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    contain: layout size;
+
+    &.show {
+    opacity: 0.6;
+    }
+}
+
+    &-banner,
     &-inner,
     &-container {
         contain: layout paint;
     }
 
-    &-overlay {
+    &-banner {
         position: fixed;
         z-index: 10;
         top: 0;
@@ -699,7 +719,7 @@ img {
         }
 
         @media (max-width: 640px) {
-        padding: 0.5rem;
+            padding: 0.5rem;
             &:before {
                 width: 15px;
                 height: 15px;
@@ -848,7 +868,11 @@ img {
 }
 
 .highlight {
-    color: rgb(54, 114, 204);
+    // color: rgb(54, 114, );
+    background: yellow;
+    color: black;
+    font-weight: 900;
+    text-decoration: underline;
 }
 
 .letter-head {

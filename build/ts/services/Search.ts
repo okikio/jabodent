@@ -19,13 +19,15 @@ export class Search extends Service {
     protected clearIcon: HTMLElement;
     protected newSearch: HTMLElement;
     protected noResultsEl: HTMLElement;
+    protected overlay: HTMLElement;
 
     public init() {
         super.init();
 
         this.html = document.querySelector("html");
         this.navbar = this.html.querySelector(".navbar");
-        this.rootElement = this.html.querySelector(".search-overlay");
+        this.rootElement = this.html.querySelector(".search-banner");
+        this.overlay = this.html.querySelector(".search-overlay");
 
         this.btn = this.navbar.querySelector(".search-btn");
         this.close = this.btn.querySelector(".search-close");
@@ -39,7 +41,9 @@ export class Search extends Service {
             this.clearIcon = this.inner.querySelector(".clear-search");
             this.newSearch = this.inner.querySelector(".new-search");
             this.noResultsEl = this.inner.querySelector(".no-results");
-            this.worker = new Worker("/js/FuzzySearch.min.js");
+            this.worker = new Worker("/js/FuzzySearch.min.js", {
+                type: "module",
+            });
         }
     }
 
@@ -59,18 +63,21 @@ export class Search extends Service {
             requestAnimationFrame(() => {
                 !this.navbar.classList.contains("focus") &&
                     this.navbar.classList.add("focus");
+                this.navbar.classList.contains("active") &&
+                    this.navbar.classList.remove("active");
                 this.html.classList.toggle("no-scroll", this.active);
 
                 this.bg.classList[this.active ? "add" : "remove"](...bgClass);
+                this.overlay.classList[this.active ? "add" : "remove"]("show");
+
                 let pointerEvents = this.active ? "auto" : "none";
                 this.close.style.display = this.active ? "flex" : "none";
                 this.icon.style.display = !this.active ? "block" : "none";
-
                 animate({
                     target: this.rootElement,
                     transform,
                     duration: 600,
-                    easing: "cubic-bezier(0.645, 0.045, 0.355, 1)",
+                    easing: "out",
                     // easing: "out-sine",
                     onfinish(el: HTMLElement) {
                         el.style.transform = `${
@@ -81,16 +88,17 @@ export class Search extends Service {
                 });
 
                 animate({
-                    target: this.inner,
+                    target: this.inner, //(".animate")], //
                     opacity,
-                    duration: 500,
-                    delay: 100,
+                    duration: 400,
+                    delay(i) {
+                        return 100 * (i + 1);
+                    },
                     easing: "ease",
                     onfinish: (el: HTMLElement) => {
                         el.style.opacity = `${opacity[opacity.length - 1]}`;
-                        resolve();
                     },
-                });
+                }).then(() => resolve());
             });
         });
     }

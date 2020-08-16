@@ -5,6 +5,7 @@
         "endmacro",
         "esnext",
         "lerp",
+        "okikio",
         "preconnect",
         "prefetch",
         "tailwindcss"
