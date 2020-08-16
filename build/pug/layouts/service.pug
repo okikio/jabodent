@@ -32,11 +32,12 @@ block content
             h1(class="sm:text-4xl md:text-5xl").text-3xl.font-title.font-medium= title
           p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-12= description
 
-        .relative.w-full.h-84.clearfix
-          +image(image)
+        .relative.w-full
+          .h-84
+            +image(image)
           figcaption.relative.block.w-full.max-w-screen-md.mx-auto.block.tracking-wide.font-light.font-default.text-gray-600.text-center.text-sm.py-4.leading-relaxed Figure: #{image.alt}
 
-    div.pt-24
+    div.pt-6
       section.mx-auto.text-white.w-full.max-w-screen-md
         .px-5.tracking-wide
           section.pb-10.text-base.leading-8.font-normal
