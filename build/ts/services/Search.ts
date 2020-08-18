@@ -55,6 +55,7 @@ export class Search extends Service {
         const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
             " "
         );
+
         this.active = !this.active;
 
         let opacity = this.active ? [0, 1] : [1, 0];
@@ -88,15 +89,16 @@ export class Search extends Service {
                 });
 
                 animate({
-                    target: this.inner, //(".animate")], //
+                    target: this.inner.getElementsByClassName("animate"), //(".animate")], //
                     opacity,
-                    duration: 400,
-                    delay(i) {
-                        return 100 * (i + 1);
+                    duration: this.active ? 500 : 350,
+                    delay: (i: number) => {
+                        return (this.active ? 100 : 50) * i;
                     },
                     easing: "ease",
                     onfinish: (el: HTMLElement) => {
                         el.style.opacity = `${opacity[opacity.length - 1]}`;
+                        this.active && this.input.focus();
                     },
                 }).then(() => resolve());
             });

@@ -213,6 +213,10 @@ $delay: 0.8s;
     letter-spacing: 5px;
 }
 
+.animate {
+    opacity: 0;
+}
+
 .search {
 &-overlay {
     transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -254,7 +258,7 @@ $delay: 0.8s;
     }
 
     &-inner {
-        opacity: 0;
+        // opacity: 0;
     }
 
     &-close {
@@ -327,12 +331,12 @@ $delay: 0.8s;
 }
 
 .no-results {
-    opacity: 1;
+    visibility: visible;
     pointer-events: auto;
 
     &.hide {
         pointer-events: none;
-        opacity: 0;
+    visibility: hidden;
     }
 }
 

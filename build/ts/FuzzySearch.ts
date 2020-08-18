@@ -68,7 +68,7 @@ fetch("/searchindex.json")
         console.log("Search Index:", searchindex);
 
         const searcher = new Fuse(searchindex as any, {
-            keys: ["title", "description"],
+            keys: ["title", "description", "keywords"],
             // findAllMatches: true,
             includeMatches: true,
             threshold: 0.6,

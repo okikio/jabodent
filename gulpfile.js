@@ -410,7 +410,7 @@ task("indexer", () => {
                                     // Now we recurse through the nested content if content exists
                                     travel(node.content);
                                 } else if (typeof node === "string") {
-                                    data.description +=
+                                    data.keywords +=
                                         node.replace(/\n/g, " ").trim() + " ";
                                 }
                             }
@@ -428,6 +428,14 @@ task("indexer", () => {
                         querySelector('link[rel="canonical"]'),
                         (node) => {
                             data.href = node.attrs.href;
+                            return node;
+                        }
+                    );
+
+                    tree.match(
+                        querySelector("meta[name='description']"),
+                        (node) => {
+                            data.description = node.attrs.content;
                             return node;
                         }
                     );
