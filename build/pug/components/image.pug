@@ -14,13 +14,13 @@ mixin image(value = {})
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
     .img-overlay
     picture(class=_picClass)
-      source(media=`(max-width: 300px)` srcset!=`${urlParse(`,w_auto,q_100`)}.webp 300w` sizes=`300px` type='image/webp')
-      source(media=`(max-width: 300px)` srcset!=`${urlParse(`,w_auto,q_100`)}.jpeg 300w` sizes=`300px` type='image/jpeg')
+      source(media=`(max-width: 300px)` srcset!=`${urlParse(`,w_auto,q_auto`)}.webp 300w` sizes=`300px` type='image/webp')
+      source(media=`(max-width: 300px)` srcset!=`${urlParse(`,w_auto,q_auto`)}.jpeg 300w` sizes=`300px` type='image/jpeg')
 
       - var n = 4;
       while n <= 14
-        source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_100`)}.webp ${n}00w` sizes=`${n}00px` type='image/webp')
-        source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_100`)}.jpeg ${n}00w` sizes=`${n}00px` type='image/jpeg')
+        source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_auto`)}.webp ${n}00w` sizes=`${n}00px` type='image/webp')
+        source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_auto`)}.jpeg ${n}00w` sizes=`${n}00px` type='image/jpeg')
         - n ++
 
       img.img-core(class=_class src!=`${urlParse(",w_auto,q_auto")}.jpeg` alt=alt loading=_loading itemprop="url")&attributes(attributes)
