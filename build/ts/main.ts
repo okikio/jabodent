@@ -52,16 +52,7 @@ try {
 
         waitOnScroll = false;
     };
-
-    const load = () => {
-        let layers = document.getElementsByClassName("layer") || [];
-        layer = (layers[0] as HTMLElement) || null;
-        top = layer
-            ? layer.getBoundingClientRect().top +
-              window.pageYOffset -
-              navHeight / 2
-            : 0;
-
+    const go = () => {
         requestAnimationFrame(() => {
             navbar.navbar.classList.remove("focus");
             navbar.navbar.classList.remove("active");
@@ -76,7 +67,19 @@ try {
                 navbar.navbar.classList.remove("light");
             }
         });
+        scroll();
+    };
 
+    const load = () => {
+        let layers = document.getElementsByClassName("layer") || [];
+        layer = (layers[0] as HTMLElement) || null;
+        top = layer
+            ? layer.getBoundingClientRect().top +
+              window.pageYOffset -
+              navHeight / 2
+            : 0;
+
+        go();
         let backToTop = document.getElementsByClassName("back-to-top")[0];
         if (backToTop) {
             backToTop.addEventListener("click", () => {
@@ -99,13 +102,12 @@ try {
                 });
             });
         }
-
-        scroll();
     };
 
     app.on("POPSTATE", () => {
         search.getActive() && search.toggle();
     });
+    app.on("GO", go);
     app.on("READY", load);
     app.on("CONTENT_REPLACED", load);
     window.addEventListener("scroll", scroll, { passive: true });

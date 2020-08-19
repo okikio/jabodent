@@ -61,7 +61,7 @@ export class IntroAnimation extends Service {
                 (el as HTMLElement).style.opacity = "0";
             }
 
-            window.scroll(0, 0);
+            // window.scroll(0, 0);
         });
     }
 
