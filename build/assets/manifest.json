@@ -5,106 +5,112 @@
     "short_name": "Jabodent",
     "scope": "/",
     "display": "standalone",
-    "start_url": "https://jabodent.netlify.app/",
-    "background_color": "transparent",
-    "theme_color": "transparent",
+    "start_url": "/",
+    "theme_color": "#319595",
+    "background_color": "#319595",
     "description": "Jabodent is an independent marine specialist organization inspired to serve the Marine Oil and Gas industry with integrity, reliability and consistent delivery.",
     "orientation": "any",
     "related_applications": [],
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "[Embedded]",
-            "sizes": "44x44",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "48x48",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "1240x600",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "300x300",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "150x150",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "88x88",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "24x24",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "50x50",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "620x300",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+
+        {
+            "src": "/favicon/favicon-44.png",
+            "sizes": "44x44",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-1240x600.png",
+            "sizes": "1240x600",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-300.png",
+            "sizes": "300x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-150.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-88.png",
+            "sizes": "88x88",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-24.png",
+            "sizes": "24x24",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-50.png",
+            "sizes": "50x50",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-620x300.png",
+            "sizes": "620x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicon/favicon-144.png",
             "sizes": "144x144",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-96.png",
             "sizes": "96x96",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-72.png",
             "sizes": "72x72",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-36.png",
             "sizes": "36x36",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-1024.png",
             "sizes": "1024x1024",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-180.png",
             "sizes": "180x180",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-152.png",
             "sizes": "152x152",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-120.png",
             "sizes": "120x120",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
+            "src": "/favicon/favicon-76.png",
             "sizes": "76x76",
             "type": "image/png"
         }
@@ -112,22 +118,12 @@
     "url": "https://jabodent.netlify.app/",
     "screenshots": [
         {
-            "src": "[Embedded]",
+            "src": "/favicon/screenshot-1280x800.png",
             "sizes": "1280x800",
             "type": "image/png"
         },
         {
-            "src": "[Embedded]",
-            "sizes": "750x1334",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
-            "sizes": "1280x800",
-            "type": "image/png"
-        },
-        {
-            "src": "[Embedded]",
+            "src": "/favicon/screenshot-750x1334.png",
             "sizes": "750x1334",
             "type": "image/png"
         }
