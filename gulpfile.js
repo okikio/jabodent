@@ -266,7 +266,7 @@ tasks({
                             esbuild({
                                 // watch: watching,
                                 minify: true,
-                                target: "es2016", // default, or 'es20XX', 'esnext'
+                                target: "es2015", // default, or 'es20XX', 'esnext'
                             }),
                         ],
                         onwarn,
