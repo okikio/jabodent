@@ -21,6 +21,15 @@ export class Search extends Service {
     protected noResultsEl: HTMLElement;
     protected overlay: HTMLElement;
 
+    public setActive(value: boolean) {
+        this.active = value;
+        return this;
+    }
+
+    public getActive() {
+        return this.active;
+    }
+
     public init() {
         super.init();
 
