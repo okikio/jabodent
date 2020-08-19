@@ -41,9 +41,7 @@ export class Search extends Service {
             this.clearIcon = this.inner.querySelector(".clear-search");
             this.newSearch = this.inner.querySelector(".new-search");
             this.noResultsEl = this.inner.querySelector(".no-results");
-            this.worker = new Worker("/js/FuzzySearch.min.js", {
-                type: "module",
-            });
+            this.worker = new Worker("/js/FuzzySearch.min.js");
         }
     }
 
