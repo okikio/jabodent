@@ -1,6 +1,8 @@
 mixin seo(arg = {})
   - let { title, url, description, websiteURL } = arg;
-  meta(property="og:type" content="website")
+  meta(name="og:locale" content="en_Us")
+  meta(property="og:type" content="website") 
+  meta(name="theme-color", content="#319595")
 
   title= title
   meta(name='title' content=title)
@@ -9,6 +11,7 @@ mixin seo(arg = {})
   meta(name='twitter:title' content=title)
   meta(name="apple-mobile-web-app-title", content=title)
 
+  link(rel="home", href=`/`)
   link(rel="canonical" href=`${url}`)
   meta(itemprop='url' content=`${websiteURL}${url}`)
   meta(name="shortlink" content=`${websiteURL}${url}`)
