@@ -306,6 +306,7 @@ tasks({
                             {
                                 targets: {
                                     ie: "11",
+                                    chrome: "54",
                                 },
                             },
                         ],
@@ -340,19 +341,20 @@ tasks({
                     },
                     "umd"
                 ),
-                // babel({
-                //     compact: true,
-                //     presets: [
-                //         [
-                //             "@babel/env",
-                //             {
-                //                 targets: {
-                //                     chrome: "58",
-                //                 },
-                //             },
-                //         ],
-                //     ],
-                // }),
+                babel({
+                    compact: true,
+                    presets: [
+                        [
+                            "@babel/env",
+                            {
+                                targets: {
+                                    ie: "11",
+                                    chrome: "54",
+                                },
+                            },
+                        ],
+                    ],
+                }),
                 rename({ suffix: ".min", extname: ".js" }), // Rename
             ],
             dest: jsFolder, // Output
