@@ -1,8 +1,9 @@
 mixin seo(arg = {})
-  - let { title, url, description, websiteURL } = arg;
+  - let { title, url, description, websiteURL, keywords } = arg;
   meta(name="og:locale" content="en_Us")
   meta(property="og:type" content="website") 
   meta(name="theme-color", content="#fff")
+  meta(name="keywords", content=keywords)
 
   title= title
   meta(name='title' content=title)

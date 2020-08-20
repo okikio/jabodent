@@ -380,44 +380,46 @@ task("indexer", () => {
                     const data = {
                         title: "",
                         description: "",
+                        keywords: "",
                     };
 
-                    const travel = (nodes) => {
-                        return nodes.forEach((node) => {
-                            if (!("image" in data) && node.tag === "img") {
-                                data.image = node.attrs;
-                            }
+                    // const travel = (nodes) => {
+                    //     return nodes.forEach((node) => {
+                    //         if (!("image" in data) && node.tag === "img") {
+                    //             data.image = node.attrs;
+                    //         }
 
-                            if (
-                                node !== undefined &&
-                                node !== "<!DOCTYPE html>" &&
-                                node.tag !== "title" &&
-                                node.tag !== "img" &&
-                                node.tag !== "script" &&
-                                node.tag !== "style" &&
-                                node.tag !== "link" &&
-                                node.tag !== "meta" &&
-                                node.tag !== "nav" &&
-                                node.tag !== "footer" &&
-                                !(
-                                    node?.attrs?.class?.includes(
-                                        "splashscreen"
-                                    ) ||
-                                    node?.attrs?.class?.includes(
-                                        "search-overlay"
-                                    )
-                                )
-                            ) {
-                                if (Array.isArray(node.content)) {
-                                    // Now we recurse through the nested content if content exists
-                                    travel(node.content);
-                                } else if (typeof node === "string") {
-                                    data.keywords +=
-                                        node.replace(/\n/g, " ").trim() + " ";
-                                }
-                            }
-                        });
-                    };
+                    //         if (
+                    //             node !== undefined &&
+                    //             node !== "<!DOCTYPE html>" &&
+                    //             node.tag !== "title" &&
+                    //             node.tag !== "img" &&
+                    //             node.tag !== "script" &&
+                    //             node.tag !== "style" &&
+                    //             node.tag !== "link" &&
+                    //             node.tag !== "meta" &&
+                    //             node.tag !== "nav" &&
+                    //             node.tag !== "footer" &&
+                    //             !(
+                    //                 node?.attrs?.class?.includes(
+                    //                     "splashscreen"
+                    //                 ) ||
+                    //                 node?.attrs?.class?.includes(
+                    //                     "search-overlay"
+                    //                 )
+                    //             )
+                    //         ) {
+                    //             if (Array.isArray(node.content)) {
+                    //                 // Now we recurse through the nested content if content exists
+                    //                 travel(node.content);
+                    //             } else if (typeof node === "string") {
+                    //                 data.keywords +=
+                    //                     node.replace(/\n/g, " ").trim() + " ";
+                    //             }
+                    //         }
+                    //     });
+                    // };
+                    // travel(tree);
 
                     tree.match(querySelector("title"), (node) => {
                         if (data.title === "" && node.tag === "title") {
@@ -442,7 +444,14 @@ task("indexer", () => {
                         }
                     );
 
-                    travel(tree);
+                    tree.match(
+                        querySelector("meta[name='keywords']"),
+                        (node) => {
+                            data.keywords = node.attrs.content;
+                            return node;
+                        }
+                    );
+
                     index.push(data);
                 },
             ]),
@@ -454,7 +463,7 @@ task("indexer", () => {
                 stringify(index),
                 (err) => {
                     if (err) throw err;
-                    console.log("Search index json created sucessfully.");
+                    console.log("Search index json created successfully.");
                 }
             );
         },

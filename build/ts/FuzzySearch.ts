@@ -71,8 +71,9 @@ fetch("/searchindex.json")
             keys: ["title", "description", "keywords"],
             // findAllMatches: true,
             includeMatches: true,
-            threshold: 0.6,
+            threshold: 0.5,
         });
+
         self.onmessage = ({ data }) => {
             let json = highlight(searcher.search(data));
             let result: string = stringify(json);

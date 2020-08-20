@@ -47,13 +47,17 @@ html(lang="en" data-theme="dark")
         url: "/",
         websiteURL: "https://jabodent.netlify.app",
         title: "Jabodent — An independent marine specialist organization.",
-        description: "Jabodent is an independent marine specialist organization inspired to serve the Marine Oil and Gas industry with integrity, reliability and consistent delivery."
+        description: "Jabodent is an independent marine specialist organization inspired to serve the Marine Oil and Gas industry with integrity, reliability and consistent delivery.",
+        keywords: "marine, specialist, independent, oil, gas, industry, jabodent, reliable, consistent, delivery, ship, company, organization, african, innovative, customer centric"
       };
 
     block pageInfo
       - let page = {};
 
-    - page = Object.assign({}, defaults, page);
+    - 
+      page = Object.assign({}, defaults, page, {
+        keywords: `${defaults.keywords}${"keywords" in page ? (", " + page.keywords) : ""}`
+      });
     block seo
       +seo(page)
 
@@ -107,6 +111,10 @@ html(lang="en" data-theme="dark")
             i.icon.w-full.justify-center.text-2xl.self-center
               +icon("clear")
         .search-results.animate.theme-text.py-5
+          a.hidden(class="search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block" hidden)
+            h5(class="font-title text-xl search-result-title pb-2 mb-4") Title
+            p Description
+            p.mt-5.italic.text-3 Keywords: Block
         .new-search.animate.theme-text.show.flex.justify-center.py-5
           .self-center.text-center
             .py-5

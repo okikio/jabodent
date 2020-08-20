@@ -96,7 +96,7 @@ export class Search extends Service {
                 });
 
                 animate({
-                    target: this.inner.getElementsByClassName("animate"), //(".animate")], //
+                    target: this.inner.getElementsByClassName("animate"), 
                     opacity,
                     duration: this.active ? 500 : 350,
                     delay: (i: number) => {
@@ -219,11 +219,13 @@ export class Search extends Service {
     public addResult({
         title,
         description,
-        href,
+        href, 
+        keywords
     }: {
         title: string;
         description: string;
         href: string;
+        keywords: string;
     }) {
         let el = document.createElement("a");
         requestAnimationFrame(() => {
@@ -232,7 +234,8 @@ export class Search extends Service {
                 "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
             el.innerHTML = `
             <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
-            <p>${description}</p>`;
+            <p>${description}</p>
+            <p class="mt-5 italic text-3">Keywords: ${keywords}</p>`;
             this.results.appendChild(el);
         });
     }
