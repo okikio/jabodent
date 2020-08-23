@@ -14,105 +14,20 @@
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "/favicon/favicon-192.png",
+            "src": "/favicon/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/favicon/favicon-512.png",
+            "src": "/favicon/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         },
-
         {
-            "src": "/favicon/favicon-44.png",
-            "sizes": "44x44",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-48.png",
-            "sizes": "48x48",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-1240x600.png",
-            "sizes": "1240x600",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-300.png",
-            "sizes": "300x300",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-150.png",
-            "sizes": "150x150",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-88.png",
-            "sizes": "88x88",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-24.png",
-            "sizes": "24x24",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-50.png",
-            "sizes": "50x50",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-620x300.png",
-            "sizes": "620x300",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-144.png",
-            "sizes": "144x144",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-96.png",
-            "sizes": "96x96",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-72.png",
-            "sizes": "72x72",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-36.png",
-            "sizes": "36x36",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-1024.png",
-            "sizes": "1024x1024",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-180.png",
-            "sizes": "180x180",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-152.png",
-            "sizes": "152x152",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-120.png",
-            "sizes": "120x120",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/favicon-76.png",
-            "sizes": "76x76",
-            "type": "image/png"
+            "src": "/favicon/maskable_icon.png",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "maskable" 
         }
     ],
     "url": "https://jabodent.netlify.app/",
