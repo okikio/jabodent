@@ -18,7 +18,7 @@ mixin image(value = {})
       source(media=`(max-width: 300px)` srcset!=`${urlParse(`,w_auto,q_auto`)}.jpeg 300w` sizes=`300px` type='image/jpeg')
 
       - var n = 4;
-      while n <= 14
+      while n <= 20
         source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_auto`)}.webp ${n}00w` sizes=`${n}00px` type='image/webp')
         source(media=`(max-width: ${n}00px)` srcset!=`${urlParse(`,w_${n}00,q_auto`)}.jpeg ${n}00w` sizes=`${n}00px` type='image/jpeg')
         - n ++
