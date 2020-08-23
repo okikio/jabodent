@@ -25,9 +25,9 @@
         },
         {
             "src": "/favicon/maskable_icon.png",
-            "sizes": "196x196",
+            "sizes": "1024x1024",
             "type": "image/png",
-            "purpose": "maskable" 
+            "purpose": "maskable"
         }
     ],
     "url": "https://jabodent.netlify.app/",
