@@ -125,7 +125,7 @@ $delay: 0.8s;
     pointer-events: none;
     contain: layout size;
         content-visibility: auto;
-        contain-intrinsic-size: 100vh; /* Explained in the next section. */
+        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 }
 @keyframes splashanimoverlay {
     0% {
@@ -225,7 +225,7 @@ $delay: 0.8s;
     &-overlay, &-banner {
         
         content-visibility: auto;
-        contain-intrinsic-size: 100vh; /* Explained in the next section. */
+        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
     }
 &-overlay {
     transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -491,8 +491,6 @@ img {
     color: black;
     $height: 60px;
     contain: layout size;
-        content-visibility: auto;
-        contain-intrinsic-size: 100vh; /* Explained in the next section. */
 
     &,
     &-height {
@@ -650,6 +648,12 @@ img {
     @media (max-width: 768px) {
         .navbar-item {
             padding-left: 5rem;
+        }
+
+        &-list {
+            
+        // content-visibility: auto;
+        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
         }
 
         &:not(.active) {
