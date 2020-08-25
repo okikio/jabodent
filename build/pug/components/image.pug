@@ -23,7 +23,7 @@ mixin image(value = {})
         source(media=`(max-width: ${mobileWidth * 100}px)` srcset!=`${urlParse(`,w_${mobileWidth * 100},q_auto`)}.webp ${mobileWidth * 100}w` sizes=`${mobileWidth * 100}px` type='image/webp')
         //- source(media=`(max-width: ${mobileWidth * 100}px)` srcset!=`${urlParse(`,w_${mobileWidth * 100},q_auto`)}.jpeg ${mobileWidth * 100}w` sizes=`${mobileWidth * 100}px` type='image/jpeg')
 
-      while n <= 16
+      while n <= 21
         source(media=`(max-width: ${n * 100}px)` srcset!=`${urlParse(`,w_${n * 100},q_auto`)}.webp ${n * 100}w` sizes=`${n * 100}px` type='image/webp')
         //- source(media=`(max-width: ${n * 100}px)` srcset!=`${urlParse(`,w_${n * 100},q_auto`)}.jpeg ${n * 100}w` sizes=`${n * 100}px` type='image/jpeg')
         - n ++
