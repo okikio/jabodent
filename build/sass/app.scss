@@ -253,7 +253,7 @@ $delay: 0.8s;
     }
 
     &-banner {
-        content-visibility: auto;
+        // content-visibility: auto;
         position: fixed;
         z-index: 10;
         top: 0;
@@ -411,7 +411,7 @@ html.no-scroll {
 }
 
 img {
-    content-visibility: auto;
+    // content-visibility: auto;
     object-fit: cover;
     display: block;
     border: none;
@@ -456,11 +456,11 @@ img {
 }
 
 .content-visibility {
-    content-visibility: auto;
+    // content-visibility: auto;
 }
 
 .card {
-    content-visibility: auto;
+    // content-visibility: auto;
 
     &:hover {
         .img {
@@ -695,7 +695,7 @@ img {
     touch-action: pan-y;
 
     &-container {
-        content-visibility: auto;
+        // content-visibility: auto;
         transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
@@ -927,5 +927,5 @@ img {
 // }
 
 .footer {
-    content-visibility: auto;
+    // content-visibility: auto;
 }
