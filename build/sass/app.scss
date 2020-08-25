@@ -124,8 +124,8 @@ $delay: 0.8s;
     height: 100vh;
     pointer-events: none;
     contain: layout size;
-        // content-visibility: auto;
-        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
+    // content-visibility: auto;
+    // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 }
 @keyframes splashanimoverlay {
     0% {
@@ -158,8 +158,8 @@ $delay: 0.8s;
     visibility: visible;
     pointer-events: auto;
     contain: layout size;
-        // content-visibility: auto;
-        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
+    // content-visibility: auto;
+    // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 
     &-icon {
         width: 1.5em;
@@ -222,29 +222,29 @@ $delay: 0.8s;
 }
 
 .search {
-    &-overlay, &-banner {
-        
+    &-overlay,
+    &-banner {
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
     }
-&-overlay {
-    transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background-color: var(--surface);
-    position: fixed;
-    z-index: 8;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-    contain: layout size;
+    &-overlay {
+        transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        background-color: var(--surface);
+        position: fixed;
+        z-index: 8;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100vh;
+        pointer-events: none;
+        contain: layout size;
 
-    &.show {
-    opacity: 0.6;
+        &.show {
+            opacity: 0.6;
+        }
     }
-}
 
     &-banner,
     &-inner,
@@ -252,8 +252,8 @@ $delay: 0.8s;
         contain: layout paint;
     }
 
-    &-banner {  
-        content-visibility: auto;
+    &-banner {
+        // content-visibility: auto;
         position: fixed;
         z-index: 10;
         top: 0;
@@ -345,7 +345,7 @@ $delay: 0.8s;
 
     &.hide {
         pointer-events: none;
-    visibility: hidden;
+        visibility: hidden;
     }
 }
 
@@ -411,7 +411,7 @@ html.no-scroll {
 }
 
 img {
-    content-visibility: auto;
+    // content-visibility: auto;
     object-fit: cover;
     display: block;
     border: none;
@@ -427,7 +427,7 @@ img {
     z-index: 0;
     left: 0;
     top: 0;
-    // 
+    //
     // contain: size;
 
     &-core {
@@ -652,9 +652,8 @@ img {
         }
 
         &-list {
-            
-        // content-visibility: auto;
-        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
+            // content-visibility: auto;
+            // contain-intrinsic-size: 100vh; /* Explained in the next section. */
         }
 
         &:not(.active) {
@@ -696,7 +695,7 @@ img {
     touch-action: pan-y;
 
     &-container {
-        // content-visibility: auto;
+        content-visibility: auto;
         transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
@@ -792,7 +791,7 @@ img {
         position: relative;
         overflow: hidden;
         z-index: -1;
-    // width: 100%;
+        // width: 100%;
     }
 }
 
