@@ -411,6 +411,7 @@ html.no-scroll {
 }
 
 img {
+    content-visibility: auto;
     object-fit: cover;
     display: block;
     border: none;
@@ -426,7 +427,7 @@ img {
     z-index: 0;
     left: 0;
     top: 0;
-    content-visibility: auto;
+    // 
     // contain: size;
 
     &-core {
@@ -455,7 +456,7 @@ img {
 }
 
 .content-visibility {
-    content-visibility: auto
+    content-visibility: auto;
 }
 
 .card {
@@ -695,7 +696,7 @@ img {
     touch-action: pan-y;
 
     &-container {
-        content-visibility: auto;
+        // content-visibility: auto;
         transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
