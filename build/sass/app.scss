@@ -158,7 +158,7 @@ $delay: 0.8s;
     visibility: visible;
     pointer-events: auto;
     contain: layout size;
-        content-visibility: auto;
+        // content-visibility: auto;
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 
     &-icon {
