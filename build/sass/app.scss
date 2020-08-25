@@ -253,7 +253,7 @@ $delay: 0.8s;
     }
 
     &-banner {
-        content-visibility: auto;
+        // content-visibility: auto;
         position: fixed;
         z-index: 10;
         top: 0;
@@ -695,7 +695,7 @@ img {
     touch-action: pan-y;
 
     &-container {
-        content-visibility: auto;
+        // content-visibility: auto;
         transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
