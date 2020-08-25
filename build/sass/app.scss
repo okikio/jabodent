@@ -124,7 +124,7 @@ $delay: 0.8s;
     height: 100vh;
     pointer-events: none;
     contain: layout size;
-        content-visibility: auto;
+        // content-visibility: auto;
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 }
 @keyframes splashanimoverlay {
@@ -224,7 +224,6 @@ $delay: 0.8s;
 .search {
     &-overlay, &-banner {
         
-        content-visibility: auto;
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
     }
 &-overlay {
@@ -254,6 +253,7 @@ $delay: 0.8s;
     }
 
     &-banner {  
+        content-visibility: auto;
         position: fixed;
         z-index: 10;
         top: 0;
