@@ -411,7 +411,7 @@ html.no-scroll {
 }
 
 img {
-    content-visibility: auto;
+    // content-visibility: auto;
     object-fit: cover;
     display: block;
     border: none;
@@ -432,7 +432,7 @@ img {
 
     &-core {
         image-rendering: auto;
-        image-rendering: high-quality;
+        image-rendering: optimizespeed;
         position: absolute;
         opacity: 0.6;
         height: 100%;
@@ -695,7 +695,7 @@ img {
     touch-action: pan-y;
 
     &-container {
-        // content-visibility: auto;
+        content-visibility: auto;
         transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
@@ -927,5 +927,5 @@ img {
 // }
 
 .footer {
-    // content-visibility: auto;
+    content-visibility: auto;
 }
