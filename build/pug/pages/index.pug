@@ -93,7 +93,7 @@ block content
         src: "cloudinary/e_improve/e_art:hokusai/golden-hour",
         alt: "An image of a sunset over a large body of water, by @jbcreate_ on Unsplash.",
         figclass: "theme-surface  w-full min-h-300"
-      })
+      })(width="100vw" height="300px")
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
       section.max-w-screen-md.mx-auto
         section.relative.max-width
@@ -123,7 +123,7 @@ block content
           section.flex.justify-center.w-full.px-5.mx-auto
             .mt-10.flex
               .h-12.w-12.bg-blue-400.mr-5.rounded-md.person.overflow-hidden
-                +image(Object.assign({ figclass: "" }, image))
+                +image(Object.assign({ figclass: "" }, image))(width="3rem" height="3rem")
               p.self-center.text-lg.font-semibold= name
 
     section.carousel-container.relative.w-full
