@@ -1,8 +1,8 @@
 
 include /components/link.pug
-mixin learn-more(href)
+mixin learn-more(href = "/", content = "Learn more")
   +link({
     href: href,
     class: "bold learn-more italic hover:not-italic hover:font-extrabold",
-    content: "Learn more"
+    content: content
   }) 

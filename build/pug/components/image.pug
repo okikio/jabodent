@@ -18,7 +18,6 @@ mixin image(value = {})
       //- source(media=`(max-width: 300px)` srcset!=`${urlParse(`,w_auto,q_auto`)}.jpeg 300w` sizes=`300px` type='image/jpeg')
 
       - var n = 4.5;
-      
       - var mobileWidth = Math.round(n) - 1;
         source(media=`(max-width: ${mobileWidth * 100}px)` srcset!=`${urlParse(`,w_${mobileWidth * 100},q_auto`)}.webp ${mobileWidth * 100}w` sizes=`${mobileWidth * 100}px` type='image/webp')
         //- source(media=`(max-width: ${mobileWidth * 100}px)` srcset!=`${urlParse(`,w_${mobileWidth * 100},q_auto`)}.jpeg ${mobileWidth * 100}w` sizes=`${mobileWidth * 100}px` type='image/jpeg')

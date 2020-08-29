@@ -30,7 +30,7 @@ block content
     class: "fixed-img",
     figclass: "theme-surface fixed-img-container min-h-300"
   })(width="100vw" height="100vh")
-  section#team.carousel.theme-bg.theme-text.relative.pt-6(data-block="Carousel")
+  //- section#team.theme-bg.theme-text.relative.pt-6.carousel(data-block="Carousel")
     h3.text-3xl.font-extrabold.text-center.intro-animation Our Team
     +carousel-buttons
 
@@ -62,6 +62,31 @@ block content
         //- })
 
     +carousel-dots
+
+  section#team.theme-bg.theme-text.relative.pt-6
+    mixin carousel-item(value)
+      -
+        let { url, name, description, role } = value;
+        let image = Object.assign({ src: "cloudinary/city", alt: "An image of ... by ... on unsplash." }, value.image);
+
+      a.group.w-full.py-14.flex.flex-row.justify-center.border-top(href=url)
+        .cursor-pointer.rounded-lg.w-84.min-h-0.h-64.bg-blue-400.overflow-hidden.person.mr-8
+          +image(Object.assign(image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
+        section.self-center
+          h3(class="md:mt-0 group-hover:underline").text-2xl.font-semibold.mb-4 #{name} — #{role}
+          p.font-default.leading-8 #{description}...
+        section.ml-12.opacity-45.self-center.icon.text-5xl(class="group-hover:opacity-100 group-hover:text-secondary")
+          +icon("thin_arrow")
+        //- .self-center.w-full(class="md:max-w-1/2")
+        //-   h3(class="md:mt-0").font-title.text-xl.font-medium.mb-4 #{name} — #{role}
+        //-   p.font-default.leading-8 #{description}...
+
+    .px-5.mx-auto.w-full.max-w-screen-lg.py-12(class="sm:px-24 md:px-5 lt-md:py-6")
+      h3.text-3xl.font-extrabold.text-center.mb-12 Our Team
+      p.mx-auto.text-lg.leading-8.max-w-screen-md.pb-14 We are a growing organization, who builds long lasting relationships with our clients, and gets things done. As of this point in time Jabodent has only one employee, the Founder and SEO John A.B Oyedeji.
+
+      each person in team
+        +carousel-item(person)
 
   section.bg-primary
     +contact

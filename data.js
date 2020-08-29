@@ -12,18 +12,18 @@ module.exports = {
       
       A graduate of Manufacturing Engineering BSC from the John Moores University,Liverpool, school of Maritime Studies, college of Further Education, Plymouth, United Kingdom, A Class 1 Marine Engineering Certificate of Competency issued by MCA. He has over 43 years Experience in the Marine, Oil and Gas industry with position ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government, Non Exclusive Classification Society Surveyor for DNV and Principal Surveyor in-charge for Nigeria and angola with the American Bureau of Shipping (ABS)`,
         },
-        {
-            name: "Elizabeth Ufuoma A.",
-            role: "Engineer, Managing Director, IT Specialist",
-            keywords:
-                "engineer, managing director, it specialist, nigerian, bachelor of engineering, architect, managing partner, computer engineering, leader, visionary",
-            image: {},
-            description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
+    //     {
+    //         name: "Elizabeth Ufuoma A.",
+    //         role: "Engineer, Managing Director, IT Specialist",
+    //         keywords:
+    //             "engineer, managing director, it specialist, nigerian, bachelor of engineering, architect, managing partner, computer engineering, leader, visionary",
+    //         image: {},
+    //         description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
 
-            story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Engineering, Master of Architecture 1995, Managing Partner and IT Specialist
+    //         story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Engineering, Master of Architecture 1995, Managing Partner and IT Specialist
       
-      Managing Partner and IT Specialist Engr. ELIZABETH UFUOMA .A. is a Managing Partner and IT Specialist, a graduate from the Computer Engineering Department University of Benin, Edo State, and Nigeria. Over 8 years' experience as a Business owner, excellent leadership skills and visionary personality.`,
-        },
+    //   Managing Partner and IT Specialist Engr. ELIZABETH UFUOMA .A. is a Managing Partner and IT Specialist, a graduate from the Computer Engineering Department University of Benin, Edo State, and Nigeria. Over 8 years' experience as a Business owner, excellent leadership skills and visionary personality.`,
+    //     },
     ].map((person) => {
         let pageURL = `${person.name
             .toLowerCase()

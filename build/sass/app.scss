@@ -929,3 +929,11 @@ img {
 .footer {
     content-visibility: auto;
 }
+
+.border-top {
+    border-top: 1px solid var(--surface);
+}
+
+.text-surface {
+    color: var(--surface);
+}

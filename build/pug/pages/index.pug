@@ -27,7 +27,7 @@ block hero
       h3.text-2xl.mb-6.font-extrabold About Us
       p.leading-8 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
       .mt-16
-        +learn-more("./about.html")
+        +learn-more("./about.html", "Learn why you can trust us to deliver")
 
 
 block content
@@ -49,9 +49,8 @@ block content
 
           p etc...
           .mt-16
-            +learn-more("./services.html")
-
-      .bg-secondary.flex-grow
+            +learn-more("./services.html", "Look through the full list of services we offer")
+      .flex-grow.bg-secondary
 
     .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
@@ -105,7 +104,7 @@ block content
           h4.text-xl.mb-2 Modern Technology
           p.leading-8.mb-12 High quality equipment. Tools used by the best of the best.
           .mt-16
-            +learn-more("./about.html")
+            +learn-more("./services.html", "Learn how we deliver quality in all our services")
 
   section.carousel.theme-surface.relative.pt-6(data-block="Carousel")
     h3.theme-text.text-3xl.font-medium.text-center Clients & Testimonials
