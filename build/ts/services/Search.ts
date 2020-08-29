@@ -96,7 +96,7 @@ export class Search extends Service {
                 });
 
                 animate({
-                    target: this.inner.getElementsByClassName("animate"), 
+                    target: this.inner.getElementsByClassName("animate"),
                     opacity,
                     duration: this.active ? 500 : 350,
                     delay: (i: number) => {
@@ -105,9 +105,13 @@ export class Search extends Service {
                     easing: "ease",
                     onfinish: (el: HTMLElement) => {
                         el.style.opacity = `${opacity[opacity.length - 1]}`;
-                        this.active && this.input.focus();
                     },
-                }).then(() => resolve());
+                }).then(() =>
+                    window.setTimeout(() => {
+                        this.active && this.input.focus();
+                        resolve();
+                    }, 1000)
+                );
             });
         });
     }
@@ -219,8 +223,8 @@ export class Search extends Service {
     public addResult({
         title,
         description,
-        href, 
-        keywords
+        href,
+        keywords,
     }: {
         title: string;
         description: string;
