@@ -17,15 +17,6 @@ export type IgnoreURLsList = Array<RegExp | string>;
 // Based on Barba JS and StartingBlocks
 export class PJAX extends Service {
     /**
-     * Current history state index
-     *
-     * @private
-     * @type number
-     * @memberof HistoryManager
-     */
-    protected stateIndex: number = 0;
-
-    /**
      * URLs to ignore when prefetching
      *
      * @private
@@ -127,7 +118,6 @@ export class PJAX extends Service {
         super.boot();
 
         let current = new State();
-        this.stateIndex = 0;
         this.HistoryManager.add(current);
         this.changeState("replace", current);
 

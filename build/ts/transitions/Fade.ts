@@ -34,7 +34,7 @@ export class Fade extends Transition {
         let { duration } = this;
         let toWrapper = to.getWrapper();
         requestAnimationFrame(() => {
-        toWrapper.style.transform = "translateX(0%)";
+            toWrapper.style.transform = "translateX(0%)";
         });
         return animate({
             target: toWrapper,
