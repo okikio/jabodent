@@ -26,7 +26,20 @@ block content
   section.theme-bg.relative.px-5.pt-8.mx-auto.w-full.max-w-screen-lg
     .row
       each service, index in services
-        +card(service, index % 2)
+        if index < 4
+          +card(service, index % 2)
 
-  section.bg-primary
-    +contact
+  section
+    section.theme-bg.relative.px-5.mx-auto.w-full.max-w-screen-lg
+      .row
+        each service, index in services
+          if index >= 4
+            +card(service, index % 2)
+
+    section.bg-primary
+      +contact
+
+    +back-to-top
+
+block footer
+  +footer

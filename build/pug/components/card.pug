@@ -5,7 +5,7 @@ mixin card(service = {}, even = false)
     let title = service.title;
     let description = service.description;
     let { image } = service;
-    
+
   +link({
     href: url,
     class: `${!even ? "md:pr-8" : ""} text-white md:max-w-1/2 hover:border border-solid border-red card col block intro-animation cursor-pointer group pb-8`

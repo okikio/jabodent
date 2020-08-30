@@ -90,7 +90,7 @@ export class Search extends Service {
                     onfinish(el: HTMLElement) {
                         el.style.transform = `${
                             transform[transform.length - 1]
-                        }`;
+                            }`;
                         el.style.pointerEvents = `${pointerEvents}`;
                     },
                 });
@@ -108,7 +108,7 @@ export class Search extends Service {
                     },
                 }).then(() =>
                     window.setTimeout(() => {
-                        this.active && this.input.focus();
+                        // this.active && this.input.focus();
                         resolve();
                     }, 1000)
                 );

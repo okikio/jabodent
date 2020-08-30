@@ -111,15 +111,15 @@ html {
 $delay: 0.8s;
 .splashscreen-overlay {
     animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
-        $delay forwards;
-    background-color: var(--surface);
+        ($delay + 0.2s) forwards;
+    background-color: var(--bg);
     position: fixed;
     z-index: 1030;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    opacity: 0.6;
+    opacity: 0.8;
     width: 100%;
     height: 100vh;
     pointer-events: none;
@@ -129,7 +129,7 @@ $delay: 0.8s;
 }
 @keyframes splashanimoverlay {
     0% {
-        opacity: 0.6;
+        opacity: 0.8;
     }
 
     100% {
@@ -227,8 +227,8 @@ $delay: 0.8s;
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
     }
     &-overlay {
-        transition: opacity 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-        background-color: var(--surface);
+        transition: opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        background-color: var(--bg);
         position: fixed;
         z-index: 8;
         top: 0;
@@ -242,7 +242,7 @@ $delay: 0.8s;
         contain: layout size;
 
         &.show {
-            opacity: 0.6;
+            opacity: 0.8;
         }
     }
 
@@ -530,7 +530,7 @@ img {
 
     &-overlay {
         transition: opacity 0.7s ease-out;
-        background-color: var(--surface);
+        background-color: var(--bg);
         opacity: 0;
         height: 100vh;
         pointer-events: none;
@@ -930,8 +930,8 @@ img {
     content-visibility: auto;
 }
 
-.border-top {
-    border-top: 1px solid var(--surface);
+.border-bottom {
+    border-bottom: 1px solid var(--surface);
 }
 
 .text-surface {

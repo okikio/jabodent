@@ -3,11 +3,11 @@ extends /layouts/layout.pug
 block hero
   -
     let { services } = self;
-    
+
   section.relative.h-screen.bg-primary.fixed-img-container
     .absolute.top-0.left-0.w-full.h-full
       //- src: "cloudinary/e_improve/waves",
-      +image({ 
+      +image({
         src: "cloudinary/stoney-wave",
         alt: "An image of waves hitting the stoney edge of a beach by @johnonolan on unsplash.",
         class: "fixed-img",
@@ -17,7 +17,7 @@ block hero
     .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
       section.self-center.text-center.px-5
-        h1.font-extrabold.font-title.tracking-wider.layer.text-3xl(class="md:text-4xl lg:text-5xl xl:text-6xl") Jabodent Offshore Consultant Limited
+        h1.font-extrabold.font-title.tracking-wider.layer.text-4xl(class="md:text-5xl lg:text-6xl") Jabodent Offshore Consultants
         h2(class="lg:text-xl").text-lg.leading-7.pt-3 Integrity, Professionalism, Teamwork, Innovation & Excellence
         button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10(class="hover:underline" type="button" role="button")
           .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
@@ -27,7 +27,7 @@ block hero
       h3.text-2xl.mb-6.font-extrabold About Us
       p.leading-8 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
       .mt-16
-        +learn-more("./about.html", "Learn why you can trust us to deliver")
+        +learn-more("./about.html", "Why you can trust us to deliver")
 
 
 block content
@@ -49,14 +49,14 @@ block content
 
           p etc...
           .mt-16
-            +learn-more("./services.html", "Look through the full list of services we offer")
+            +learn-more("./services.html", "The full list of services we offer")
       .flex-grow.bg-secondary
 
     .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black 
+            i.icon.text-3xl.self-center.text-black
               +icon("more_time")
           section.self-center
             h4.text-lg.font-extrabold 20+
@@ -65,7 +65,7 @@ block content
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black
-              +icon("book") 
+              +icon("book")
           section.self-center
             h4.text-lg.font-extrabold 154+
             p Projects Completed
@@ -73,7 +73,7 @@ block content
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black
-              +icon("thumb_up_alt") 
+              +icon("thumb_up_alt")
           section.self-center
             h4.text-lg.font-extrabold 785+
             p Happy Clients
@@ -81,14 +81,14 @@ block content
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black
-              +icon("emoji_events")  
+              +icon("emoji_events")
           section.self-center
             h4.text-lg.font-extrabold 14+
             p Awards Won
 
   section.theme-bg.overflow-hidden.relative
     .absolute.top-0.left-0.w-full.h-full
-      +image({ 
+      +image({
         src: "cloudinary/e_improve/e_art:hokusai/golden-hour",
         alt: "An image of a sunset over a large body of water, by @jbcreate_ on Unsplash.",
         figclass: "theme-surface  w-full min-h-300"
@@ -104,7 +104,7 @@ block content
           h4.text-xl.mb-2 Modern Technology
           p.leading-8.mb-12 High quality equipment. Tools used by the best of the best.
           .mt-16
-            +learn-more("./services.html", "Learn how we deliver quality in all our services")
+            +learn-more("./services.html", "How we deliver quality in all our services")
 
   section.carousel.theme-surface.relative.pt-6(data-block="Carousel")
     h3.theme-text.text-3xl.font-medium.text-center Clients & Testimonials
