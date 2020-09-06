@@ -227,8 +227,11 @@ $delay: 0.8s;
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
     }
     &-overlay {
-        transition: opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1);
-        background-color: var(--bg);
+        transition: opacity 0.35s ease-out;
+        // cubic-bezier(0.645, 0.045, 0.355, 1)
+        // background-color: var(--bg);
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
         position: fixed;
         z-index: 8;
         top: 0;
@@ -242,7 +245,7 @@ $delay: 0.8s;
         contain: layout size;
 
         &.show {
-            opacity: 0.8;
+            opacity: 1;
         }
     }
 
@@ -253,6 +256,7 @@ $delay: 0.8s;
     }
 
     &-banner {
+            transition: opacity 0.15s ease-out;
         // content-visibility: auto;
         position: fixed;
         z-index: 10;
@@ -261,9 +265,17 @@ $delay: 0.8s;
         width: 100%;
         height: 100%;
 
-        transform: translateY(-100%);
+        // transform: translateY(-100%);
+        // transform: translateY(0%);
         pointer-events: none;
-        background-color: var(--bg);
+        // background-color: var(--bg);
+        opacity: 0;
+
+        &.show {
+            transition: opacity 0.5s ease-out;
+            opacity: 1;
+            pointer-events: auto;
+        }
     }
 
     &-inner {
@@ -286,17 +298,17 @@ $delay: 0.8s;
         padding-top: 1em;
         padding-bottom: 1em;
         padding-right: 0.5em;
-        background-color: var(--bg);
+        // background-color: var(--bg);
         background-color: rgba(150, 150, 150, 0.6);
         border-radius: 5px;
         width: 100%;
         height: 3em;
 
-        color: var(--text);
+        color: white;
         display: flex;
 
         &:focus-within {
-            border-color: var(--bg-invert);
+            border-color: white;
         }
     }
     &-input {
@@ -317,12 +329,14 @@ $delay: 0.8s;
 
         &::placeholder {
             font-weight: 500;
-            color: var(--text);
+            color: white;
             // opacity: 0.6;
         }
     }
 
     &-result {
+        color: white;
+
         &-title {
             border-bottom: 1px solid currentColor;
         }
@@ -330,6 +344,7 @@ $delay: 0.8s;
 }
 
 .new-search {
+    color: white;
     pointer-events: none;
     display: none;
 
@@ -340,6 +355,7 @@ $delay: 0.8s;
 }
 
 .no-results {
+    color: white;
     visibility: visible;
     pointer-events: auto;
 
@@ -513,7 +529,7 @@ img {
 
     &-large,
     &-mini {
-        transform: translateY(-100%);
+        transform: translateY(-105%);
         contain: content;
     }
 
@@ -537,6 +553,10 @@ img {
         contain: layout paint size;
     }
 
+    &.searching {
+        color: white;
+    }
+
     &.focus,
     &.active,
     &:hover {
@@ -558,7 +578,7 @@ img {
         }
     }
 
-    &.light:not(:hover):not(.active):not(.focus) {
+    &.light:not(:hover):not(.active):not(.focus):not(.searching) {
         color: map-get(map-get($theme, "text"), "dark");
     }
 

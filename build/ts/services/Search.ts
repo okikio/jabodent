@@ -54,9 +54,9 @@ export class Search extends Service {
         }
     }
 
-    protected transformArr(args) {
-        return args.map((num: number) => `translateY(${num}%)`);
-    }
+    // protected transformArr(args) {
+    //     return args.map((num: number) => `translateY(${num}%)`);
+    // }
 
     public toggle() {
         const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
@@ -65,53 +65,63 @@ export class Search extends Service {
 
         this.active = !this.active;
 
-        let opacity = this.active ? [0, 1] : [1, 0];
-        let transform = this.transformArr(this.active ? [-100, 0] : [0, -100]);
+        // let opacity = this.active ? [0, 1] : [1, 0];
+        // let transform = this.transformArr(this.active ? [-105, 0] : [0, -105]);
         return new Promise((resolve) => {
             requestAnimationFrame(() => {
-                !this.navbar.classList.contains("focus") &&
-                    this.navbar.classList.add("focus");
+                this.navbar.classList.toggle("focus", !this.active);
                 this.navbar.classList.contains("active") &&
                     this.navbar.classList.remove("active");
+
                 this.html.classList.toggle("no-scroll", this.active);
+                this.navbar.classList.toggle("searching", this.active);
 
                 this.bg.classList[this.active ? "add" : "remove"](...bgClass);
-                this.overlay.classList[this.active ? "add" : "remove"]("show");
+                this.overlay.classList.toggle("show", this.active);
 
-                let pointerEvents = this.active ? "auto" : "none";
+                // let pointerEvents = this.active ? "auto" : "none";
                 this.close.style.display = this.active ? "flex" : "none";
                 this.icon.style.display = !this.active ? "block" : "none";
-                animate({
-                    target: this.rootElement,
-                    transform,
-                    duration: 600,
-                    easing: "out",
-                    // easing: "out-sine",
-                    onfinish(el: HTMLElement) {
-                        el.style.transform = `${
-                            transform[transform.length - 1]
-                            }`;
-                        el.style.pointerEvents = `${pointerEvents}`;
-                    },
-                });
 
-                animate({
-                    target: this.inner.getElementsByClassName("animate"),
-                    opacity,
-                    duration: this.active ? 500 : 350,
-                    delay: (i: number) => {
-                        return (this.active ? 100 : 50) * i;
-                    },
-                    easing: "ease",
-                    onfinish: (el: HTMLElement) => {
-                        el.style.opacity = `${opacity[opacity.length - 1]}`;
-                    },
-                }).then(() =>
-                    window.setTimeout(() => {
-                        // this.active && this.input.focus();
-                        resolve();
-                    }, 1000)
+                this.rootElement.classList[this.active ? "add" : "remove"](
+                    "show"
                 );
+                // animate({
+                //     target: this.rootElement,
+                //     transform,
+                //     duration: 600,
+                //     easing: "out",
+                //     // easing: "out-sine",
+                //     onfinish(el: HTMLElement) {
+                //         el.style.transform = `${
+                //             transform[transform.length - 1]
+                //             }`;
+                //         el.style.pointerEvents = `${pointerEvents}`;
+                //     },
+                // });
+
+                // animate({
+                //     target: this.inner.getElementsByClassName("animate"),
+                //     opacity,
+                //     duration: this.active ? 500 : 350,
+                //     delay: (i: number) => {
+                //         return (this.active ? 100 : 50) * i;
+                //     },
+                //     easing: "ease",
+                //     onfinish: (el: HTMLElement) => {
+                //         el.style.opacity = `${opacity[opacity.length - 1]}`;
+                //     },
+                // }).then(() =>
+                //     window.setTimeout(() => {
+                //         // this.active && this.input.focus();
+                //         resolve();
+                //     }, 1000)
+                // );
+                // window.setTimeout(() => {
+                this.active && this.input.focus();
+                resolve();
+                // }, 1000);
+                // resolve();
             });
         });
     }
@@ -156,7 +166,7 @@ export class Search extends Service {
             });
 
             this.results.addEventListener("click", (e) => {
-                let el = this.getLink(event);
+                let el = this.getLink(e);
                 if (!el || !el.classList.contains("search-result")) return;
 
                 const href = this.getHref(el);
@@ -171,6 +181,15 @@ export class Search extends Service {
                     e.preventDefault();
                     e.stopPropagation();
                     return;
+                }
+            });
+
+            this.rootElement.addEventListener("click", (e) => {
+                if (this.active) {
+                    let el = e.target as HTMLElement;
+                    if (this.inner.contains(el)) return;
+
+                    this.toggle();
                 }
             });
 
@@ -250,6 +269,7 @@ export class Search extends Service {
         requestAnimationFrame(() => {
             this.newSearch.classList.add("show");
             this.noResultsEl.classList.add("hide");
+            this.active && this.input.focus();
         });
     }
 
