@@ -50,7 +50,6 @@ export class Search extends Service {
             this.clearIcon = this.inner.querySelector(".clear-search");
             this.newSearch = this.inner.querySelector(".new-search");
             this.noResultsEl = this.inner.querySelector(".no-results");
-            this.worker = new Worker("/js/FuzzySearch.min.js");
         }
     }
 
@@ -62,6 +61,27 @@ export class Search extends Service {
         const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
             " "
         );
+
+        if (!this.worker) {
+            this.worker = new Worker("/js/FuzzySearch.min.js");
+
+            // Receive data from a worker
+            this.worker.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.length === 0 && this.value.length > 0) {
+                    this.noResults();
+                } else if (this.value.length === 0) {
+                    this.resetResults();
+                } else {
+                    this.removeResults();
+                    this.noResultsEl.classList.add("hide");
+                    this.newSearch.classList.remove("show");
+                    for (let i = 0, len = data.length; i < len; i++) {
+                        this.addResult(data[i]);
+                    }
+                }
+            };
+        }
 
         this.active = !this.active;
 
@@ -162,7 +182,7 @@ export class Search extends Service {
             this.input.addEventListener("keyup", () => {
                 const { value } = this.input as HTMLInputElement;
                 this.value = value;
-                this.worker.postMessage(value);
+                this.worker && this.worker.postMessage(value);
             });
 
             this.results.addEventListener("click", (e) => {
@@ -206,29 +226,14 @@ export class Search extends Service {
                     this.resetResults();
                 });
             });
-
-            // Receive data from a worker
-            this.worker.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                if (data.length === 0 && this.value.length > 0) {
-                    this.noResults();
-                } else if (this.value.length === 0) {
-                    this.resetResults();
-                } else {
-                    this.removeResults();
-                    this.noResultsEl.classList.add("hide");
-                    this.newSearch.classList.remove("show");
-                    for (let i = 0, len = data.length; i < len; i++) {
-                        this.addResult(data[i]);
-                    }
-                }
-            };
         }
     }
 
     public stopEvents() {
-        this.worker.terminate();
-        this.worker = undefined;
+        if (this.worker) {
+            this.worker.terminate();
+            this.worker = undefined;
+        }
     }
 
     public noResults() {
