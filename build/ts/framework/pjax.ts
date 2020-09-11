@@ -519,7 +519,7 @@ export class PJAX extends Service {
      */
     public hashAction(hash: string = window.location.hash) {
         if (this.autoScrollOnHash) {
-            if (hashID.length) {
+            if (hash.length > 1) {
                 let el = document.querySelector(hash);
 
                 if (el) {
