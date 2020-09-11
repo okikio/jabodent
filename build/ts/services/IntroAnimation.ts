@@ -9,7 +9,7 @@ export class IntroAnimation extends Service {
         super.init();
 
         // Elements
-        this.elements = Array.from(document.querySelectorAll(".intro-animation")) as HTMLElement[];
+        this.elements = Array.prototype.slice.call(document.querySelectorAll(".intro-animation")) as HTMLElement[];
     }
 
     public newPage() {

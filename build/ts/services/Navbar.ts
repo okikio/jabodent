@@ -10,7 +10,7 @@ export class Navbar extends Service {
 
         // Elements
         this.navbar = document.querySelector(".navbar") as HTMLElement;
-        this.elements = Array.from(
+        this.elements = Array.prototype.slice.call(
             this.navbar.querySelectorAll(".navbar-item")
         ) as HTMLElement[];
         this.menu = document.querySelector(".navbar-menu") as HTMLElement;

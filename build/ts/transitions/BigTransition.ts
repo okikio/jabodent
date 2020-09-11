@@ -15,7 +15,7 @@ export class BigTransition extends Transition {
     public boot() {
         this.mainElement = document.querySelector("#big-transition");
         this.spinnerElement = this.mainElement.querySelector(".spinner");
-        this.horizontalElements = Array.from(
+        this.horizontalElements = Array.prototype.slice.call(
             this.mainElement
                 .querySelector("#big-transition-horizontal")
                 .querySelectorAll("div")

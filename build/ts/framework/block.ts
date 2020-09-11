@@ -273,9 +273,9 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
         for (let [, intent] of this) {
             let name: string = intent.getName();
             let selector: string = `[${this.getConfig("blockAttr", false)}="${name}"]`;
-            let rootElements: Node[] = [
-                ...document.querySelectorAll(selector),
-            ];
+            let rootElements: Node[] = Array.prototype.slice.call(
+                document.querySelectorAll(selector),
+             );
 
             if (!Array.isArray(this.activeIDs[name]))
                 this.activeIDs[name] = [];
