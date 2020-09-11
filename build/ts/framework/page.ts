@@ -186,6 +186,8 @@ export class PageManager extends AdvancedManager<string, Page> {
      */
     protected loading: Manager<string, Promise<string>> = new Manager();
 
+    protected maxPages = 10;
+
 	/**
 	 * Creates an instance of the PageManager
 	 *
@@ -234,6 +236,11 @@ export class PageManager extends AdvancedManager<string, Page> {
 
         page = new Page(url, response);
         this.set(urlString, page);
+
+        if (this.size > this.maxPages) {
+            let first = this.keys()[0];
+            this.delete(first);
+        }
         return page;
     }
 

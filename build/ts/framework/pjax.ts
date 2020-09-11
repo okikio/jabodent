@@ -519,10 +519,8 @@ export class PJAX extends Service {
      */
     public hashAction(hash: string = window.location.hash) {
         if (this.autoScrollOnHash) {
-            let hashID = hash.slice(1);
-
             if (hashID.length) {
-                let el = document.getElementById(hashID);
+                let el = document.querySelector(hash);
 
                 if (el) {
                     if (el.scrollIntoView) {

@@ -13,13 +13,13 @@ export class BigTransition extends Transition {
     protected spinnerElement: HTMLElement;
 
     public boot() {
-        this.mainElement = document.getElementById("big-transition");
+        this.mainElement = document.querySelector("#big-transition");
         this.spinnerElement = this.mainElement.querySelector(".spinner");
-        this.horizontalElements = [
-            ...this.mainElement
+        this.horizontalElements = Array.from(
+            this.mainElement
                 .querySelector("#big-transition-horizontal")
-                .querySelectorAll("div"),
-        ];
+                .querySelectorAll("div")
+        );
         this.maxLength = this.horizontalElements.length;
     }
 

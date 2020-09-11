@@ -265,6 +265,7 @@ export class Search extends Service {
             <p>${description}</p>
             <p class="mt-5 italic text-3">Keywords: ${keywords}</p>`;
             this.results.appendChild(el);
+            el = undefined;
         });
     }
 
@@ -286,6 +287,7 @@ export class Search extends Service {
                 this.results.removeChild(firstChild);
                 firstChild = this.results.firstChild;
             }
+            firstChild = undefined;
         });
     }
 }

@@ -185,6 +185,7 @@ export class Transition extends Service {
         await new Promise(done => {
             fromWrapper.insertAdjacentElement('beforebegin', toWrapper);
             fromWrapper.remove();
+            fromWrapper = undefined;
             EventEmitter.emit("CONTENT_REPLACED");
             done();
         });

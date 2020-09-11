@@ -27,7 +27,7 @@ app.addService(new IntroAnimation())
     .add("transition", new Fade());
 
 // On theme switcher button click (mouseup is a tiny bit more efficient) toggle the theme between dark and light mode
-const themeSwitch = document.getElementsByClassName("theme-switch")[0];
+const themeSwitch = document.querySelector(".theme-switch");
 if (themeSwitch) {
     themeSwitch.addEventListener("click", () => {
         themeSet(themeGet() === "dark" ? "light" : "dark");
@@ -71,7 +71,7 @@ try {
     };
 
     const load = () => {
-        let layers = document.getElementsByClassName("layer") || [];
+        let layers = document.querySelectorAll(".layer");
         layer = (layers[0] as HTMLElement) || null;
         top = layer
             ? layer.getBoundingClientRect().top +
@@ -80,7 +80,7 @@ try {
             : 0;
 
         go();
-        let backToTop = document.getElementsByClassName("back-to-top")[0];
+        let backToTop = document.querySelector(".back-to-top");
         if (backToTop) {
             backToTop.addEventListener("click", () => {
                 requestAnimationFrame(() => {
@@ -92,8 +92,8 @@ try {
             });
         }
 
-        let scrollBtn = document.getElementsByClassName("scroll-btn")[0];
-        let scrollPt = document.getElementsByClassName("scroll-point")[0];
+        let scrollBtn = document.querySelector(".scroll-btn");
+        let scrollPt = document.querySelector(".scroll-point");
         if (scrollBtn) {
             scrollBtn.addEventListener("click", () => {
                 requestAnimationFrame(() => {

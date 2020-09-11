@@ -12,9 +12,7 @@ export class Splashscreen extends Service {
     super.init();
 
     // Elements
-    this.rootElement = document.getElementsByClassName(
-      "splashscreen"
-    )[0] as HTMLElement;
+    this.rootElement = document.querySelector(".splashscreen") as HTMLElement;
     this.overlayEl = document.querySelector(".splashscreen-overlay");
 
     if (this.rootElement) {

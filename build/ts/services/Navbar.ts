@@ -9,15 +9,11 @@ export class Navbar extends Service {
         super();
 
         // Elements
-        this.navbar = document.getElementsByClassName(
-            "navbar"
-        )[0] as HTMLElement;
+        this.navbar = document.querySelector(".navbar") as HTMLElement;
         this.elements = Array.from(
-            this.navbar.getElementsByClassName("navbar-item")
+            this.navbar.querySelectorAll(".navbar-item")
         ) as HTMLElement[];
-        this.menu = document.getElementsByClassName(
-            "navbar-menu"
-        )[0] as HTMLElement;
+        this.menu = document.querySelector(".navbar-menu") as HTMLElement;
 
         this.click = this.click.bind(this);
     }
