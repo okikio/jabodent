@@ -47,7 +47,9 @@ export class InViewBlock extends Block {
         }
 
         // Find elements
-        this.imgs = [...this.rootElement.querySelectorAll("img")];
+        this.imgs = Array.prototype.slice.call(
+            this.rootElement.querySelectorAll("img")
+        );
 
         // Add block rootElement in the observer
         this.observe();
