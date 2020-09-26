@@ -20,6 +20,8 @@ export class Search extends Service {
     protected newSearch: HTMLElement;
     protected noResultsEl: HTMLElement;
     protected overlay: HTMLElement;
+    protected container: HTMLElement;
+    protected scrollArea: HTMLElement;
 
     public setActive(value: boolean) {
         this.active = value;
@@ -39,12 +41,14 @@ export class Search extends Service {
         this.overlay = this.html.querySelector(".search-overlay");
 
         this.btn = this.navbar.querySelector(".search-btn");
-        this.close = this.btn.querySelector(".search-close");
         this.icon = this.btn.querySelector(".search-icon");
         this.bg = this.btn.querySelector(".search-bg");
 
         this.inner = this.rootElement.querySelector(".search-inner");
+        this.close = this.inner.querySelector(".search-close");
         this.input = this.inner.querySelector(".search-input");
+        this.container = this.inner.querySelector(".search-container");
+        this.scrollArea = this.inner.querySelector(".search-scrollable-area");
         if (this.input) {
             this.results = this.inner.querySelector(".search-results");
             this.clearIcon = this.inner.querySelector(".clear-search");
@@ -89,19 +93,20 @@ export class Search extends Service {
         // let transform = this.transformArr(this.active ? [-105, 0] : [0, -105]);
         return new Promise((resolve) => {
             requestAnimationFrame(() => {
+                this.navbar.blur();
                 this.navbar.classList.toggle("focus", !this.active);
                 this.navbar.classList.contains("active") &&
                     this.navbar.classList.remove("active");
 
-                this.html.classList.toggle("no-scroll", this.active);
+                // this.html.classList.toggle("no-scroll", this.active);
                 this.navbar.classList.toggle("searching", this.active);
 
-                this.bg.classList[this.active ? "add" : "remove"](...bgClass);
+                // this.bg.classList[this.active ? "add" : "remove"](...bgClass);
                 this.overlay.classList.toggle("show", this.active);
 
                 // let pointerEvents = this.active ? "auto" : "none";
-                this.close.style.display = this.active ? "flex" : "none";
-                this.icon.style.display = !this.active ? "block" : "none";
+                // this.close.style.display = this.active ? "flex" : "none";
+                // this.icon.style.display = !this.active ? "block" : "none";
 
                 this.rootElement.classList[this.active ? "add" : "remove"](
                     "show"
@@ -207,7 +212,11 @@ export class Search extends Service {
             this.rootElement.addEventListener("click", (e) => {
                 if (this.active) {
                     let el = e.target as HTMLElement;
-                    if (this.inner.contains(el)) return;
+                    if (
+                        this.scrollArea.contains(el) ||
+                        this.container.contains(el)
+                    )
+                        return;
 
                     this.toggle();
                 }
@@ -259,7 +268,7 @@ export class Search extends Service {
         requestAnimationFrame(() => {
             el.href = `${href}`;
             el.className =
-                "search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block";
+                "search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35 block";
             el.innerHTML = `
             <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
             <p>${description}</p>

@@ -171,7 +171,7 @@ html(lang="en" data-theme="dark")
       block title
         | Jabodent
 
-    //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKd3vXDXbtM.woff2" as="font" crossorigin)
+    //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" as="font" crossorigin)
     //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7gYHE41ni1AdIRggexSg.woff2" as="font" crossorigin)
     //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk4aE9_C-bk.woff2" as="font" crossorigin)
 
@@ -196,6 +196,17 @@ html(lang="en" data-theme="dark")
 
     link(rel="stylesheet", href="/css/tailwind.css", inline async)
     link(rel="stylesheet", href="/css/app.min.css", inline async)
+    noscript
+      style.
+        .splashscreen-overlay,
+        .splashscreen {
+          display: none;
+        }
+        
+          .placeholder-img {
+            display: none;
+          }
+
 
     //- link(rel="modulepreload", href="/js/FuzzySearch.min.js")
     script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" async)
@@ -205,13 +216,15 @@ html(lang="en" data-theme="dark")
     .splashscreen-overlay
     .splashscreen
       .splashscreen-inner.theme-text
-        .flex.flex-row(class="md:text-5xl").text-3xl.font-extrabold
+        .flex.flex-row(class="md:text-5xl").text-4xl.font-extrabold
           +icon("jabodent")(class="splashscreen-icon self-center mr-4")
           div Jabodent
       .splashscreen-bg
 
+    //- svg(xmlns="http://www.w3.org/2000/svg", width="45", height="45", fill="none")
+      path(fill="#000", d="M0 0h45v45H0z")
     .search-overlay
-    .search-banner.px-5.py-24.overflow-y-auto.h-full
+    .search-banner.px-5.pt-24.overflow-y-auto
       .search-inner.mx-auto.max-w-screen-sm.w-full.pt-5
         .search-container.px-4
           i.icon.text-2xl.self-center
@@ -220,19 +233,23 @@ html(lang="en" data-theme="dark")
           button.clear-search.self-center.z-10.ml-5.bg-translucentLight.text-black.rounded-full.flex.text-2xl(class="hover:bg-translucentDark hover:text-translucentLight" type="button", title="Clear search")
             i.icon.w-full.justify-center.text-2xl.self-center
               +icon("clear")
-        .search-results.py-5
-          button.hidden(class="search-result rounded-lg p-5 hover:bg-gray-600 hover:bg-opacity-15 block" type="button", hidden)
-            h5(class="font-title text-xl search-result-title pb-2 mb-4") Title
-            p Description
-            p.mt-5.italic.text-3 Keywords: Block
-        .new-search.show.flex.justify-center.py-5
-          .self-center.text-center
-            .py-5
-              p.text-lg.font-bold Waiting for input
-              p.text-base Don't be shy start typing.
-            //- figure(itemprop="image")
-              img(src="/search-illustration.svg" width="100%" height="300px" alt="An image of a lady looking at a plant. From unDraw." loading="auto" itemprop="url")
-        .no-results.hide.px-5.text-center.text-lg No results...
+        .search-scrollable-area.mt-5
+          .search-results.space-y-5
+            button.hidden(class="search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35" type="button", hidden)
+              h5(class="font-title text-xl search-result-title pb-2 mb-4") Title
+              p Description
+              p.mt-5.italic.text-3 Keywords: Block
+          .new-search.show.flex.justify-center.pt-5
+            .self-center.text-center
+              .py-5
+                p.text-lg.font-bold Waiting for input
+                p.text-base Don't be shy start typing.
+              //- figure(itemprop="image")
+                img(src="/search-illustration.svg" width="100%" height="300px" alt="An image of a lady looking at a plant. From unDraw." loading="auto" itemprop="url")
+          .no-results.hide.px-5.text-center.text-lg No results...
+        button.search-close(type="button", aria-label="Close" role="button", title="Close" class="z-10 mt-5 bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-14 h-14 mx-auto text-lg hover:border-black focus:outline-none")
+            i.text-xl.icon.self-center
+              +icon("close")
     +navbar
 
     div(data-wrapper)

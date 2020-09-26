@@ -5,6 +5,7 @@ import { Splashscreen } from "./services/Splashscreen";
 import { IntroAnimation } from "./services/IntroAnimation";
 import { Navbar } from "./services/Navbar";
 import { Search } from "./services/Search";
+import { Image } from "./services/Image";
 
 import { CarouselBlockIntent } from "./blocks/Carousel";
 
@@ -18,6 +19,7 @@ let search = new Search();
 app.addService(new IntroAnimation())
     .addService(new Splashscreen())
     .add("service", new PJAX())
+    .add("service", new Image())
     .add("service", search)
 
     .addService((navbar = new Navbar()))

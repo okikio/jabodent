@@ -1,6 +1,6 @@
 mixin footer()
   footer.theme-bg.theme-text.font-normal
-    .max-w-screen-lg.w-full.mx-auto.flex.flex-wrap.clear-both.py-8.px-6
+    .max-w-screen-lg.w-full.mx-auto.flex.flex-wrap.clear-both.pt-8.px-6
       section.col(class="sm:max-w-4/12")
         +link({
           href: "/",
@@ -87,18 +87,18 @@ mixin footer()
           })(aria-label="instagram")
             i.icon.p-2
               +icon("instagram")
-    .theme-surface
-      .max-w-screen-lg.flex.flex-wrap.mt-10.w-full.mx-auto.py-4.px-6.leading-10
-        section © 2020 Jabodent. All rights reserved.
-        section.flex-grow
-        section
-          | Made with
-          i.icon.text-xl.text-red-600.mx-1
-            +icon("favorite")
-          | by
-          |
-          +link({
-            href: "https://okikio.dev",
-            class: "underline",
-            content: "Okiki Ojo"
-          })(target="_blank" rel="noopener")
+    .max-w-screen-lg.flex.flex-wrap.mt-10.w-full.mx-auto.py-4.px-6.leading-10
+      .border-top.w-full.mb-4
+      section © 2020 Jabodent. All rights reserved.
+      section.flex-grow
+      section
+        | Made with
+        i.icon.text-xl.text-red-600.mx-1
+          +icon("favorite")
+        | by
+        |
+        +link({
+          href: "https://okikio.dev",
+          class: "underline",
+          content: "Okiki Ojo"
+        })(target="_blank" rel="noopener")
