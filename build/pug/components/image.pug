@@ -15,7 +15,7 @@ mixin image(value = {})
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
     .img-overlay
     picture(class=_picClass)
-      div.plchldr-img(class=_class)
+      //- div.plchldr-img(class=_class)
         .placeholder-img
           img(src!=`${urlParse("w_50,q_auto")}.jpeg` sizes="50px" width="50px"  alt=alt loading="lazy")
       .core-img-pic

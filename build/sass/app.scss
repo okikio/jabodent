@@ -478,10 +478,10 @@ img {
             opacity: 0.6;
         }
 
-        .placeholder-img img {
-            transform: scale(1);
-            opacity: 0;
-        }
+        // .placeholder-img img {
+        //     transform: scale(1);
+        //     opacity: 0;
+        // }
     }
     //
     // contain: size;
@@ -513,22 +513,22 @@ img {
     top: 0;
 }
 
-.placeholder-img {
-    // image-rendering: auto;
-    // image-rendering: smooth;
-    position: absolute;
-    filter: blur(15px);
-    height: 100%;
-    width: 100%;
-    left: 0;
+// .placeholder-img {
+//     // image-rendering: auto;
+//     // image-rendering: smooth;
+//     position: absolute;
+//     filter: blur(15px);
+//     height: 100%;
+//     width: 100%;
+//     left: 0;
 
-    & img {
-        transition: opacity 0.9s ease-out, transform 0.8s ease;
-        opacity: 0.6;
-        transform: scale(1.2);
-        transform-origin: center center;
-    }
-}
+//     & img {
+//         transition: opacity 0.9s ease-out, transform 0.8s ease;
+//         opacity: 0.6;
+//         transform: scale(1.2);
+//         transform-origin: center center;
+//     }
+// }
 
 .core-img-pic {
     transition: opacity 0.9s ease-out;
@@ -560,7 +560,7 @@ img {
     height: 100%;
 
     .core-img-pic {
-        opacity: 1;
+        opacity: 0.8;
     }
 }
 .col:hover .lackluster {
