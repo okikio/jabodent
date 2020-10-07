@@ -1,5 +1,9 @@
 module.exports = {
     purge: [], //[`${pugFolder}/**/*.pug`],
+    future: {
+        removeDeprecatedGapUtilities: true,
+        purgeLayersByDefault: true,
+    },
     target: "relaxed",
     prefix: "",
     important: false,
