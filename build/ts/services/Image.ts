@@ -28,6 +28,7 @@ export class Image extends Service {
     }
 
     public load_img() {
+        const wid = window.innerWidth;
         for (let elem of this.images) {
             let img = elem.querySelector(".img-core") as HTMLImageElement;
             let srcset = img.getAttribute("data-src");
@@ -42,6 +43,7 @@ export class Image extends Service {
             }
 
             let src = srcset.replace(/w_auto/, `w_${srcWid}`);
+            if (wid < 500 && srcWid < 500) src = src.replace(/ar_4:3/, `ar_3:4`);
             if (!this.WebpSupport) {
                 src = src.replace(".webp", ".jpeg");
             }
