@@ -19,8 +19,6 @@ mixin image(value = {})
       //- div.plchldr-img(class=_class)
         .placeholder-img
           img(src!=`${urlParse("w_50,q_auto")}.jpeg` sizes="50px" width="50px"  alt=alt loading="lazy")
-      if blur
-        p Blur please\
 
       .core-img-pic
         img.img-core(data-src!=`${urlParse(`w_auto,${blur ? "q_50/e_blur:1000" : "q_100"}`)}.webp`  class=_class alt=alt loading=_loading itemprop="url")&attributes(attributes)

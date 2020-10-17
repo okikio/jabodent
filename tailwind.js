@@ -1,7 +1,7 @@
 const srcFolder = `build`;
 const pugFolder = `${srcFolder}/pug`;
 module.exports = {
-    purge: [`${pugFolder}/**/*.pug`],
+    purge: [],// [`${pugFolder}/**/*.pug`],
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
