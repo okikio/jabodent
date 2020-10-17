@@ -13,7 +13,7 @@ mixin card(service = {}, even = false)
     section.rounded-lg.relative.overflow-hidden.h-72.bg-primary
       +image(image)
       section.lackluster
-        +image(image)
+        +image(Object.assign(image, { blur: true }))
       .p-5.left-half.w-full.text-shadow.gra
         h3.text-xl.mb-3.font-extrabold= title
         //- (class="group-hover:underline")
