@@ -36,10 +36,10 @@ export const themeGet = () => {
 
 // Set theme in localStorage, as well as in the html tag
 export const themeSet = (theme: string) => {
-    requestAnimationFrame(() => {
-        html.setAttribute("data-theme", theme);
-    });
-    setTheme(theme);
+  requestAnimationFrame(() => {
+    html.setAttribute("data-theme", theme);
+  });
+  setTheme(theme);
 };
 export const runTheme = () => {
   try {
@@ -59,3 +59,5 @@ export const runTheme = () => {
     console.warn("Theming isn't available on this browser.");
   }
 };
+
+runTheme();

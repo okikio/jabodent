@@ -1,5 +1,5 @@
 export const runSplashscreen = () => {
-  window.addEventListener('DOMContentLoaded', (event) => {
+  // window.addEventListener('DOMContentLoaded', (event) => {
     try {
       const splashscreen = document.querySelector(".splashscreen");
       const overlay = document.querySelector(".splashscreen-overlay");
@@ -9,5 +9,6 @@ export const runSplashscreen = () => {
     } catch (e) {
       console.warn("The splashscreen isn't available on this browser.", e);
     }
-  });
+  // });
 };
+runSplashscreen();

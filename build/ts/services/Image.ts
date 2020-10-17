@@ -3,7 +3,7 @@ import { Service } from "../framework/api";
 
 export class Image extends Service {
     images: HTMLImageElement[];
-    observer: IntersectionObserver;
+    // observer: IntersectionObserver;
 
     WebpSupport = false;
 
@@ -65,8 +65,8 @@ export class Image extends Service {
             "resize",
             () => {
                 if (!waitOnResize) {
-                    this.remove_images();
-                    this.get_images();
+                    // this.remove_images();
+                    // this.get_images();
 
                     requestAnimationFrame(() => {
                         this.load_img();

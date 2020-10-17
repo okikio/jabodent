@@ -23,10 +23,10 @@ mixin image(value = {})
 
       noscript Javascript is necessary for this sites awesome experience.
         - var n = 4;
-        - let srcset = `${urlParse(`w_auto,q_auto`)}.webp 300w`;
+        - let srcset = `${urlParse(`w_auto,q_100`)}.webp 300w`;
 
         while n <= 21
           - srcset += `, ${urlParse(`w_${n * 100},q_100`)}.webp ${n * 100}w`;
           - n ++
 
-        img.no-script-img(class=_class srcset=srcset src!=`${urlParse("w_auto,q_auto")}.jpeg` alt=alt loading=_loading itemprop="url")&attributes(attributes)
+        img.no-script-img(class=_class srcset=srcset src!=`${urlParse("w_auto,q_100")}.jpeg` alt=alt loading=_loading itemprop="url")&attributes(attributes)
