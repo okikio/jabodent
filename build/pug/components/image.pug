@@ -11,7 +11,7 @@ mixin image(value = {})
     let cloudinaryTest = /^cloudinary\//.test(src);
     //- ,f_auto,fl_lossy,dpr_auto
     let origin = "https://res.cloudinary.com/okikio-assets/image/upload/";
-    let urlParse = (filters = "") => cloudinaryTest ? `${origin + "ar_4:3,c_fill/f_auto,q_auto:best," + filters + "/c_mfit,w_auto,dpr_auto"}/${src.replace(/^cloudinary\//, "")}` : src;
+    let urlParse = (filters = "") => cloudinaryTest ? `${origin + "ar_4:3,c_fill/f_auto,q_auto:best/c_scale,dpr_auto," + filters}/${src.replace(/^cloudinary\//, "")}` : src;
 
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
     .img-overlay
