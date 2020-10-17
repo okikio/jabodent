@@ -21,7 +21,7 @@ export class Splashscreen extends Service {
   }
 
   public async boot() {
-    if (this.rootElement) {
+    if (this.rootElement && this.rootElement.classList.contains("active")) {
       if (typeof this.rootElement.getAnimations === "function") {
         let rootElementAnim = this.rootElement.getAnimations()[0];
         let overlayElAnim = this.overlayEl.getAnimations()[0];
@@ -57,6 +57,9 @@ export class Splashscreen extends Service {
           this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
         }, this.delay);
       }
+    } else {
+      this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
+      this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
     }
   }
 }

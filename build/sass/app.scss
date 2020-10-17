@@ -110,8 +110,6 @@ html {
 
 $delay: 0.8s;
 .splashscreen-overlay {
-    animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
-        ($delay + 0.2s) forwards;
     background-color: var(--bg);
     position: fixed;
     z-index: 1030;
@@ -119,11 +117,17 @@ $delay: 0.8s;
     right: 0;
     bottom: 0;
     left: 0;
-    opacity: 0.6;
+    opacity: 0;
     width: 100%;
     height: 100vh;
     pointer-events: none;
     contain: layout size;
+
+    &.active {
+        animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
+            ($delay + 0.2s) forwards;
+        opacity: 0.6;
+    }
     // content-visibility: auto;
     // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 }
@@ -138,8 +142,6 @@ $delay: 0.8s;
 }
 
 .splashscreen {
-    animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) $delay
-        forwards;
     // animation-fill-mode: both;
     // animation-delay: 1s;
     position: fixed;
@@ -153,13 +155,24 @@ $delay: 0.8s;
     align-content: center;
     align-items: center;
     justify-content: center;
-    // visibility: hidden;
-    // pointer-events: none;
-    visibility: visible;
-    pointer-events: auto;
+    visibility: hidden;
+    pointer-events: none;
     contain: layout size;
+
     // content-visibility: auto;
     // contain-intrinsic-size: 100vh; /* Explained in the next section. */
+
+    &.active {
+        animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1)
+            $delay forwards;
+        visibility: visible;
+        pointer-events: auto;
+
+
+        .splashscreen-inner {
+            animation: splashanim 0.5s ease $delay forwards;
+        }
+    }
 
     &-icon {
         width: 1.5em;
@@ -178,7 +191,6 @@ $delay: 0.8s;
 }
 
 .splashscreen-inner {
-    animation: splashanim 0.5s ease $delay forwards;
     // animation-fill-mode: forwards;
     // animation-delay: 1s;
     position: relative;

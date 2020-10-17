@@ -49,6 +49,12 @@ const {
     seriesFn,
 } = require("./util");
 
+const dotenv = require('dotenv');
+dotenv.config();
+
+const env = process.env;
+const dev = 'dev' in env ? env.dev == "true" : false;
+
 // Origin folders (source and destination folders)
 const srcFolder = `build`;
 const destFolder = `public`;
@@ -178,13 +184,6 @@ tasks({
             pipes: [
                 rename({ suffix: ".min" }), // Rename
                 sass({ outputStyle: "compressed" }).on("error", logError),
-                // Prefix & Compress CSS
-                postcss([
-                    autoprefixer({
-                        overrideBrowserslist: ["defaults"],
-                    }),
-                    csso(),
-                ]),
             ],
             dest: cssFolder,
             end: [browserSync.stream()],
@@ -221,19 +220,28 @@ tasks({
                         return broadMatches.concat(innerMatches);
                     },
                 }),
-                // Prefix & Compress CSS
-                postcss([
-                    autoprefixer({
-                        overrideBrowserslist: ["defaults"],
-                    }),
-                    csso(),
-                ]),
             ],
             dest: cssFolder, // Output
         });
     },
 
-    css: parallelFn("app-css", seriesFn("tailwind-css", "purge")),
+    "minify-css": () => {
+        return stream(`${cssFolder}/*.css`, {
+            pipes: [
+                // Prefix & Compress CSS
+                !dev ? postcss([
+                    autoprefixer({
+                        overrideBrowserslist: ["defaults"],
+                    }),
+                    csso(),
+                ]) : null,
+            ],
+            dest: cssFolder,
+            end: [browserSync.stream()],
+        })
+    },
+
+    css: parallelFn("app-css", dev ? "tailwind-css" : seriesFn("tailwind-css", "purge", "minify-css")),
 });
 
 // JS Tasks
@@ -360,7 +368,7 @@ tasks({
             dest: jsFolder, // Output
         });
     },
-    js: parallelFn(`modern-js`, `legacy-js`, `other-js`),
+    js: parallelFn(`modern-js`, dev ? null : `legacy-js`, `other-js`),
 });
 
 // Other assets
@@ -382,44 +390,6 @@ task("indexer", () => {
                         description: "",
                         keywords: "",
                     };
-
-                    // const travel = (nodes) => {
-                    //     return nodes.forEach((node) => {
-                    //         if (!("image" in data) && node.tag === "img") {
-                    //             data.image = node.attrs;
-                    //         }
-
-                    //         if (
-                    //             node !== undefined &&
-                    //             node !== "<!DOCTYPE html>" &&
-                    //             node.tag !== "title" &&
-                    //             node.tag !== "img" &&
-                    //             node.tag !== "script" &&
-                    //             node.tag !== "style" &&
-                    //             node.tag !== "link" &&
-                    //             node.tag !== "meta" &&
-                    //             node.tag !== "nav" &&
-                    //             node.tag !== "footer" &&
-                    //             !(
-                    //                 node?.attrs?.class?.includes(
-                    //                     "splashscreen"
-                    //                 ) ||
-                    //                 node?.attrs?.class?.includes(
-                    //                     "search-overlay"
-                    //                 )
-                    //             )
-                    //         ) {
-                    //             if (Array.isArray(node.content)) {
-                    //                 // Now we recurse through the nested content if content exists
-                    //                 travel(node.content);
-                    //             } else if (typeof node === "string") {
-                    //                 data.keywords +=
-                    //                     node.replace(/\n/g, " ").trim() + " ";
-                    //             }
-                    //         }
-                    //     });
-                    // };
-                    // travel(tree);
 
                     tree.match(querySelector("title"), (node) => {
                         if (data.title === "" && node.tag === "title") {
@@ -471,11 +441,13 @@ task("indexer", () => {
 });
 
 // Build & Watch Tasks
-task("build", series(parallel("html", "css", "js", "assets"), "indexer"));
+task("build", parallel(
+    series("html", "indexer"),
+    "css", "js", "assets"));
 task("watch", () => {
     browserSync.init(
         {
-            notify: false,
+            notify: true,
             server: destFolder,
         },
         (_err, bs) => {
@@ -498,7 +470,7 @@ task("watch", () => {
     );
     watch(
         [`${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`, `${tsFolder}/${tsFile}`],
-        series(parallel(`modern-js`, `legacy-js`), `reload`)
+        series(parallelFn(`modern-js`, dev ? null : `legacy-js`), `reload`)
     );
     watch(
         [`!${tsFolder}/${tsFile}`, `${tsFolder}/*.ts`],
@@ -510,8 +482,9 @@ task("watch", () => {
 task(
     "default",
     series(
-        parallel("html", "app-css", "tailwind-css", "js", "assets"),
-        "indexer",
+        parallel(
+            series("html", "indexer"),
+            "app-css", "tailwind-css", "js", "assets"),
         "watch"
     )
 );

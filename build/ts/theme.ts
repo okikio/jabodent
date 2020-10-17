@@ -41,19 +41,21 @@ export const themeSet = (theme: string) => {
     });
     setTheme(theme);
 };
+export const runTheme = () => {
+  try {
+    let theme = getTheme();
+    if (theme === null) theme = mediaTheme();
+    theme && themeSet(theme);
 
-try {
-  let theme = getTheme();
-  if (theme === null) theme = mediaTheme();
-  theme && themeSet(theme);
+    window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
+      themeSet(e.matches ? "dark" : "light");
+    });
 
-  window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
-    themeSet(e.matches ? "dark" : "light");
-  });
+    window.matchMedia("(prefers-color-scheme: light)").addListener((e) => {
+      themeSet(e.matches ? "light" : "dark");
+    });
 
-  window.matchMedia("(prefers-color-scheme: light)").addListener((e) => {
-    themeSet(e.matches ? "light" : "dark");
-  });
-} catch (e) {
-  console.warn("Theming isn't available on this browser.");
-}
+  } catch (e) {
+    console.warn("Theming isn't available on this browser.");
+  }
+};

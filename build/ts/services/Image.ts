@@ -1,5 +1,5 @@
 import { Service } from "../framework/api";
-import { animate } from "@okikio/animate";
+// import { animate } from "@okikio/animate";
 
 export class Image extends Service {
     images: HTMLImageElement[];
