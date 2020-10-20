@@ -204,8 +204,8 @@ tasks({
                 // Remove unused CSS
                 purge({
                     content: [`${pugFolder}/**/*.pug`],
-                    //   whitelistPatterns: [/active/, /focus/, /show/, /hide/],
-                    //   whitelist: ["active", "show", "focus", "hide"],
+                    //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
+                    //   safelist: ["active", "show", "focus", "hide"],
                     keyframes: false,
                     fontFace: false,
                     defaultExtractor: (content) => {

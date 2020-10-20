@@ -36,28 +36,22 @@ export class Image extends Service {
 
             // Use the biggest image it remembers
             let maxW = img.getAttribute("data-max-w");
-            if (Number(maxW) < Number(srcWid)) {
+            if (Number(maxW) < Number(srcWid))
                 img.setAttribute("data-max-w", "" + srcWid);
-            } else {
-                srcWid = Number(maxW);
-            }
+            else srcWid = Number(maxW);
 
             let src = srcset.replace(/w_auto/, `w_${srcWid}`);
-            if (srcWid > srcHei) src = src.replace(/ar_4:3/, `ar_3:4`);
-            if (!this.WebpSupport) {
-                src = src.replace(".webp", ".jpeg");
-            }
+            if (srcHei > srcWid) src = src.replace(/ar_4:3,/, ``); // src = src.replace(/ar_4:3/, `ar_3:4`);
+            if (!this.WebpSupport) src = src.replace(".webp", ".jpeg");
 
             // If nothing has changed don't bother
             if (src === img.src) return;
 
             // Ensure the image has loaded, then replace the small preview
             img.src = src;
-            if (!elem.classList.contains("img-show")) {
-                img.onload = () => {
-                    elem.classList.add("img-show"); // Hide the image preview
-                };
-            }
+            if (!elem.classList.contains("img-show"))
+                (img.onload = () => elem.classList.add("img-show")); // Hide the image preview
+
         }
     }
 
