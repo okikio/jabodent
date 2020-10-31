@@ -1,5 +1,5 @@
 tasks:
-  - command: nvm install v15 && nvm alias default v15 && nvm use default && npm install pnpm -g && pnpm i ultra-runner gulp -g && pnpm install && ultra watch
+  - command: nvm install v14 && nvm alias default v14 && nvm use default && npm install pnpm -g && pnpm i ultra-runner gulp -g && pnpm install && ultra watch
 ports:
   - port: 3000
     onOpen: ignore
