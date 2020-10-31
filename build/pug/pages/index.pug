@@ -14,7 +14,7 @@ block hero
         figclass: "theme-surface fixed-img-container min-h-300",
         loading: "lazy"
       })(width="100vw" height="100vh")
-    .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded
+    .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded.content-visibility
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
       section.self-center.text-center.px-5
         h1.font-extrabold.font-title.tracking-wider.layer.text-4xl(class="md:text-5xl lg:text-6xl") Jabodent Offshore Consultants
@@ -22,7 +22,7 @@ block hero
         button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10(class="hover:underline" type="button" role="button")
           .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
 
-  section.bg-black.text-white.w-full.scroll-point
+  section.bg-black.text-white.w-full.scroll-point.content-visibility
     .px-5.mx-auto.w-full.max-w-screen-md.py-24.intro-animation
       h3.text-2xl.mb-6.font-extrabold About Us
       p.leading-8 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
@@ -31,7 +31,7 @@ block hero
 
 
 block content
-  section.theme-surface.theme-text
+  section.theme-surface.theme-text.content-visibility
     .px-5.pt-24.mx-auto.w-full.max-w-screen-md
       h3.text-2xl.mb-6.font-extrabold.intro-animation Mission & Vision
       p.leading-8.intro-animation Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.

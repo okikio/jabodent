@@ -558,7 +558,7 @@ img {
 
 .content-visibility {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 3000px; /* this is the guess at the height of the content, and also saying width doesn't matter */
+    contain-intrinsic-size: 1px 800px; /* this is the guess at the height of the content, and also saying width doesn't matter */
 }
 
 .card {
@@ -1078,11 +1078,18 @@ img {
     height: 2.5rem;
 
     $parent: &;
-    color: white;
+
+    color: black;
+    &:hover {
+        color: white;
+    }
 
     @at-root {
-        html[data-theme="dark"] #{$parent}:hover {
-            color: black;
+        html[data-theme="dark"] #{$parent} {
+            color: white;
+            &:hover {
+                color: black;
+            }
         }
     }
 }
