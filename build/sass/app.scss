@@ -168,7 +168,6 @@ $delay: 0.8s;
         visibility: visible;
         pointer-events: auto;
 
-
         .splashscreen-inner {
             animation: splashanim 0.5s ease $delay forwards;
         }
@@ -338,7 +337,9 @@ $delay: 0.8s;
 
         @at-root {
             html[data-theme="dark"] .search-container {
-                background-color: rgb(46, 46, 46);
+                background-color: black;
+                border-color: #ffd626;
+                // border-color: #fff;
                 color: white;
             }
         }
@@ -348,6 +349,7 @@ $delay: 0.8s;
             // border-color: yellow;
         }
     }
+
     &-input {
         vertical-align: middle;
         // padding: 0 0.75em;
@@ -365,9 +367,16 @@ $delay: 0.8s;
         }
 
         &::placeholder {
+            $parent: &;
             font-weight: 500;
-            color: white;
+            color: rgb(46, 46, 46);
             // opacity: 0.6;
+
+            @at-root {
+                html[data-theme="dark"] #{$parent} {
+                    color: rgb(156, 156, 156);
+                }
+            }
         }
     }
     &-scrollable-area {
@@ -549,6 +558,7 @@ img {
 
 .content-visibility {
     content-visibility: auto;
+    contain-intrinsic-size: 1px 3000px; /* this is the guess at the height of the content, and also saying width doesn't matter */
 }
 
 .card {
@@ -556,8 +566,7 @@ img {
     // content-visibility: auto;
 
     .img {
-
-            transform: scale(1.45);
+        transform: scale(1.45);
     }
 
     &:hover {
@@ -1067,6 +1076,15 @@ img {
     width: 2.5rem;
     min-width: 2.5rem;
     height: 2.5rem;
+
+    $parent: &;
+    color: white;
+
+    @at-root {
+        html[data-theme="dark"] #{$parent}:hover {
+            color: black;
+        }
+    }
 }
 
 // .leading-doc {
@@ -1076,6 +1094,7 @@ img {
 
 .footer {
     content-visibility: auto;
+    contain-intrinsic-size: 100vw 600px; /* this is the guess at the height of the content, and also saying width doesn't matter */
 
     // &-line {
     //     border-top:

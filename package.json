@@ -41,7 +41,7 @@
         "autoprefixer": "^10.0.1",
         "browser-sync": "^2.26.13",
         "dotenv": "^8.2.0",
-        "esbuild": "^0.7.18",
+        "esbuild": "^0.7.22",
         "gulp": "^4.0.2",
         "gulp-babel": "^8.0.0",
         "gulp-better-rollup": "^4.0.1",
@@ -55,13 +55,13 @@
         "gulp-rename": "^2.0.0",
         "gulp-sass": "^4.1.0",
         "merge-stream": "^2.0.0",
-        "postcss": "^8.1.2",
+        "postcss": "^8.1.4",
         "postcss-csso": "^5.0.0",
         "posthtml": "^0.13.4",
         "posthtml-match-helper": "^1.0.1",
-        "rollup": "^2.32.0",
+        "rollup": "^2.32.1",
         "rollup-plugin-esbuild": "^2.5.2",
-        "tailwindcss": "^1.9.5"
+        "tailwindcss": "^1.9.6"
     },
     "peerDependencies": {
         "postcss": "^8.0.0"
@@ -71,6 +71,6 @@
         "@okikio/emitter": "^0.0.7",
         "@okikio/manager": "^0.0.7",
         "fast-stringify": "^2.0.0",
-        "fuse.js": "^6.4.2"
+        "fuse.js": "^6.4.3"
     }
 }

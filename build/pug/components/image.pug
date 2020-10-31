@@ -5,6 +5,7 @@ mixin image(value = {})
     let _loading = value.loading || "lazy";
     let _figClass = value.figclass !== "" ? (value.figclass || "min-h-300") : "";
     let blur = value.blur || false;
+    let grayscale = value.grayscale || false;
     let src = value.src || "cloudinary/city";
     let alt = value.alt || "Alternate text";
 
@@ -19,16 +20,16 @@ mixin image(value = {})
       //- div.plchldr-img(class=_class)
         .placeholder-img
           img(src!=`${urlParse("w_50,q_auto")}.jpeg` sizes="50px" width="50px"  alt=alt loading="lazy")
-
+      - let effects = (blur ? "/e_blur:1000" : "") + (grayscale ? "/e_grayscale" : "");
       .core-img-pic
-        img.img-core(data-src!=`${urlParse(`w_auto${blur ? "/e_blur:1000" : ""}`)}.webp`  class=_class alt=alt loading=_loading itemprop="url")&attributes(attributes)
+        img.img-core(data-src!=`${urlParse(`w_auto${effects}`)}.webp`  class=_class alt=alt loading=_loading itemprop="url")&attributes(attributes)
 
       noscript Javascript is necessary for this sites awesome experience.
         - var n = 4;
-        - let srcset = `${urlParse(`w_auto${blur ? "/e_blur:1000" : ""}`)}.webp 300w`;
+        - let srcset = `${urlParse(`w_auto${effects}`)}.webp 300w`;
 
         while n <= 21
-          - srcset += `, ${urlParse(`w_${n * 100}${blur ? "/e_blur:1000" : ""}`)}.webp ${n * 100}w`;
+          - srcset += `, ${urlParse(`w_${n * 100}${effects}`)}.webp ${n * 100}w`;
           - n ++
 
-        img.no-script-img(class=_class srcset=srcset src!=`${urlParse(`w_auto${blur ? "/e_blur:1000" : ""}`)}.jpeg` alt=alt loading=_loading itemprop="url")&attributes(attributes)
+        img.no-script-img(class=_class srcset=srcset src!=`${urlParse(`w_auto${effects}`)}.jpeg` alt=alt loading=_loading itemprop="url")&attributes(attributes)

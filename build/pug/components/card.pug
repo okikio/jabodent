@@ -5,7 +5,7 @@ mixin card(service = {}, even = false)
     let title = service.title;
     let description = service.description;
     let { image } = service;
-  //- 
+  //-
   +link({
     href: url,
     class: `${!even ? "md:pr-8" : ""}  intro-animation text-white md:max-w-1/2 hover:border border-solid border-red card col block cursor-pointer group pb-8`
@@ -13,7 +13,7 @@ mixin card(service = {}, even = false)
     section.rounded-lg.relative.overflow-hidden.h-72.bg-primary
       +image(image)
       section.lackluster
-        +image(Object.assign(image, { blur: true }))
+        +image(Object.assign(image, { blur: false, grayscale: true }))
       .p-5.left-half.w-full.text-shadow.gra
         h3.text-xl.mb-3.font-extrabold= title
         //- (class="group-hover:underline")
