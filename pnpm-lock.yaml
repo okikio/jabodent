@@ -9,7 +9,7 @@ devDependencies:
   '@babel/preset-env': 7.12.1_@babel+core@7.12.3
   '@rollup/plugin-babel': 5.2.1_@babel+core@7.12.3+rollup@2.32.1
   '@rollup/plugin-buble': 0.21.3_rollup@2.32.1
-  '@rollup/plugin-node-resolve': 9.0.0_rollup@2.32.1
+  '@rollup/plugin-node-resolve': 10.0.0_rollup@2.32.1
   autoprefixer: 10.0.1_postcss@8.1.4
   browser-sync: 2.26.13
   dotenv: 8.2.0
@@ -1012,7 +1012,7 @@ packages:
       rollup: ^1.20.0||^2.0.0
     resolution:
       integrity: sha512-Iv8cCuFPnMdqV4pcyU+OrfjOfagPArRQ1PyQjx5KgHk3dARedI+8PNTLSMpJts0lQJr8yF2pAU4GxpxCBJ9HYw==
-  /@rollup/plugin-node-resolve/9.0.0_rollup@2.32.1:
+  /@rollup/plugin-node-resolve/10.0.0_rollup@2.32.1:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.32.1
       '@types/resolve': 1.17.1
@@ -1027,7 +1027,7 @@ packages:
     peerDependencies:
       rollup: ^1.20.0||^2.0.0
     resolution:
-      integrity: sha512-gPz+utFHLRrd41WMP13Jq5mqqzHL3OXrfj3/MkSyB6UBIcuNt9j60GCbarzMzdf1VHFpOxfQh/ez7wyadLMqkg==
+      integrity: sha512-sNijGta8fqzwA1VwUEtTvWCx2E7qC70NMsDh4ZG13byAXYigBNZMxALhKUSycBks5gupJdq0lFrKumFrRZ8H3A==
   /@rollup/pluginutils/3.1.0_rollup@2.32.1:
     dependencies:
       '@types/estree': 0.0.39
@@ -6997,7 +6997,7 @@ specifiers:
   '@okikio/manager': ^0.0.7
   '@rollup/plugin-babel': ^5.2.1
   '@rollup/plugin-buble': ^0.21.3
-  '@rollup/plugin-node-resolve': ^9.0.0
+  '@rollup/plugin-node-resolve': ^10.0.0
   autoprefixer: ^10.0.1
   browser-sync: ^2.26.13
   dotenv: ^8.2.0
