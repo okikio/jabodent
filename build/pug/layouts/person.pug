@@ -16,7 +16,7 @@ block hero
     let { person } = self;
     let { name, description, story, role } = person;
     let image = Object.assign({ src: "cloudinary/city", alt: "An image of ... by ... on unsplash." }, person.image);
-  .font-thin.py-24.max-w-screen-xl.mx-auto.relative.w-full.theme-text.content-visibility
+  .font-thin.py-24.max-w-screen-xl.mx-auto.relative.w-full.theme-text
     .modal.px-5.flex.w-full.flex-col(class="md:flex-row md:px-12")
       div.w-full.h-full.justify-center(class="md:max-w-2/6 lt-md:mb-5 md:pr-5")
         +image(image)(width="100%" height="300px")
