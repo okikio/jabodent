@@ -61,6 +61,7 @@
         "posthtml-match-helper": "^1.0.1",
         "rollup": "^2.32.1",
         "rollup-plugin-esbuild": "^2.5.2",
+        "sass": "^1.28.0",
         "tailwindcss": "^1.9.6"
     },
     "peerDependencies": {
