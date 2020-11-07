@@ -30,7 +30,7 @@ block content
             span  \
           .text-lg.w-full.leading-snug.tracking-wider.layer.break-words
             h1(class="sm:text-5xl md:text-6xl").text-4xl.font-title.font-medium= title
-          p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-12= description
+          p.tracking-wide.leading-8.text-xl.text-gray-400.pt-8.pb-12= description
 
         .relative.w-full
           .h-84
@@ -114,16 +114,20 @@ block content
       class: "block text-white"
     })
       .py-8.w-full.relative(class="bg-white bg-opacity-15 hover:bg-gray-600 hover:bg-opacity-15")
-        .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-md.relative
-          p.text-gray-600.mb-5 Next
-          section.flex
-            .w-full.max-w-screen-md
-              .text-lg.w-full.leading-snug.tracking-wider.layer
-                h1.text-3xl.font-title.font-medium= next.title
-              p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-2= next.description
-            //- .self-center.hidden(class="md:block")
-              section.ml-8.opacity-45.icon.text-5xl(class="md:ml-16 group-hover:opacity-100 group-hover:text-secondary")
-                +icon("thin_arrow")
+        .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-lg.relative.flex.flex-row.justify-center
+          div
+            p.text-gray-600.mb-5 Next
+            section.flex
+              .w-full.max-w-screen-md
+                .text-lg.w-full.leading-snug.tracking-wider.layer
+                  h1.text-4xl.font-title.font-medium= next.title
+                p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-2(class="md:text-xl")= next.description
+              //- .self-center.hidden(class="md:block")
+                section.ml-8.opacity-45.icon.text-5xl(class="md:ml-16 group-hover:opacity-100 group-hover:text-secondary")
+                  +icon("thin_arrow")
+          .flex-grow
+          .cursor-pointer.rounded-lg.w-84.min-h-0.h-64.bg-blue-400.overflow-hidden.person.hidden.mr-8(class="md:block")
+            +image(Object.assign(next.image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
 
 block footer
   +footer
