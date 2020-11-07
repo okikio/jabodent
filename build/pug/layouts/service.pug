@@ -29,7 +29,7 @@ block content
             })
             span  \
           .text-lg.w-full.leading-snug.tracking-wider.layer.break-words
-            h1(class="sm:text-4xl md:text-5xl").text-3xl.font-title.font-medium= title
+            h1(class="sm:text-5xl md:text-6xl").text-4xl.font-title.font-medium= title
           p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-12= description
 
         .relative.w-full
@@ -43,8 +43,8 @@ block content
           section.pb-10.text-base.leading-8.font-normal
             p.clearfix
               if article[0] !== "_"
-                span.float-left.letter-head.text-6xl.font-title.font-extrabold= article[0]
-              span!= article.substring(1).replace(/\n/g, "<br>")
+                span.float-left.letter-head.text-7xl.font-title.font-extrabold= article[0]
+              span.text-lg.font-article.font-thin(class="md:text-xl")!= article.substring(1).replace(/\n/g, "<br>")
 
       //- .mx-auto.w-full.max-w-screen-md.px-5
         hr.border-white.border-opacity-25.mb-14
@@ -126,3 +126,4 @@ block content
                 +icon("thin_arrow")
 
 block footer
+  +footer

@@ -450,6 +450,11 @@ html.no-scroll {
         font-family: "Playfair Display", serif;
         // font-weight: 900;
     }
+
+    &-article {
+        font-family: "Roboto Slab", serif;
+        // font-weight: 900;
+    }
 }
 
 /* -- Icons & Font -- */ // direction: ltr;
@@ -1063,9 +1068,11 @@ img {
 }
 
 .letter-head {
-    padding-top: 0;
     margin: 0;
-    margin-right: 8px;
+    margin-top: -6px;
+    padding-bottom: 0;
+    margin-right: 4px;
+    line-height: 80%;
 
     line-height: 1;
     // letter-spacing: -0.003em;
