@@ -8,6 +8,8 @@
   Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com https://d33wubrfki0l68.cloudfront.net; style-src 'self' 'unsafe-inline' https://d33wubrfki0l68.cloudfront.net; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app https://d33wubrfki0l68.cloudfront.net; script-src 'self' https://res.cloudinary.com https://polyfill.io 'unsafe-inline' https://d33wubrfki0l68.cloudfront.net; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
   Feature-Policy: microphone 'none'; geolocation 'none'; usb 'none'; sync-xhr 'self'; camera 'none';
   Link: </favicon.svg> rel=preload as=image
+  Link: </js/modern.min.js> rel=preload as=script
+  Link: </fonts/manrope-700-latin.woff2> rel=preload as=font type=font/woff2
 
 /css/*.css
   Content-Type: text/css; charset=utf-8
@@ -18,7 +20,7 @@
 /*.json
   Cache-Control: public, max-age=31536000
   Content-Type: application/manifest+json; charset=utf-8
-  
+
 /fonts/*.woff2
   Cache-Control: public, max-age=31536000
   Content-Type: font/woff2; charset=utf-8
