@@ -1,5 +1,5 @@
 //-  https://www.figma.com/file/9zAFh0EIPL0Dm5riZ9nVwi/Jabodent?node-id=41%3A56
-mixin navbar()
+mixin navbar(page)
   nav.navbar.px-2.bg-transparent.fixed.w-full.z-20.focus(class="sm:px-5" role="navigation")
     .navbar-overlay.w-full
     .navbar-height.navbar-mini.theme-bg.w-full
@@ -14,27 +14,34 @@ mixin navbar()
           span Jabodent
 
       section(class="md:flex-row lt-md:h-screen md:relative md:leading-inherit md:text-base lt-md:w-full").navbar-list.flex.flex-col.whitespace-no-wrap.justify-center.absolute.leading-loose.text-4xl
-        +link({
-          href: "/about",
-          class: "navbar-link navbar-item font-thin",
-          content: "About Us"
-        })(data-path="/about(.html)?")
-
-        +link({
-          href: "/services",
-          class: "navbar-link navbar-item font-thin",
-          content: "Our Services"
-        })(data-path="/service(.html|s\/)?")
-
-        +link({
-          href: "/contact",
-          class: "navbar-link navbar-item font-thin",
-          content: "Contact Us"
-        })(data-path="/contact(.html)?")
+        -
+          let links = [
+            {
+              href: "/about",
+              content: "About Us",
+              data_path: "/about(.html)?"
+            },
+            {
+              href: "/services",
+              content: "Our Services",
+              data_path: "/service(.html|s\/)?"
+            },
+            {
+              href: "/contact",
+              content: "Contact Us",
+              data_path: "/contact(.html)?"
+            }
+          ];
+        each val, i in links
+          +link({
+            href: val.href,
+            class: val.class || `navbar-link navbar-item font-thin ${new RegExp(val.data_path, "i").test(page.url) ? "active" : ""}`,
+            content: val.content
+          })(data-path=val.data_path)
 
         +link({
           href: "/404",
-          class: "block navbar-link navbar-item font-thin md:hidden",
+          class: `block navbar-link navbar-item font-thin md:hidden`,
           content: "Our Blog"
         })
 
@@ -42,7 +49,7 @@ mixin navbar()
         .flex-grow
         +link({
           href: "/404",
-          class: "hidden navbar-link navbar-item font-thin md:block",
+          class: `hidden navbar-link navbar-item font-thin md:block`,
           content: "Our Blog"
         })
 
