@@ -7,7 +7,7 @@ block pageInfo
       }).join(' ');
     let page = {
       url: self.service.url.replace(".html", ""),
-      title: `${titleCase(self.service.title)} — Jabodent`,
+      title: `${titleCase(self.service.title).replace(/sms/gi, "SMS")} — Jabodent`,
       description: self.service.description
     };
 
@@ -30,7 +30,7 @@ block content
             span  \
           .text-lg.w-full.leading-snug.tracking-wider.layer.break-words
             h1(class="sm:text-5xl md:text-6xl").text-4xl.font-title.font-medium= title
-          p.tracking-wide.leading-8.text-xl.text-gray-400.pt-8.pb-12= description
+          p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-12(class="sm:text-xl")= description
 
         .relative.w-full
           .h-84
@@ -111,23 +111,37 @@ block content
 
     +link({
       href: next.url,
-      class: "block text-white"
+      class: "block text-white group"
     })
-      .py-8.w-full.relative(class="bg-white bg-opacity-15 hover:bg-gray-600 hover:bg-opacity-15")
+      .py-8.w-full.relative.transition(class="duration-300 ease-ease bg-white bg-opacity-15 hover:bg-gray-400 hover:bg-opacity-15")
         .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-lg.relative.flex.flex-row.justify-center
-          div
+          section.self-center.w-full.max-w-screen-md
             p.text-gray-600.mb-5 Next
             section.flex
-              .w-full.max-w-screen-md
+              div.block.relative.z-10
                 .text-lg.w-full.leading-snug.tracking-wider.layer
-                  h1.text-4xl.font-title.font-medium= next.title
+                  h1.text-4xl.font-title.font-medium(class="group-hover:underline")= next.title
                 p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-2(class="md:text-xl")= next.description
+          .flex-grow
+          div.ml-8.self-center
+            .mr-16.underlay-right.cursor-pointer.w-84.min-h-0.h-68.bg-blue-400.overflow-hidden.hidden.max-w-84.opacity-0.transition(class="duration-300 ease-ease group-hover:opacity-100 lg:block")
+              +image(Object.assign(next.image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
+          div.self-center.hidden(class="md:block")
+            section.ml-10.mr-8.opacity-45.self-center.icon.text-5xl.underlay-right(class="md:ml-12 group-hover:opacity-100 group-hover:text-secondary")
+              +icon("thin_arrow")
+          //- div
+          //-   p.text-gray-600.mb-5 Next
+          //-   section.flex
+          //-     .w-full.max-w-screen-md
+          //-       .text-lg.w-full.leading-snug.tracking-wider.layer
+          //-         h1.text-4xl.font-title.font-medium= next.title
+          //-       p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-2(class="md:text-xl")= next.description
               //- .self-center.hidden(class="md:block")
                 section.ml-8.opacity-45.icon.text-5xl(class="md:ml-16 group-hover:opacity-100 group-hover:text-secondary")
                   +icon("thin_arrow")
-          .flex-grow
-          .cursor-pointer.rounded-lg.w-84.min-h-0.h-64.bg-blue-400.overflow-hidden.person.hidden.mr-8(class="md:block")
-            +image(Object.assign(next.image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
+          //- .flex-grow
+          //- .self-center.cursor-pointer.rounded-lg.w-84.min-h-0.h-64.bg-blue-400.overflow-hidden.person.hidden.ml-8(class="md:block")
+          //-   +image(Object.assign(next.image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
 
 block footer
   +footer

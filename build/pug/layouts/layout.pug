@@ -167,10 +167,6 @@ html(lang="en" data-theme="dark")
     meta(name="copyright" content="Jabodent")
     meta(name="contact" content="info@jabodent.com")
 
-    title
-      block title
-        | Jabodent
-
     //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" as="font" crossorigin)
     //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7gYHE41ni1AdIRggexSg.woff2" as="font" crossorigin)
     //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk4aE9_C-bk.woff2" as="font" crossorigin)
@@ -199,13 +195,50 @@ html(lang="en" data-theme="dark")
     noscript
       style.
         .splashscreen-overlay,
-        .splashscreen {
+        .splashscreen,
+        .placeholder-img,
+        .search-overlay,
+        .search-banner,.hide-no-script {
           display: none;
         }
 
-          .placeholder-img {
-            display: none;
+        [data-wrapper] {
+          transition: none;
+        }
+
+        .navbar, .navbar * {
+          transition: none;
+        }
+
+        @media (prefers-color-scheme: light) {
+          html,
+          html:not([data-theme="dark"]),
+          html[data-theme="dark"] {
+              --bg: #fff;
+              --bg-invert: black;
+
+              --surface: #d5d2e4;
+              --surface-invert: #232325;
+
+              --text: #000000;
+              --text-invert:  #ffffff;
           }
+        }
+
+        @media (prefers-color-scheme: dark) {
+          html,
+          html:not([data-theme="dark"]),
+          html[data-theme="dark"] {
+              --bg: black;
+              --bg-invert: white;
+
+              --surface: #232325;
+              --surface-invert: #d5d2e4;
+
+              --text:  #ffffff;
+              --text-invert: #000000;
+          }
+        }
 
 
     //- link(rel="modulepreload", href="/js/FuzzySearch.min.js")
@@ -252,7 +285,7 @@ html(lang="en" data-theme="dark")
         button.search-close(type="button", aria-label="Close" role="button", title="Close" class="z-10 mt-5 bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-14 h-14 mx-auto text-lg hover:border-black focus:outline-none")
           i.text-xl.icon.self-center
             +icon("close")
-    +navbar
+    +navbar(page)
 
     div(data-wrapper)
       block hero

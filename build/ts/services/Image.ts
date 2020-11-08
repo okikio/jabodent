@@ -75,13 +75,14 @@ export class Image extends Service {
             { passive: true }
         );
 
-        this.EventEmitter.on("CONTENT_REPLACED", () => {
+        this.EventEmitter.on("BEFORE_TRANSITION_OUT", () => {
             this.remove_images();
+        });
+
+        this.EventEmitter.on("CONTENT_INSERT", () => {
             this.get_images();
 
-            requestAnimationFrame(() => {
-                this.load_img();
-            });
+            this.load_img();
         });
     }
 

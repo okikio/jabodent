@@ -28,40 +28,40 @@ export interface ITransitionData {
  * @class Transition
  */
 export class Transition extends Service {
-	/**
-	 * Transition name
-	 *
-	 * @protected
-	 * @type string
-	 * @memberof Transition
-	 */
+    /**
+     * Transition name
+     *
+     * @protected
+     * @type string
+     * @memberof Transition
+     */
     protected name: string = "Transition";
 
-	/**
-	 * The page to transition from
-	 *
-	 * @protected
-	 * @type Page
-	 * @memberof Transition
-	 */
+    /**
+     * The page to transition from
+     *
+     * @protected
+     * @type Page
+     * @memberof Transition
+     */
     protected oldPage: Page;
 
-	/**
-	 * Page to transition to
-	 *
-	 * @protected
-	 * @type Page
-	 * @memberof Transition
-	 */
+    /**
+     * Page to transition to
+     *
+     * @protected
+     * @type Page
+     * @memberof Transition
+     */
     protected newPage: Page;
 
-	/**
-	 * What triggered the transition to occur
-	 *
-	 * @protected
-	 * @type Trigger
-	 * @memberof Transition
-	 */
+    /**
+     * What triggered the transition to occur
+     *
+     * @protected
+     * @type Trigger
+     * @memberof Transition
+     */
     protected trigger: Trigger;
 
     /**
@@ -71,17 +71,17 @@ export class Transition extends Service {
      */
     constructor() { super(); }
 
-	/**
-	 * Initialize the transition
-	 *
-	 * @param {ITransition} {
-	 * 		oldPage,
-	 * 		newPage,
-	 * 		trigger
-	 * 	}
+    /**
+     * Initialize the transition
+     *
+     * @param {ITransition} {
+     * 		oldPage,
+     * 		newPage,
+     * 		trigger
+     * 	}
      * @returns void
-	 * @memberof Transition
-	 */
+     * @memberof Transition
+     */
     public init({
         oldPage,
         newPage,
@@ -93,63 +93,63 @@ export class Transition extends Service {
         this.trigger = trigger;
     }
 
-	/**
-	 * Returns the Transition's name
-	 *
-	 * @returns string
-	 * @memberof Transition
-	 */
+    /**
+     * Returns the Transition's name
+     *
+     * @returns string
+     * @memberof Transition
+     */
     public getName(): string {
         return this.name;
     }
 
-	/**
-	 * Returns the Transition's old page
-	 *
-	 * @returns Page
-	 * @memberof Transition
-	 */
+    /**
+     * Returns the Transition's old page
+     *
+     * @returns Page
+     * @memberof Transition
+     */
     public getOldPage(): Page {
         return this.oldPage;
     }
 
-	/**
-	 * Returns the Transition's new page
-	 *
-	 * @returns Page
-	 * @memberof Transition
-	 */
+    /**
+     * Returns the Transition's new page
+     *
+     * @returns Page
+     * @memberof Transition
+     */
     public getNewPage(): Page {
         return this.newPage;
     }
 
-	/**
-	 * Returns the Transition's trigger
-	 *
-	 * @returns Trigger
-	 * @memberof Transition
-	 */
+    /**
+     * Returns the Transition's trigger
+     *
+     * @returns Trigger
+     * @memberof Transition
+     */
     public getTrigger(): Trigger {
         return this.trigger;
     }
 
     // Based off the highwayjs Transition class
-	/**
-	 * Transition from current page
-	 *
-	 * @param {ITransitionData} { from, trigger, done }
-	 * @memberof Transition
-	 */
+    /**
+     * Transition from current page
+     *
+     * @param {ITransitionData} { from, trigger, done }
+     * @memberof Transition
+     */
     public out({ done }: ITransitionData): any {
         done();
     }
 
-	/**
-	 * Transition into the next page
-	 *
-	 * @param {ITransitionData} { from, to, trigger, done }
-	 * @memberof Transition
-	 */
+    /**
+     * Transition into the next page
+     *
+     * @param {ITransitionData} { from, to, trigger, done }
+     * @memberof Transition
+     */
     public in({ done }: ITransitionData): any {
         done();
     }
@@ -181,9 +181,13 @@ export class Transition extends Service {
         });
 
         EventEmitter.emit("AFTER_TRANSITION_OUT");
-
         await new Promise(done => {
             fromWrapper.insertAdjacentElement('beforebegin', toWrapper);
+            EventEmitter.emit("CONTENT_INSERT");
+            done();
+        });
+
+        await new Promise(done => {
             fromWrapper.remove();
             fromWrapper = undefined;
             EventEmitter.emit("CONTENT_REPLACED");
@@ -217,21 +221,21 @@ export class Transition extends Service {
  * @extends {AdvancedManager<string, Transition>}
  */
 export class TransitionManager extends AdvancedManager<string, Transition> {
-	/**
-	 * Creates an instance of the TransitionManager
-	 *
+    /**
+     * Creates an instance of the TransitionManager
+     *
      * @param {App} app
-	 * @memberof TransitionManager
-	 */
+     * @memberof TransitionManager
+     */
     constructor(app: App) { super(app); }
 
-	/**
-	 * Quick way to add a Transition to the TransitionManager
-	 *
-	 * @param {Transition} value
-	 * @returns TransitionManager
-	 * @memberof TransitionManager
-	 */
+    /**
+     * Quick way to add a Transition to the TransitionManager
+     *
+     * @param {Transition} value
+     * @returns TransitionManager
+     * @memberof TransitionManager
+     */
     public add(value: Transition): TransitionManager {
         let name = value.getName();
         this.set(name, value);
