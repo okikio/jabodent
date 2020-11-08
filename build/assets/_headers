@@ -9,7 +9,6 @@
   Feature-Policy: microphone 'none'; geolocation 'none'; usb 'none'; sync-xhr 'self'; camera 'none';
   Link: </favicon.svg> rel=preload as=image
   Link: </js/modern.min.js> rel=preload as=script
-  Link: </fonts/manrope-700-latin.woff2> rel=preload as=font type=font/woff2
 
 /css/*.css
   Content-Type: text/css; charset=utf-8
