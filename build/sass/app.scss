@@ -63,6 +63,11 @@ html[data-theme="dark"] {
     }
 }
 
+.hover\:border-theme-invert:hover,
+.focus\:border-theme-invert:focus {
+    border-color: var(--bg-invert);
+}
+
 .gradient:before {
     background-color: var(--surface);
     position: absolute;
