@@ -20,6 +20,7 @@ const pug = require("gulp-pug");
 
 const querySelector = require("posthtml-match-helper");
 const minifyJSON = require("gulp-minify-inline-json");
+const inline = require("posthtml-inline-assets");
 const posthtml = require("gulp-posthtml");
 const stringify = require("fast-stringify");
 const path = require("path");
@@ -442,10 +443,88 @@ task("indexer", () => {
     });
 });
 
+// Inline assets
+task("inline", () => {
+    return stream(`${htmlFolder}/**/*.html`, {
+        pipes: [
+            posthtml([
+                inline({
+                    transforms: {
+                        script: {
+                            resolve(node) {
+                                return node.tag === 'script' && node.attrs && ("inline" in node.attrs) &&
+                                    typeof node.attrs.src == "string" && node.attrs.src.length > 1 &&
+                                    (node.attrs.src[0] == "/" ? (node.attrs.src + "").slice(1) : node.attrs.src);
+                            },
+                            transform(node, data) {
+                                delete node.attrs.src;
+                                delete node.attrs["inline"];
+                                if ("async" in node.attrs)
+                                    delete node.attrs.async;
+
+                                node.content = [
+                                    data.buffer.toString('utf8')
+                                ];
+                                return node;
+                            }
+                        },
+                        style: {
+                            resolve(node) {
+                                return node.tag === 'link' && node.attrs && node.attrs.rel === "stylesheet" && ("inline" in node.attrs) &&
+                                    typeof node.attrs.href === "string" && node.attrs.href.length > 1 &&
+                                    (node.attrs.href[0] == "/" ? (node.attrs.href + "").slice(1) : node.attrs.href);
+                            },
+                            transform(node, data) {
+                                delete node.attrs.href;
+                                delete node.attrs.rel;
+                                delete node.attrs["inline"];
+                                if ("async" in node.attrs)
+                                    delete node.attrs.async;
+
+                                node.tag = 'style';
+                                node.content = [
+                                    data.buffer.toString('utf8')
+                                ];
+                                return node;
+                            }
+                        },
+                        favicon: false,
+                        image: false
+                    }
+                }),
+
+                (tree) => {
+                    let data = "";
+
+                    tree.match(querySelector("style.style-concat"), (node) => {
+                        data += node.content.toString();
+                        // delete node;
+                    });
+
+                    tree.match(querySelector("article#concat-style"), (node) => {
+                        node.content = [
+                            {
+                                tag: 'style',
+                                content: data
+                            }
+                        ];
+                        // console.log(node.content);
+                        return node;
+                    });
+                },
+            ])
+        ],
+        dest: htmlFolder
+    });
+});
+
 // Build & Watch Tasks
 task("build", parallel(
     series("html", "indexer"),
-    "css", "js", "assets"));
+    series(
+        parallel("css", "js", "assets"),
+        "inline")
+));
 task("watch", () => {
     browserSync.init(
         {

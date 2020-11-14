@@ -34,7 +34,8 @@ html(lang="en" data-theme="dark")
     //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     link(rel="preload" href="https://d33wubrfki0l68.cloudfront.net/96e4fb993aa0303618b8862decec04876f51d0c2/b06d6/fonts/manrope-700-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     //- link(rel="preload" href="/fonts/manrope-700-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
-    link(rel="stylesheet", href="/css/fonts.min.css", async inline)
+    link.style-concat(rel="stylesheet", href="/css/fonts.min.css", async inline)
+    article#concat-style
 
     link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
     link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
@@ -192,8 +193,8 @@ html(lang="en" data-theme="dark")
     meta(name="msapplication-config", content="/favicon/browserconfig.xml")
     meta(name="theme-color", content="#fff")
 
-    link(rel="stylesheet", href="/css/tailwind.css", inline async)
-    link(rel="stylesheet", href="/css/app.min.css", inline async)
+    link.style-concat(rel="stylesheet", href="/css/tailwind.css", inline async)
+    link.style-concat(rel="stylesheet", href="/css/app.min.css", inline async)
     noscript
       style.
         .splashscreen-overlay,
@@ -284,20 +285,52 @@ html(lang="en" data-theme="dark")
               //- figure(itemprop="image")
                 img(src="/search-illustration.svg" width="100%" height="300px" alt="An image of a lady looking at a plant. From unDraw." loading="auto" itemprop="url")
           .no-results.hide.px-5.text-center.text-lg No results...
-        button.search-close(type="button", aria-label="Close" role="button", title="Close" class="z-10 mt-5 bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-14 h-14 mx-auto text-lg hover:border-white focus:border-white focus:outline-none")
+        button.search-close(type="button", aria-label="Close" role="button", title="Close" class="z-10 mt-5 bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-14 h-14 mx-auto text-lg hover:bg-darker-highlight focus:bg-darker-highlight focus:outline-none")
           i.text-xl.icon.self-center
             +icon("close")
     +navbar(page)
 
     div(data-wrapper)
+      //- section
+
+      //-   h1.sticky-div Introduction To Sticky Elements In CSS
+      //-   div.relative.h-screen.bg-primary.fixed-img-container.block
+      //-   .sticky.inline-block.top-0.left-0.w-full.h-full
+      //-     +image({
+      //-       src: "cloudinary/stoney-wave",
+      //-       alt: "An image of waves hitting the stoney edge of a beach by @johnonolan on unsplash.",
+      //-       class: "fixed-img ",
+      //-       figclass: "theme-surface fixed-img-container min-h-300",
+      //-       loading: "lazy"
+      //-     })(width="100vw" height="100vh")
+      //-   div.relative.h-screen.bg-primary.fixed-img-container.block
+      //- div
+      //-   h1.sticky-div Introduction To Sticky Elements In CSS
+      //-   p#description
+      //-     br
+      //-     br
+      //-     | &ldquo;Your Text&rdquo;
+      //-     br
+      //-     br
+      //-   h1.sticky-div
+      //-     | What is Sticky position?
+      //-   p#description
+      //-     br
+      //-     br
+      //-     p#description
+      //-       | &ldquo;Your Text&rdquo;
+      //-     br
+      //-     br
+      //-     p#description
+      //-       | &ldquo;Your Text&rdquo;
+
       block hero
-      section
-        block social
-        main#main.scroll-point
-          block content
-          block footer
-            +back-to-top
-            +footer
+      block social
+      main#main.scroll-point
+        block content
+        block footer
+          +back-to-top
+          +footer
 
     script(src="/js/legacy.min.js", nomodule)
     script(src="/js/modern.min.js", type="module" defer)

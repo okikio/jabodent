@@ -63,9 +63,10 @@ html[data-theme="dark"] {
     }
 }
 
-.hover\:border-theme-invert:hover,
-.focus\:border-theme-invert:focus {
-    border-color: var(--bg-invert);
+.hover\:bg-darker-highlight:hover,
+.focus\:bg-darker-highlight:focus {
+    background: #7c6915;
+    color: white;
 }
 
 .gradient:before {
@@ -563,6 +564,7 @@ img {
 
 .core-img-pic {
     transition: opacity 0.35s ease-out;
+    will-change: opacity;
     opacity: 0;
 }
 
@@ -986,6 +988,7 @@ img {
 
     &::before {
         margin: 0 auto;
+        margin-top: 25px;
         height: 50px;
         content: "";
         width: 1px;
