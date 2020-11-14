@@ -501,13 +501,9 @@ task("inline", () => {
                         // delete node;
                     });
 
-                    tree.match(querySelector("article#concat-style"), (node) => {
-                        node.content = [
-                            {
-                                tag: 'style',
-                                content: data
-                            }
-                        ];
+                    tree.match(querySelector("meta#concat-style"), (node) => {
+                        node.tag = "style";
+                        node.content = data;
                         // console.log(node.content);
                         return node;
                     });

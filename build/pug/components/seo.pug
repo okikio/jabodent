@@ -1,5 +1,5 @@
-mixin seo(arg = {})
-  - let { title, url, description, websiteURL, keywords } = arg;
+mixin seo(page)
+  - let { title, url, description, websiteURL, keywords } = page;
   meta(name="og:locale" content="en_Us")
   meta(property="og:type" content="website")
   meta(name="keywords", content=keywords)
@@ -19,6 +19,7 @@ mixin seo(arg = {})
   meta(property='og:url' content=`${websiteURL}${url}`)
   meta(name='twitter:url' content=`${websiteURL}${url}`)
 
-  meta(name='description' itemprop='description' content=description)
+  meta(name='description' content=description)
   meta(property='og:description' content=description)
   meta(property='twitter:description' content=description)
+  meta(itemprop='description' content=description)

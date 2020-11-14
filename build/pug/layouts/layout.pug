@@ -35,7 +35,7 @@ html(lang="en" data-theme="dark")
     link(rel="preload" href="https://d33wubrfki0l68.cloudfront.net/96e4fb993aa0303618b8862decec04876f51d0c2/b06d6/fonts/manrope-700-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     //- link(rel="preload" href="/fonts/manrope-700-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     link.style-concat(rel="stylesheet", href="/css/fonts.min.css", async inline)
-    article#concat-style
+    meta#concat-style
 
     link(rel="preconnect" href='https://res.cloudinary.com' crossorigin)
     link(rel="dns-prefetch" href='https://res.cloudinary.com' crossorigin)
@@ -63,8 +63,13 @@ html(lang="en" data-theme="dark")
         keywords: `${defaults.keywords}${"keywords" in page ? (", " + page.keywords) : ""}`
       });
 
+
     block seo
       +seo(page)
+
+    meta(name='description' content="Mary's simple recipe for maple bacon donuts\
+    makes a sticky, sweet treat with just a hint\
+    of salt that you'll keep coming back for.")
 
     script(type="application/ld+json").
       {
