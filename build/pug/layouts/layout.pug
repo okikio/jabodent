@@ -249,14 +249,14 @@ html(lang="en" data-theme="dark")
     script(src="/js/theme.min.js", inline async)
 
   body
-    .splashscreen-overlay
-    .splashscreen
+    .splashscreen-overlay.active
+    .splashscreen.active
       .splashscreen-inner.theme-text
         .flex.flex-row(class="md:text-5xl").text-4xl.font-extrabold
           +icon("jabodent")(class="splashscreen-icon self-center mr-4")
           div Jabodent
       .splashscreen-bg
-    script(src="/js/splashscreen.min.js", inline async)
+    //- script(src="/js/splashscreen.min.js", inline async)
 
     //- svg(xmlns="http://www.w3.org/2000/svg", width="45", height="45", fill="none")
       path(fill="#000", d="M0 0h45v45H0z")
