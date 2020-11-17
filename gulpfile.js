@@ -208,7 +208,7 @@ tasks({
                 purge({
                     content: [`${pugFolder}/**/*.pug`],
                     //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-                    //   safelist: ["active", "show", "focus", "hide"],
+                      safelist: [/min-h-400/, /min-h-500/],// ["active", "show", "focus", "hide"],
                     keyframes: false,
                     fontFace: false,
                     defaultExtractor: (content) => {
