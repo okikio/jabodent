@@ -13,7 +13,7 @@ block hero
     .text-black.mx-auto.max-w-3xl.px-5.mt-5.w-full
       h1.h1.text-3xl.font-extrabold.mb-4.text-center.layer About Us
       h2.text-2xl.font-thin.leading-10 We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
-  section.theme-bg.theme-text
+  section.theme-bg.theme-text.text-lg
     .px-5.mx-auto.w-full.max-w-screen-md.py-24
       h3.text-2xl.mb-6.font-extrabold.intro-animation Our Story
       p.leading-8.intro-animation Established in 2017 out of the necessity for the marine, oil and gas offshore industry to be provided with professional marine surveys services for ship owners, dry stocks owners, insurance company and organizations seeking expert advice to safe guard and operate their marine and offshore investments as safe as practicable.
@@ -78,7 +78,7 @@ block content
           class: "group w-full py-14 flex flex-row justify-center"
         })
           .cursor-pointer.rounded-lg.w-84.min-h-0.h-64.bg-blue-400.overflow-hidden.person.hidden.mr-8(class="md:block")
-            +image(Object.assign(image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
+            +image(Object.assign(image, { figclass: "shadow-2xl" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
           section.self-center
             h3(class="md:mt-0 group-hover:underline").text-2xl.font-semibold.mb-4 #{name} — #{role}
             p.font-default.leading-8 #{description}...
