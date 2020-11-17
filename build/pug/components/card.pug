@@ -6,15 +6,16 @@ mixin card(service = {}, even = false)
     let description = service.description;
     let { image } = service;
   //-
-  +link({
-    href: url,
-    class: `${!even ? "md:pr-8" : ""}  intro-animation text-white md:max-w-1/2 hover:border border-solid border-red card col block cursor-pointer group pb-8`
-  })
-    section.rounded-lg.relative.overflow-hidden.h-72.bg-primary
-      +image(image)
-      section.lackluster
-        +image(Object.assign(image, { blur: false, grayscale: true }))
-      .p-5.left-half.w-full.text-shadow.gra
-        h3.text-xl.mb-3.font-extrabold= title
-        //- (class="group-hover:underline")
-        p.line-clamp= description
+  div(class=`${!even ? "md:pr-8" : ""} intro-animation md:max-w-1/2 card col pb-8`)
+    +link({
+      href: url,
+      class: `text-white hover:border border-solid border-red  block cursor-pointer group`
+    })
+      section.rounded-lg.relative.overflow-hidden.h-72.bg-primary
+        +image(image)
+        section.lackluster
+          +image(Object.assign(image, { blur: false, grayscale: true }))
+        .p-5.left-half.w-full.text-shadow.gra
+          h3.text-xl.mb-3.font-extrabold= title
+          //- (class="group-hover:underline")
+          p.line-clamp= description

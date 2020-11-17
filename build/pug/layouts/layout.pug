@@ -277,19 +277,20 @@ html(lang="en" data-theme="dark")
             i.icon.w-full.justify-center.text-2xl.self-center
               +icon("clear")
         .search-scrollable-area.mt-5
-          .search-results.space-y-5
-            button.hidden(class="search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35" type="button", hidden)
-              h5(class="font-title text-xl search-result-title pb-2 mb-4") Title
-              p Description
-              p.mt-5.italic.text-3 Keywords: Block
-          .new-search.show.flex.justify-center.pt-5
-            .self-center.text-center
-              .py-5
-                p.text-lg.font-bold Waiting for input
-                p.text-base Don't be shy start typing.
-              //- figure(itemprop="image")
-                img(src="/search-illustration.svg" width="100%" height="300px" alt="An image of a lady looking at a plant. From unDraw." loading="auto" itemprop="url")
-          .no-results.hide.px-5.text-center.text-lg No results...
+          .search-non-clickable
+            .search-results.space-y-5
+              button.hidden(class="search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35" type="button", hidden)
+                h5(class="font-title text-xl search-result-title pb-2 mb-4") Title
+                p Description
+                p.mt-5.italic.text-3 Keywords: Block
+            .new-search.show.flex.justify-center.pt-5
+              .self-center.text-center
+                .py-5
+                  p.text-lg.font-bold Waiting for input
+                  p.text-base Don't be shy start typing.
+                //- figure(itemprop="image")
+                  img(src="/search-illustration.svg" width="100%" height="300px" alt="An image of a lady looking at a plant. From unDraw." loading="auto" itemprop="url")
+            .no-results.hide.px-5.text-center.text-lg No results...
         button.search-close(type="button", aria-label="Close" role="button", title="Close" class="z-10 mt-5 bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-14 h-14 mx-auto text-lg hover:bg-darker-highlight focus:bg-darker-highlight focus:outline-none")
           i.text-xl.icon.self-center
             +icon("close")

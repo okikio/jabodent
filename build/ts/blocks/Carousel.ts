@@ -4,7 +4,7 @@ import { Block, IBlockInit, BlockIntent } from "../framework/api";
 const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
 export class Carousel extends Block {
-    public ease: number = 0.25;
+    public ease: number = 0.125;
     public speed: number = 3;
 
     public carouselBtn: HTMLElement;
@@ -138,7 +138,7 @@ export class Carousel extends Block {
 
     public clearDots() {
         requestAnimationFrame(() => {
-            for (let i = this.dots.length; --i >= 0; ) {
+            for (let i = this.dots.length; --i >= 0;) {
                 this.dots[i].classList.remove("active");
                 this.dots[i].removeAttribute("data-index");
                 this.dots[i].remove();
@@ -188,8 +188,8 @@ export class Carousel extends Block {
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientX
                 : typeof e === "number"
-                ? e
-                : touches[touches.length - 1].clientX;
+                    ? e
+                    : touches[touches.length - 1].clientX;
         this.setCurrentX(this.offX + (x - this.onX) * this.speed);
 
         if (this.rAF === null) this.requestAnimationFrame();
@@ -205,14 +205,14 @@ export class Carousel extends Block {
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientX
                 : typeof e === "number"
-                ? e
-                : touches[touches.length - 1].clientX;
+                    ? e
+                    : touches[touches.length - 1].clientX;
         this.onY =
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientY
                 : typeof e === "number"
-                ? 0
-                : touches[touches.length - 1].clientY;
+                    ? 0
+                    : touches[touches.length - 1].clientY;
         this.rootElement.classList.add("is-grabbing");
 
         if (this.rAF === null) this.requestAnimationFrame();

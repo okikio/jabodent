@@ -22,6 +22,7 @@ export class Search extends Service {
     protected overlay: HTMLElement;
     protected container: HTMLElement;
     protected scrollArea: HTMLElement;
+    protected nonClickable: HTMLElement;
 
     public setActive(value: boolean) {
         this.active = value;
@@ -49,6 +50,7 @@ export class Search extends Service {
         this.input = this.inner.querySelector(".search-input");
         this.container = this.inner.querySelector(".search-container");
         this.scrollArea = this.inner.querySelector(".search-scrollable-area");
+        this.nonClickable = this.inner.querySelector(".search-non-clickable");
         if (this.input) {
             this.results = this.inner.querySelector(".search-results");
             this.clearIcon = this.inner.querySelector(".clear-search");
@@ -213,7 +215,7 @@ export class Search extends Service {
                 if (this.active) {
                     let el = e.target as HTMLElement;
                     if (
-                        this.scrollArea.contains(el) ||
+                        this.nonClickable.contains(el) ||
                         this.container.contains(el)
                     )
                         return;
