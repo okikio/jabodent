@@ -5,6 +5,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   Accept-CH: DPR, Viewport-Width, Width
+  X-UA-Compatible: IE=edge
   Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com https://d33wubrfki0l68.cloudfront.net; style-src 'self' 'unsafe-inline' https://d33wubrfki0l68.cloudfront.net; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app https://d33wubrfki0l68.cloudfront.net; script-src 'self' https://res.cloudinary.com https://polyfill.io 'unsafe-inline' https://d33wubrfki0l68.cloudfront.net; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
   Feature-Policy: microphone 'none'; geolocation 'none'; usb 'none'; sync-xhr 'self'; camera 'none';
   Link: </favicon.svg> rel=preload as=image
@@ -12,19 +13,25 @@
   Link: </fonts/manrope-700-latin.woff2> rel=preload as=font type=font/woff2
 
 /css/*.css
+  X-Content-Type-Options: nosniff
   Content-Type: text/css; charset=utf-8
 
 /js/*.js
+  X-Content-Type-Options: nosniff
   Content-Type: text/javascript; charset=utf-8
+  Cache-Control: public, max-age=31536000
 
 /*.json
+  X-Content-Type-Options: nosniff
   Cache-Control: public, max-age=31536000
   Content-Type: application/manifest+json; charset=utf-8
 
 /fonts/*.woff2
+  X-Content-Type-Options: nosniff
   Cache-Control: public, max-age=31536000
   Content-Type: font/woff2; charset=utf-8
 
 /favicon/*
+  X-Content-Type-Options: nosniff
   Expires: Sat December 31 2020 00:00:00 GMT-0400
   Cache-Control: public, max-age=31536000
