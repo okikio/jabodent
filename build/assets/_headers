@@ -8,11 +8,11 @@
   X-UA-Compatible: IE=edge
   Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app; script-src 'self' https://res.cloudinary.com https://polyfill.io 'unsafe-inline'; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
   Feature-Policy: microphone 'none'; geolocation 'none'; usb 'none'; sync-xhr 'self'; camera 'none';
-  Link: <https://res.cloudinary.com> rel=preconnect crossorigin
-  Link: <https://polyfill.io> rel=preconnect crossorigin
-  Link: </favicon.svg> rel=preload as=image type=image/svg+xml
-  Link: </js/modern.min.js> rel=preload as=script
-  Link: </fonts/manrope-700-latin.woff2> rel=preload as=font type=font/woff2
+  Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
+  Link: <https://polyfill.io>; rel=preconnect; crossorigin
+  Link: </favicon.svg>; rel=preload; as=image; type=image/svg+xml
+  Link: </js/modern.min.js>; rel=preload; as=script
+  Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2
 
 /css/*.css
   X-Content-Type-Options: nosniff
