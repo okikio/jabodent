@@ -5,11 +5,16 @@ module.exports = {
             role: "Engineer, Principal Partner",
             keywords:
                 "services, engineer, principal partner, nigerian, bachelor of science, marine engineer, maritime, many years of experience, NNSL, inspector, surveyor",
-            image: {},
+            image: {
+                src: "cloudinary/jabodent/john-ab-oyedeji-1",
+                alt: "A portrait of John A.B. Oyedeji.",
+                class: "person",
+                figclass: "min-h-400 lg:min-h-500"
+            },
             description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
 
             story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Science\nJohn Moore University, Liverpool, UK\nMember, Nigeria Society of Engineers, British Engineering Council, Institute of Marine Engineers, UK
-      
+
       A graduate of Manufacturing Engineering BSC from the John Moores University,Liverpool, school of Maritime Studies, college of Further Education, Plymouth, United Kingdom, A Class 1 Marine Engineering Certificate of Competency issued by MCA. He has over 43 years Experience in the Marine, Oil and Gas industry with position ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government, Non Exclusive Classification Society Surveyor for DNV and Principal Surveyor in-charge for Nigeria and angola with the American Bureau of Shipping (ABS)`,
         },
         //     {
