@@ -12,9 +12,9 @@
   Link: <https://d33wubrfki0l68.cloudfront.net>; rel=preconnect; crossorigin
   Link: <https://polyfill.io>; rel=preconnect; crossorigin
   Link: </favicon.svg>; rel=preload; as=image type=image/svg+xml
-  Link: </js/theme.min.js>; rel=preload; as=script
-  Link: </js/modern.min.js>; rel=preload; as=script
-  Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2
+  Link: <https://d33wubrfki0l68.cloudfront.net/js/86a6198e1608573533c2ac5d6b6591df2acae9d6/js/theme.min.js>; rel=preload; as=script
+  Link: <https://d33wubrfki0l68.cloudfront.net/js/3633055e46260e11717977adf6f2ef0df2dbcb78/js/modern.min.js>; rel=preload; as=script
+  Link: <https://d33wubrfki0l68.cloudfront.net/96e4fb993aa0303618b8862decec04876f51d0c2/b06d6/fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
 
 /css/*.css
   X-Content-Type-Options: nosniff
