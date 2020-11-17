@@ -10,9 +10,8 @@ mixin image(value = {})
     let alt = value.alt || "Alternate text";
 
     let cloudinaryTest = /^cloudinary\//.test(src);
-    //- ,f_auto,fl_lossy,dpr_auto
     let origin = "https://res.cloudinary.com/okikio-assets/image/upload/";
-    let urlParse = (filters = "") => cloudinaryTest ? `${origin + "ar_4:3,c_fill/q_auto:best/c_scale,fl_lossy,dpr_auto," + filters}/c_limit/${src.replace(/^cloudinary\//, "")}` : src;
+    let urlParse = (filters = "") => cloudinaryTest ? `${origin + "ar_4:3,c_fill/q_auto/c_scale," + filters},dpr_auto/c_limit/${src.replace(/^cloudinary\//, "")}` : src;
 
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
     .img-overlay
