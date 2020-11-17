@@ -10,7 +10,6 @@
   Feature-Policy: microphone 'none'; geolocation 'none'; usb 'none'; sync-xhr 'self'; camera 'none';
   Link: <https://res.cloudinary.com> rel=preconnect crossorigin
   Link: <https://polyfill.io> rel=preconnect crossorigin
-  Link: </favicon.svg> rel=preload as=image type=image/svg+xml
   Link: </js/theme.min.js> rel=preload as=script
   Link: </js/modern.min.js> rel=preload as=script
   Link: </fonts/manrope-700-latin.woff2> rel=preload as=font type=font/woff2
