@@ -56,6 +56,7 @@ dotenv.config();
 
 const env = process.env;
 const dev = 'dev' in env ? env.dev == "true" : false;
+const netlify = 'netlify' in env ? env.netlify == "true" : false;
 
 // Origin folders (source and destination folders)
 const srcFolder = `build`;
@@ -99,7 +100,7 @@ task("html", () => {
                     // Compile src html using Pug
                     pug({
                         basedir: pugFolder,
-                        data: { ...data, icons },
+                        data: { ...data, icons, netlify },
                         self: true,
                     }),
                     minifyJSON(), // Minify application/ld+json
@@ -130,6 +131,7 @@ task("html", () => {
                                 next,
                                 service,
                                 icons,
+                                netlify
                             },
                             data
                         ),
@@ -161,6 +163,7 @@ task("html", () => {
                                 len,
                                 person,
                                 icons,
+                                netlify
                             },
                             data
                         ),
@@ -208,7 +211,7 @@ tasks({
                 purge({
                     content: [`${pugFolder}/**/*.pug`],
                     //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-                      safelist: [/min-h-400/, /min-h-500/],// ["active", "show", "focus", "hide"],
+                    safelist: [/min-h-400/, /min-h-500/],// ["active", "show", "focus", "hide"],
                     keyframes: false,
                     fontFace: false,
                     defaultExtractor: (content) => {
