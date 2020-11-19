@@ -128,6 +128,7 @@ $delay: 0.8s;
     height: 100vh;
     pointer-events: none;
     contain: layout size;
+    will-change: opacity;
 
     &.active {
         animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
@@ -156,7 +157,7 @@ $delay: 0.8s;
     right: 0;
     bottom: 0;
     left: 0;
-    // transform: translateY(0%);
+    // transform: translateY(0px);
     display: flex;
     align-content: center;
     align-items: center;
@@ -164,6 +165,7 @@ $delay: 0.8s;
     visibility: hidden;
     pointer-events: none;
     contain: layout size;
+    will-change: transform;
 
     // content-visibility: auto;
     // contain-intrinsic-size: 100vh; /* Explained in the next section. */
@@ -187,11 +189,11 @@ $delay: 0.8s;
 
 @keyframes splashanimmove {
     0% {
-        transform: translateY(0%);
+        transform: translateY(0px);
     }
 
     100% {
-        transform: translateY(100%);
+        transform: translateY(105vh);
     }
 }
 
@@ -257,7 +259,7 @@ $delay: 0.8s;
         bottom: 0;
         left: 0;
         opacity: 0;
-        width: 100%;
+        width: 100vw;
         height: 100vh;
         pointer-events: none;
         contain: layout size;
@@ -280,11 +282,11 @@ $delay: 0.8s;
         z-index: 10;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
 
         // transform: translateY(-100%);
-        // transform: translateY(0%);
+        // transform: translateY(0px);
         pointer-events: none;
         // background-color: var(--bg);
         opacity: 0;
@@ -364,7 +366,7 @@ $delay: 0.8s;
         // box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05),
         //             0 -2px 10px 0 rgba(0, 0, 0, 0.05);
         width: 100%;
-        line-height: 100%;
+        line-height: 1;
 
         &:focus {
             // border-color: transparent;
@@ -639,15 +641,14 @@ img {
         left: 0;
     }
 
-    &-large,
     &-mini {
-        transform: translateY(-105%);
+        transform: translateY(-$height - 5px);
         contain: content;
     }
 
     &-mini {
         transition: transform 0.25s ease-out;
-        transform: translateY(-105%);
+        transform: translateY(-$height - 5px);
         opacity: 1;
     }
 
@@ -656,12 +657,14 @@ img {
         // transform: translateY(calc(-105%));
         // animation: navLargeClose 0.95s ease;
         height: 100vh;
+        transform: translateY(calc(-100vh - #{$height}));
         pointer-events: auto;
+        contain: content;
     }
 
     &:hover {
         .navbar-large {
-            transform: translateY(calc(-100% + #{$height}));
+            transform: translateY(calc(-100vh + #{$height}));
         }
     }
 
@@ -691,7 +694,7 @@ img {
         color: var(--text);
 
         .navbar-mini {
-            transform: translateY(0%);
+            transform: translateY(0px);
         }
     }
 
@@ -699,8 +702,7 @@ img {
         .navbar-large {
             transition: transform 0.45s cubic-bezier(0.46, -0.01, 0.58, 0.99)
                 0.1s;
-            transform: translateY(0%);
-
+            transform: translateY(0px);
             opacity: 1;
         }
 
@@ -834,7 +836,7 @@ img {
 
             .navbar-item {
                 // transition: transform ease-out 0.65s 0.2s;
-                transform: translateY(0%);
+                transform: translateY(0px);
             }
 
             @for $i from 1 through 5 {
@@ -843,7 +845,7 @@ img {
                         transform: translateY(calc(50% + #{($i - 1) * 30px}));
                     }
                     100% {
-                        transform: translateY(0%);
+                        transform: translateY(0px);
                     }
                 }
                 .navbar-item:nth-of-type(#{$i}) {
@@ -865,13 +867,13 @@ img {
 
     &-container {
         // content-visibility: auto;
-        transition: height ease-out 0.45s;
+        // transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
         display: block;
         cursor: move;
         cursor: grab;
-        height: 400px;
+        height: 464px;
         width: 100%;
         touch-action: pan-y;
         // touch-action: pan-right pinch-zoom;

@@ -60,7 +60,7 @@
         "posthtml": "^0.13.4",
         "posthtml-inline-assets": "^3.1.0",
         "posthtml-match-helper": "^1.0.1",
-        "rollup": "^2.33.2",
+        "rollup": "^2.33.3",
         "rollup-plugin-esbuild": "^2.5.2",
         "sass": "^1.29.0",
         "tailwindcss": "^1.9.6"

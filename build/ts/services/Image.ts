@@ -34,11 +34,13 @@ export class Image extends Service {
             let srcWid = Math.round(elem.clientWidth);
             let srcHei = Math.round(elem.clientHeight);
 
-            // Use the biggest image it remembers
-            let maxW = img.getAttribute("data-max-w");
-            if (Number(maxW) < Number(srcWid))
+            // Use the largest image dimensions it remembers
+            let maxW = img.hasAttribute("data-max-w") ? img.getAttribute("data-max-w") : 0;
+            if (Number(maxW) < Number(srcWid)) {
                 img.setAttribute("data-max-w", "" + srcWid);
-            else srcWid = Number(maxW);
+                img.setAttribute("width", "" + srcWid);
+                img.setAttribute("height", "" + srcHei);
+            } else srcWid = Number(maxW);
 
             let src = srcset.replace(/w_auto/, `w_${srcWid}`);
             if (srcHei > srcWid) src = src.replace(/ar_4:3,/, `ar_3:4,`); // src = src.replace(/ar_4:3/, `ar_3:4`);
