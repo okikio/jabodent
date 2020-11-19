@@ -15,6 +15,10 @@ $theme: (
     ),
 );
 
+:root {
+    color-scheme: dark light;
+}
+
 html:not([data-theme="dark"]) {
     --bg: #{map-get(map-get($theme, "background"), "light")};
     --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
