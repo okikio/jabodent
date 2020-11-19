@@ -11,7 +11,7 @@
   Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
   Link: <https://polyfill.io>; rel=preconnect; crossorigin
   Link: </js/modern.min.js> rel=preload as=script
-  Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2
+  Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
 
 /css/*.css
   X-Content-Type-Options: nosniff
