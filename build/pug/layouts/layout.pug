@@ -194,6 +194,7 @@ html(lang="en" data-theme="dark")
     meta(name="msapplication-TileColor", content="#000000")
     meta(name="msapplication-config", content="/favicon/browserconfig.xml")
     meta(name="theme-color", content="#fff")
+    //- link(rel="modulepreload", href="/js/FuzzySearch.min.js")
 
     link.style-concat(rel="stylesheet", href="/css/tailwind.css", inline async)
     link.style-concat(rel="stylesheet", href="/css/app.min.css", inline async)
@@ -245,8 +246,8 @@ html(lang="en" data-theme="dark")
           }
         }
 
-
-    //- link(rel="modulepreload", href="/js/FuzzySearch.min.js")
+    script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" defer)
+    script(src="/js/theme.min.js", inline async)
 
   body
 
@@ -292,8 +293,6 @@ html(lang="en" data-theme="dark")
             +icon("close")
     +navbar(page)
 
-    script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" defer)
-
     div(data-wrapper)
       //- section
 
@@ -337,6 +336,5 @@ html(lang="en" data-theme="dark")
           +footer
 
 
-    script(src="/js/theme.min.js", inline async)
     script(src="/js/legacy.min.js", nomodule)
     script(src="/js/modern.min.js", type="module" defer)
