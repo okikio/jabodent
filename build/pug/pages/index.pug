@@ -17,15 +17,16 @@ block hero
     .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
       section.self-center.text-center.px-5
-        h1.font-extrabold.font-title.tracking-wider.layer(class="lt-md:text-4xl md:text-5xl lg:text-6xl") Jabodent Offshore Consultants
-        h2(class="lg:text-2xl lt-lg:text-lg").leading-7.pt-3 Integrity, Professionalism, Teamwork, Innovation & Excellence
+        h1.font-extrabold.font-title.tracking-wider.layer(class="lt-md:text-4xl md:text-5xl lg:text-6xl") Jabodent
+          span.hidden(class="sm:inline")  Offshore Consultants
+        h2(class="md:text-2xl lt-md:text-lg w-full max-w-screen-sm m-auto md:mt-5 sm:px-12 md:leading-9").leading-7.pt-3 Offshore Consultants that deliver. Our moto is Integrity, Innovation & Excellence.
         button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10.border-2.border-dashed.border-transparent.rounded(class="hover:underline focus:outline-none focus:border-white" type="button" role="button")
           .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
 
   section.bg-black.text-white.w-full.scroll-point
     .px-5.mx-auto.w-full.max-w-screen-md.py-24.intro-animation
       h3.text-2xl.mb-6.font-extrabold About Us
-      p.leading-8.text-lg We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.
+      p.leading-8.text-lg We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliable and consistent delivery.
       .mt-16
         span Learn why
         span(class="sm:mr-5")=" "
@@ -48,11 +49,11 @@ block content
           ul.leading-8.list-disc.list-inside
             each service, index in services
               if index < 8
-                li=service.title
+                li.intro-animation=`${(service.title.replace(/\w+/g, w => (w[0].toUpperCase() + w.slice(1).toLowerCase()))).replace(/sms/i, "SMS")}`
 
-            li ... and more
-          .mt-16
-            span Take a look at
+            //- li
+          .mt-16.intro-animation
+            span  ... and more, take a look at
             span(class="sm:mr-5")=" "
             span.underline
               +learn-more("./services.html", "the full list of services we offer")
@@ -62,33 +63,33 @@ block content
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black
+            i.icon.text-3xl.self-center.text-black.intro-animation
               +icon("more_time")
-          section.self-center
+          section.self-center.intro-animation
             h4.text-lg.font-extrabold.text-lg 20+
             p Years of Experience
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black
+            i.icon.text-3xl.self-center.text-black.intro-animation
               +icon("book")
-          section.self-center
+          section.self-center.intro-animation
             h4.text-lg.font-extrabold.text-lg 154+
             p Projects Completed
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black.text-lg
+            i.icon.text-3xl.self-center.text-black.text-lg.intro-animation
               +icon("thumb_up_alt")
-          section.self-center
+          section.self-center.intro-animation
             h4.text-lg.font-extrabold.text-lg 785+
             p Happy Clients
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black.text-lg
+            i.icon.text-3xl.self-center.text-black.text-lg.intro-animation
               +icon("emoji_events")
-          section.self-center
+          section.self-center.intro-animation
             h4.text-lg.font-extrabold.text-lg 14+
             p Awards Won
 
@@ -102,14 +103,14 @@ block content
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
       section.max-w-screen-md.mx-auto
         section.relative.max-width
-          h3.text-3xl.mb-10.font-extrabold Why Choose Us?
-          h4.text-xl.mb-2 Certified Experience
-          p.leading-8.mb-12.text-lg Experience of Certified industry professionals.
-          h4.text-xl.mb-2 Great Teamwork
-          p.leading-8.mb-12.text-lg Teamwork that makes dreams work.
-          h4.text-xl.mb-2 Modern Technology
-          p.leading-8.mb-12.text-lg High quality equipment. Tools used by the best of the best.
-          .mt-16.text-lg
+          h3.text-3xl.mb-10.font-extrabold.intro-animation Why Choose Us?
+          h4.text-xl.mb-2.intro-animation Certified Experience
+          p.leading-8.mb-12.text-lg.intro-animation Experience of Certified industry professionals.
+          h4.text-xl.mb-2.intro-animation Great Teamwork
+          p.leading-8.mb-12.text-lg.intro-animation Teamwork that makes dreams work.
+          h4.text-xl.mb-2.intro-animation Modern Technology
+          p.leading-8.mb-12.text-lg.intro-animation High quality equipment. Tools used by the best of the best.
+          .mt-16.text-lg.intro-animation
             span Find out
             span(class="sm:mr-5")=" "
             span.underline
@@ -125,7 +126,7 @@ block content
         let name = value.name;
         let image = value.image;
 
-      section.carousel-item
+      section.carousel-item.intro-animation
         .theme-text.px-5.py-24.mx-auto.w-full.max-w-screen-sm(class="lt-md:py-12")
           h4.text-4xl.text-center.tracking-wide.font-extrabold “#{quote}”
           section.flex.justify-center.w-full.px-5.mx-auto
