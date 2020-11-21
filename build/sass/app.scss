@@ -136,8 +136,8 @@ $delay: 0.8s;
 
     &.active {
         animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
-            ($delay + 0.2s);
-        opacity: 0.6;
+            ($delay + 0.2s) forwards;
+        opacity: 0.8;
     }
     // content-visibility: auto;
     // contain-intrinsic-size: 100vh; /* Explained in the next section. */
