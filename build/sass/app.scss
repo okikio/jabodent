@@ -649,14 +649,14 @@ img {
         left: 0;
     }
 
-    &-mini {
-        transform: translateY(-$height - 5px);
-        contain: content;
-    }
+    // &-mini {
+    //     transform: translateY(-$height - 5px);
+    // }
 
     &-mini {
         transition: transform 0.25s ease-out;
         transform: translateY(-$height - 5px);
+        contain: content;
         opacity: 1;
     }
 
@@ -665,16 +665,23 @@ img {
         // transform: translateY(calc(-105%));
         // animation: navLargeClose 0.95s ease;
         height: 100vh;
-        transform: translateY(calc(-100vh - #{$height}));
+        transform: translateY(calc(-100% - #{$height}));
         pointer-events: auto;
         contain: content;
     }
 
+    // &:hover {
+    //     .navbar-large {
+    //         transform: translateY(calc(-100vh + #{$height}));
+    //     }
+    // }
+
     &:hover {
         .navbar-large {
-            transform: translateY(calc(-100vh + #{$height}));
+            transform: translateY(calc(-100% + #{$height}));
         }
     }
+
 
     // @keyframes navLargeClose {
     //     0% { transform: translateY(0px); }
