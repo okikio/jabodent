@@ -19,6 +19,15 @@ $theme: (
     color-scheme: dark light;
 }
 
+$colors: (
+    "bg": #{map-get(map-get($theme, "background"), "light")},
+    "bg-invert": #{map-get(map-get($theme, "background"), "dark")},
+    "surface": #{map-get(map-get($theme, "surface"), "light")},
+    "surface-invert": #{map-get(map-get($theme, "surface"), "dark")},
+    "text": #{map-get(map-get($theme, "text"), "light")},
+    "text-invert": #{map-get(map-get($theme, "text"), "dark")},
+);
+
 html:not([data-theme="dark"]) {
     --bg: #{map-get(map-get($theme, "background"), "light")};
     --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
@@ -41,28 +50,39 @@ html[data-theme="dark"] {
     --text-invert: #{map-get(map-get($theme, "text"), "light")};
 }
 
+@mixin applyTheme($property: background-color, $value: "bg") {
+    #{$property}: map-get($colors, $value);
+    #{$property}: var(--#{$value}, map-get($colors, $value));
+}
+
 .theme {
     &-bg {
-        background-color: var(--bg);
+        // background-color: white;
+        @include applyTheme(background-color, "bg");
 
         &-invert {
-            background-color: var(--bg-invert);
+            // background-color: black;
+            @include applyTheme(background-color, "bg-invert");
         }
     }
 
     &-surface {
-        background-color: var(--surface);
+        // background-color: white;
+        @include applyTheme(background-color, "surface");
 
         &-invert {
-            background-color: var(--surface-invert);
+            // background-color: var(--surface-invert);
+            @include applyTheme(background-color, "surface-invert");
         }
     }
 
     &-text {
-        color: var(--text);
+        // color: var(--text);
+        @include applyTheme(color, "text");
 
         &-invert {
-            color: var(--text-invert);
+            // color: var(--text-invert);
+            @include applyTheme(color, "text-invert");
         }
     }
 }
@@ -74,7 +94,8 @@ html[data-theme="dark"] {
 }
 
 .gradient:before {
-    background-color: var(--surface);
+    // background-color: var(--surface);
+    @include applyTheme(background-color, "surface");
     position: absolute;
     content: "";
     display: block;
@@ -87,13 +108,15 @@ html[data-theme="dark"] {
 
 @media (min-width: 680px) {
     .gradient:before {
+        background: linear-gradient(90deg, white 80%, transparent);
         background: linear-gradient(90deg, var(--bg) 80%, transparent);
         opacity: 1;
     }
 }
 
 html {
-    background-color: var(--bg);
+    // background-color: var(--bg);
+    @include applyTheme(background-color, "bg");
     // font-family: Arial, Helvetica, sans-serif;
     font-family: "Manrope", sans-serif;
     overflow-x: hidden;
@@ -120,7 +143,8 @@ html {
 
 $delay: 0.8s;
 .splashscreen-overlay {
-    background-color: var(--bg);
+    // background-color: var(--bg);
+    @include applyTheme(background-color, "bg");
     position: fixed;
     z-index: 1030;
     top: 0;
@@ -228,7 +252,8 @@ $delay: 0.8s;
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--bg);
+    // background-color: var(--bg);
+    @include applyTheme(background-color, "bg");
     contain: layout size paint;
 }
 
@@ -253,6 +278,7 @@ $delay: 0.8s;
         transition: opacity 0.35s ease-out; // forwards
         // cubic-bezier(0.645, 0.045, 0.355, 1)
         // background-color: var(--bg);
+        // @include applyTheme(background-color, "bg");
         background-color: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(10px);
         // filter: blur(10px);
@@ -665,7 +691,7 @@ img {
         // transform: translateY(calc(-105%));
         // animation: navLargeClose 0.95s ease;
         height: 100vh;
-        transform: translateY(calc(-100vh - #{$height}));
+        transform: translateY(calc(-100% - #{$height}));
         pointer-events: auto;
         contain: content;
     }
@@ -705,7 +731,8 @@ img {
     &.focus,
     &.active,
     &:hover {
-        color: var(--text);
+        // color: var(--text, black);
+        @include applyTheme(color, "text");
 
         .navbar-mini {
             transform: translateY(0px);
@@ -920,7 +947,8 @@ img {
         // margin: 0.rem;
         padding: 0.2rem;
         &:before {
-            background-color: var(--bg-invert);
+            // background-color: var(--bg-invert);
+            @include applyTheme(background-color, "bg-invert");
             border-radius: 999px;
             width: 12px;
             height: 12px;
@@ -1174,13 +1202,16 @@ img {
 }
 
 .border-top {
-    border-top: 1px solid var(--surface);
+    border-top: 1px solid white;
+    @include applyTheme(border-top-color, "surface");
 }
 
 .border-bottom {
-    border-bottom: 1px solid var(--surface);
+    border-bottom: 1px solid white;
+    @include applyTheme(border-top-color, "bottom");
 }
 
 .text-surface {
-    color: var(--surface);
+    color: white;
+    @include applyTheme(color, "surface");
 }
