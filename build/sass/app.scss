@@ -250,7 +250,7 @@ $delay: 0.8s;
         // contain-intrinsic-size: 100vh; /* Explained in the next section. */
     }
     &-overlay {
-        transition: opacity 0.35s ease-out forwards;
+        transition: opacity 0.35s ease-out; // forwards
         // cubic-bezier(0.645, 0.045, 0.355, 1)
         // background-color: var(--bg);
         background-color: rgba(0, 0, 0, 0.7);
@@ -282,7 +282,7 @@ $delay: 0.8s;
     }
 
     &-banner {
-        transition: opacity 0.25s ease forwards;
+        transition: opacity 0.25s ease; // forwards
         // content-visibility: auto;
         position: fixed;
         z-index: 10;
