@@ -529,6 +529,7 @@ task("watch", () => {
         {
             notify: true,
             server: destFolder,
+            // port: 8080
         },
         (_err, bs) => {
             bs.addMiddleware("*", (_req, res) => {

@@ -665,7 +665,7 @@ img {
         // transform: translateY(calc(-105%));
         // animation: navLargeClose 0.95s ease;
         height: 100vh;
-        transform: translateY(calc(-100% - #{$height}));
+        transform: translateY(calc(-100vh - #{$height}));
         pointer-events: auto;
         contain: content;
     }
@@ -681,7 +681,6 @@ img {
             transform: translateY(calc(-100% + #{$height}));
         }
     }
-
 
     // @keyframes navLargeClose {
     //     0% { transform: translateY(0px); }
