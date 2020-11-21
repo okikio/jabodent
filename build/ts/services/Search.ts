@@ -113,6 +113,9 @@ export class Search extends Service {
                 this.rootElement.classList[this.active ? "add" : "remove"](
                     "show"
                 );
+
+                // For accessibility reasons
+                // this.rootElement.style.visibility = this.active ? "visible" : "hidden";
                 // animate({
                 //     target: this.rootElement,
                 //     transform,

@@ -288,6 +288,7 @@ $delay: 0.8s;
         left: 0;
         width: 100vw;
         height: 100vh;
+        visibility: hidden;
 
         // transform: translateY(-100%);
         // transform: translateY(0px);
@@ -299,6 +300,7 @@ $delay: 0.8s;
             transition: opacity 0.75s ease;
             opacity: 1;
             pointer-events: auto;
+            visibility: visible;
 
             .search-inner,
             .search-scrollable-area,

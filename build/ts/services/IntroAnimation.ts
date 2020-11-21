@@ -48,6 +48,7 @@ export class IntroAnimation extends Service {
     public stop() {
         requestAnimationFrame(() => {
             for (let el of this.elements) {
+                // (el as HTMLElement).style.visibility = "visible";
                 (el as HTMLElement).style.opacity = "1";
             }
         });
@@ -59,6 +60,7 @@ export class IntroAnimation extends Service {
         requestAnimationFrame(() => {
             for (let el of this.elements) {
                 (el as HTMLElement).style.opacity = "0";
+                // (el as HTMLElement).style.visibility = "hidden";
             }
 
             // window.scroll(0, 0);
@@ -72,9 +74,10 @@ export class IntroAnimation extends Service {
             delay(i: number) {
                 return 300 * (i);
             },
-            onfinish(el: { style: { opacity: string } }) {
+            onfinish(el: { style: { opacity: string, visibility: string } }) {
                 requestAnimationFrame(() => {
                     el.style.opacity = "1";
+                    // el.style.visibility = "visible";
                 });
             },
             easing: "ease-out",
