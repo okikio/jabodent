@@ -70,7 +70,7 @@ export class IntroAnimation extends Service {
             target: this.elements as HTMLElement[],
             opacity: [0, 1],
             delay(i: number) {
-                return 300 * (i + 1);
+                return 300 * (i);
             },
             onfinish(el: { style: { opacity: string } }) {
                 requestAnimationFrame(() => {

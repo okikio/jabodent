@@ -27,13 +27,13 @@ export class Splashscreen extends Service {
         let overlayElAnim = this.overlayEl.getAnimations()[0];
         let innerElAnim = this.innerEl.getAnimations()[0];
 
-        rootElementAnim.pause();
-        overlayElAnim.pause();
-        innerElAnim.pause();
+        // rootElementAnim.pause();
+        // overlayElAnim.pause();
+        // innerElAnim.pause();
 
-        rootElementAnim.currentTime = this.delay;
-        overlayElAnim.currentTime = this.delay;
-        innerElAnim.currentTime = this.delay;
+        // rootElementAnim.currentTime = this.delay;
+        // overlayElAnim.currentTime = this.delay;
+        // innerElAnim.currentTime = this.delay;
         this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
 
         rootElementAnim.onfinish = () => {
@@ -44,6 +44,7 @@ export class Splashscreen extends Service {
 
         overlayElAnim.onfinish = () => {
           this.overlayEl.style.opacity = `0`;
+          this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
         };
 
         innerElAnim.onfinish = () => {
@@ -51,10 +52,9 @@ export class Splashscreen extends Service {
         };
 
         window.setTimeout(() => {
-          rootElementAnim.play();
-          overlayElAnim.play();
-          innerElAnim.play();
-          this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
+          // rootElementAnim.play();
+          // overlayElAnim.play();
+          // innerElAnim.play();
         }, this.delay);
       }
     } else {
