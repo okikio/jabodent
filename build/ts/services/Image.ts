@@ -31,8 +31,8 @@ export class Image extends Service {
         for (let elem of this.images) {
             let img = elem.querySelector(".img-core") as HTMLImageElement;
             let srcset = img.getAttribute("data-src");
-            let srcWid = Math.round(elem.clientWidth);
-            let srcHei = Math.round(elem.clientHeight);
+            let srcWid = Math.max(Math.round(elem.clientWidth), 10);
+            let srcHei = Math.max(Math.round(elem.clientHeight), 10);
 
             // Use the largest image dimensions it remembers
             let maxW = img.hasAttribute("data-max-w") ? img.getAttribute("data-max-w") : 0;
