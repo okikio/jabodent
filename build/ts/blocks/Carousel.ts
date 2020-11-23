@@ -1,7 +1,7 @@
 import { Block, IBlockInit, BlockIntent } from "../framework/api";
 
 //== Blocks
-const lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
+let lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
 export class Carousel extends Block {
     public ease: number = 0.125;
@@ -120,7 +120,7 @@ export class Carousel extends Block {
     public setDots() {
         requestAnimationFrame(() => {
             for (let i = 0; i < this.slideLen; i++) {
-                const newDot = this.dot.cloneNode() as HTMLElement;
+                let newDot = this.dot.cloneNode() as HTMLElement;
                 if (i === this.index) newDot.classList.add("active");
                 newDot.setAttribute("data-index", `${i}`);
                 this.dotContainer.appendChild(newDot);
@@ -138,7 +138,7 @@ export class Carousel extends Block {
 
     public clearDots() {
         requestAnimationFrame(() => {
-            for (let i = this.dots.length; --i >= 0;) {
+            for (let i = this.dots.length; --i >= 0; ) {
                 this.dots[i].classList.remove("active");
                 this.dots[i].removeAttribute("data-index");
                 this.dots[i].remove();
@@ -160,7 +160,7 @@ export class Carousel extends Block {
     }
 
     public setBounds() {
-        const { width } = this.slides[0].getBoundingClientRect();
+        let { width } = this.slides[0].getBoundingClientRect();
 
         this.width = width;
         this.viewportWidth = this.width * this.slideLen;
@@ -188,8 +188,8 @@ export class Carousel extends Block {
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientX
                 : typeof e === "number"
-                    ? e
-                    : touches[touches.length - 1].clientX;
+                ? e
+                : touches[touches.length - 1].clientX;
         this.setCurrentX(this.offX + (x - this.onX) * this.speed);
 
         if (this.rAF === null) this.requestAnimationFrame();
@@ -205,14 +205,14 @@ export class Carousel extends Block {
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientX
                 : typeof e === "number"
-                    ? e
-                    : touches[touches.length - 1].clientX;
+                ? e
+                : touches[touches.length - 1].clientX;
         this.onY =
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientY
                 : typeof e === "number"
-                    ? 0
-                    : touches[touches.length - 1].clientY;
+                ? 0
+                : touches[touches.length - 1].clientY;
         this.rootElement.classList.add("is-grabbing");
 
         if (this.rAF === null) this.requestAnimationFrame();
@@ -224,9 +224,9 @@ export class Carousel extends Block {
 
     public closest() {
         let minDist: number, closest: number;
-        const difference = this.parsePercent(this.currentX);
+        let difference = this.parsePercent(this.currentX);
         for (let i = 0; i < this.slideLen; i++) {
-            const dist = Math.abs(i * this.width + difference);
+            let dist = Math.abs(i * this.width + difference);
 
             if (dist < minDist || typeof minDist == "undefined") {
                 minDist = dist;
@@ -395,7 +395,7 @@ export class Carousel extends Block {
     }
 }
 
-export const CarouselBlockIntent = new BlockIntent({
+export let CarouselBlockIntent = new BlockIntent({
     name: "Carousel",
     block: Carousel,
 });

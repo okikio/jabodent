@@ -161,7 +161,7 @@ export class State {
    * @memberof State
    */
   public toJSON(): object {
-    const { url, index, transition, data }: IState = this.state;
+    let { url, index, transition, data }: IState = this.state;
     return {
       url: url.getFullPath(),
       index,

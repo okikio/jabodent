@@ -5,7 +5,7 @@ import { App } from "./app";
 /**
  * Parses strings to DOM
  */
-export const PARSER: DOMParser = new DOMParser();
+export let PARSER: DOMParser = new DOMParser();
 
 /**
  * A page represents the DOM elements that create each page
@@ -14,67 +14,67 @@ export const PARSER: DOMParser = new DOMParser();
  * @class Page
  */
 export class Page extends ManagerItem {
-	/**
-	 * Holds the DOM of the current page
-	 *
-	 * @private
-	 * @type Document
-	 * @memberof Page
-	 */
+    /**
+     * Holds the DOM of the current page
+     *
+     * @private
+     * @type Document
+     * @memberof Page
+     */
     private dom: Document;
 
-	/**
-	 * Holds the wrapper element to be swapped out of each Page
-	 *
-	 * @private
-	 * @type HTMLElement
-	 * @memberof Page
-	 */
+    /**
+     * Holds the wrapper element to be swapped out of each Page
+     *
+     * @private
+     * @type HTMLElement
+     * @memberof Page
+     */
     private wrapper: HTMLElement;
 
-	/**
-	 * Holds the title of each page
-	 *
-	 * @private
-	 * @type string
-	 * @memberof Page
-	 */
+    /**
+     * Holds the title of each page
+     *
+     * @private
+     * @type string
+     * @memberof Page
+     */
     private title: string;
 
-	/**
-	 * Holds the head element of each page
-	 *
-	 * @private
-	 * @type Element
-	 * @memberof Page
-	 */
+    /**
+     * Holds the head element of each page
+     *
+     * @private
+     * @type Element
+     * @memberof Page
+     */
     private head: Element;
 
-	/**
-	 * Holds the body element of each page
-	 *
-	 * @private
-	 * @type Element
-	 * @memberof Page
-	 */
+    /**
+     * Holds the body element of each page
+     *
+     * @private
+     * @type Element
+     * @memberof Page
+     */
     private body: Element;
 
-	/**
-	 * The URL of the current page
-	 *
-	 * @private
-	 * @type _URL
-	 * @memberof Page
-	 */
+    /**
+     * The URL of the current page
+     *
+     * @private
+     * @type _URL
+     * @memberof Page
+     */
     private url: _URL;
 
-	/**
-	 * Creates an instance of Page, it also creates a new page from response text, or a Document Object
-	 *
-	 * @param {_URL} [url=new _URL()]
-	 * @param {(string | Document)} [dom=document]
-	 * @memberof Page
-	 */
+    /**
+     * Creates an instance of Page, it also creates a new page from response text, or a Document Object
+     *
+     * @param {_URL} [url=new _URL()]
+     * @param {(string | Document)} [dom=document]
+     * @memberof Page
+     */
     constructor(url: _URL = new _URL(), dom: string | Document = document) {
         super();
         this.url = url;
@@ -82,7 +82,7 @@ export class Page extends ManagerItem {
             this.dom = PARSER.parseFromString(dom, "text/html");
         } else this.dom = dom || document;
 
-        const { title, head, body } = this.dom;
+        let { title, head, body } = this.dom;
         this.title = title;
         this.head = head;
         this.body = body;
@@ -98,72 +98,72 @@ export class Page extends ManagerItem {
         this.wrapper = this.body.querySelector(this.getConfig("wrapperAttr"));
     }
 
-	/**
-	 * Returns the current page's URL
-	 *
-	 * @returns _URL
-	 * @memberof Page
-	 */
+    /**
+     * Returns the current page's URL
+     *
+     * @returns _URL
+     * @memberof Page
+     */
     public getURL(): _URL {
         return this.url;
     }
 
-	/**
-	 * Returns the current page's URL
-	 *
-	 * @returns string
-	 * @memberof Page
-	 */
+    /**
+     * Returns the current page's URL
+     *
+     * @returns string
+     * @memberof Page
+     */
     public getPathname(): string {
         return this.url.pathname;
     }
 
-	/**
-	 * The page title
-	 *
-	 * @returns string
-	 * @memberof Page
-	 */
+    /**
+     * The page title
+     *
+     * @returns string
+     * @memberof Page
+     */
     public getTitle(): string {
         return this.title;
     }
 
-	/**
-	 * The page's head element
-	 *
-	 * @returns Element
-	 * @memberof Page
-	 */
+    /**
+     * The page's head element
+     *
+     * @returns Element
+     * @memberof Page
+     */
     public getHead(): Element {
         return this.head;
     }
 
-	/**
-	 * The page's body element
-	 *
-	 * @returns Element
-	 * @memberof Page
-	 */
+    /**
+     * The page's body element
+     *
+     * @returns Element
+     * @memberof Page
+     */
     public getBody(): Element {
         return this.body;
     }
 
-	/**
-	 * The page's wrapper element
-	 *
-	 * @returns HTMLElement
-	 * @memberof Page
-	 */
+    /**
+     * The page's wrapper element
+     *
+     * @returns HTMLElement
+     * @memberof Page
+     */
     public getWrapper(): HTMLElement {
         return this.wrapper;
     }
 
-	/**
-	 * The page's document
-	 *
-	 * @returns Document
-	 * @memberof Page
-	 */
+    /**
+     * The page's document
+     *
+     * @returns Document
+     * @memberof Page
+     */
     public getDOM(): Document {
         return this.dom;
     }
@@ -188,12 +188,12 @@ export class PageManager extends AdvancedManager<string, Page> {
 
     protected maxPages = 10;
 
-	/**
-	 * Creates an instance of the PageManager
-	 *
+    /**
+     * Creates an instance of the PageManager
+     *
      * @param {App} app
-	 * @memberof PageManager
-	 */
+     * @memberof PageManager
+     */
     constructor(app: App) {
         super(app);
         let URLString = new _URL().pathname;
@@ -252,15 +252,15 @@ export class PageManager extends AdvancedManager<string, Page> {
      * @memberof PageManager
      */
     public async request(url: string): Promise<string> {
-        const headers = new Headers(this.getConfig("headers"));
-        const timeout = window.setTimeout(() => {
+        let headers = new Headers(this.getConfig("headers"));
+        let timeout = window.setTimeout(() => {
             window.clearTimeout(timeout);
             throw "Request Timed Out!";
         }, this.getConfig("timeout"));
 
         try {
             let response = await fetch(url, {
-                mode: 'same-origin',
+                mode: "same-origin",
                 method: "GET",
                 headers: headers,
                 cache: "default",
@@ -272,7 +272,7 @@ export class PageManager extends AdvancedManager<string, Page> {
                 return await response.text();
             }
 
-            const err = new Error(response.statusText || "" + response.status);
+            let err = new Error(response.statusText || "" + response.status);
             throw err;
         } catch (err) {
             window.clearTimeout(timeout);

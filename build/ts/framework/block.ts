@@ -8,7 +8,7 @@ export interface IBlockInit {
     selector?: string;
     index?: number;
     length?: number;
-};
+}
 
 /**
  * Services that interact with specific Components to achieve certain actions
@@ -28,7 +28,7 @@ export class Block extends Service {
     protected name: string;
 
     /**
-     * Query selector string 
+     * Query selector string
      *
      * @protected
      * @type string
@@ -37,7 +37,7 @@ export class Block extends Service {
     protected selector: string;
 
     /**
-     * Index of Block in a BlockManager 
+     * Index of Block in a BlockManager
      *
      * @protected
      * @type number
@@ -46,7 +46,7 @@ export class Block extends Service {
     protected index: number;
 
     /**
-     * The id of an instance of a Block 
+     * The id of an instance of a Block
      *
      * @protected
      * @type {string}
@@ -181,7 +181,7 @@ export class BlockIntent extends ManagerItem {
      * @protected
      * @type {typeof Block}
      * @memberof BlockIntent
-    */
+     */
     protected block: typeof Block;
 
     /**
@@ -232,7 +232,10 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
      * @type {Manager<string, AdvancedManager<string, Block>>}
      * @memberof BlockManager
      */
-    protected activeBlocks: Manager<string, AdvancedManager<number, Block>> = new Manager();
+    protected activeBlocks: Manager<
+        string,
+        AdvancedManager<number, Block>
+    > = new Manager();
 
     /**
      * An Array of ID's
@@ -272,15 +275,19 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
         let app = this.getApp();
         for (let [, intent] of this) {
             let name: string = intent.getName();
-            let selector: string = `[${this.getConfig("blockAttr", false)}="${name}"]`;
+            let selector: string = `[${this.getConfig(
+                "blockAttr",
+                false
+            )}="${name}"]`;
             let rootElements: Node[] = Array.prototype.slice.call(
-                document.querySelectorAll(selector),
-             );
+                document.querySelectorAll(selector)
+            );
 
-            if (!Array.isArray(this.activeIDs[name]))
-                this.activeIDs[name] = [];
+            if (!Array.isArray(this.activeIDs[name])) this.activeIDs[name] = [];
 
-            let manager: AdvancedManager<number, Block> = new AdvancedManager(app);
+            let manager: AdvancedManager<number, Block> = new AdvancedManager(
+                app
+            );
             let block: typeof Block = intent.getBlock();
             for (let i = 0, len = rootElements.length; i < len; i++) {
                 let rootElement = rootElements[i] as HTMLElement;
@@ -289,7 +296,13 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
                 let activeID = this.activeIDs[name][i];
                 if ((activeID !== "" && activeID !== id) || full) {
                     let newInstance: Block = new block();
-                    newInstance.init({ name, rootElement, selector, index: i, length: len });
+                    newInstance.init({
+                        name,
+                        rootElement,
+                        selector,
+                        index: i,
+                        length: len,
+                    });
                     newInstance.setID(id);
 
                     this.activeIDs[name][i] = id;
@@ -325,7 +338,7 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
         // });
 
         // this.observe(rootElement);
-        const EventEmitter = app.getEmitter();
+        let EventEmitter = app.getEmitter();
         EventEmitter.on("CONTENT_REPLACED", this.reload, this);
         return this;
     }
@@ -337,9 +350,11 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
      * @memberof BlockManager
      */
     public flush(): BlockManager {
-        this.activeBlocks.forEach((blockManager: AdvancedManager<number, Block>) => {
-            blockManager.methodCall("stop");
-        });
+        this.activeBlocks.forEach(
+            (blockManager: AdvancedManager<number, Block>) => {
+                blockManager.methodCall("stop");
+            }
+        );
 
         this.activeBlocks.clear();
         return this;
@@ -390,9 +405,11 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
      * @memberof BlockManager
      */
     public bootBlocks(): BlockManager {
-        this.activeBlocks.forEach((blockManager: AdvancedManager<number, Block>) => {
-            blockManager.methodCall("boot");
-        });
+        this.activeBlocks.forEach(
+            (blockManager: AdvancedManager<number, Block>) => {
+                blockManager.methodCall("boot");
+            }
+        );
 
         return this;
     }
@@ -416,14 +433,16 @@ export class BlockManager extends AdvancedManager<number, BlockIntent> {
      * @memberof BlockManager
      */
     public stopEvents(): BlockManager {
-        this.activeBlocks.forEach((blockManager: AdvancedManager<number, Block>) => {
-            blockManager.methodCall("stopEvents");
-        });
+        this.activeBlocks.forEach(
+            (blockManager: AdvancedManager<number, Block>) => {
+                blockManager.methodCall("stopEvents");
+            }
+        );
 
         let app = this.getApp();
         // this.domObserver.disconnect();
 
-        const EventEmitter = app.getEmitter();
+        let EventEmitter = app.getEmitter();
         EventEmitter.off("BEFORE_TRANSITION_IN", this.reload, this);
         return this;
     }

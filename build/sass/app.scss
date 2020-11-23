@@ -1052,7 +1052,7 @@ img {
     @media (min-width: 650px) {
         &:before {
             margin-right: 1.25rem;
-            content: "";
+            // content: "";
             width: 50px;
             content: "";
             height: 1px;
@@ -1208,7 +1208,7 @@ img {
 
 .border-bottom {
     border-bottom: 1px solid white;
-    @include applyTheme(border-top-color, "bottom");
+    @include applyTheme(border-bottom-color, "surface");
 }
 
 .text-surface {

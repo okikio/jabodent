@@ -64,7 +64,7 @@ export class Search extends Service {
     // }
 
     public toggle() {
-        const bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
+        let bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
             " "
         );
 
@@ -73,7 +73,7 @@ export class Search extends Service {
 
             // Receive data from a worker
             this.worker.onmessage = (event) => {
-                const data = JSON.parse(event.data);
+                let data = JSON.parse(event.data);
                 if (data.length === 0 && this.value.length > 0) {
                     this.noResults();
                 } else if (this.value.length === 0) {
@@ -190,7 +190,7 @@ export class Search extends Service {
         if (this.input) {
             this.btn.addEventListener("click", this.toggle.bind(this));
             this.input.addEventListener("keyup", () => {
-                const { value } = this.input as HTMLInputElement;
+                let { value } = this.input as HTMLInputElement;
                 this.value = value;
                 this.worker && this.worker.postMessage(value);
             });
@@ -199,7 +199,7 @@ export class Search extends Service {
                 let el = this.getLink(e);
                 if (!el || !el.classList.contains("search-result")) return;
 
-                const href = this.getHref(el);
+                let href = this.getHref(el);
                 (this.input as HTMLInputElement).value = "";
                 this.value = "";
                 (async () => {

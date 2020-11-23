@@ -13,7 +13,7 @@ import { Fade } from "./transitions/Fade";
 // import { BigTransition } from "./transitions/BigTransition";
 // import { Slide, SlideLeft, SlideRight } from "./transitions/Slide";
 
-const app: App = new App();
+let app: App = new App();
 let navbar: Navbar, router: Router, splashscreen: Splashscreen;
 let search = new Search();
 app.addService(new IntroAnimation())
@@ -29,7 +29,7 @@ app.addService(new IntroAnimation())
     .add("transition", new Fade());
 
 // On theme switcher button click (mouseup is a tiny bit more efficient) toggle the theme between dark and light mode
-const themeSwitch = document.querySelector(".theme-switch");
+let themeSwitch = document.querySelector(".theme-switch");
 if (themeSwitch) {
     themeSwitch.addEventListener("click", () => {
         themeSet(themeGet() === "dark" ? "light" : "dark");
@@ -41,7 +41,7 @@ try {
     let layer: HTMLElement,
         top: number,
         navHeight: number = navbar.navbar.getBoundingClientRect().height;
-    const scroll = () => {
+    let scroll = () => {
         if (!waitOnScroll) {
             let scrollTop = window.scrollY;
             requestAnimationFrame(() => {
@@ -54,7 +54,7 @@ try {
 
         waitOnScroll = false;
     };
-    const go = () => {
+    let go = () => {
         requestAnimationFrame(() => {
             navbar.navbar.classList.remove("focus");
             navbar.navbar.classList.remove("active");
@@ -72,7 +72,7 @@ try {
         scroll();
     };
 
-    const load = () => {
+    let load = () => {
         let layers = document.querySelectorAll(".layer");
         layer = (layers[0] as HTMLElement) || null;
         top = layer

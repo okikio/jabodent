@@ -359,9 +359,9 @@ export class PJAX extends Service {
             transitionName =
                 this.getTransitionName(trigger as HTMLAnchorElement) ||
                 "default";
-            const scroll = new Coords();
-            const index = this.HistoryManager.size;
-            const state = new State({
+            let scroll = new Coords();
+            let index = this.HistoryManager.size;
+            let state = new State({
                 url,
                 index,
                 transition: transitionName,
@@ -562,8 +562,8 @@ export class PJAX extends Service {
         let el = this.getLink(event);
         if (!el) return;
 
-        const url = new _URL(this.getHref(el));
-        const urlString: string = url.getPathname();
+        let url = new _URL(this.getHref(el));
+        let urlString: string = url.getPathname();
         // If Url is ignored or already in cache, don't do any think
         if (this.ignoredURL(url) || this.PageManager.has(urlString)) return;
 

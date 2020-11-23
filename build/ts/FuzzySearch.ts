@@ -2,12 +2,12 @@ import Fuse from "fuse.js";
 import stringify from "fast-stringify";
 
 // Based on: https://gist.github.com/evenfrost/1ba123656ded32fb7a0cd4651efd4db0
-const highlight = (
+let highlight = (
     fuseSearchResult: any,
     highlightClassName: string = "highlight"
 ) => {
-    const set = (obj: object, path: string, value: any) => {
-        const pathValue = path.split(".");
+    let set = (obj: object, path: string, value: any) => {
+        let pathValue = path.split(".");
         let i = 0,
             len = pathValue.length - 1;
 
@@ -18,7 +18,7 @@ const highlight = (
         obj[pathValue[i]] = value;
     };
 
-    const generateHighlightedText = (
+    let generateHighlightedText = (
         inputText: string,
         regions: number[] = []
     ) => {
@@ -26,7 +26,7 @@ const highlight = (
         let nextUnhighlightedRegionStartingIndex = 0;
 
         regions.forEach((region) => {
-            const lastRegionNextIndex = region[1] + 1;
+            let lastRegionNextIndex = region[1] + 1;
 
             content += [
                 inputText.substring(
@@ -48,7 +48,7 @@ const highlight = (
     return fuseSearchResult
         .filter(({ matches }: any) => matches && matches.length)
         .map(({ item, matches }: any) => {
-            const highlightedItem = Object.assign({}, item);
+            let highlightedItem = Object.assign({}, item);
 
             matches.forEach((match: any) => {
                 set(
@@ -67,7 +67,7 @@ fetch("/searchindex.json")
     .then((searchindex) => {
         console.log("Search Index:", searchindex);
 
-        const searcher = new Fuse(searchindex as any, {
+        let searcher = new Fuse(searchindex as any, {
             keys: ["title", "description", "keywords"],
             // findAllMatches: true,
             includeMatches: true,

@@ -9,21 +9,19 @@ export interface ICONFIG {
     preventAllAttr?: string;
     transitionAttr?: string;
     blockAttr?: string;
-    timeout?: number
+    timeout?: number;
 }
 
-export const CONFIG_DEFAULTS: ICONFIG = {
+export let CONFIG_DEFAULTS: ICONFIG = {
     wrapperAttr: "wrapper",
     noAjaxLinkAttr: "no-ajax-link",
     noPrefetchAttr: "no-prefetch",
-    headers: [
-        ["x-partial", "true"]
-    ],
+    headers: [["x-partial", "true"]],
     preventSelfAttr: `prevent="self"`,
     preventAllAttr: `prevent="all"`,
     transitionAttr: "transition",
     blockAttr: `block`,
-    timeout: 30000
+    timeout: 30000,
 };
 
 export type ConfigKeys = keyof ICONFIG;
@@ -77,12 +75,10 @@ export class CONFIG {
      * @memberof CONFIG
      */
     public getConfig(value?: ConfigKeys, brackets: boolean = true): any {
-        if (typeof value !== "string")
-            return this.config;
+        if (typeof value !== "string") return this.config;
 
         let config = this.config[value];
-        if (typeof config === "string")
-            return this.toAttr(config, brackets);
+        if (typeof config === "string") return this.toAttr(config, brackets);
         return config;
     }
 }
