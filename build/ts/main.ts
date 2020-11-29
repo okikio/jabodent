@@ -15,10 +15,10 @@ import { Fade } from "./transitions/Fade";
 
 let app: App = new App();
 let navbar: Navbar, router: Router, splashscreen: Splashscreen;
-let search = new Search();
+let search = new Search(), pjax;
 app.addService(new IntroAnimation())
     .addService(new Splashscreen())
-    .add("service", new PJAX())
+    .add("service", pjax = new PJAX())
     .add("service", new Image())
     .add("service", search)
 
@@ -45,7 +45,7 @@ try {
         if (!waitOnScroll) {
             let scrollTop = window.scrollY;
             requestAnimationFrame(() => {
-                if (scrollTop + 10 + navHeight >= top) {
+                if (scrollTop + 10 + navHeight >= top + (pjax.isTransitioning ? 100 : 0)) {
                     navbar.navbar.classList.add("focus");
                 } else navbar.navbar.classList.remove("focus");
                 waitOnScroll = true;
@@ -77,8 +77,8 @@ try {
         layer = (layers[0] as HTMLElement) || null;
         top = layer
             ? layer.getBoundingClientRect().top +
-              window.pageYOffset -
-              navHeight / 2
+            window.pageYOffset -
+            navHeight / 2
             : 0;
 
         go();
@@ -86,10 +86,11 @@ try {
         if (backToTop) {
             backToTop.addEventListener("click", () => {
                 requestAnimationFrame(() => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth",
-                    });
+                    // window.scrollTo({
+                    //     top: 0,
+                    //     behavior: "smooth",
+                    // });
+                    window.scroll(0, 0);
                 });
             });
         }

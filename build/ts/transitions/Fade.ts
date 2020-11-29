@@ -5,19 +5,43 @@ import { animate } from "@okikio/animate";
 export class Fade extends Transition {
     protected name = "default";
     protected duration = 350;
+    public static scroll = true;
 
-    out({ from }: ITransitionData) {
+    out({ from, trigger }: ITransitionData) {
         let { duration } = this;
         let fromWrapper = from.getWrapper();
         return new Promise(async (resolve) => {
+            // animate({
+            //     target: fromWrapper,
+            //     transform: ["translateY(0)", `translateY(${window.scrollY > 550 ? 550 : 0}px)`],
+            //     easing: "out",
+            //     duration: 250,
+            //     onfinish(el: { style: { opacity: string, transform: string } }) {
+            //         requestAnimationFrame(() => {
+            //             el.style.transform = `translateY(${window.scrollY > 550 ? 550 : 0}px)`;
+            //             // window.scroll(0, 0);
+            //         });
+            //     },
+            // })
             await animate({
                 target: fromWrapper,
-                opacity: [1, 0],
+                keyframes: [{
+                    transform: "translateY(0)",
+                }, {
+                    opacity: 1
+                }, {
+
+                    opacity: 0,
+                    transform: `translateY(${window.scrollY > 100 && !/back|popstate|forward/.test(trigger as string) ? 100 : 0}px)`,
+                }],
+                // opacity: [1, 0],
                 easing: "out",
                 duration,
-                onfinish(el: { style: { opacity: string } }) {
+                onfinish(el: { style: { opacity: string, transform: string } }) {
                     requestAnimationFrame(() => {
                         el.style.opacity = "0";
+                        // el.style.transform = "translateY(0)";
+                        window.scroll(0, 0);
                     });
                 },
             });
@@ -39,7 +63,7 @@ export class Fade extends Transition {
         return animate({
             target: toWrapper,
             opacity: [0, 1],
-            easing: "out",
+            easing: "in",
             duration,
             onfinish(el: { style: { opacity?: string } }) {
                 requestAnimationFrame(() => {

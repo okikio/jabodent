@@ -63,6 +63,7 @@ export class Transition extends Service {
      * @memberof Transition
      */
     protected trigger: Trigger;
+    scroll: boolean;
 
     /**
      * Creates an instance of Transition.

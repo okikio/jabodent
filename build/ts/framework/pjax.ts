@@ -37,11 +37,11 @@ export class PJAX extends Service {
     /**
      * Current state or transitions
      *
-     * @private
+     * @public
      * @type boolean
      * @memberof PJAX
      */
-    protected isTransitioning: boolean = false;
+    public isTransitioning: boolean = false;
 
     /**
      * Ignore extra clicks of an anchor element if a transition has already started
@@ -338,11 +338,13 @@ export class PJAX extends Service {
             if (trigger !== "popstate" && this.stickyScroll) {
                 // Keep scroll position
                 let { x, y } = data.scroll;
-                window.scroll({
-                    top: y,
-                    left: x,
-                    behavior: "smooth", // 👈
-                });
+                console.log(data.scroll);
+                // window.scroll({
+                //     top: y,
+                //     left: x,
+                //     behavior: "smooth", // 👈
+                // });
+                window.scroll(x, y);
             }
             // }
 
@@ -372,17 +374,16 @@ export class PJAX extends Service {
             if (!this.dontScroll && this.stickyScroll) {
                 // Keep scroll position
                 let { x, y } = scroll;
-                window.scroll({
-                    top: y,
-                    left: x,
-                    behavior: "smooth", // 👈
-                });
+                window.scroll(x, y);
             } else {
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth", // 👈
-                });
+                /*
+                    window.scroll({
+                        top: 0,
+                        left: 0,
+                        behavior: "smooth", // 👈
+                    });
+                */
+                // Moved control of scroll to TransitionManager
             }
             // }
 
@@ -453,6 +454,7 @@ export class PJAX extends Service {
     }): Promise<any> {
         try {
             let oldPage = this.PageManager.get(oldHref);
+            console.log(oldHref, oldPage);
             let newPage: Page;
 
             this.EventEmitter.emit("PAGE_LOADING", { href, oldPage, trigger });
@@ -466,7 +468,7 @@ export class PJAX extends Service {
                         trigger,
                     });
                 } catch (err) {
-                    throw `[PJAX] page load error: ${err}`;
+                    console.error(`[PJAX] page load error: ${err}`);
                 }
 
                 // --
@@ -488,9 +490,13 @@ export class PJAX extends Service {
                         trigger,
                     });
 
+                    if (!transition.scroll && !/back|popstate|forward/.test(trigger as string)) {
+                        window.scroll(0, 0);
+                    }
+
                     this.EventEmitter.emit("TRANSITION_END", { transition });
                 } catch (err) {
-                    throw `[PJAX] transition error: ${err}`;
+                    console.error(`[PJAX] transition error: ${err}`);
                 }
 
                 this.EventEmitter.emit("NAVIGATION_END", {

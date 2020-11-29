@@ -15,8 +15,8 @@ block hero
 
   section.py-24.bg-primary
     .text-black.mx-auto.max-w-3xl.px-5.mt-5.w-full
-      h1.h1.text-3xl.font-extrabold.mb-4.text-center.layer Our Services
-      h2.text-2xl.font-thin.leading-10
+      h1.h1.text-3xl.font-extrabold.mb-4.text-center.layer.intro-animation Our Services
+      h2.text-2xl.font-thin.leading-10.intro-animation
         span We offer a total of #{services.length} different and distinct services ranging from being Dry Rock Consultants to Inclining Experiments.
         br
         br
@@ -27,14 +27,14 @@ block content
     .row
       each service, index in services
         if index < 4
-          +card(service, index % 2)
+          +card(service, index)
 
   section
     section.theme-bg.relative.px-5.mx-auto.w-full.max-w-screen-lg
       .row
         each service, index in services
           if index >= 4
-            +card(service, index % 2)
+            +card(service, index)
 
     section.bg-primary
       +contact

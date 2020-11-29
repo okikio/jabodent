@@ -19,7 +19,7 @@ block hero
       section.self-center.text-center.px-5
         h1.font-extrabold.font-title.tracking-wider.layer(class="lt-md:text-4xl md:text-5xl lg:text-6xl").intro-animation Jabodent
           span.hidden(class="sm:inline")  Offshore Consultants
-        h2(class="md:text-2xl lt-md:text-lg w-full max-w-screen-sm m-auto md:mt-5 sm:px-12 md:leading-9").intro-animation.leading-7.pt-3 Offshore Consultants that deliver. Our moto is Integrity, Innovation & Excellence.
+        h2(class="md:text-2xl lt-md:text-lg w-full max-w-screen-sm m-auto md:mt-5 sm:px-12 md:leading-9").leading-7.pt-3.intro-animation Offshore Consultants that deliver. Our moto is Integrity, Innovation & Excellence.
         button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10.border-2.border-dashed.border-transparent.rounded(class="hover:underline focus:outline-none focus:border-white" type="button" role="button")
           .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
 
@@ -36,23 +36,23 @@ block hero
 
 block content
   section.theme-surface.theme-text
-    .px-5.pt-8.mx-auto.w-full.max-w-screen-md(class="md:pt-24")
+    .px-5.pt-8.mx-auto.w-full.max-w-screen-md(class="md:pt-24").intro-animation
       h3.text-2xl.mb-6.font-extrabold.intro-animation Mission & Vision
       p.leading-8.text-lg.intro-animation Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.
 
     .text-black.flex.w-full.pt-12
       .flex-grow
       section.bg-secondary.w-full.max-w-screen-md.text-lg
-        .py-12.pl-10.w-full
-          h3.text-2xl.mb-6.font-extrabold.intro-animation Skills & Services
+        .py-12.px-5.w-full(class="sm:px-10")
+          h3.text-2xl.mb-6.font-extrabold Skills & Services
 
-          ul.leading-8.list-disc.list-inside.intro-animation
+          ul.leading-8.list-disc.list-inside
             each service, index in services
               if index < 8
                 li=`${(service.title.replace(/\w+/g, w => (w[0].toUpperCase() + w.slice(1).toLowerCase()))).replace(/sms/i, "SMS")}`
 
             //- li
-          .mt-16.intro-animation
+          .mt-16
             span  ... and more, take a look at
             span(class="sm:mr-5")=" "
             span.underline
@@ -65,7 +65,7 @@ block content
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black
               +icon("more_time")
-          section.self-center.intro-animation
+          section.self-center
             h4.text-lg.font-extrabold.text-lg 20+
             p Years of Experience
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
@@ -73,7 +73,7 @@ block content
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black
               +icon("book")
-          section.self-center.intro-animation
+          section.self-center
             h4.text-lg.font-extrabold.text-lg 154+
             p Projects Completed
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
@@ -81,7 +81,7 @@ block content
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black.text-lg
               +icon("thumb_up_alt")
-          section.self-center.intro-animation
+          section.self-center
             h4.text-lg.font-extrabold.text-lg 785+
             p Happy Clients
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
@@ -89,7 +89,7 @@ block content
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
             i.icon.text-3xl.self-center.text-black.text-lg
               +icon("emoji_events")
-          section.self-center.intro-animation
+          section.self-center
             h4.text-lg.font-extrabold.text-lg 14+
             p Awards Won
 
@@ -103,20 +103,20 @@ block content
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
       section.max-w-screen-md.mx-auto
         section.relative.max-width
-          h3.text-3xl.mb-10.font-extrabold.intro-animation Why Choose Us?
-          section.intro-animation
+          h3.text-3xl.mb-10.font-extrabold Why Choose Us?
+          section
             h4.text-xl.mb-2 Certified Experience
             p.leading-8.mb-12.text-lg Experience of Certified industry professionals.
 
-          section.intro-animation
+          section
             h4.text-xl.mb-2 Great Teamwork
             p.leading-8.mb-12.text-lg Teamwork that makes dreams work.
 
-          section.intro-animation
+          section
             h4.text-xl.mb-2 Modern Technology
             p.leading-8.mb-12.text-lg High quality equipment. Tools used by the best of the best.
 
-          .mt-16.text-lg.intro-animation
+          .mt-16.text-lg
             span Find out
             span(class="sm:mr-5")=" "
             span.underline
@@ -132,7 +132,7 @@ block content
         let name = value.name;
         let image = value.image;
 
-      section.carousel-item.intro-animation
+      section.carousel-item
         .theme-text.px-5.py-24.mx-auto.w-full.max-w-screen-sm(class="lt-md:py-12")
           h4.text-4xl.text-center.tracking-wide.font-extrabold “#{quote}”
           section.flex.justify-center.w-full.px-5.mx-auto
@@ -142,7 +142,7 @@ block content
               p.self-center.text-lg.font-semibold= name
 
     section.carousel-container.relative.w-full
-      .carousel-viewport.flex.flex-no-wrap.intro-animation
+      .carousel-viewport.flex.flex-no-wrap
         +carousel-item({
           quote: "Absolutely the best video call solution for medium sized teams.",
           name: "Jane Doe — Tesla"

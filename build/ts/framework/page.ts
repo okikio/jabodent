@@ -167,6 +167,14 @@ export class Page extends ManagerItem {
     public getDOM(): Document {
         return this.dom;
     }
+
+    public reset() {
+        this.url = undefined;
+        this.title = undefined;
+        this.head = undefined;
+        this.body = undefined;
+        this.dom = undefined;
+    }
 }
 
 /**
@@ -239,7 +247,10 @@ export class PageManager extends AdvancedManager<string, Page> {
 
         if (this.size > this.maxPages) {
             let first = this.keys()[0];
+            let page = this.get(first);
+            page.reset();
             this.delete(first);
+            page = undefined;
         }
         return page;
     }
