@@ -80,20 +80,22 @@ export class IntroAnimation extends Service {
     }
 
     public async show() {
-        return await animate({
-            target: this.entries as HTMLElement[],
-            opacity: [0, 1],
-            delay(i: number) {
-                return 300 * (i);
-            },
-            onfinish: (el: { style: { opacity: string, visibility: string } }) => {
-                requestAnimationFrame(() => {
-                    el.style.opacity = "1";
-                    // el.style.visibility = "visible";
-                });
-            },
-            easing: "ease-out",
-            duration: 650,
-        });
+        if (this.entries.length > 0) {
+            return await animate({
+                target: this.entries as HTMLElement[],
+                opacity: [0, 1],
+                delay(i: number) {
+                    return 300 * (i);
+                },
+                onfinish: (el: { style: { opacity: string, visibility: string } }) => {
+                    requestAnimationFrame(() => {
+                        el.style.opacity = "1";
+                        // el.style.visibility = "visible";
+                    });
+                },
+                easing: "ease-out",
+                duration: 650,
+            });
+        }
     }
 }
