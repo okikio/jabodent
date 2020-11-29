@@ -36,26 +36,45 @@ export class Splashscreen extends Service {
         // innerElAnim.currentTime = this.delay;
         this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
 
-        rootElementAnim.onfinish = () => {
+        let rootElementAnimFinish = () => {
           this.rootElement.style.transform = "translateY(100%)";
           this.rootElement.style.visibility = "hidden";
           this.rootElement.style.pointerEvents = "none";
         };
 
-        overlayElAnim.onfinish = () => {
+        if (rootElementAnim) {
+          rootElementAnim.onfinish = rootElementAnimFinish;
+        } else { rootElementAnimFinish(); }
+
+
+
+
+        let overlayElAnimFinish = () => {
           this.overlayEl.style.opacity = `0`;
           this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
         };
 
-        innerElAnim.onfinish = () => {
+        if (overlayElAnim) {
+          overlayElAnim.onfinish = overlayElAnimFinish;
+        } else { overlayElAnimFinish(); }
+
+
+
+
+        let innerElAnimFinish = () => {
           this.innerEl.style.opacity = `0`;
         };
 
-        window.setTimeout(() => {
-          // rootElementAnim.play();
-          // overlayElAnim.play();
-          // innerElAnim.play();
-        }, this.delay);
+        if (innerElAnim) {
+          innerElAnim.onfinish = innerElAnimFinish;
+        } else { innerElAnimFinish(); }
+
+
+        // window.setTimeout(() => {
+        //   // rootElementAnim.play();
+        //   // overlayElAnim.play();
+        //   // innerElAnim.play();
+        // }, this.delay);
       }
     } else {
       this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
