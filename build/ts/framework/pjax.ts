@@ -453,7 +453,8 @@ export class PJAX extends Service {
         transitionName?: string;
     }): Promise<any> {
         try {
-            let oldPage = this.PageManager.get(oldHref);
+            let oldPage = await this.PageManager.load(oldHref);
+            await oldPage.build();
             console.log(oldHref, oldPage);
             let newPage: Page;
 
@@ -461,6 +462,7 @@ export class PJAX extends Service {
             try {
                 try {
                     newPage = await this.PageManager.load(href);
+                    await newPage.build();
                     this.transitionStart();
                     this.EventEmitter.emit("PAGE_LOAD_COMPLETE", {
                         newPage,
@@ -575,9 +577,9 @@ export class PJAX extends Service {
 
         this.EventEmitter.emit("ANCHOR_HOVER HOVER", event);
 
-        (async () => {
+        (() => {
             try {
-                await this.PageManager.load(url);
+                this.PageManager.load(url);
             } catch (err) {
                 console.warn("[PJAX] prefetch error,", err);
             }

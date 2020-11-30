@@ -38,7 +38,11 @@ if (themeSwitch) {
 
 try {
     let waitOnScroll = false;
-    let layer: HTMLElement,
+    let layers,
+        backToTop,
+        scrollBtn,
+        scrollPt,
+        layer: HTMLElement,
         top: number,
         navHeight: number = navbar.navbar.getBoundingClientRect().height;
     let scroll = () => {
@@ -72,8 +76,24 @@ try {
         scroll();
     };
 
+    let backtotop_fn = () => {
+        requestAnimationFrame(() => {
+            // window.scrollTo({
+            //     top: 0,
+            //     behavior: "smooth",
+            // });
+            window.scroll(0, 0);
+        });
+    };
+
+    let scrolldown_fn = () => {
+        requestAnimationFrame(() => {
+            if (scrollPt)
+                scrollPt.scrollIntoView({ behavior: "smooth" });
+        });
+    };
     let load = () => {
-        let layers = document.querySelectorAll(".layer");
+        layers = document.querySelectorAll(".layer");
         layer = (layers[0] as HTMLElement) || null;
         top = layer
             ? layer.getBoundingClientRect().top +
@@ -82,28 +102,15 @@ try {
             : 0;
 
         go();
-        let backToTop = document.querySelector(".back-to-top");
+        backToTop = document.querySelector(".back-to-top");
         if (backToTop) {
-            backToTop.addEventListener("click", () => {
-                requestAnimationFrame(() => {
-                    // window.scrollTo({
-                    //     top: 0,
-                    //     behavior: "smooth",
-                    // });
-                    window.scroll(0, 0);
-                });
-            });
+            backToTop.addEventListener("click", backtotop_fn);
         }
 
-        let scrollBtn = document.querySelector(".scroll-btn");
-        let scrollPt = document.querySelector(".scroll-point");
+        scrollBtn = document.querySelector(".scroll-btn");
+        scrollPt = document.querySelector(".scroll-point");
         if (scrollBtn) {
-            scrollBtn.addEventListener("click", () => {
-                requestAnimationFrame(() => {
-                    if (scrollPt)
-                        scrollPt.scrollIntoView({ behavior: "smooth" });
-                });
-            });
+            scrollBtn.addEventListener("click", scrolldown_fn);
         }
     };
 
@@ -112,6 +119,22 @@ try {
     });
     app.on("GO", go);
     app.on("READY", load);
+    app.on("AFTER_TRANSITION_OUT", () => {
+        layers = undefined;
+        layer = undefined;
+        top = 0;
+        if (backToTop) {
+            backToTop.removeEventListener("click", backtotop_fn);
+        }
+        backToTop = undefined;
+
+        if (scrollBtn) {
+            scrollBtn.removeEventListener("click", scrolldown_fn);
+        }
+
+        scrollBtn = undefined;
+        scrollPt = undefined;
+    });
     app.on("CONTENT_REPLACED", load);
     window.addEventListener("scroll", scroll, { passive: true });
 

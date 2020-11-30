@@ -162,9 +162,11 @@ export class Transition extends Service {
      * @memberof Transition
      */
     public async start(EventEmitter: EventEmitter): Promise<Transition> {
+        if (!(this.oldPage instanceof Page) || !(this.newPage instanceof Page))
+            throw `[Page] either oldPage or newPage aren't instances of the Page Class.\n ${{ newPage: this.newPage, oldPage: this.oldPage }}`;
         let fromWrapper = this.oldPage.getWrapper();
         let toWrapper = this.newPage.getWrapper();
-        document.title = this.newPage.getTitle();
+        document.title = `` + this.newPage.getTitle();
 
         if (!(fromWrapper instanceof Node) || !(toWrapper instanceof Node))
             throw `[Wrapper] the wrapper from the ${!(toWrapper instanceof Node) ? "next" : "current"} page cannot be found. The wrapper must be an element that has the attribute ${this.getConfig("wrapperAttr")}.`;
@@ -191,6 +193,7 @@ export class Transition extends Service {
         await new Promise(done => {
             fromWrapper.remove();
             fromWrapper = undefined;
+            toWrapper = undefined;
             EventEmitter.emit("CONTENT_REPLACED");
             done();
         });
@@ -210,6 +213,12 @@ export class Transition extends Service {
         });
 
         EventEmitter.emit("AFTER_TRANSITION_IN");
+        await new Promise(done => {
+            this.oldPage = undefined;
+            this.newPage = undefined;
+            this.trigger = undefined;
+            done();
+        });
         return this;
     }
 }

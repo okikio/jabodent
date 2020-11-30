@@ -68,6 +68,9 @@ export class Page extends ManagerItem {
      */
     private url: _URL;
 
+    private data: string;
+    private wrapperAttr: string;
+
     /**
      * Creates an instance of Page, it also creates a new page from response text, or a Document Object
      *
@@ -78,14 +81,24 @@ export class Page extends ManagerItem {
     constructor(url: _URL = new _URL(), dom: string | Document = document) {
         super();
         this.url = url;
-        if (typeof dom === "string") {
-            this.dom = PARSER.parseFromString(dom, "text/html");
-        } else this.dom = dom || document;
 
-        let { title, head, body } = this.dom;
-        this.title = title;
-        this.head = head;
-        this.body = body;
+        if (typeof dom === "string") {
+            this.data = dom;
+        } else this.dom = dom || document;
+    }
+
+    public async build() {
+        if (!(this.dom instanceof Node)) {
+            this.dom = PARSER.parseFromString(this.data, "text/html");
+        }
+
+        if (!(this.body instanceof Node)) {
+            let { title, head, body } = this.dom;
+            this.title = title;
+            this.head = head;
+            this.body = body;
+            this.wrapper = this.body.querySelector(this.wrapperAttr);
+        }
     }
 
     /**
@@ -95,7 +108,7 @@ export class Page extends ManagerItem {
      * @memberof Page
      */
     public install(): void {
-        this.wrapper = this.body.querySelector(this.getConfig("wrapperAttr"));
+        this.wrapperAttr = this.getConfig("wrapperAttr");
     }
 
     /**
@@ -204,7 +217,7 @@ export class PageManager extends AdvancedManager<string, Page> {
      */
     constructor(app: App) {
         super(app);
-        let URLString = new _URL().pathname;
+        let URLString = new _URL().getPathname();
         this.set(URLString, new Page());
     }
 

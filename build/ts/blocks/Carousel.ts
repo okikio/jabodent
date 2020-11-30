@@ -138,7 +138,7 @@ export class Carousel extends Block {
 
     public clearDots() {
         requestAnimationFrame(() => {
-            for (let i = this.dots.length; --i >= 0; ) {
+            for (let i = this.dots.length; --i >= 0;) {
                 this.dots[i].classList.remove("active");
                 this.dots[i].removeAttribute("data-index");
                 this.dots[i].remove();
@@ -166,56 +166,6 @@ export class Carousel extends Block {
         this.viewportWidth = this.width * this.slideLen;
         this.maxX = -(this.viewportWidth - window.innerWidth);
         this.setHeight();
-    }
-
-    public setPos(e: MouseEvent | TouchEvent | number) {
-        if (!this.isDragging) return;
-        let touches = (e as TouchEvent).changedTouches;
-        if (window.TouchEvent && e instanceof window.TouchEvent) {
-            e.stopPropagation();
-            let deltaX = Math.abs(
-                this.onX - touches[touches.length - 1].clientX
-            );
-            let deltaY = Math.abs(
-                this.onY - touches[touches.length - 1].clientY
-            );
-
-            // If vertically scrolling using touch, don't move horizontally & visa-versa
-            if (deltaX < deltaY) return;
-        }
-
-        let x =
-            window.MouseEvent && e instanceof window.MouseEvent
-                ? e.clientX
-                : typeof e === "number"
-                ? e
-                : touches[touches.length - 1].clientX;
-        this.setCurrentX(this.offX + (x - this.onX) * this.speed);
-
-        if (this.rAF === null) this.requestAnimationFrame();
-    }
-
-    public on(e: MouseEvent | TouchEvent | number) {
-        let touches = (e as TouchEvent).changedTouches;
-        if (window.TouchEvent && e instanceof window.TouchEvent)
-            e.stopPropagation();
-
-        this.isDragging = true;
-        this.onX =
-            window.MouseEvent && e instanceof window.MouseEvent
-                ? e.clientX
-                : typeof e === "number"
-                ? e
-                : touches[touches.length - 1].clientX;
-        this.onY =
-            window.MouseEvent && e instanceof window.MouseEvent
-                ? e.clientY
-                : typeof e === "number"
-                ? 0
-                : touches[touches.length - 1].clientY;
-        this.rootElement.classList.add("is-grabbing");
-
-        if (this.rAF === null) this.requestAnimationFrame();
     }
 
     public parsePercent(value: number) {
@@ -253,7 +203,19 @@ export class Carousel extends Block {
         this.onX = 0;
         this.onY = 0;
 
-        if (this.rAF === null) this.requestAnimationFrame();
+        // No point in requesting animation frame, when you know nothing is going to change
+        // this.smoothAnimation();
+    }
+
+    public smoothAnimation() {
+        // No point in requesting animation frame, when you know nothing is going to change
+        // console.log(Math.floor(Math.abs(this.lastX) * 100) / 100, Math.floor(Math.abs(this.currentX) * 100) / 100);
+        if (
+            Math.floor(Math.abs(this.lastX)) ===
+            Math.floor(Math.abs(this.currentX))
+        ) {
+            this.cancelAnimationFrame();
+        } else this.requestAnimationFrame();
     }
 
     public toPercent(value: number) {
@@ -264,6 +226,59 @@ export class Carousel extends Block {
         this.currentX = this.toPercent(value);
     }
 
+    public setPos(e: MouseEvent | TouchEvent | number) {
+        if (!this.isDragging) return;
+        let touches = (e as TouchEvent).changedTouches;
+        if (window.TouchEvent && e instanceof window.TouchEvent) {
+            e.stopPropagation();
+            let deltaX = Math.abs(
+                this.onX - touches[touches.length - 1].clientX
+            );
+            let deltaY = Math.abs(
+                this.onY - touches[touches.length - 1].clientY
+            );
+
+            // If vertically scrolling using touch, don't move horizontally & visa-versa
+            if (deltaX < deltaY) return;
+        }
+
+        let x =
+            window.MouseEvent && e instanceof window.MouseEvent
+                ? e.clientX
+                : typeof e === "number"
+                    ? e
+                    : touches[touches.length - 1].clientX;
+        this.setCurrentX(this.offX + (x - this.onX) * this.speed);
+
+        // No point in requesting animation frame, when you know nothing is going to change
+        this.smoothAnimation();
+    }
+
+    public on(e: MouseEvent | TouchEvent | number) {
+        let touches = (e as TouchEvent).changedTouches;
+        if (window.TouchEvent && e instanceof window.TouchEvent)
+            e.stopPropagation();
+
+        this.isDragging = true;
+        this.onX =
+            window.MouseEvent && e instanceof window.MouseEvent
+                ? e.clientX
+                : typeof e === "number"
+                    ? e
+                    : touches[touches.length - 1].clientX;
+        this.onY =
+            window.MouseEvent && e instanceof window.MouseEvent
+                ? e.clientY
+                : typeof e === "number"
+                    ? 0
+                    : touches[touches.length - 1].clientY;
+        this.rootElement.classList.add("is-grabbing");
+
+        // No point in requesting animation frame, when you know nothing is going to change
+        // this.smoothAnimation();
+        // this.requestAnimationFrame();
+    }
+
     public select(index: number) {
         this.lastIndex = this.index;
         this.index = Math.min(Math.max(index, 0), this.slideLen - 1);
@@ -271,7 +286,8 @@ export class Carousel extends Block {
         this.setActiveDot();
         this.setHeight();
 
-        if (this.rAF === null) this.requestAnimationFrame();
+        // No point in requesting animation frame, when you know nothing is going to change
+        this.smoothAnimation();
     }
 
     public run() {
@@ -288,13 +304,32 @@ export class Carousel extends Block {
             this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
         });
 
+        console.log("runing carousel");
+
         // No point in requesting animation frame, when you know nothing is going to change
-        if (
-            Math.abs(this.lastX) ===
-            Math.floor(Math.abs(this.currentX) * 100) / 100
-        ) {
-            this.cancelAnimationFrame();
-        } else this.requestAnimationFrame();
+        this.smoothAnimation();
+    }
+
+    public keypress(evt: KeyboardEvent) {
+        if (evt.code === "ArrowRight") this.next();
+        if (evt.code === "ArrowLeft") this.prev();
+    }
+
+    public scroll(evt: any) {
+        this.isScrolling = true;
+        this.snapOnce = false;
+        if (this.isDragging) return;
+
+        let { deltaX } = evt;
+        let currentX = this.parsePercent(this.currentX);
+        this.setCurrentX(currentX + -deltaX * (this.speed * 2));
+        if (Math.abs(deltaX) > 0) evt.preventDefault();
+
+        // this.smoothAnimation();
+        // if (this.rAF === null) this.requestAnimationFrame();
+
+        // No point in requesting animation frame, when you know nothing is going to change
+        this.smoothAnimation();
     }
 
     public requestAnimationFrame() {
@@ -329,24 +364,6 @@ export class Carousel extends Block {
         window.addEventListener("resize", this.resize, { passive: true });
     }
 
-    public keypress(evt: KeyboardEvent) {
-        if (evt.code === "ArrowRight") this.next();
-        if (evt.code === "ArrowLeft") this.prev();
-    }
-
-    public scroll(evt: any) {
-        this.isScrolling = true;
-        this.snapOnce = false;
-        if (this.isDragging) return;
-
-        let { deltaX } = evt;
-        let currentX = this.parsePercent(this.currentX);
-        this.setCurrentX(currentX + -deltaX * (this.speed * 2));
-        if (Math.abs(deltaX) > 0) evt.preventDefault();
-
-        if (this.rAF === null) this.requestAnimationFrame();
-    }
-
     private dotClick(e: MouseEvent) {
         let target = e.target as HTMLElement;
         if (target.classList && target.classList.contains("carousel-dot")) {
@@ -365,6 +382,7 @@ export class Carousel extends Block {
 
     public stopEvents() {
         this.cancelAnimationFrame();
+        this.rAF = undefined;
 
         this.nextBtn.removeEventListener("click", this.next, false);
         this.prevBtn.removeEventListener("click", this.prev, false);
@@ -383,6 +401,42 @@ export class Carousel extends Block {
         window.removeEventListener("keydown", this.keypress, false);
 
         window.removeEventListener("resize", this.resize, false);
+
+        this.container = undefined;
+        this.viewport = undefined;
+        this.slides = undefined;
+
+        this.carouselBtn = undefined;
+        this.prevBtn = undefined;
+        this.nextBtn = undefined;
+
+        this.dotContainer = undefined;
+        this.dots = undefined;
+        this.dot = undefined;
+
+        this.slideLen = 0;
+        this.center = 0;
+
+        this.viewportWidth = 0;
+        this.currentX = 0;
+        this.width = 0;
+
+        this.index = 0;
+        this.lastIndex = this.index;
+
+        this.lastX = 0;
+        this.maxX = 0;
+        this.minX = 0;
+
+        this.offX = 0;
+        this.onX = 0;
+        this.onY = 0;
+
+        this.snapOnce = false;
+        this.isDragging = false;
+        this.isScrolling = false;
+
+        this.rootElement = undefined;
     }
 
     public cancelAnimationFrame() {
