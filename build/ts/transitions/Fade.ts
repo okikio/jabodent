@@ -27,7 +27,7 @@ export class Fade extends Transition {
                 target: fromWrapper,
                 keyframes: [{
                     transform: "translateY(0)",
-                }, {
+                // }, {
                     opacity: 1
                 }, {
 
