@@ -115,6 +115,8 @@ export class Carousel extends Block {
         ].forEach((key: string) => {
             this[key] = this[key]?.bind(this);
         });
+
+        this.setHeight();
     }
     public setDots() {
         requestAnimationFrame(() => {
@@ -153,9 +155,7 @@ export class Carousel extends Block {
             if (height > maxHeight) maxHeight = height;
         }
 
-        requestAnimationFrame(() => {
-            this.container.style.height = `${maxHeight}px`;
-        });
+        this.container.style.height = `${maxHeight}px`;
     }
 
     public setBounds() {

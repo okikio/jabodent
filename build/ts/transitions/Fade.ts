@@ -5,10 +5,10 @@ import { animate } from "@okikio/animate";
 export class Fade extends Transition {
     protected name = "default";
     protected duration = 350;
-    public static scroll = true;
+    public static scrollable = true;
 
     out({ from, trigger }: ITransitionData) {
-        let { duration } = this;
+        let { duration, scroll } = this;
         let fromWrapper = from.getWrapper();
         return new Promise(async (resolve) => {
             // animate({
@@ -25,23 +25,33 @@ export class Fade extends Transition {
             // })
             await animate({
                 target: fromWrapper,
-                keyframes: [{
-                    transform: "translateY(0)",
-                // }, {
-                    opacity: 1
-                }, {
-
-                    opacity: 0,
-                    transform: `translateY(${window.scrollY > 100 && !/back|popstate|forward/.test(trigger as string) ? 100 : 0}px)`,
-                }],
+                keyframes: [
+                    {
+                        transform: "translateY(0)",
+                        // }, {
+                        opacity: 1,
+                    },
+                    {
+                        opacity: 0,
+                        transform: `translateY(${
+                            window.scrollY > 100 &&
+                            !/back|popstate|forward/.test(trigger as string)
+                                ? 100
+                                : 0
+                        }px)`,
+                    },
+                ],
                 // opacity: [1, 0],
                 easing: "out",
                 duration,
-                onfinish(el: { style: { opacity: string, transform: string } }) {
+                onfinish(el: {
+                    style: { opacity: string; transform: string };
+                }) {
                     requestAnimationFrame(() => {
                         el.style.opacity = "0";
                         // el.style.transform = "translateY(0)";
-                        window.scroll(0, 0);
+                        window.scroll(scroll.x, scroll.y);
+                        console.log(scroll);
                     });
                 },
             });

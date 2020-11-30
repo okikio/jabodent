@@ -10,15 +10,16 @@ import { App } from "./app";
  */
 export type asyncFn = (err?: any, value?: any) => void;
 export interface ITransition {
-    oldPage: Page,
-    newPage: Page,
-    trigger: Trigger
+    oldPage: Page;
+    newPage: Page;
+    trigger: Trigger;
+    scroll: { x: number; y: number };
 }
 export interface ITransitionData {
-    from?: Page,
-    to?: Page,
-    trigger?: Trigger,
-    done: asyncFn
+    from?: Page;
+    to?: Page;
+    trigger?: Trigger;
+    done: asyncFn;
 }
 
 /**
@@ -63,14 +64,17 @@ export class Transition extends Service {
      * @memberof Transition
      */
     protected trigger: Trigger;
-    scroll: boolean;
+    scrollable: boolean;
+    scroll: { x: number; y: number };
 
     /**
      * Creates an instance of Transition.
      *
      * @memberof Transition
      */
-    constructor() { super(); }
+    constructor() {
+        super();
+    }
 
     /**
      * Initialize the transition
@@ -83,15 +87,12 @@ export class Transition extends Service {
      * @returns void
      * @memberof Transition
      */
-    public init({
-        oldPage,
-        newPage,
-        trigger
-    }: ITransition): void {
+    public init({ oldPage, newPage, trigger, scroll }: ITransition): void {
         super.init();
         this.oldPage = oldPage;
         this.newPage = newPage;
         this.trigger = trigger;
+        this.scroll = scroll;
     }
 
     /**
@@ -163,34 +164,40 @@ export class Transition extends Service {
      */
     public async start(EventEmitter: EventEmitter): Promise<Transition> {
         if (!(this.oldPage instanceof Page) || !(this.newPage instanceof Page))
-            throw `[Page] either oldPage or newPage aren't instances of the Page Class.\n ${{ newPage: this.newPage, oldPage: this.oldPage }}`;
+            throw `[Page] either oldPage or newPage aren't instances of the Page Class.\n ${{
+                newPage: this.newPage,
+                oldPage: this.oldPage,
+            }}`;
         let fromWrapper = this.oldPage.getWrapper();
         let toWrapper = this.newPage.getWrapper();
         document.title = `` + this.newPage.getTitle();
 
         if (!(fromWrapper instanceof Node) || !(toWrapper instanceof Node))
-            throw `[Wrapper] the wrapper from the ${!(toWrapper instanceof Node) ? "next" : "current"} page cannot be found. The wrapper must be an element that has the attribute ${this.getConfig("wrapperAttr")}.`;
+            throw `[Wrapper] the wrapper from the ${
+                !(toWrapper instanceof Node) ? "next" : "current"
+            } page cannot be found. The wrapper must be an element that has the attribute ${this.getConfig(
+                "wrapperAttr"
+            )}.`;
 
         EventEmitter.emit("BEFORE_TRANSITION_OUT");
-        await new Promise(done => {
+        await new Promise((done) => {
             let outMethod: Promise<any> = this.out({
                 from: this.oldPage,
                 trigger: this.trigger,
-                done
+                done,
             });
 
-            if (outMethod.then)
-                outMethod.then(done);
+            if (outMethod.then) outMethod.then(done);
         });
 
         EventEmitter.emit("AFTER_TRANSITION_OUT");
-        await new Promise(done => {
-            fromWrapper.insertAdjacentElement('beforebegin', toWrapper);
+        await new Promise((done) => {
+            fromWrapper.insertAdjacentElement("beforebegin", toWrapper);
             EventEmitter.emit("CONTENT_INSERT");
             done();
         });
 
-        await new Promise(done => {
+        await new Promise((done) => {
             fromWrapper.remove();
             fromWrapper = undefined;
             toWrapper = undefined;
@@ -200,20 +207,19 @@ export class Transition extends Service {
 
         EventEmitter.emit("BEFORE_TRANSITION_IN");
 
-        await new Promise(done => {
+        await new Promise((done) => {
             let inMethod: Promise<any> = this.in({
                 from: this.oldPage,
                 to: this.newPage,
                 trigger: this.trigger,
-                done
+                done,
             });
 
-            if (inMethod.then)
-                inMethod.then(done);
+            if (inMethod.then) inMethod.then(done);
         });
 
         EventEmitter.emit("AFTER_TRANSITION_IN");
-        await new Promise(done => {
+        await new Promise((done) => {
             this.oldPage = undefined;
             this.newPage = undefined;
             this.trigger = undefined;
@@ -237,7 +243,9 @@ export class TransitionManager extends AdvancedManager<string, Transition> {
      * @param {App} app
      * @memberof TransitionManager
      */
-    constructor(app: App) { super(app); }
+    constructor(app: App) {
+        super(app);
+    }
 
     /**
      * Quick way to add a Transition to the TransitionManager
@@ -259,12 +267,25 @@ export class TransitionManager extends AdvancedManager<string, Transition> {
      * @returns Promise<Transition>
      * @memberof TransitionManager
      */
-    public async boot({ name, oldPage, newPage, trigger }: { name: string, oldPage: Page, newPage: Page, trigger: Trigger }): Promise<Transition> {
+    public async boot({
+        name,
+        oldPage,
+        newPage,
+        trigger,
+        scroll,
+    }: {
+        name: string;
+        oldPage: Page;
+        newPage: Page;
+        trigger: Trigger;
+        scroll: { x: number; y: number };
+    }): Promise<Transition> {
         let transition: Transition = this.get(name);
         transition.init({
             oldPage,
             newPage,
-            trigger
+            trigger,
+            scroll,
         });
 
         let EventEmitter = this.getApp().getEmitter();

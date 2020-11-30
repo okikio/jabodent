@@ -313,10 +313,10 @@ export class PJAX extends Service {
         }
 
         let url = new _URL(href);
+        let scroll = { x: 0, y: 0 };
         let currentState = this.HistoryManager.last();
         let currentURL = currentState.getURL();
         if (currentURL.equalTo(url)) {
-            this.hashAction(url.hash);
             return;
         }
 
@@ -344,7 +344,8 @@ export class PJAX extends Service {
                 //     left: x,
                 //     behavior: "smooth", // 👈
                 // });
-                window.scroll(x, y);
+                // window.scroll(x, y);
+                scroll = { x, y };
             }
             // }
 
@@ -361,20 +362,21 @@ export class PJAX extends Service {
             transitionName =
                 this.getTransitionName(trigger as HTMLAnchorElement) ||
                 "default";
-            let scroll = new Coords();
+            let scrollCoords = new Coords();
             let index = this.HistoryManager.size;
             let state = new State({
                 url,
                 index,
                 transition: transitionName,
-                data: { scroll },
+                data: { scroll: scrollCoords },
             });
 
             // if () {
             if (!this.dontScroll && this.stickyScroll) {
                 // Keep scroll position
-                let { x, y } = scroll;
-                window.scroll(x, y);
+                let { x, y } = scrollCoords;
+                scroll = { x, y };
+                // window.scroll(x, y);
             } else {
                 /*
                     window.scroll({
@@ -403,6 +405,7 @@ export class PJAX extends Service {
             href,
             trigger,
             transitionName,
+            scroll,
         });
     }
 
@@ -446,16 +449,17 @@ export class PJAX extends Service {
         href,
         trigger,
         transitionName = "default",
+        scroll = { x: 0, y: 0 },
     }: {
         oldHref: string;
         href: string;
         trigger: Trigger;
         transitionName?: string;
+        scroll: { x: number; y: number };
     }): Promise<any> {
         try {
             let oldPage = await this.PageManager.load(oldHref);
             await oldPage.build();
-            console.log(oldHref, oldPage);
             let newPage: Page;
 
             this.EventEmitter.emit("PAGE_LOADING", { href, oldPage, trigger });
@@ -484,17 +488,24 @@ export class PJAX extends Service {
                 });
                 try {
                     this.EventEmitter.emit("TRANSITION_START", transitionName);
-
                     let transition = await this.TransitionManager.boot({
                         name: transitionName,
                         oldPage,
                         newPage,
                         trigger,
+                        scroll,
                     });
 
-                    if (!transition.scroll && !/back|popstate|forward/.test(trigger as string)) {
-                        window.scroll(0, 0);
+                    // if (!/back|popstate|forward/.test(trigger as string))
+                    //     scroll = this.hashAction(href);
+
+                    if (
+                        !transition.scrollable &&
+                        !/back|popstate|forward/.test(trigger as string)
+                    ) {
+                        window.scroll(scroll.x, scroll.y);
                     }
+                    //
 
                     this.EventEmitter.emit("TRANSITION_END", { transition });
                 } catch (err) {
@@ -535,11 +546,13 @@ export class PJAX extends Service {
                         el.scrollIntoView({}); // behavior: "smooth"
                     } else {
                         let { left, top } = el.getBoundingClientRect();
-                        window.scroll({ left, top }); // behavior: "smooth"
+                        window.scroll(left, top); // behavior: "smooth"
+                        return { x: left, y: top };
                     }
                 }
             }
         }
+        return { x: 0, y: 0 };
     }
 
     /**
