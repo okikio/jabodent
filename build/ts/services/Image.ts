@@ -52,7 +52,7 @@ export class Image extends Service {
             // Ensure the image has loaded, then replace the small preview
             img.src = src;
             if (!elem.classList.contains("img-show"))
-                (img.onload = () => elem.classList.add("img-show")); // Hide the image preview
+                (img.onload = () => { elem.classList.add("img-show"); img.onload = undefined; }); // Hide the image preview
 
         }
     }
