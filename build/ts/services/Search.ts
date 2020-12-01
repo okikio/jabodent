@@ -104,7 +104,9 @@ export class Search extends Service {
                 this.navbar.classList.toggle("searching", this.active);
 
                 // this.bg.classList[this.active ? "add" : "remove"](...bgClass);
-                this.overlay.classList.toggle("show", this.active);
+                this.overlay.classList[this.active ? "add" : "remove"](
+                    "show"
+                );
 
                 // let pointerEvents = this.active ? "auto" : "none";
                 // this.close.style.display = this.active ? "flex" : "none";

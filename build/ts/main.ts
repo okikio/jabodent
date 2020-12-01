@@ -78,11 +78,11 @@ try {
 
     let backtotop_fn = () => {
         requestAnimationFrame(() => {
-            // window.scrollTo({
-            //     top: 0,
-            //     behavior: "smooth",
-            // });
-            window.scroll(0, 0);
+            window.scroll({
+                top: 0,
+                behavior: "smooth",
+            });
+            // window.scroll(0, 0);
         });
     };
 

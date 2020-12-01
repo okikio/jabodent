@@ -431,6 +431,20 @@ $delay: 0.8s;
 
     &-result {
         color: white;
+        border: 3px solid transparent;
+
+        &:focus {
+            $parent: &;
+            border: 3px solid #ffd626;
+            background-color: rgba(0, 0, 0, 0.3);
+            outline: none;
+
+            @at-root {
+                html[data-theme="dark"] #{$parent} {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+            }
+        }
 
         &-title {
             border-bottom: 1px solid currentColor;
@@ -831,6 +845,9 @@ img {
     }
 
     @media (min-width: 768px) {
+        &-overlay {
+            visibility: hidden;
+        }
         &-item {
             // opacity: 1;
         }
@@ -1177,11 +1194,24 @@ img {
         color: white;
     }
 
+    &:focus {
+        outline: none;
+        border: 3px solid #ffd626;
+        // @include applyTheme(border-color, "bg-invert");
+        @include applyTheme(background-color, "bg-invert");
+        @include applyTheme(color, "text-invert");
+    }
+
     @at-root {
         html[data-theme="dark"] #{$parent} {
             color: white;
             &:hover {
                 color: black;
+            }
+
+            &:focus {
+                border-color: transparent;
+                @include applyTheme(color, "text-invert");
             }
         }
     }
@@ -1193,8 +1223,8 @@ img {
 // }
 
 .footer {
-    content-visibility: auto;
-    contain-intrinsic-size: 100vw 600px; /* this is the guess at the height of the content, and also saying width doesn't matter */
+    // content-visibility: auto;
+    // contain-intrinsic-size: 100vw 600px; /* this is the guess at the height of the content, and also saying width doesn't matter */
 
     // &-line {
     //     border-top:

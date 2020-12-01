@@ -51,6 +51,8 @@ export class Splashscreen extends Service {
 
         let overlayElAnimFinish = () => {
           this.overlayEl.style.opacity = `0`;
+          this.overlayEl.style.visibility = "hidden";
+          this.overlayEl.style.pointerEvents = "none";
           this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
         };
 

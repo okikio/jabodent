@@ -1,44 +1,47 @@
-import { Transition, ITransitionData } from "../framework/api";
+import { Transition, ITransitionData, _URL } from "../framework/api";
 import { animate } from "@okikio/animate";
 
 //== Transitions
 export class Fade extends Transition {
     protected name = "default";
     protected duration = 350;
-    public static scrollable = true;
+    public scrollable = true;
+
+    public hashAction(hash: string = window.location.hash) {
+        try {
+            let _hash = hash[0] == "#" ? hash : new _URL(hash).hash;
+            if (_hash.length > 1) {
+                let el = document.querySelector(_hash) as HTMLElement;
+
+                if (el) {
+                    return { x: el.offsetLeft, y: el.offsetTop };
+                }
+            }
+        } catch (e) {
+            console.warn("[Transition] hashAction error out", e);
+        }
+
+        return { x: 0, y: 0 };
+    }
 
     out({ from, trigger }: ITransitionData) {
-        let { duration, scroll } = this;
+        let { duration } = this;
         let fromWrapper = from.getWrapper();
         return new Promise(async (resolve) => {
-            // animate({
-            //     target: fromWrapper,
-            //     transform: ["translateY(0)", `translateY(${window.scrollY > 550 ? 550 : 0}px)`],
-            //     easing: "out",
-            //     duration: 250,
-            //     onfinish(el: { style: { opacity: string, transform: string } }) {
-            //         requestAnimationFrame(() => {
-            //             el.style.transform = `translateY(${window.scrollY > 550 ? 550 : 0}px)`;
-            //             // window.scroll(0, 0);
-            //         });
-            //     },
-            // })
             await animate({
                 target: fromWrapper,
                 keyframes: [
                     {
                         transform: "translateY(0)",
-                        // }, {
                         opacity: 1,
                     },
                     {
                         opacity: 0,
-                        transform: `translateY(${
-                            window.scrollY > 100 &&
+                        transform: `translateY(${window.scrollY > 100 &&
                             !/back|popstate|forward/.test(trigger as string)
-                                ? 100
-                                : 0
-                        }px)`,
+                            ? 100
+                            : 0
+                            }px)`,
                     },
                 ],
                 // opacity: [1, 0],
@@ -49,27 +52,27 @@ export class Fade extends Transition {
                 }) {
                     requestAnimationFrame(() => {
                         el.style.opacity = "0";
-                        // el.style.transform = "translateY(0)";
-                        window.scroll(scroll.x, scroll.y);
-                        console.log(scroll);
                     });
                 },
             });
 
-            // window.scroll({
-            //     top: 0,
-            //     behavior: 'auto'  // 👈
-            // });
             resolve();
         });
     }
 
-    in({ to }: ITransitionData) {
-        let { duration } = this;
+    in({ to, trigger }: ITransitionData) {
+        let { duration, scroll, hashAction } = this;
         let toWrapper = to.getWrapper();
         requestAnimationFrame(() => {
             toWrapper.style.transform = "translateX(0%)";
         });
+
+        if (!/back|popstate|forward/.test(trigger as string)) {
+            scroll = hashAction();
+        }
+
+        window.scroll(scroll.x, scroll.y);
+
         return animate({
             target: toWrapper,
             opacity: [0, 1],

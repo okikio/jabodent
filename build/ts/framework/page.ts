@@ -259,11 +259,17 @@ export class PageManager extends AdvancedManager<string, Page> {
         console.log(page);
 
         if (this.size > this.maxPages) {
-            let first = this.keys()[1];
+            let currentUrl = new _URL();
+            let keys = this.keys();
+            let first = _URL.equal(currentUrl, keys[0]) ? keys[1] : keys[0];
             let page = this.get(first);
             page.reset();
             this.delete(first);
             page = undefined;
+            keys = undefined;
+            currentUrl = undefined;
+            first = undefined;
+
         }
         return page;
     }

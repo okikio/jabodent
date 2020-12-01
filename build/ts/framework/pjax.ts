@@ -59,7 +59,7 @@ export class PJAX extends Service {
      * @type boolean
      * @memberof PJAX
      */
-    protected stickyScroll: boolean = true;
+    protected stickyScroll: boolean = false;
 
     /**
      * Force load a page if an error occurs
@@ -333,21 +333,11 @@ export class PJAX extends Service {
             trigger = this.getDirection(difference);
             transitionName = transition;
 
-            // if (!this.dontScroll) {
             // If the page remains on the same history state DO NOT scroll, it's pointless
-            if (trigger !== "popstate" && this.stickyScroll) {
+            if (trigger !== "popstate") {
                 // Keep scroll position
-                let { x, y } = data.scroll;
-                console.log(data.scroll);
-                // window.scroll({
-                //     top: y,
-                //     left: x,
-                //     behavior: "smooth", // 👈
-                // });
-                // window.scroll(x, y);
-                scroll = { x, y };
+                scroll = data.scroll;
             }
-            // }
 
             // Based on the direction of the state change either remove or add a state
             if (trigger === "back") {
@@ -363,6 +353,32 @@ export class PJAX extends Service {
                 this.getTransitionName(trigger as HTMLAnchorElement) ||
                 "default";
             let scrollCoords = new Coords();
+            let oldData = currentState.getData();
+            let oldIndex = currentState.getIndex();
+            let replaceOldState = new State({
+                url: currentState.getURL(),
+                index: oldIndex,
+                transition: currentState.getTransition(),
+                data: {
+                    ...oldData,
+                    scroll: scrollCoords,
+                },
+            });
+
+            this.HistoryManager.set(oldIndex, replaceOldState);
+            this.changeState("replace", replaceOldState);
+
+            if (!this.dontScroll && this.stickyScroll) {
+                // Keep scroll position
+                let { x, y } = scrollCoords;
+                scroll = { x, y };
+            } else {
+                scroll = {
+                    x: 0,
+                    y: 0
+                };
+            }
+
             let index = this.HistoryManager.size;
             let state = new State({
                 url,
@@ -370,24 +386,6 @@ export class PJAX extends Service {
                 transition: transitionName,
                 data: { scroll: scrollCoords },
             });
-
-            // if () {
-            if (!this.dontScroll && this.stickyScroll) {
-                // Keep scroll position
-                let { x, y } = scrollCoords;
-                scroll = { x, y };
-                // window.scroll(x, y);
-            } else {
-                /*
-                    window.scroll({
-                        top: 0,
-                        left: 0,
-                        behavior: "smooth", // 👈
-                    });
-                */
-                // Moved control of scroll to TransitionManager
-            }
-            // }
 
             this.HistoryManager.add(state);
             this.changeState("push", state);
@@ -488,6 +486,7 @@ export class PJAX extends Service {
                 });
                 try {
                     this.EventEmitter.emit("TRANSITION_START", transitionName);
+
                     let transition = await this.TransitionManager.boot({
                         name: transitionName,
                         oldPage,
@@ -496,18 +495,13 @@ export class PJAX extends Service {
                         scroll,
                     });
 
-                    // if (!/back|popstate|forward/.test(trigger as string))
-                    //     scroll = this.hashAction(href);
-
-                    if (
-                        !transition.scrollable &&
-                        !/back|popstate|forward/.test(trigger as string)
-                    ) {
+                    if (!transition.scrollable) {
+                        if (!/back|popstate|forward/.test(trigger as string)) scroll = this.hashAction(href);
                         window.scroll(scroll.x, scroll.y);
                     }
-                    //
 
                     this.EventEmitter.emit("TRANSITION_END", { transition });
+
                 } catch (err) {
                     console.error(`[PJAX] transition error: ${err}`);
                 }
@@ -537,21 +531,19 @@ export class PJAX extends Service {
      * @memberof PJAX
      */
     public hashAction(hash: string = window.location.hash) {
-        if (this.autoScrollOnHash) {
-            if (hash.length > 1) {
-                let el = document.querySelector(hash);
+        try {
+            let _hash = hash[0] == "#" ? hash : new _URL(hash).hash;
+            if (_hash.length > 1) {
+                let el = document.querySelector(_hash) as HTMLElement;
 
                 if (el) {
-                    if (el.scrollIntoView) {
-                        el.scrollIntoView({}); // behavior: "smooth"
-                    } else {
-                        let { left, top } = el.getBoundingClientRect();
-                        window.scroll(left, top); // behavior: "smooth"
-                        return { x: left, y: top };
-                    }
+                    return { x: el.offsetLeft, y: el.offsetTop };
                 }
             }
+        } catch (e) {
+            console.warn("[Transition] hashAction error out", e);
         }
+
         return { x: 0, y: 0 };
     }
 
@@ -638,7 +630,6 @@ export class PJAX extends Service {
 
         document.addEventListener("click", this.onClick);
         window.addEventListener("popstate", this.onStateChange);
-        this.EventEmitter.on("CONTENT_REPLACED", this.hashAction, this);
     }
 
     /**
