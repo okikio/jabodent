@@ -9,7 +9,6 @@ const bs = require("browser-sync");
 const plumber = require("gulp-plumber");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass");
-const dartSass = require("sass");
 const pug = require("gulp-pug");
 
 const querySelector = require("posthtml-match-helper");
@@ -168,7 +167,7 @@ task("html", () => {
 
 // CSS Tasks
 const { logError } = sass;
-sass.compiler = dartSass;
+sass.compiler = require('node-sass');
 tasks({
     "app-css": () => {
         return stream(`${sassFolder}/**/*.scss`, {
