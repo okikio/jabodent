@@ -9,7 +9,7 @@ devDependencies:
   '@babel/preset-env': 7.12.7_@babel+core@7.12.9
   '@rollup/plugin-babel': 5.2.1_@babel+core@7.12.9+rollup@2.33.3
   '@rollup/plugin-buble': 0.21.3_rollup@2.33.3
-  '@rollup/plugin-node-resolve': 10.0.0_rollup@2.33.3
+  '@rollup/plugin-node-resolve': 11.0.0_rollup@2.33.3
   autoprefixer: 10.0.4_postcss@8.1.10
   browser-sync: 2.26.13
   dotenv: 8.2.0
@@ -1019,7 +1019,7 @@ packages:
       rollup: ^1.20.0||^2.0.0
     resolution:
       integrity: sha512-Iv8cCuFPnMdqV4pcyU+OrfjOfagPArRQ1PyQjx5KgHk3dARedI+8PNTLSMpJts0lQJr8yF2pAU4GxpxCBJ9HYw==
-  /@rollup/plugin-node-resolve/10.0.0_rollup@2.33.3:
+  /@rollup/plugin-node-resolve/11.0.0_rollup@2.33.3:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.33.3
       '@types/resolve': 1.17.1
@@ -1034,7 +1034,7 @@ packages:
     peerDependencies:
       rollup: ^1.20.0||^2.0.0
     resolution:
-      integrity: sha512-sNijGta8fqzwA1VwUEtTvWCx2E7qC70NMsDh4ZG13byAXYigBNZMxALhKUSycBks5gupJdq0lFrKumFrRZ8H3A==
+      integrity: sha512-8Hrmwjn1pLYjUxcv7U7IPP0qfnzEJWHyHE6CaZ8jbLM+8axaarJRB1jB6JgKTDp5gNga+TpsgX6F8iuvgOerKQ==
   /@rollup/pluginutils/3.1.0_rollup@2.33.3:
     dependencies:
       '@types/estree': 0.0.39
@@ -1080,17 +1080,17 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
-  /@types/node/14.14.9:
+  /@types/node/14.14.10:
     dev: true
     resolution:
-      integrity: sha512-JsoLXFppG62tWTklIoO4knA+oDTYsmqWxHRvd4lpmfQRNhX6osheUOWETP2jMoV/2bEHuMra8Pp3Dmo/stBFcw==
+      integrity: sha512-J32dgx2hw8vXrSbu4ZlVhn1Nm3GbeCFNw2FWL8S5QKucHGY0cyNwjdQdO+KMBZ4wpmC7KhLCiNsdk1RFRIYUQQ==
   /@types/pug/2.0.4:
     dev: true
     resolution:
       integrity: sha1-h3L80EGOPNLMFxVV1zAHQVBR9LI=
   /@types/resolve/1.17.1:
     dependencies:
-      '@types/node': 14.14.9
+      '@types/node': 14.14.10
     dev: true
     resolution:
       integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
@@ -3813,12 +3813,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==
-  /is-core-module/2.1.0:
+  /is-core-module/2.2.0:
     dependencies:
       has: 1.0.3
     dev: true
     resolution:
-      integrity: sha512-YcV7BgVMRFRua2FqQzKtTDMz8iCuLEyGKjr70q8Zm1yy2qKcurbFEd79PAdHV77oL3NrAaOVQIbMmiHQCHB7ZA==
+      integrity: sha512-XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==
   /is-data-descriptor/0.1.4:
     dependencies:
       kind-of: 3.2.2
@@ -5701,7 +5701,7 @@ packages:
       integrity: sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
   /resolve/1.19.0:
     dependencies:
-      is-core-module: 2.1.0
+      is-core-module: 2.2.0
       path-parse: 1.0.6
     dev: true
     resolution:
@@ -6994,7 +6994,7 @@ specifiers:
   '@okikio/manager': ^0.0.7
   '@rollup/plugin-babel': ^5.2.1
   '@rollup/plugin-buble': ^0.21.3
-  '@rollup/plugin-node-resolve': ^10.0.0
+  '@rollup/plugin-node-resolve': ^11.0.0
   autoprefixer: ^10.0.4
   browser-sync: ^2.26.13
   dotenv: ^8.2.0
