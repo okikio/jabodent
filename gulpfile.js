@@ -1,10 +1,4 @@
 // Import external modules
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const esbuild = require("rollup-plugin-esbuild");
-const buble = require("@rollup/plugin-buble");
-const rollup = require("gulp-better-rollup");
-const babel = require("gulp-babel");
-
 const autoprefixer = require("autoprefixer");
 const postcss = require("gulp-postcss");
 const tailwind = require("tailwindcss");
@@ -15,7 +9,7 @@ const bs = require("browser-sync");
 const plumber = require("gulp-plumber");
 const rename = require("gulp-rename");
 const sass = require("gulp-sass");
-const dartSass = require('sass');
+const dartSass = require("sass");
 const pug = require("gulp-pug");
 
 const querySelector = require("posthtml-match-helper");
@@ -25,6 +19,9 @@ const posthtml = require("gulp-posthtml");
 const stringify = require("fast-stringify");
 const path = require("path");
 const fs = require("fs");
+
+const esbuildGulp = require("gulp-esbuild");
+// const gulpEsbuild = esbuildGulp.createGulpEsbuild();
 
 /**
 import querySelector from "posthtml-match-helper";
@@ -51,12 +48,12 @@ const {
     seriesFn,
 } = require("./util");
 
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 const env = process.env;
-const dev = 'dev' in env ? env.dev == "true" : false;
-const netlify = 'netlify' in env ? env.netlify == "true" : false;
+const dev = "dev" in env ? env.dev == "true" : false;
+const netlify = "netlify" in env ? env.netlify == "true" : false;
 
 // Origin folders (source and destination folders)
 const srcFolder = `build`;
@@ -131,7 +128,7 @@ task("html", () => {
                                 next,
                                 service,
                                 icons,
-                                netlify
+                                netlify,
                             },
                             data
                         ),
@@ -163,7 +160,7 @@ task("html", () => {
                                 len,
                                 person,
                                 icons,
-                                netlify
+                                netlify,
                             },
                             data
                         ),
@@ -211,7 +208,7 @@ tasks({
                 purge({
                     content: [`${pugFolder}/**/*.pug`],
                     //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-                    safelist: [/min-h-400/, /min-h-500/],// ["active", "show", "focus", "hide"],
+                    safelist: [/min-h-400/, /min-h-500/], // ["active", "show", "focus", "hide"],
                     keyframes: false,
                     fontFace: false,
                     defaultExtractor: (content) => {
@@ -235,19 +232,24 @@ tasks({
         return stream(`${cssFolder}/*.css`, {
             pipes: [
                 // Prefix & Compress CSS
-                !dev ? postcss([
-                    autoprefixer({
-                        overrideBrowserslist: ["defaults"],
-                    }),
-                    csso(),
-                ]) : null,
+                !dev
+                    ? postcss([
+                          autoprefixer({
+                              overrideBrowserslist: ["defaults"],
+                          }),
+                          csso(),
+                      ])
+                    : null,
             ],
             dest: cssFolder,
             end: [browserSync.stream()],
-        })
+        });
     },
 
-    css: parallelFn("app-css", dev ? "tailwind-css" : seriesFn("tailwind-css", "purge", "minify-css")),
+    css: parallelFn(
+        "app-css",
+        dev ? "tailwind-css" : seriesFn("tailwind-css", "purge", "minify-css")
+    ),
 });
 
 // JS Tasks
@@ -271,22 +273,13 @@ tasks({
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
-                rollup(
-                    {
-                        treeshake: true,
-                        // preserveEntrySignatures: false,
-                        plugins: [
-                            nodeResolve(),
-                            esbuild({
-                                // watch: watching,
-                                minify: true,
-                                target: "es2016", // default, or 'es20XX', 'esnext'
-                            }),
-                        ],
-                        onwarn,
-                    },
-                    "es"
-                ),
+                esbuildGulp({
+                    // target: "es2015", // default, or 'es20XX', 'esnext'
+                    bundle: true,
+                    minify: true,
+                    // sourcemap: true,
+                    target: ["chrome71"],
+                }),
                 rename("modern.min.js"), // Rename
             ],
             dest: jsFolder, // Output
@@ -296,35 +289,11 @@ tasks({
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
-                rollup(
-                    {
-                        treeshake: true,
-                        // preserveEntrySignatures: false,
-                        plugins: [
-                            nodeResolve(),
-                            esbuild({
-                                // watch: watching,
-                                minify: true,
-                                target: "es2015", // default, or 'es20XX', 'esnext'
-                            }),
-                        ],
-                        onwarn,
-                    },
-                    "umd"
-                ),
-                babel({
-                    compact: true,
-                    presets: [
-                        [
-                            "@babel/env",
-                            {
-                                targets: {
-                                    ie: "11",
-                                    chrome: "54",
-                                },
-                            },
-                        ],
-                    ],
+                esbuildGulp({
+                    // target: "es2015", // default, or 'es20XX', 'esnext'
+                    bundle: true,
+                    minify: true,
+                    target: ["chrome58", "firefox57", "safari11", "edge16"],
                 }),
                 rename("legacy.min.js"), // Rename
             ],
@@ -335,39 +304,11 @@ tasks({
         return stream([`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`], {
             pipes: [
                 // Bundle Modules
-                rollup(
-                    {
-                        treeshake: true,
-                        // preserveEntrySignatures: false,
-                        plugins: [
-                            nodeResolve(),
-                            esbuild({
-                                // watch: watching,
-                                minify: true,
-                                target: "es2015", // default, or 'es20XX', 'esnext'
-                            }),
-                            buble({
-                                // custom `Object.assign` (used in object spread)
-                                objectAssign: "Object.assign",
-                            }),
-                        ],
-                        onwarn,
-                    },
-                    "umd"
-                ),
-                babel({
-                    compact: true,
-                    presets: [
-                        [
-                            "@babel/env",
-                            {
-                                targets: {
-                                    ie: "11",
-                                    chrome: "54",
-                                },
-                            },
-                        ],
-                    ],
+                esbuildGulp({
+                    // target: "es2015", // default, or 'es20XX', 'esnext'
+                    bundle: true,
+                    minify: true,
+                    target: ["chrome58", "firefox57", "safari11", "edge16"],
                 }),
                 rename({ suffix: ".min", extname: ".js" }), // Rename
             ],
@@ -455,9 +396,16 @@ task("inline", () => {
                     transforms: {
                         script: {
                             resolve(node) {
-                                return node.tag === 'script' && node.attrs && ("inline" in node.attrs) &&
-                                    typeof node.attrs.src == "string" && node.attrs.src.length > 1 &&
-                                    (node.attrs.src[0] == "/" ? (node.attrs.src + "").slice(1) : node.attrs.src);
+                                return (
+                                    node.tag === "script" &&
+                                    node.attrs &&
+                                    "inline" in node.attrs &&
+                                    typeof node.attrs.src == "string" &&
+                                    node.attrs.src.length > 1 &&
+                                    (node.attrs.src[0] == "/"
+                                        ? (node.attrs.src + "").slice(1)
+                                        : node.attrs.src)
+                                );
                             },
                             transform(node, data) {
                                 delete node.attrs.src;
@@ -465,17 +413,23 @@ task("inline", () => {
                                 if ("async" in node.attrs)
                                     delete node.attrs.async;
 
-                                node.content = [
-                                    data.buffer.toString('utf8')
-                                ];
+                                node.content = [data.buffer.toString("utf8")];
                                 return node;
-                            }
+                            },
                         },
                         style: {
                             resolve(node) {
-                                return node.tag === 'link' && node.attrs && node.attrs.rel === "stylesheet" && ("inline" in node.attrs) &&
-                                    typeof node.attrs.href === "string" && node.attrs.href.length > 1 &&
-                                    (node.attrs.href[0] == "/" ? (node.attrs.href + "").slice(1) : node.attrs.href);
+                                return (
+                                    node.tag === "link" &&
+                                    node.attrs &&
+                                    node.attrs.rel === "stylesheet" &&
+                                    "inline" in node.attrs &&
+                                    typeof node.attrs.href === "string" &&
+                                    node.attrs.href.length > 1 &&
+                                    (node.attrs.href[0] == "/"
+                                        ? (node.attrs.href + "").slice(1)
+                                        : node.attrs.href)
+                                );
                             },
                             transform(node, data) {
                                 delete node.attrs.href;
@@ -484,16 +438,14 @@ task("inline", () => {
                                 if ("async" in node.attrs)
                                     delete node.attrs.async;
 
-                                node.tag = 'style';
-                                node.content = [
-                                    data.buffer.toString('utf8')
-                                ];
+                                node.tag = "style";
+                                node.content = [data.buffer.toString("utf8")];
                                 return node;
-                            }
+                            },
                         },
                         favicon: false,
-                        image: false
-                    }
+                        image: false,
+                    },
                 }),
 
                 (tree) => {
@@ -511,19 +463,21 @@ task("inline", () => {
                         return node;
                     });
                 },
-            ])
+            ]),
         ],
-        dest: htmlFolder
+        dest: htmlFolder,
     });
 });
 
 // Build & Watch Tasks
-task("build", parallel(
-    series("html", "indexer"),
-    series(
-        parallel("css", "js", "assets"),
-        "inline")
-));
+task(
+    "build",
+    parallel(
+        series("html", "indexer"),
+        series(parallel("css", "js"), "inline"),
+        "assets"
+    )
+);
 task("watch", () => {
     browserSync.init(
         {
@@ -565,7 +519,11 @@ task(
     series(
         parallel(
             series("html", "indexer"),
-            "app-css", "tailwind-css", "js", "assets"),
+            "app-css",
+            "tailwind-css",
+            "js",
+            "assets"
+        ),
         "watch"
     )
 );
