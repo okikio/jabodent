@@ -9,12 +9,13 @@ export class Image extends Service {
 
     public init() {
         super.init();
-        this.test_webp();
-
-        this.get_images();
-        requestAnimationFrame(() => {
-            this.load_img();
-        });
+        (async () => {
+            await this.test_webp();
+            this.get_images();
+            requestAnimationFrame(() => {
+                this.load_img();
+            });
+        })();
     }
 
     public get_images() {
@@ -83,57 +84,80 @@ export class Image extends Service {
 
         this.EventEmitter.on("CONTENT_INSERT", () => {
             this.get_images();
-
             this.load_img();
         });
     }
 
-    public test_webp() {
+    public async test_webp() {
+        let check_webp_feature = (feature) => {
+            return new Promise((resolve, reject) => {
+                let kTestImages = {
+                    lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
+                    lossless: "UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==",
+                    alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
+                    animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
+                };
+                
+                let img = new window.Image();
+
+                // @ts-ignore
+                img.src = "data:image/webp;base64," + kTestImages[feature];
+                // @ts-ignore
+                img.onload = () => {
+                    // @ts-ignore
+                    let result = (img.width > 0) && (img.height > 0);
+                    resolve(result);
+                };
+
+                // @ts-ignore
+                img.onerror = () => {
+                    reject(false);
+                };
+            });
+        };
+
         // Quick test for webp support
         try {
-            this.WebpSupport =
-                document
-                    .createElement("canvas")
-                    .toDataURL("image/webp")
-                    .indexOf("data:image/webp") == 0;
+            let result = await check_webp_feature("lossless");
+            this.WebpSupport = result as boolean;
         } catch (e) {
             this.WebpSupport = false;
-        }
-
-        if (!this.WebpSupport) {
-            // Long Test for webp support
-            (() => {
-                // If the browser doesn't has the method createImageBitmap, you can't display webp format
-                if (!window.createImageBitmap) {
-                    this.WebpSupport = false;
-                    return;
-                }
-
-                // Base64 representation of a white point image
-                let webpdata =
-                    "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA=";
-
-                // Retrieve the Image in Blob Format
-                fetch(webpdata)
-                    .then((response) => response.blob())
-                    .then((blob) => {
-                        // If the createImageBitmap method succeeds, return true, otherwise false
-                        createImageBitmap(blob)
-                            .then(() => {
-                                this.WebpSupport = true;
-                            })
-                            .catch(() => {
-                                this.WebpSupport = false;
-                            });
-                    });
-            })();
-        }
-
-        if (!this.WebpSupport) {
             // Safari still doesn't support WebP
             console.info(
                 "Using JPG instead, of WEBP as this browser doesn't support WEBP."
             );
         }
+
+        // if (!this.WebpSupport) {
+        //     // Long Test for webp support
+        //     (() => {
+        //         // If the browser doesn't has the method createImageBitmap, you can't display webp format
+        //         if (!window.createImageBitmap) {
+        //             this.WebpSupport = false;
+        //             return;
+        //         }
+
+        //         // Base64 representation of a white point image
+        //         let webpdata =
+        //             "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA=";
+
+        //         // Retrieve the Image in Blob Format
+        //         fetch(webpdata)
+        //             .then((response) => response.blob())
+        //             .then((blob) => {
+        //                 // If the createImageBitmap method succeeds, return true, otherwise false
+        //                 createImageBitmap(blob)
+        //                     .then(() => {
+        //                         this.WebpSupport = true;
+        //                     })
+        //                     .catch(() => {
+        //                         this.WebpSupport = false;
+        //                     });
+        //             });
+        //     })();
+        // }
+
+        // if (!this.WebpSupport) {
+        // }
     }
 }

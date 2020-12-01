@@ -156,7 +156,6 @@ $delay: 0.8s;
     height: 100vh;
     pointer-events: none;
     contain: layout size;
-    will-change: opacity;
 
     &.active {
         animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
@@ -193,7 +192,6 @@ $delay: 0.8s;
     visibility: hidden;
     pointer-events: none;
     contain: layout size;
-    will-change: transform;
 
     // content-visibility: auto;
     // contain-intrinsic-size: 100vh; /* Explained in the next section. */
@@ -317,6 +315,7 @@ $delay: 0.8s;
         width: 100vw;
         height: 100vh;
         visibility: hidden;
+        will-change: opacity;
 
         // transform: translateY(-100%);
         // transform: translateY(0px);
@@ -614,7 +613,7 @@ img {
 
 .core-img-pic {
     transition: opacity 0.35s ease-out;
-    will-change: opacity;
+    // will-change: opacity;
     opacity: 0;
 }
 
@@ -996,7 +995,7 @@ img {
     // z-index: auto;
     // height: 100%;
     // margin: 0;
-    will-change: opacity;
+    // will-change: opacity;
 
     z-index: 4;
 }
