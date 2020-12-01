@@ -23,18 +23,6 @@ const fs = require("fs");
 const esbuildGulp = require("gulp-esbuild");
 // const gulpEsbuild = esbuildGulp.createGulpEsbuild();
 
-/**
-import querySelector from "posthtml-match-helper";
-import minifyJSON from 'gulp-minify-inline-json';
-import phTransformer from 'posthtml-transformer';
-import icons from './material-design-icons';
-import postHTMLTextr from "posthtml-textr";
-import postHTMLLorem from "posthtml-lorem";
-import posthtml from 'gulp-posthtml';
-import htmlmin from 'gulp-htmlmin';
-import header from 'gulp-header';
- */
-
 // Gulp utilities
 const {
     stream,
@@ -253,21 +241,6 @@ tasks({
 });
 
 // JS Tasks
-// Rollup warnings are annoying
-let ignoreLog = [
-    "CIRCULAR_DEPENDENCY",
-    "UNRESOLVED_IMPORT",
-    "EXTERNAL_DEPENDENCY",
-    "THIS_IS_UNDEFINED",
-];
-let onwarn = ({ loc, message, code, frame }, warn) => {
-    if (ignoreLog.indexOf(code) > -1) return;
-    if (loc) {
-        warn(`${loc.file} (${loc.line}:${loc.column}) ${message}`);
-        if (frame) warn(frame);
-    } else warn(message);
-};
-
 tasks({
     "modern-js": () => {
         return stream(`${tsFolder}/${tsFile}`, {
