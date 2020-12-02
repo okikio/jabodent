@@ -991,11 +991,12 @@ img {
 }
 
 [data-wrapper] {
-    // position: relative;
+    position: relative;
     // z-index: auto;
     // height: 100%;
     // margin: 0;
     // will-change: opacity;
+    // transform: translate(0, 0, 0);
 
     z-index: 4;
 }
