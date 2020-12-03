@@ -206,7 +206,7 @@ export class PageManager extends AdvancedManager<string, Page> {
      * @memberof PageManager
      */
     protected loading: Manager<string, Promise<string>> = new Manager();
-    protected maxPages = 10;
+    protected maxPages = 4;
 
     /**
      * Creates an instance of the PageManager
