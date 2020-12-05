@@ -109,6 +109,19 @@ export class PJAX extends Service {
         this.isTransitioning = false;
     }
 
+    public init() {
+        super.init();
+
+        /**
+         * Bind the event listeners to the PJAX class
+         *
+         * @memberof PJAX
+         */
+        this.onHover = this.onHover.bind(this);
+        this.onClick = this.onClick.bind(this);
+        this.onStateChange = this.onStateChange.bind(this);
+    }
+
     /**
      * Starts the PJAX Service
      *
@@ -541,7 +554,7 @@ export class PJAX extends Service {
                 }
             }
         } catch (e) {
-            console.warn("[Transition] hashAction error out", e);
+            console.warn("[Transition] hashAction error", e);
         }
 
         return { x: 0, y: 0 };
@@ -582,13 +595,11 @@ export class PJAX extends Service {
 
         this.EventEmitter.emit("ANCHOR_HOVER HOVER", event);
 
-        (() => {
-            try {
-                this.PageManager.load(url);
-            } catch (err) {
-                console.warn("[PJAX] prefetch error,", err);
-            }
-        })();
+        try {
+            this.PageManager.load(url);
+        } catch (err) {
+            console.warn("[PJAX] prefetch error,", err);
+        }
     }
 
     /**
@@ -604,16 +615,6 @@ export class PJAX extends Service {
         this.go({ href: window.location.href, trigger: "popstate", event });
     }
 
-    /**
-     * Bind the event listeners to the PJAX class
-     *
-     * @memberof PJAX
-     */
-    public bindEvents() {
-        this.onHover = this.onHover.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.onStateChange = this.onStateChange.bind(this);
-    }
 
     /**
      * Initialize DOM Events
@@ -621,8 +622,6 @@ export class PJAX extends Service {
      * @memberof PJAX
      */
     public initEvents() {
-        this.bindEvents();
-
         if (this.prefetchIgnore !== true) {
             document.addEventListener("mouseover", this.onHover);
             document.addEventListener("touchstart", this.onHover);

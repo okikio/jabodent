@@ -40,6 +40,8 @@ export class Splashscreen extends Service {
           this.rootElement.style.transform = "translateY(100%)";
           this.rootElement.style.visibility = "hidden";
           this.rootElement.style.pointerEvents = "none";
+          this.EventEmitter.emit("AFTER_SPLASHSCREEN_HIDE");
+          rootElementAnimFinish = undefined;
         };
 
         if (rootElementAnim) {
@@ -53,7 +55,8 @@ export class Splashscreen extends Service {
           this.overlayEl.style.opacity = `0`;
           this.overlayEl.style.visibility = "hidden";
           this.overlayEl.style.pointerEvents = "none";
-          this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
+          this.overlayEl = undefined;
+          overlayElAnim = undefined;
         };
 
         if (overlayElAnim) {
@@ -65,6 +68,8 @@ export class Splashscreen extends Service {
 
         let innerElAnimFinish = () => {
           this.innerEl.style.opacity = `0`;
+          this.innerEl = undefined;
+          innerElAnim = undefined;
         };
 
         if (innerElAnim) {
@@ -80,7 +85,15 @@ export class Splashscreen extends Service {
       }
     } else {
       this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
-      this.EventEmitter.emit("START_SPLASHSCREEN_HIDE");
+      this.EventEmitter.emit("AFTER_SPLASHSCREEN_HIDE");
     }
+
+    super.boot();
+  }
+
+  public stop() {
+    this.rootElement = undefined;
+    this.overlayEl = undefined;
+    this.innerEl = undefined;
   }
 }

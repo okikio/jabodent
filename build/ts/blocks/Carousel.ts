@@ -400,9 +400,9 @@ export class Carousel extends Block {
         this.prevBtn = undefined;
         this.nextBtn = undefined;
 
-        this.clearDots();
+        // this.clearDots();
         this.dotContainer = undefined;
-        // this.dots = undefined;
+        this.dots = undefined;
         this.dot = undefined;
 
         this.slideLen = 0;

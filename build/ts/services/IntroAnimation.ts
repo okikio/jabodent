@@ -37,7 +37,7 @@ export class IntroAnimation extends Service {
         );
         this.EventEmitter.on("CONTENT_REPLACED", this.newPage, this);
         this.EventEmitter.on(
-            "START_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN",
+            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN",
             this.show,
             this
         );
@@ -51,7 +51,7 @@ export class IntroAnimation extends Service {
         );
         this.EventEmitter.off("CONTENT_REPLACED", this.newPage, this);
         this.EventEmitter.off(
-            "START_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN",
+            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN",
             this.show,
             this
         );

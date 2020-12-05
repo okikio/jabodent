@@ -1657,12 +1657,12 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-B43SYg8LGWYTCv9Gs0RnuLNwjzpuWOoCaZHTWEDEf5AfrnuDMerPVMdCEu7xOdhFvQ+UqfP2MGU9lxEy0JzccA==
-  /esbuild/0.8.18:
+  /esbuild/0.8.19:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-EPbCSr7Ems1loeoy1faUGnJOwTwSrGcoYVQ4f4T4JMKjxJxrWAg+zqXkZK7GvqxfvokPp3HV6Raqn6rqAuW7+Q==
+      integrity: sha512-KeLnk6TA7yX+KEz9+eDUigJ6ZG5Z7P1pscYdBjlCMuiOFjtbm7/BCHLpLkxfaMT04KwXbS8Lovrzl9rA5xctQg==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -2255,7 +2255,7 @@ packages:
       integrity: sha512-zzGBl5fHo0EKSXsHzjspp3y5CONegCm8ErO5Qh0UzFzk2y4tMvzLWhoDokADbarfZRL2pGpRp7yt6gfJX4ph7A==
   /gulp-esbuild/0.3.2:
     dependencies:
-      esbuild: 0.8.18
+      esbuild: 0.8.19
       plugin-error: 1.0.1
       vinyl: 2.2.1
     dev: true
@@ -2506,7 +2506,7 @@ packages:
       depd: 1.1.2
       inherits: 2.0.3
       setprototypeof: 1.1.0
-      statuses: 1.4.0
+      statuses: 1.5.0
     dev: true
     engines:
       node: '>= 0.6'
