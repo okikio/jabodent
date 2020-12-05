@@ -115,3 +115,4 @@ coverage/
 # Ignore Docs folder for developement
 docs/
 public/
+.vscode/settings.json
