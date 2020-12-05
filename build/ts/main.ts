@@ -105,13 +105,20 @@ try {
         backToTop = document.querySelector(".back-to-top");
         if (backToTop) {
             backToTop.addEventListener("click", backtotop_fn);
+            backToTop = undefined;
         }
 
         scrollBtn = document.querySelector(".scroll-btn");
         scrollPt = document.querySelector(".scroll-point");
         if (scrollBtn) {
             scrollBtn.addEventListener("click", scrolldown_fn);
+            scrollBtn = undefined;
+            scrollPt = undefined;
         }
+
+        layers = undefined;
+        layer = undefined;
+        // top = 0;
     };
 
     app.on("POPSTATE", () => {
@@ -122,6 +129,7 @@ try {
     app.on("AFTER_TRANSITION_OUT", () => {
         layers = undefined;
         layer = undefined;
+        waitOnScroll = undefined;
         top = 0;
         if (backToTop) {
             backToTop.removeEventListener("click", backtotop_fn);

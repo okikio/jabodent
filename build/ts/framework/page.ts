@@ -5,7 +5,7 @@ import { App } from "./app";
 /**
  * Parses strings to DOM
  */
-export let PARSER: DOMParser = new DOMParser();
+export const PARSER: DOMParser = new DOMParser();
 
 /**
  * A page represents the DOM elements that create each page
@@ -187,6 +187,8 @@ export class Page extends ManagerItem {
         this.head = undefined;
         this.body = undefined;
         this.dom = undefined;
+        this.wrapper = undefined;
+        this.data = undefined;
     }
 }
 
@@ -206,7 +208,7 @@ export class PageManager extends AdvancedManager<string, Page> {
      * @memberof PageManager
      */
     protected loading: Manager<string, Promise<string>> = new Manager();
-    protected maxPages = 4;
+    protected maxPages = 5;
 
     /**
      * Creates an instance of the PageManager
@@ -218,6 +220,7 @@ export class PageManager extends AdvancedManager<string, Page> {
         super(app);
         let URLString = new _URL().getPathname();
         this.set(URLString, new Page());
+        URLString = undefined;
     }
 
     /**

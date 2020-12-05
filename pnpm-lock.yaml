@@ -5,15 +5,15 @@ dependencies:
   fast-stringify: 2.0.0
   fuse.js: 6.4.3
 devDependencies:
-  autoprefixer: 10.0.4_postcss@8.1.10
+  autoprefixer: 10.0.4_postcss@8.1.14
   browser-sync: 2.26.13
   dotenv: 8.2.0
   esbuild: 0.7.22
   gulp: 4.0.2
-  gulp-esbuild: 0.3.1
+  gulp-esbuild: 0.3.2
   gulp-minify-inline-json: 1.3.4
   gulp-plumber: 1.2.1
-  gulp-postcss: 9.0.0_postcss@8.1.10
+  gulp-postcss: 9.0.0_postcss@8.1.14
   gulp-posthtml: 3.0.5
   gulp-pug: 4.0.1
   gulp-purgecss: 3.0.0
@@ -21,8 +21,8 @@ devDependencies:
   gulp-sass: 4.1.0
   merge-stream: 2.0.0
   node-sass: 5.0.0
-  postcss: 8.1.10
-  postcss-csso: 5.0.0_postcss@8.1.10
+  postcss: 8.1.14
+  postcss-csso: 5.0.0_postcss@8.1.14
   posthtml: 0.13.4
   posthtml-inline-assets: 3.1.0
   posthtml-match-helper: 1.0.1_posthtml@0.13.4
@@ -462,14 +462,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-  /autoprefixer/10.0.4_postcss@8.1.10:
+  /autoprefixer/10.0.4_postcss@8.1.14:
     dependencies:
       browserslist: 4.15.0
-      caniuse-lite: 1.0.30001164
+      caniuse-lite: 1.0.30001165
       colorette: 1.2.1
       normalize-range: 0.1.2
       num2fraction: 1.2.2
-      postcss: 8.1.10
+      postcss: 8.1.14
       postcss-value-parser: 4.1.0
     dev: true
     engines:
@@ -482,7 +482,7 @@ packages:
   /autoprefixer/9.8.6:
     dependencies:
       browserslist: 4.15.0
-      caniuse-lite: 1.0.30001164
+      caniuse-lite: 1.0.30001165
       colorette: 1.2.1
       normalize-range: 0.1.2
       num2fraction: 1.2.2
@@ -725,9 +725,9 @@ packages:
       integrity: sha512-JPYLTngIzI+Dzx+StSSlMtF+Q9yjdh58HW6bMFqkFXuzQkJL8FCvp4lozlS6BbECZcsM2Gmlgp0uhEjvl18X4w==
   /browserslist/4.15.0:
     dependencies:
-      caniuse-lite: 1.0.30001164
+      caniuse-lite: 1.0.30001165
       colorette: 1.2.1
-      electron-to-chromium: 1.3.614
+      electron-to-chromium: 1.3.616
       escalade: 3.1.1
       node-releases: 1.1.67
     dev: true
@@ -848,10 +848,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
-  /caniuse-lite/1.0.30001164:
+  /caniuse-lite/1.0.30001165:
     dev: true
     resolution:
-      integrity: sha512-G+A/tkf4bu0dSp9+duNiXc7bGds35DioCyC6vgK2m/rjA4Krpy5WeZgZyfH2f0wj2kI6yAWWucyap6oOwmY1mg==
+      integrity: sha512-8cEsSMwXfx7lWSUMA2s08z9dIgsnR5NAqjXP23stdsU3AUWkCr/rr4s4OFtHXn5XXr6+7kam3QFVoYyXNPdJPA==
   /caseless/0.12.0:
     dev: true
     resolution:
@@ -1512,10 +1512,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.614:
+  /electron-to-chromium/1.3.616:
     dev: true
     resolution:
-      integrity: sha512-JMDl46mg4G+n6q/hAJkwy9eMTj5FJjsE+8f/irAGRMLM4yeRVbMuRrdZrbbGGOrGVcZc4vJPjUpEUWNb/fA6hg==
+      integrity: sha512-CI8L38UN2BEnqXw3/oRIQTmde0LiSeqWSRlPA42ZTYgJQ8fYenzAM2Z3ni+jtILTcrs5aiXZCGJ96Pm+3/yGyQ==
   /emoji-regex/7.0.3:
     dev: true
     resolution:
@@ -1657,12 +1657,12 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-B43SYg8LGWYTCv9Gs0RnuLNwjzpuWOoCaZHTWEDEf5AfrnuDMerPVMdCEu7xOdhFvQ+UqfP2MGU9lxEy0JzccA==
-  /esbuild/0.8.17:
+  /esbuild/0.8.18:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-ReHap+Iyn5BQF0B8F3xrLwu+j57ri5uDUw2ej9XTPAuFDebYiWwRzBY4jhF610bklveXLbCGim/8/2wQKQlu1w==
+      integrity: sha512-EPbCSr7Ems1loeoy1faUGnJOwTwSrGcoYVQ4f4T4JMKjxJxrWAg+zqXkZK7GvqxfvokPp3HV6Raqn6rqAuW7+Q==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -2253,16 +2253,16 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-zzGBl5fHo0EKSXsHzjspp3y5CONegCm8ErO5Qh0UzFzk2y4tMvzLWhoDokADbarfZRL2pGpRp7yt6gfJX4ph7A==
-  /gulp-esbuild/0.3.1:
+  /gulp-esbuild/0.3.2:
     dependencies:
-      esbuild: 0.8.17
+      esbuild: 0.8.18
       plugin-error: 1.0.1
       vinyl: 2.2.1
     dev: true
     engines:
       node: '>=8.6.0'
     resolution:
-      integrity: sha512-KfEq4V6Ao/8FqCzImu7YpNXMD/QeW3pbZ9Vm1bjyZWN5861WNzAE6Cuz13CID3c6L8Xaws3Ilgz/bhMA6Is9Hw==
+      integrity: sha512-nUcmfOF1/qa8VTut+koBaK2seiqDwHpUl0BDetXGuW41bYAiX5vFpZyqCj1fvgp5uBGatUx8CfejpgJIe9ZQfQ==
   /gulp-minify-inline-json/1.3.4:
     dependencies:
       minify-inline-json: 1.0.1
@@ -2285,11 +2285,11 @@ packages:
       npm: '>=1.2.10'
     resolution:
       integrity: sha512-mctAi9msEAG7XzW5ytDVZ9PxWMzzi1pS2rBH7lA095DhMa6KEXjm+St0GOCc567pJKJ/oCvosVAZEpAey0q2eQ==
-  /gulp-postcss/9.0.0_postcss@8.1.10:
+  /gulp-postcss/9.0.0_postcss@8.1.14:
     dependencies:
       fancy-log: 1.3.3
       plugin-error: 1.0.1
-      postcss: 8.1.10
+      postcss: 8.1.14
       postcss-load-config: 2.1.2
       vinyl-sourcemaps-apply: 0.2.1
     dev: true
@@ -3968,10 +3968,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
-  /postcss-csso/5.0.0_postcss@8.1.10:
+  /postcss-csso/5.0.0_postcss@8.1.14:
     dependencies:
       csso: 4.2.0
-      postcss: 8.1.10
+      postcss: 8.1.14
     dev: true
     engines:
       node: '>=10.12.0'
@@ -4060,17 +4060,16 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-3QT8bBJeX/S5zKTTjTCIjRF3If4avAT6kqxcASlTWEtAFCb9NH0OUxNDfgZSWdP5fJnBYCMEWkIFfWeugjzYMg==
-  /postcss/8.1.10:
+  /postcss/8.1.14:
     dependencies:
       colorette: 1.2.1
       nanoid: 3.1.20
       source-map: 0.6.1
-      vfile-location: 3.2.0
     dev: true
     engines:
       node: ^10 || ^12 || >=14
     resolution:
-      integrity: sha512-iBXEV5VTTYaRRdxiFYzTtuv2lGMQBExqkZKSzkJe+Fl6rvQrA/49UVGKqB+LG54hpW/TtDBMGds8j33GFNW7pg==
+      integrity: sha512-KatkyVPBKfENS+c3dpXJoDXnDD5UZs5exAnDksLqaRJPKwYphEPZt4N0m0i049v2/BtWVQibAhxW4ilXXcolpA==
   /posthtml-inline-assets/3.1.0:
     dependencies:
       file-type: 10.11.0
@@ -5533,10 +5532,6 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
-  /vfile-location/3.2.0:
-    dev: true
-    resolution:
-      integrity: sha512-aLEIZKv/oxuCDZ8lkJGhuhztf/BW4M+iHdCwglA/eWc+vtuRFJj8EtgceYFX4LRjOhCAAiNHsKGssC6onJ+jbA==
   /vinyl-fs/3.0.3:
     dependencies:
       fs-mkdirp-stream: 1.0.0
@@ -5837,7 +5832,7 @@ specifiers:
   fast-stringify: ^2.0.0
   fuse.js: ^6.4.3
   gulp: ^4.0.2
-  gulp-esbuild: ^0.3.1
+  gulp-esbuild: ^0.3.2
   gulp-minify-inline-json: ^1.3.4
   gulp-plumber: ^1.2.1
   gulp-postcss: ^9.0.0
@@ -5848,7 +5843,7 @@ specifiers:
   gulp-sass: ^4.1.0
   merge-stream: ^2.0.0
   node-sass: ^5.0.0
-  postcss: ^8.1.10
+  postcss: ^8.1.14
   postcss-csso: ^5.0.0
   posthtml: ^0.13.4
   posthtml-inline-assets: ^3.1.0

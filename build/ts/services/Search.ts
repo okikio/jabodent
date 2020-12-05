@@ -35,6 +35,18 @@ export class Search extends Service {
 
     public init() {
         super.init();
+        this.toggle = this.toggle.bind(this);
+
+        [
+            "toggle",
+            "keyup",
+            "resultClick",
+            "outOfFocus",
+            "navClick",
+            "clearBtnClick",
+        ].forEach((key: string) => {
+            this[key] = this[key]?.bind(this);
+        });
 
         this.html = document.querySelector("html");
         this.navbar = this.html.querySelector(".navbar");
@@ -63,11 +75,37 @@ export class Search extends Service {
     //     return args.map((num: number) => `translateY(${num}%)`);
     // }
 
-    public toggle() {
-        let bgClass = "bg-secondary border-2 border-solid border-secondary text-black".split(
-            " "
-        );
+    /**
+     * Returns the href or an Anchor element
+     */
+    public getHref(el: HTMLAnchorElement): string | null {
+        if (
+            el &&
+            el.tagName &&
+            el.tagName.toLowerCase() === "a" &&
+            typeof el.href === "string"
+        )
+            return el.href;
+        return null;
+    }
+    /**
+     * Check if event target is a valid anchor with an href, if so, return the link
+     */
+    public getLink(event): HTMLAnchorElement {
+        let el = event.target as HTMLAnchorElement;
+        let href: string = this.getHref(el);
 
+        while (el && !href) {
+            el = (el as HTMLElement).parentNode as HTMLAnchorElement;
+            href = this.getHref(el);
+        }
+
+        // Check for a valid link
+        if (!el) return;
+        return el;
+    }
+
+    public toggle() {
         if (!this.worker) {
             this.worker = new Worker("/js/FuzzySearch.min.js");
 
@@ -116,132 +154,74 @@ export class Search extends Service {
                     "show"
                 );
 
-                // For accessibility reasons
-                // this.rootElement.style.visibility = this.active ? "visible" : "hidden";
-                // animate({
-                //     target: this.rootElement,
-                //     transform,
-                //     duration: 600,
-                //     easing: "out",
-                //     // easing: "out-sine",
-                //     onfinish(el: HTMLElement) {
-                //         el.style.transform = `${
-                //             transform[transform.length - 1]
-                //             }`;
-                //         el.style.pointerEvents = `${pointerEvents}`;
-                //     },
-                // });
-
-                // animate({
-                //     target: this.inner.getElementsByClassName("animate"),
-                //     opacity,
-                //     duration: this.active ? 500 : 350,
-                //     delay: (i: number) => {
-                //         return (this.active ? 100 : 50) * i;
-                //     },
-                //     easing: "ease",
-                //     onfinish: (el: HTMLElement) => {
-                //         el.style.opacity = `${opacity[opacity.length - 1]}`;
-                //     },
-                // }).then(() =>
-                //     window.setTimeout(() => {
-                //         // this.active && this.input.focus();
-                //         resolve();
-                //     }, 1000)
-                // );
-                // window.setTimeout(() => {
                 this.active && this.input.focus();
                 resolve();
-                // }, 1000);
-                // resolve();
             });
         });
     }
 
-    /**
-     * Returns the href or an Anchor element
-     */
-    public getHref(el: HTMLAnchorElement): string | null {
-        if (
-            el &&
-            el.tagName &&
-            el.tagName.toLowerCase() === "a" &&
-            typeof el.href === "string"
-        )
-            return el.href;
-        return null;
+    keyup() {
+        let { value } = this.input as HTMLInputElement;
+        this.value = value;
+        this.worker && this.worker.postMessage(value);
     }
-    /**
-     * Check if event target is a valid anchor with an href, if so, return the link
-     */
-    public getLink(event): HTMLAnchorElement {
-        let el = event.target as HTMLAnchorElement;
-        let href: string = this.getHref(el);
 
-        while (el && !href) {
-            el = (el as HTMLElement).parentNode as HTMLAnchorElement;
-            href = this.getHref(el);
+    resultClick(e) {
+        let el = this.getLink(e);
+        if (!el || !el.classList.contains("search-result")) return;
+
+        let href = this.getHref(el);
+        (this.input as HTMLInputElement).value = "";
+        this.value = "";
+        (async () => {
+            await this.toggle();
+            this.resetResults();
+        })();
+
+        if (window.location.href === href) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
         }
+    }
 
-        // Check for a valid link
+    outOfFocus(e) {
+        if (this.active) {
+            let el = e.target as HTMLElement;
+            if (
+                this.nonClickable.contains(el) ||
+                this.container.contains(el)
+            )
+                return;
+
+            this.toggle();
+        }
+    }
+
+    navClick(e) {
+        let el = this.getLink(e);
         if (!el) return;
-        return el;
+        if (this.active) this.toggle();
+    }
+
+    clearBtnClick() {
+        requestAnimationFrame(() => {
+            (this.input as HTMLInputElement).value = "";
+            this.value = "";
+            this.resetResults();
+        });
     }
 
     public initEvents() {
         if (this.input) {
-            this.btn.addEventListener("click", this.toggle.bind(this));
-            this.input.addEventListener("keyup", () => {
-                let { value } = this.input as HTMLInputElement;
-                this.value = value;
-                this.worker && this.worker.postMessage(value);
-            });
+            this.btn.addEventListener("click", this.toggle, false);
+            this.input.addEventListener("keyup", this.keyup, false);
 
-            this.results.addEventListener("click", (e) => {
-                let el = this.getLink(e);
-                if (!el || !el.classList.contains("search-result")) return;
+            this.results.addEventListener("click", this.resultClick);
 
-                let href = this.getHref(el);
-                (this.input as HTMLInputElement).value = "";
-                this.value = "";
-                (async () => {
-                    await this.toggle();
-                    this.resetResults();
-                })();
-
-                if (window.location.href === href) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return;
-                }
-            });
-
-            this.rootElement.addEventListener("click", (e) => {
-                if (this.active) {
-                    let el = e.target as HTMLElement;
-                    if (
-                        this.nonClickable.contains(el) ||
-                        this.container.contains(el)
-                    )
-                        return;
-
-                    this.toggle();
-                }
-            });
-
-            this.navbar.addEventListener("click", () => {
-                let el = this.getLink(event);
-                if (!el) return;
-                if (this.active) this.toggle();
-            });
-
-            this.clearIcon.addEventListener("click", () => {
-                requestAnimationFrame(() => {
-                    (this.input as HTMLInputElement).value = "";
-                    this.value = "";
-                    this.resetResults();
-                });
-            });
+            this.rootElement.addEventListener("click", this.outOfFocus, false);
+            this.navbar.addEventListener("click", this.navClick, false);
+            this.clearIcon.addEventListener("click", this.clearBtnClick, false);
         }
     }
 
@@ -250,6 +230,36 @@ export class Search extends Service {
             this.worker.terminate();
             this.worker = undefined;
         }
+
+        this.btn.removeEventListener("click", this.toggle);
+        this.input.removeEventListener("keyup", this.keyup);
+
+        this.results.removeEventListener("click", this.resultClick);
+
+        this.rootElement.removeEventListener("click", this.outOfFocus);
+        this.navbar.removeEventListener("click", this.navClick);
+        this.clearIcon.removeEventListener("click", this.clearBtnClick);
+
+        this.html = undefined;
+        this.navbar = undefined;
+        this.rootElement = undefined;
+        this.overlay = undefined;
+
+        this.btn = undefined;
+        this.icon = undefined;
+        this.bg = undefined;
+
+        this.inner = undefined;
+        this.close = undefined;
+        this.input = undefined;
+        this.container = undefined;
+        this.scrollArea = undefined;
+        this.nonClickable = undefined;
+
+        this.results = undefined;
+        this.clearIcon = undefined;
+        this.newSearch = undefined;
+        this.noResultsEl = undefined;
     }
 
     public noResults() {

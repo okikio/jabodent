@@ -9,6 +9,7 @@ export class Image extends Service {
 
     public init() {
         super.init();
+        this.resize = this.resize.bind(this);
         (async () => {
             await this.test_webp();
             this.get_images();
@@ -58,23 +59,24 @@ export class Image extends Service {
         }
     }
 
+    waitOnResize = false;
+    resize() {
+        if (!this.waitOnResize) {
+            // this.remove_images();
+            // this.get_images();
+
+            requestAnimationFrame(() => {
+                this.load_img();
+                this.waitOnResize = true;
+            });
+        }
+
+        this.waitOnResize = false;
+    }
+
     public initEvents() {
-        let waitOnResize = false;
         window.addEventListener(
-            "resize",
-            () => {
-                if (!waitOnResize) {
-                    // this.remove_images();
-                    // this.get_images();
-
-                    requestAnimationFrame(() => {
-                        this.load_img();
-                        waitOnResize = true;
-                    });
-                }
-
-                waitOnResize = false;
-            },
+            "resize", this.resize,
             { passive: true }
         );
 
@@ -88,6 +90,10 @@ export class Image extends Service {
         });
     }
 
+    public stopEvents() {
+        window.removeEventListener("resize", this.resize);
+    }
+
     public async test_webp() {
         let check_webp_feature = (feature) => {
             return new Promise((resolve, reject) => {
@@ -97,7 +103,7 @@ export class Image extends Service {
                     alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
                     animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
                 };
-                
+
                 let img = new window.Image();
 
                 // @ts-ignore

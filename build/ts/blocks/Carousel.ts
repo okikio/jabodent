@@ -121,11 +121,12 @@ export class Carousel extends Block {
     public setDots() {
         requestAnimationFrame(() => {
             for (let i = 0; i < this.slideLen; i++) {
-                const newDot = this.dot.cloneNode() as HTMLElement;
+                let newDot = this.dot.cloneNode() as HTMLElement;
                 if (i === this.index) newDot.classList.add("active");
                 newDot.setAttribute("data-index", `${i}`);
                 this.dotContainer.appendChild(newDot);
                 this.dots[i] = newDot;
+                newDot = undefined;
             }
         });
     }
@@ -139,7 +140,7 @@ export class Carousel extends Block {
 
     public clearDots() {
         requestAnimationFrame(() => {
-            for (let i = this.dots.length; --i >= 0; ) {
+            for (let i = this.dots.length; --i >= 0;) {
                 this.dots[i].classList.remove("active");
                 this.dots[i].removeAttribute("data-index");
                 this.dots[i].remove();
@@ -187,8 +188,8 @@ export class Carousel extends Block {
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientX
                 : typeof e === "number"
-                ? e
-                : touches[touches.length - 1].clientX;
+                    ? e
+                    : touches[touches.length - 1].clientX;
         this.setCurrentX(this.offX + (x - this.onX) * this.speed);
 
         if (this.rAF === null) this.requestAnimationFrame();
@@ -204,14 +205,14 @@ export class Carousel extends Block {
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientX
                 : typeof e === "number"
-                ? e
-                : touches[touches.length - 1].clientX;
+                    ? e
+                    : touches[touches.length - 1].clientX;
         this.onY =
             window.MouseEvent && e instanceof window.MouseEvent
                 ? e.clientY
                 : typeof e === "number"
-                ? 0
-                : touches[touches.length - 1].clientY;
+                    ? 0
+                    : touches[touches.length - 1].clientY;
         this.rootElement.classList.add("is-grabbing");
 
         if (this.rAF === null) this.requestAnimationFrame();
@@ -293,6 +294,8 @@ export class Carousel extends Block {
         // No point in requesting animation frame, when you know nothing is going to change
         if (lastX === currentX) {
             this.cancelAnimationFrame();
+            lastX = undefined;
+            currentX = undefined;
         } else this.requestAnimationFrame();
     }
 
@@ -369,26 +372,26 @@ export class Carousel extends Block {
     public stopEvents() {
         this.cancelAnimationFrame();
 
-        this.nextBtn.removeEventListener("mousedown", this.next, false);
-        this.prevBtn.removeEventListener("mousedown", this.prev, false);
+        this.nextBtn.removeEventListener("click", this.next);
+        this.prevBtn.removeEventListener("click", this.prev);
 
         this.dotContainer.removeEventListener(
-            "mousedown",
-            this.dotClick,
-            false
+            "click",
+            this.dotClick
         );
 
-        this.rootElement.removeEventListener("mousedown", this.on, false);
-        window.removeEventListener("mousemove", this.setPos, false);
-        window.removeEventListener("mouseup", this.off, false);
+        this.rootElement.removeEventListener("mousedown", this.on);
+        window.removeEventListener("mousemove", this.setPos);
+        window.removeEventListener("mouseup", this.off);
 
-        this.rootElement.removeEventListener("touchstart", this.on, false);
-        window.removeEventListener("touchmove", this.setPos, false);
-        window.removeEventListener("touchend", this.off, false);
+        this.rootElement.removeEventListener("touchstart", this.on);
+        window.removeEventListener("touchmove", this.setPos);
+        window.removeEventListener("touchend", this.off);
 
-        this.rootElement.removeEventListener("wheel", this.scroll, false);
-        window.removeEventListener("keydown", this.keypress, false);
-        window.removeEventListener("resize", this.resize, false);
+        this.rootElement.removeEventListener("wheel", this.scroll);
+        window.removeEventListener("keydown", this.keypress);
+        window.removeEventListener("resize", this.resize);
+        console.log("Remove Carousel Events")
 
         this.container = undefined;
         this.viewport = undefined;
@@ -398,6 +401,7 @@ export class Carousel extends Block {
         this.prevBtn = undefined;
         this.nextBtn = undefined;
 
+        this.clearDots();
         this.dotContainer = undefined;
         this.dots = undefined;
         this.dot = undefined;
@@ -410,7 +414,7 @@ export class Carousel extends Block {
         this.width = 0;
 
         this.index = 0;
-        this.lastIndex = this.index;
+        this.lastIndex = 0;
 
         this.lastX = 0;
         this.maxX = 0;
