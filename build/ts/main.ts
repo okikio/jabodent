@@ -105,19 +105,18 @@ try {
         backToTop = document.querySelector(".back-to-top");
         if (backToTop) {
             backToTop.addEventListener("click", backtotop_fn);
-            backToTop = undefined;
         }
 
         scrollBtn = document.querySelector(".scroll-btn");
         scrollPt = document.querySelector(".scroll-point");
         if (scrollBtn) {
             scrollBtn.addEventListener("click", scrolldown_fn);
-            scrollBtn = undefined;
-            scrollPt = undefined;
+            // scrollBtn = undefined;
+            // scrollPt = undefined;
         }
 
-        layers = undefined;
-        layer = undefined;
+        // layers = undefined;
+        // layer = undefined;
         // top = 0;
     };
 
