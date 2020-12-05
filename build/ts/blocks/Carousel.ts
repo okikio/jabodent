@@ -44,7 +44,6 @@ export class Carousel extends Block {
 
     public init(value: IBlockInit) {
         super.init(value);
-        this.dots = [];
 
         this.container = this.rootElement.getElementsByClassName(
             "carousel-container"
@@ -403,7 +402,7 @@ export class Carousel extends Block {
 
         this.clearDots();
         this.dotContainer = undefined;
-        this.dots = undefined;
+        // this.dots = undefined;
         this.dot = undefined;
 
         this.slideLen = 0;
