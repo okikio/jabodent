@@ -52,5 +52,6 @@
     "tslint.jsEnable": true,
     "tslint.packageManager": "pnpm",
     "liveServer.settings.useBrowserPreview": true,
-    "editor.autoSave": "on"
+    "editor.autoSave": "on",
+    "liveServer.settings.CustomBrowser": "microsoft-edge"
 }

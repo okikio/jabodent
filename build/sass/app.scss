@@ -189,7 +189,8 @@ $delay: 0.8s;
     align-content: center;
     align-items: center;
     justify-content: center;
-    visibility: hidden;
+    // visibility: hidden;
+    opacity: 0;
     pointer-events: none;
     contain: layout size;
 
@@ -199,7 +200,8 @@ $delay: 0.8s;
     &.active {
         animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1)
             $delay forwards;
-        visibility: visible;
+        // visibility: visible;
+        opacity: 1;
         pointer-events: auto;
 
         .splashscreen-inner {
@@ -314,7 +316,7 @@ $delay: 0.8s;
         left: 0;
         width: 100vw;
         height: 100vh;
-        visibility: hidden;
+        // visibility: hidden;
         will-change: opacity;
 
         // transform: translateY(-100%);
@@ -327,7 +329,7 @@ $delay: 0.8s;
             transition: opacity 0.75s ease;
             opacity: 1;
             pointer-events: auto;
-            visibility: visible;
+            // visibility: visible;
 
             .search-inner,
             .search-scrollable-area,
@@ -845,7 +847,8 @@ img {
 
     @media (min-width: 768px) {
         &-overlay {
-            visibility: hidden;
+            // visibility: hidden;
+            opacity: 0;
         }
         &-item {
             // opacity: 1;

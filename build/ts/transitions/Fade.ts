@@ -71,7 +71,7 @@ export class Fade extends Transition {
             scroll = hashAction();
         }
 
-        window.scroll(scroll.x, scroll.y);
+        scroll && window.scroll(scroll.x, scroll.y);
 
         return animate({
             target: toWrapper,
