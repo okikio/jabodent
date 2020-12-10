@@ -52,11 +52,11 @@ try {
                 if (scrollTop + 10 + navHeight >= top + (pjax.isTransitioning ? 100 : 0)) {
                     navbar.navbar.classList.add("focus");
                 } else navbar.navbar.classList.remove("focus");
-                waitOnScroll = true;
+                waitOnScroll = false;
             });
-        }
 
-        waitOnScroll = false;
+            waitOnScroll = true;
+        }
     };
     let go = () => {
         requestAnimationFrame(() => {

@@ -62,16 +62,18 @@ export class Image extends Service {
     waitOnResize = false;
     resize() {
         if (!this.waitOnResize) {
-            // this.remove_images();
-            // this.get_images();
-
+            let timer;
+            this.waitOnResize = true;
             requestAnimationFrame(() => {
                 this.load_img();
-                this.waitOnResize = true;
+
+                // set a timeout to un-throttle
+                timer = window.setTimeout(() => {
+                    this.waitOnResize = false;
+                    timer = window.clearTimeout(timer);
+                }, 500);
             });
         }
-
-        this.waitOnResize = false;
     }
 
     public initEvents() {

@@ -871,6 +871,11 @@ img {
         }
 
         &:not(.active) {
+            // Avoid the gitter that occurs when resizing
+            &:not(:focus-within) .navbar-list {
+                visibility: hidden;
+            }
+
             .navbar-list {
                 transition: opacity ease-out 0.45s;
                 pointer-events: none;
@@ -891,6 +896,7 @@ img {
         &.active {
             .navbar-list {
                 transition: opacity ease-out 0.75s 0.25s;
+                visibility: visible;
                 pointer-events: auto;
             }
 

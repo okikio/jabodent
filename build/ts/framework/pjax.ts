@@ -624,7 +624,8 @@ export class PJAX extends Service {
     public initEvents() {
         if (this.prefetchIgnore !== true) {
             document.addEventListener("mouseover", this.onHover);
-            document.addEventListener("touchstart", this.onHover);
+            document.addEventListener("touchstart", this.onHover,
+            { passive: true });
         }
 
         document.addEventListener("click", this.onClick);

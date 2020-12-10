@@ -41,6 +41,7 @@ export class Carousel extends Block {
     public isDragging: boolean;
     public snapOnce: boolean;
     public isScrolling = false;
+    waitForResize: boolean;
 
     public init(value: IBlockInit) {
         super.init(value);
@@ -94,6 +95,7 @@ export class Carousel extends Block {
         this.snapOnce = false;
         this.isDragging = false;
         this.isScrolling = false;
+        this.waitForResize = false;
 
         this.setBounds();
         this.clearDots();
@@ -345,6 +347,7 @@ export class Carousel extends Block {
         if (Math.abs(deltaX) > 0) evt.preventDefault();
 
         if (this.rAF === null) this.requestAnimationFrame();
+
     }
 
     private dotClick(e: MouseEvent) {
@@ -426,12 +429,26 @@ export class Carousel extends Block {
         this.snapOnce = false;
         this.isDragging = false;
         this.isScrolling = false;
+        this.waitForResize = false;
 
         this.rootElement = undefined;
     }
 
     public resize() {
-        this.setBounds();
+        if (!this.waitForResize) {
+            let timer;
+            this.waitForResize = true;
+            requestAnimationFrame(() => {
+                this.setBounds();
+
+                // set a timeout to un-throttle
+                timer = window.setTimeout(() => {
+                    this.waitForResize = false;
+                    timer = window.clearTimeout(timer);
+                }, 500);
+            });
+
+        }
     }
 }
 
