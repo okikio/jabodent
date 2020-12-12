@@ -38,7 +38,7 @@
         "dotenv": "^8.2.0",
         "esbuild": "^0.7.22",
         "gulp": "^4.0.2",
-        "gulp-esbuild": "^0.3.4",
+        "gulp-esbuild": "^0.3.5",
         "gulp-minify-inline-json": "^1.3.4",
         "gulp-plumber": "^1.2.1",
         "gulp-postcss": "^9.0.0",
