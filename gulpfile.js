@@ -12,6 +12,7 @@ const csso = require("gulp-csso");
 const sass = require("gulp-sass");
 const pug = require("gulp-pug");
 
+const del = require("del");
 const bs = require("browser-sync");
 const tailwind = require("tailwindcss");
 
@@ -68,6 +69,9 @@ task("reload", (resolve) => {
     resolve();
 });
 
+// Delete destFolder for added performance
+task("clean", () => del(destFolder));
+
 // HTML Tasks
 const dataPath = `./data.js`;
 const iconPath = `./icons.js`;
@@ -80,6 +84,7 @@ task("html", () => {
         [
             `${pugFolder}/pages/**/*.pug`,
             {
+                // opts: { read: false },
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
@@ -103,6 +108,7 @@ task("html", () => {
         pages.push([
             `${pugFolder}/layouts/service.pug`,
             {
+                // opts: { read: false },
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
@@ -136,6 +142,7 @@ task("html", () => {
         pages.push([
             `${pugFolder}/layouts/person.pug`,
             {
+                // opts: { read: false },
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
@@ -170,6 +177,7 @@ task("html", () => {
 tasks({
     "app-css": () => {
         return stream(`${sassFolder}/**/*.scss`, {
+            // opts: { read: false },
             pipes: [
                 rename({ suffix: ".min" }), // Rename
                 sass({ outputStyle: "compressed" }).on("error", sass.logError),
@@ -181,6 +189,7 @@ tasks({
 
     "tailwind-css": () => {
         return stream(`${sassFolder}/tailwind.css`, {
+            // opts: { read: false },
             pipes: [postcss([tailwind("./tailwind.js")])],
             dest: cssFolder,
             end: [browserSync.stream()],
@@ -189,6 +198,7 @@ tasks({
 
     purge: () => {
         return stream(`${cssFolder}/tailwind.css`, {
+            // opts: { read: false },
             pipes: [
                 // Remove unused CSS
                 purge({
@@ -216,6 +226,7 @@ tasks({
 
     "minify-css": () => {
         return stream(`${cssFolder}/*.css`, {
+            // opts: { read: false },
             pipes: !dev
                 ? [
                       // Prefix & Compress CSS
@@ -290,6 +301,7 @@ tasks({
 // Other assets
 task("assets", () => {
     return stream(`${assetsFolder}/**/*`, {
+        // opts: { read: false },
         dest: destFolder,
     });
 });
@@ -298,6 +310,7 @@ task("assets", () => {
 task("indexer", () => {
     const index = [];
     return stream([`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`], {
+        // opts: { read: false },
         pipes: [
             posthtml([
                 (tree) => {
@@ -489,6 +502,7 @@ task("watch", () => {
 task(
     "default",
     series(
+        "clean",
         parallel(
             series("html", "indexer"),
             "app-css",
