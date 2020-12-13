@@ -48,7 +48,6 @@
         "gulp-rename": "^2.0.0",
         "gulp-sass": "^4.1.0",
         "merge-stream": "^2.0.0",
-        "node-sass": "^5.0.0",
         "postcss": "^8.2.1",
         "postcss-csso": "^5.0.0",
         "posthtml": "^0.13.4",
@@ -64,6 +63,8 @@
         "@okikio/emitter": "^0.0.7",
         "@okikio/manager": "^0.0.7",
         "fast-stringify": "^2.0.0",
-        "fuse.js": "^6.4.3"
+        "fuse.js": "^6.4.3",
+        "gulp-autoprefixer": "^7.0.1",
+        "gulp-csso": "^4.0.1"
     }
 }

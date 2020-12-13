@@ -1,25 +1,26 @@
 // Import external modules
-const autoprefixer = require("autoprefixer");
+const esbuildGulp = require("gulp-esbuild");
 const postcss = require("gulp-postcss");
-const tailwind = require("tailwindcss");
 const purge = require("gulp-purgecss");
-const csso = require("postcss-csso");
-const bs = require("browser-sync");
 
+const minifyJSON = require("gulp-minify-inline-json");
+const autoprefixer = require("gulp-autoprefixer");
+const posthtml = require("gulp-posthtml");
 const plumber = require("gulp-plumber");
 const rename = require("gulp-rename");
+const csso = require("gulp-csso");
 const sass = require("gulp-sass");
 const pug = require("gulp-pug");
 
+const bs = require("browser-sync");
+const tailwind = require("tailwindcss");
+
 const querySelector = require("posthtml-match-helper");
-const minifyJSON = require("gulp-minify-inline-json");
 const inline = require("posthtml-inline-assets");
-const posthtml = require("gulp-posthtml");
 const stringify = require("fast-stringify");
 const path = require("path");
 const fs = require("fs");
 
-const esbuildGulp = require("gulp-esbuild");
 // const gulpEsbuild = esbuildGulp.createGulpEsbuild();
 
 // Gulp utilities
@@ -166,14 +167,12 @@ task("html", () => {
 });
 
 // CSS Tasks
-const { logError } = sass;
-sass.compiler = require('node-sass');
 tasks({
     "app-css": () => {
         return stream(`${sassFolder}/**/*.scss`, {
             pipes: [
                 rename({ suffix: ".min" }), // Rename
-                sass({ outputStyle: "compressed" }).on("error", logError),
+                sass({ outputStyle: "compressed" }).on("error", sass.logError),
             ],
             dest: cssFolder,
             end: [browserSync.stream()],
@@ -217,17 +216,15 @@ tasks({
 
     "minify-css": () => {
         return stream(`${cssFolder}/*.css`, {
-            pipes: [
-                // Prefix & Compress CSS
-                !dev
-                    ? postcss([
-                          autoprefixer({
-                              overrideBrowserslist: ["defaults"],
-                          }),
-                          csso(),
-                      ])
-                    : null,
-            ],
+            pipes: !dev
+                ? [
+                      // Prefix & Compress CSS
+                      autoprefixer({
+                          overrideBrowserslist: ["defaults"],
+                      }),
+                      csso(),
+                  ]
+                : [],
             dest: cssFolder,
             end: [browserSync.stream()],
         });
@@ -455,6 +452,9 @@ task("watch", () => {
         {
             notify: true,
             server: destFolder,
+            online: true,
+            scrollThrottle: 250,
+            open: "ui",
             // port: 8080
         },
         (_err, bs) => {
