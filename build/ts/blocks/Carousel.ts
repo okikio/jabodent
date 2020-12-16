@@ -5,7 +5,7 @@ let lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 
 export class Carousel extends Block {
     public ease: number = 0.125;
-    public speed: number = 3;
+    public speed: number = 2;
 
     public carouselBtn: HTMLElement;
     public prevBtn: HTMLElement;
@@ -195,7 +195,7 @@ export class Carousel extends Block {
                     : touches[touches.length - 1].clientX;
         this.setCurrentX(this.offX + (x - this.onX) * this.speed);
 
-        // this.requestAnimationFrame(); // if (this.rAF === null)
+        if (this.rAF === null) this.requestAnimationFrame(); //
     }
 
     public on(e: MouseEvent | TouchEvent | number) {
@@ -218,7 +218,7 @@ export class Carousel extends Block {
                     : touches[touches.length - 1].clientY;
         this.rootElement.classList.add("is-grabbing");
 
-        // this.requestAnimationFrame(); // if (this.rAF === null)
+        if (this.rAF === null) this.requestAnimationFrame(); //
     }
 
     public parsePercent(value: number) {
@@ -256,7 +256,7 @@ export class Carousel extends Block {
         this.onX = 0;
         this.onY = 0;
 
-        // this.requestAnimationFrame(); // if (this.rAF === null)
+        if (this.rAF === null) this.requestAnimationFrame(); //
     }
 
     public toPercent(value: number) {
@@ -274,34 +274,33 @@ export class Carousel extends Block {
         this.setActiveDot();
         this.setHeight();
 
-        // this.requestAnimationFrame(); // if (this.rAF === null)
+        if (this.rAF === null) this.requestAnimationFrame(); //
     }
 
     public run() {
-        this.isScrolling = false;
-        this.lastX = lerp(this.lastX, this.currentX, this.ease);
-        this.lastX = Math.floor(this.lastX * 100) / 100;
+        this.requestAnimationFrame();
 
-        if (!this.isScrolling && !this.snapOnce) {
-            this.snap();
-            this.snapOnce = true;
-        }
-
-        this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
-
-        // let lastX = Math.floor(Math.abs(this.lastX));
-        // let currentX = Math.floor(Math.abs(this.currentX));
-
+        let lastX = Math.floor(Math.abs(this.lastX) * 100) / 100;
+        let currentX = Math.floor(Math.abs(this.currentX) * 100) / 100;
         console.log("Carousel is Running"); // , { lastX, currentX }
 
         // No point in requesting animation frame, when you know nothing is going to change
-        // if (lastX === currentX) {
-        // this.cancelAnimationFrame();
-        // lastX = undefined;
-        // currentX = undefined;
-        // } else
-        this.requestAnimationFrame();
+        if (Math.abs(lastX - currentX) > 0) {
+            if (!this.isScrolling && !this.snapOnce) {
+                this.snap();
+                this.snapOnce = true;
+            }
 
+            this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
+        } else {
+            this.cancelAnimationFrame();
+            lastX = undefined;
+            currentX = undefined;
+        }
+
+        this.isScrolling = false;
+        this.lastX = lerp(this.lastX, this.currentX, this.ease);
+        // this.lastX = Math.floor(this.lastX * 100) / 100;
     }
 
     public requestAnimationFrame() {

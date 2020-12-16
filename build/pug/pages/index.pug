@@ -49,11 +49,13 @@ block content
               if index < 8
                 li=`${(service.title.replace(/\w+/g, w => (w[0].toUpperCase() + w.slice(1).toLowerCase()))).replace(/sms/i, "SMS")}`
 
+          //- .mt-16
+          p.pt-2  ... and more.
             //- li
           .mt-16
-            span  ... and more,
-            span=" "
-            +learn-more("./services.html", "take a look at the full list of services we offer.")
+            //- span  ... and more,
+            //- span=" "
+            +learn-more("./services.html", "Take a look at the full list of services we offer.")
       .flex-grow.bg-secondary
 
     .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
@@ -63,7 +65,7 @@ block content
             i.icon.text-3xl.self-center.text-black
               +icon("more_time")
           section.self-center
-            h4.text-lg.font-bold.text-lg 20+
+            h4.text-lg.font-bold.text-lg 21+
             p Years of Experience
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
