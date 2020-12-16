@@ -3,10 +3,10 @@
     "version": "0.0.0",
     "description": "The website for Jabodent, an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliability, integrity and consistent delivery.",
     "scripts": {
-        "build": "gulp build",
-        "watch": "gulp",
-        "start": "gulp",
-        "mjs:gulp": "gulp --gulpfile gulpfile.mjs"
+        "gulp": "gulp --gulpfile gulpfile.mjs",
+        "build": "npm run gulp build",
+        "watch": "npm run gulp",
+        "start": "npm run gulp"
     },
     "main": "gulpfile.js",
     "repository": {

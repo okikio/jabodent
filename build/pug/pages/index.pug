@@ -16,82 +16,77 @@ block hero
       })(width="100vw" height="100vh")
     .hero-overlay.absolute.top-0.left-0.h-full.w-full.loaded
     .relative.flex.flex-col.h-full.justify-center.text-white.z-5
-      section.self-center.text-center.px-5.intro-animation
-        h1.font-bold.font-title.tracking-wider.layer(class=" lt-sm:text-5xl sm:text-4.5xl md:text-5xl lg:text-6xl").el Jabodent
+      section.self-center.text-center.px-5
+        h1.font-bold.font-title.tracking-wider.layer(class=" lt-sm:text-5xl sm:text-4.5xl md:text-5xl lg:text-6xl").intro-animation Jabodent
           span.hidden(class="sm:inline")  Offshore Consultants
-        h2(class="md:text-2xl lt-md:text-lg w-full max-w-screen-sm m-auto md:mt-5 px-6 sm:px-24 md:leading-9").leading-7.pt-3.el Offshore Consultants that deliver. Our moto is Integrity, Innovation & Excellence.
-        button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10.border-2.border-dashed.border-transparent.rounded.el(class="lt-sm:hidden hover:underline focus:outline-none focus:border-white" type="button" role="button")
-          .text-sm.p-5.pt-2.font-normal.tracking-widest.uppercase scroll
+        h2(class="md:text-2xl lt-md:text-lg w-full max-w-screen-sm m-auto md:mt-5 px-6 sm:px-24 md:leading-9").leading-7.pt-3.intro-animation Offshore Consultants that deliver. Our moto is Integrity, Innovation & Excellence.
+        button.scroll-btn.cursor-pointer.scroll.text-secondary.z-10.border-2.border-dashed.border-transparent.rounded(class="lt-sm:hidden focus:outline-none focus:border-white py-2 learn-more" type="button" role="button")
+          .text-sm.pt-2.font-normal.tracking-widest.uppercase scroll
 
-  section.bg-black.text-white.w-full.scroll-point.intro-animation
+  section.bg-black.text-white.w-full.scroll-point
     .px-5.mx-auto.w-full.max-w-screen-md.py-24
-      h3.text-2xl.mb-6.font-bold.el About Us
-      p.leading-8.text-lg.el We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliable and consistent delivery.
-      .mt-16.el
-        span Learn why
-        span(class="sm:mr-5")=" "
-        span.text-lg.text-secondary.underline
-          +learn-more("./about.html", "you can trust us to deliver")
+      h3.text-2xl.mb-6.font-bold.intro-animation About Us
+      p.leading-8.text-lg.intro-animation We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliable and consistent delivery.
+      .mt-16.intro-animation
+        span.text-lg.text-secondary
+          +learn-more("./about.html", "Learn why you can trust us to deliver.")
 
 
 block content
   section.theme-surface.theme-text
     .px-5.pt-8.mx-auto.w-full.max-w-screen-md(class="md:pt-24").intro-animation
-      h3.text-2xl.mb-6.font-bold.el Mission & Vision
-      p.leading-8.text-lg.el Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.
+      h3.text-2xl.mb-6.font-bold.intro-animation Mission & Vision
+      p.leading-8.text-lg.intro-animation Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.
 
     .text-black.flex.w-full.pt-12
       .flex-grow
       section.bg-secondary.w-full.max-w-screen-md.text-lg
         .py-12.px-5.w-full(class="sm:px-10")
-          h3.text-2xl.mb-6.font-bold.intro-animation
-            span.el Skills & Services
+          h3.text-2xl.mb-6.font-bold Skills & Services
 
           ul.leading-8.list-disc.list-inside
             each service, index in services
               if index < 8
-                li.intro-animation
-                  span.el=`${(service.title.replace(/\w+/g, w => (w[0].toUpperCase() + w.slice(1).toLowerCase()))).replace(/sms/i, "SMS")}`
+                li=`${(service.title.replace(/\w+/g, w => (w[0].toUpperCase() + w.slice(1).toLowerCase()))).replace(/sms/i, "SMS")}`
 
             //- li
-          .mt-16.intro-animation
-            span.el  ... and more, take a look at
-            span(class="sm:mr-5")=" "
-            span.el.underline
-              +learn-more("./services.html", "the full list of services we offer")
+          .mt-16
+            span  ... and more,
+            span=" "
+            +learn-more("./services.html", "take a look at the full list of services we offer.")
       .flex-grow.bg-secondary
 
     .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
-      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4").intro-animation
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black.el
+            i.icon.text-3xl.self-center.text-black
               +icon("more_time")
-          section.self-center.el
+          section.self-center
             h4.text-lg.font-bold.text-lg 20+
             p Years of Experience
-      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4").intro-animation
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black.el
+            i.icon.text-3xl.self-center.text-black
               +icon("book")
-          section.self-center.el
+          section.self-center
             h4.text-lg.font-bold.text-lg 154+
             p Projects Completed
-      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4").intro-animation
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black.text-lg.el
+            i.icon.text-3xl.self-center.text-black.text-lg
               +icon("thumb_up_alt")
-          section.self-center.el
+          section.self-center
             h4.text-lg.font-bold.text-lg 785+
             p Happy Clients
-      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4").intro-animation
+      section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
-            i.icon.text-3xl.self-center.text-black.text-lg.el
+            i.icon.text-3xl.self-center.text-black.text-lg
               +icon("emoji_events")
-          section.self-center.el
+          section.self-center
             h4.text-lg.font-bold.text-lg 14+
             p Awards Won
 
@@ -105,36 +100,25 @@ block content
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
       section.max-w-screen-md.mx-auto
         section.relative.max-width
-          div.intro-animation
-            h3.text-3xl.mb-10.font-bold.el Why Choose Us?
-          section.intro-animation
-            .el
-              h4.text-xl.mb-2 Certified Experience
-              p.leading-8.mb-12.text-lg Experience of Certified industry professionals.
+          h3.text-3xl.mb-10.font-bold Why Choose Us?
+          section
+            h4.text-xl.mb-2 Certified Experience
+            p.leading-8.mb-12.text-lg Experience of Certified industry professionals.
 
-          section.intro-animation
-            .el
-              h4.text-xl.mb-2 Great Teamwork
-              p.leading-8.mb-12.text-lg Teamwork that makes dreams work.
+          section
+            h4.text-xl.mb-2 Great Teamwork
+            p.leading-8.mb-12.text-lg Teamwork that makes dreams work.
 
-          section.intro-animation
-            .el
-              h4.text-xl.mb-2 Modern Technology
-              p.leading-8.mb-12.text-lg High quality equipment. Tools used by the best of the best.
+          section
+            h4.text-xl.mb-2 Modern Technology
+            p.leading-8.mb-12.text-lg High quality equipment. Tools used by the best of the best.
 
-          .mt-16.text-lg.intro-animation
-            .el
-              span Find out
-              span(class="sm:mr-5")=" "
-              span.underline
-                +learn-more("./services.html", "how we deliver quality in all our services")
+          .mt-16.text-lg
+            +learn-more("./services.html", "Find out how we deliver quality in all our services.")
 
   section.carousel.theme-surface.relative.pt-6(data-block="Carousel")
-    .intro-animation
-      h3.theme-text.text-3xl.font-medium.text-center.el Clients & Testimonials
-    span.intro-animation
-      span.el
-        +carousel-buttons
+    h3.theme-text.text-3xl.font-medium.text-center Clients & Testimonials
+    +carousel-buttons
 
     mixin carousel-item(value)
       -
@@ -151,8 +135,8 @@ block content
                 +image(Object.assign({ figclass: "" }, image))(width="3rem" height="3rem")
               p.self-center.text-lg.font-semibold= name
 
-    section.carousel-container.relative.w-full.intro-animation
-      .carousel-viewport.flex.flex-no-wrap.el
+    section.carousel-container.relative.w-full
+      .carousel-viewport.flex.flex-no-wrap
         +carousel-item({
           quote: "Absolutely the best video call solution for medium sized teams.",
           name: "Jane Doe — Tesla"

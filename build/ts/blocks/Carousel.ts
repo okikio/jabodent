@@ -151,13 +151,15 @@ export class Carousel extends Block {
     }
 
     public setHeight() {
-        let maxHeight = this.slides[0].getBoundingClientRect().height;
-        for (let i = 0; i < this.slideLen; i++) {
-            let height = this.slides[i].scrollHeight;
-            if (height > maxHeight) maxHeight = height;
-        }
+        requestAnimationFrame(() => {
+            let maxHeight = this.slides[0].getBoundingClientRect().height;
+            for (let i = 0; i < this.slideLen; i++) {
+                let height = this.slides[i].scrollHeight;
+                if (height > maxHeight) maxHeight = height;
+            }
 
-        this.container.style.height = `${maxHeight}px`;
+            this.container.style.height = `${maxHeight}px`;
+        });
     }
 
     public setBounds() {

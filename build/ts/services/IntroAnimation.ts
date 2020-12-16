@@ -10,15 +10,11 @@ export class IntroAnimation extends Service {
 
     public init() {
         super.init();
-        this.splashscreen = true;
+        // this.splashscreen = true;
 
         // Elements
         this.elements = Array.prototype.slice.call(document.querySelectorAll(".intro-animation")) as HTMLElement[];
         this.entries = [];
-        let options = {
-            rootMargin: '0px',
-            threshold: Array.from(Array(100), (_, x) => x / 100)
-        };
 
         let scrollTop = window.scrollY;
         let scrollBottom = window.scrollY + window.innerHeight;
@@ -29,11 +25,16 @@ export class IntroAnimation extends Service {
                 this.entries.push(el);
             }
         }
-        this.observerCallback = this.observerCallback.bind(this);
-        this.observer = new IntersectionObserver(this.observerCallback, options);
 
-        for (let el of this.elements)
-            this.observer.observe(el);
+        // let options = {
+        //     rootMargin: '0px',
+        //     threshold: Array.from(Array(100), (_, x) => x / 100)
+        // };
+        // this.observerCallback = this.observerCallback.bind(this);
+        // this.observer = new IntersectionObserver(this.observerCallback, options);
+
+        // for (let el of this.elements)
+        //     this.observer.observe(el);
     }
 
     observerCallback(entries) {
@@ -41,7 +42,7 @@ export class IntroAnimation extends Service {
             if (intersectionRatio >= 0.5) {
                 if (!this.splashscreen && !this.entries.includes(target)) {
                     // !target.classList.has("show-anim")
-                    this.show(target);
+                    // this.show(target);
                 }
             }
             // Each entry describes an intersection change for one observed
@@ -57,7 +58,7 @@ export class IntroAnimation extends Service {
     }
 
     public newPage() {
-        this.unobserve();
+        // this.unobserve();
 
         this.init();
         this.prepareToShow();
@@ -76,8 +77,8 @@ export class IntroAnimation extends Service {
         );
         this.EventEmitter.on("CONTENT_REPLACED", this.newPage, this);
         this.EventEmitter.on(
-            "AFTER_SPLASHSCREEN_DELAY AFTER_TRANSITION_IN", //
-            this.check,
+            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN", //  AFTER_SPLASHSCREEN_DELAY AFTER_TRANSITION_IN
+            this.show, // this.check
             this
         );
     }
@@ -86,7 +87,7 @@ export class IntroAnimation extends Service {
         this.splashscreen = false;
         for (let el of this.entries) {
             console.log(el);
-            this.show(el as HTMLElement);
+            // this.show(el as HTMLElement);
         }
     }
 
@@ -98,8 +99,8 @@ export class IntroAnimation extends Service {
         );
         this.EventEmitter.off("CONTENT_REPLACED", this.newPage, this);
         this.EventEmitter.off(
-            "AFTER_SPLASHSCREEN_DELAY AFTER_TRANSITION_IN", //  BEFORE_TRANSITION_IN
-            this.check,
+            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN", //  AFTER_SPLASHSCREEN_DELAY AFTER_TRANSITION_IN
+            this.show, // this.check
             this
         );
     }
@@ -108,20 +109,21 @@ export class IntroAnimation extends Service {
         requestAnimationFrame(() => {
             for (let el of this.entries) {
                 // (el as HTMLElement).style.visibility = "visible";
-                // (el as HTMLElement).style.opacity = "1";
-                el.classList.remove("hide-anim");
+                (el as HTMLElement).style.opacity = "1";
+                // el.classList.remove("hide-anim");
             }
         });
-        this.unobserve();
+        // this.unobserve();
 
         super.stop();
     }
 
     public prepareToShow() {
         requestAnimationFrame(() => {
-            for (let el of this.elements) {
-                // (el as HTMLElement).style.opacity = "0";
-                el.classList.add("hide-anim");
+            for (let el of this.entries) {
+                // this.elements
+                (el as HTMLElement).style.opacity = "0";
+                // el.classList.add("hide-anim");
                 // (el as HTMLElement).style.visibility = "hidden";
             }
             // this.entries = [];
@@ -129,25 +131,25 @@ export class IntroAnimation extends Service {
         });
     }
 
-    public show(target: HTMLElement) {
-        if (target) {
-            target.classList.remove("hide-anim");
-            target.classList.add("show-anim");
-        }
-        // return await animate({
-        //     target: this.entries as HTMLElement[],
-        //     opacity: [0, 1],
-        //     delay(i: number) {
-        //         return 300 * (i);
-        //     },
-        //     onfinish: (el: { style: { opacity: string, visibility: string } }) => {
-        //         requestAnimationFrame(() => {
-        //             el.style.opacity = "1";
-        //             // el.style.visibility = "visible";
-        //         });
-        //     },
-        //     easing: "ease-out",
-        //     duration: 650,
-        // });
+    public async show() {
+        // if (target) { target: HTMLElement
+        //     target.classList.remove("hide-anim");
+        //     target.classList.add("show-anim");
+        // }
+        return await animate({
+            target: this.entries as HTMLElement[],
+            opacity: [0, 1],
+            delay(i: number) {
+                return 300 * (i);
+            },
+            onfinish: (el: { style: { opacity: string, visibility: string } }) => {
+                requestAnimationFrame(() => {
+                    el.style.opacity = "1";
+                    // el.style.visibility = "visible";
+                });
+            },
+            easing: "ease-out",
+            duration: 650,
+        });
     }
 }

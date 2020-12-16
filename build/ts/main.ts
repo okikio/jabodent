@@ -64,7 +64,7 @@ try {
             navbar.navbar.classList.remove("active");
 
             if (
-                /(index(.html)?|\/$)|(services\/+)/g.test(
+                /(index(.html)?|\/$)|(services\/+)|(team+)/g.test(
                     window.location.pathname
                 )
             ) {
