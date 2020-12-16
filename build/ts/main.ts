@@ -64,13 +64,23 @@ try {
             navbar.navbar.classList.remove("active");
 
             if (
-                /(index(.html)?|\/$)|(services\/+)|(team+)/g.test(
+                /(index(.html)?|\/$)|(services\/+)/g.test(
                     window.location.pathname
                 )
             ) {
                 navbar.navbar.classList.add("light");
             } else if (navbar.navbar.classList.contains("light")) {
                 navbar.navbar.classList.remove("light");
+            }
+
+            if (
+                /(about(.html)?)|(services(.html)?$)|(contact(.html)?)/g.test(
+                    window.location.pathname
+                ) || document.title.includes("404")
+            ) {
+                navbar.navbar.classList.add("dark");
+            } else if (navbar.navbar.classList.contains("dark")) {
+                navbar.navbar.classList.remove("dark");
             }
         });
         scroll();

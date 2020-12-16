@@ -13,7 +13,7 @@ block hero
   -
     let { services } = self;
 
-  section.py-24.bg-primary
+  section.py-24.bg-primary.pb-40
     .text-black.mx-auto.max-w-3xl.px-5.mt-5.w-full
       h1.h1.text-3xl.font-bold.mb-4.text-center.layer.intro-animation Our Services
       h2.text-2xl.font-thin.leading-10.intro-animation
@@ -24,7 +24,7 @@ block hero
 
 block content
   section.theme-bg.relative.px-5.pt-8.mx-auto.w-full.max-w-screen-lg
-    .row
+    .row.cards-list
       each service, index in services
         if index < 4
           +card(service, index)
@@ -36,8 +36,8 @@ block content
           if index >= 4
             +card(service, index)
 
-    section.bg-primary
-      +contact
+    //- section.bg-primary
+    //-   +contact
 
     +back-to-top
 

@@ -195,7 +195,7 @@ export class Carousel extends Block {
                     : touches[touches.length - 1].clientX;
         this.setCurrentX(this.offX + (x - this.onX) * this.speed);
 
-        if (this.rAF === null) this.requestAnimationFrame();
+        // this.requestAnimationFrame(); // if (this.rAF === null)
     }
 
     public on(e: MouseEvent | TouchEvent | number) {
@@ -218,7 +218,7 @@ export class Carousel extends Block {
                     : touches[touches.length - 1].clientY;
         this.rootElement.classList.add("is-grabbing");
 
-        if (this.rAF === null) this.requestAnimationFrame();
+        // this.requestAnimationFrame(); // if (this.rAF === null)
     }
 
     public parsePercent(value: number) {
@@ -256,7 +256,7 @@ export class Carousel extends Block {
         this.onX = 0;
         this.onY = 0;
 
-        if (this.rAF === null) this.requestAnimationFrame();
+        // this.requestAnimationFrame(); // if (this.rAF === null)
     }
 
     public toPercent(value: number) {
@@ -274,7 +274,7 @@ export class Carousel extends Block {
         this.setActiveDot();
         this.setHeight();
 
-        if (this.rAF === null) this.requestAnimationFrame();
+        // this.requestAnimationFrame(); // if (this.rAF === null)
     }
 
     public run() {
@@ -289,17 +289,19 @@ export class Carousel extends Block {
 
         this.viewport.style.transform = `translate3d(${this.lastX}%, 0, 0)`;
 
-        let lastX = Math.floor(Math.abs(this.lastX));
-        let currentX = Math.floor(Math.abs(this.currentX));
+        // let lastX = Math.floor(Math.abs(this.lastX));
+        // let currentX = Math.floor(Math.abs(this.currentX));
 
         console.log("Carousel is Running"); // , { lastX, currentX }
 
         // No point in requesting animation frame, when you know nothing is going to change
-        if (lastX === currentX) {
-            this.cancelAnimationFrame();
-            lastX = undefined;
-            currentX = undefined;
-        } else this.requestAnimationFrame();
+        // if (lastX === currentX) {
+        // this.cancelAnimationFrame();
+        // lastX = undefined;
+        // currentX = undefined;
+        // } else
+        this.requestAnimationFrame();
+
     }
 
     public requestAnimationFrame() {

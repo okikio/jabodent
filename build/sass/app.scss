@@ -656,6 +656,9 @@ img {
     // content-visibility: auto;
 
     .img {
+        // box-shadow: 0 12px 15px 0 rgba(52, 59, 90, 0.24),
+        //     0 17px 50px 0 rgba(51, 60, 94, 0.19);
+
         transform: scale(1.45);
     }
 
@@ -669,12 +672,24 @@ img {
 .lackluster {
     transition: opacity ease-out 0.45s;
     // filter: blur(15px);
+    background: rgba(38, 43, 63, 0.8);
+    background: linear-gradient(
+        to bottom,
+        rgba(38, 43, 63, 0.1) 20%,
+        rgba(38, 43, 63, 0.9)
+    );
+    background: linear-gradient(
+        to bottom,
+        rgba(1, 1, 2, 0) 20%,
+        rgba(0, 0, 0, 0.65)
+    );
     // opacity: 0.6;
     // transform: scale(1.25);
 
     // transition: opacity ease-out 0.25s;
-    filter: sepia(100%) hue-rotate(190deg) saturate(420%) grayscale(75%)
-        brightness(80%);
+    // filter: sepia(100%) hue-rotate(190deg) saturate(420%) grayscale(75%)
+    //     brightness(80%);
+    opacity: 1;
     // opacity: 1;
     // filter: grayscale(1);
     position: absolute;
@@ -683,12 +698,12 @@ img {
     width: 100%;
     height: 100%;
 
-    .core-img-pic {
-        opacity: 0.6;
-    }
+    // .core-img-pic {
+    //     opacity: 0.6;
+    // }
 }
 .col:hover .lackluster {
-    opacity: 0;
+    opacity: 0.4;
 }
 
 .text-shadow {
@@ -699,6 +714,7 @@ img {
     $height: 60px;
     transition: color 0.35s ease;
     color: black;
+    @include applyTheme(color, "text");
     contain: layout size;
 
     &,
@@ -799,6 +815,10 @@ img {
 
     &.light:not(:hover):not(.active):not(.focus):not(.searching) {
         color: map-get(map-get($theme, "text"), "dark");
+    }
+
+    &.dark:not(:hover):not(.active):not(.focus):not(.searching) {
+        color: map-get(map-get($theme, "text"), "light");
     }
 
     &-logo {
@@ -1348,4 +1368,8 @@ img {
 .text-surface {
     color: white;
     @include applyTheme(color, "surface");
+}
+
+.cards-list {
+    margin-top: -8rem;
 }
