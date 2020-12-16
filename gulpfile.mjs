@@ -1,13 +1,30 @@
 // Import external modules
-const esbuildGulp = require("gulp-esbuild");
+import { default as querySelector } from "posthtml-match-helper";
+import { default as inline } from "posthtml-inline-assets";
+import { default as posthtml } from "gulp-posthtml";
 
-const posthtml = require("gulp-posthtml");
-const rename = require("gulp-rename");
+import { default as minifyJSON } from "gulp-minify-inline-json";
+import { default as plumber } from "gulp-plumber";
+import { default as pug } from "gulp-pug";
 
-const bs = require("browser-sync");
-const querySelector = require("posthtml-match-helper");
+import { default as autoprefixer } from "gulp-autoprefixer";
+import { default as postcss } from "gulp-postcss";
+import { default as tailwind } from "tailwindcss";
+import { default as purge } from "gulp-purgecss";
+import { default as sass } from "gulp-sass";
+import { default as csso } from "gulp-csso";
+
+import { default as esbuildGulp } from "gulp-esbuild";
+import { default as bs } from "browser-sync";
+
+import { default as stringify } from "fast-stringify";
+import { default as rename } from "gulp-rename";
+import { default as fs } from "fs-extra";
+import { default as path } from "path";
+import { default as del } from "del";
 
 // Gulp utilities
+import { default as util } from "./util.js";
 const {
     stream,
     streamList,
@@ -18,9 +35,9 @@ const {
     series,
     parallelFn,
     seriesFn,
-} = require("./util");
+} = util;
 
-const dotenv = require("dotenv");
+import { default as dotenv } from "dotenv";
 dotenv.config();
 
 const env = process.env;
@@ -53,20 +70,18 @@ task("reload", (resolve) => {
 });
 
 // Delete destFolder for added performance
-task("clean", async () => {
-    const { default: del } = await import("del");
-    return del(destFolder);
-});
+task("clean", () => del(destFolder));
 
 // HTML Tasks
 const dataPath = `./data.js`;
 const iconPath = `./icons.js`;
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 const resolve = require.resolve(dataPath);
 const iconResolve = require.resolve(iconPath);
-task("html", async () => {
-    const { default: minifyJSON } = await import("gulp-minify-inline-json");
-    const { default: plumber } = await import("gulp-plumber");
-    const { default: pug } = await import("gulp-pug");
+task("html", () => {
     let data = require(resolve);
     let icons = require(iconResolve);
     let pages = [
@@ -166,8 +181,7 @@ task("html", async () => {
 
 // CSS Tasks
 tasks({
-    "app-css": async () => {
-        const { default: sass } = await import("gulp-sass");
+    "app-css": () => {
         return stream(`${sassFolder}/**/*.scss`, {
             pipes: [
                 rename({ suffix: ".min" }), // Rename
@@ -178,9 +192,7 @@ tasks({
         });
     },
 
-    "tailwind-css": async () => {
-        const { default: postcss } = await import("gulp-postcss");
-        const { default: tailwind } = await import("tailwindcss");
+    "tailwind-css": () => {
         return stream(`${sassFolder}/tailwind.css`, {
             pipes: [postcss([tailwind("./tailwind.js")])],
             dest: cssFolder,
@@ -188,8 +200,7 @@ tasks({
         });
     },
 
-    purge: async () => {
-        const { default: purge } = await import("gulp-purgecss");
+    purge: () => {
         return stream(`${cssFolder}/tailwind.css`, {
             pipes: [
                 // Remove unused CSS
@@ -216,9 +227,7 @@ tasks({
         });
     },
 
-    "minify-css": async () => {
-        const { default: autoprefixer } = await import("gulp-autoprefixer");
-        const { default: csso } = await import("gulp-csso");
+    "minify-css": () => {
         return stream(`${cssFolder}/*.css`, {
             pipes: !dev
                 ? [
@@ -273,7 +282,7 @@ tasks({
             dest: jsFolder, // Output
         });
     },
-    "other-js": async () => {
+    "other-js": () => {
         return stream([`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`], {
             pipes: [
                 // Bundle Modules
@@ -348,10 +357,8 @@ task("indexer", () => {
         ],
         dest: null,
         async end() {
-            const { default: stringify } = await import("fast-stringify");
-            const { default: path } = await import("path");
-            const { default: fs } = await import("fs-extra");
             try {
+                const __dirname = path.resolve();
                 await fs.outputFile(
                     path.join(__dirname, destFolder, "searchindex.json"),
                     stringify(index)
@@ -365,8 +372,7 @@ task("indexer", () => {
 });
 
 // Inline assets
-task("inline", async () => {
-    const { default: inline } = await import("posthtml-inline-assets");
+task("inline", () => {
     return stream(`${htmlFolder}/**/*.html`, {
         pipes: [
             posthtml([

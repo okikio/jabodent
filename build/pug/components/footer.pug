@@ -4,94 +4,104 @@ mixin footer()
       section.col(class="sm:max-w-4/12")
         +link({
           href: "/",
-          class: "inline-block mb-5 hover:text-primary",
+          class: "inline-block mb-5 hover:text-primary intro-animation",
         })(aria-label="Jabodent")
-          .flex.font-bold.text-3xl
+          .flex.font-bold.text-3xl.el
             i.icon.self-center.mr-4.justify-center
               +icon("jabodent")
             span Jabodent
-        p.text-lg.leading-8.font-medium.
-          Drive, Integrity, Professionalism, Teamwork & Innovation
+        p.text-lg.leading-8.font-medium.intro-animation
+          span.el Drive, Integrity, Professionalism, Teamwork & Innovation
 
       section(class="lt-md:mt-12 sm:max-w-4/12 sm:pl-8").col
-        h3.text-xl.mb-2.font-semibold(class="md:mb-6") Quick Links
+        span.intro-animation
+          h3.text-xl.mb-2.font-semibold.el(class="md:mb-6") Quick Links
         section.leading-8.flex.flex-col(class="lt-md:leading-10")
-          +link({
-            href: "/about",
-            class: "hover:underline",
-            content: "About Us"
-          })
+          span.intro-animation
+            +link({
+              href: "/about",
+              class: "hover:underline el",
+              content: "About Us"
+            })
 
-          +link({
-            href: "/services",
-            class: "hover:underline",
-            content: "Our Services"
-          })
+          span.intro-animation
+            +link({
+              href: "/services",
+              class: "hover:underline el",
+              content: "Our Services"
+            })
 
-          +link({
-            href: "/contact",
-            class: "hover:underline",
-            content: "Contact Us"
-          })
+          span.intro-animation
+            +link({
+              href: "/contact",
+              class: "hover:underline el",
+              content: "Contact Us"
+            })
 
-          +link({
-            href: "/404",
-            class: "hover:underline",
-            content: "Our Blog"
-          })
+          span.intro-animation
+            +link({
+              href: "/404",
+              class: "hover:underline el",
+              content: "Our Blog"
+            })
 
       section.col(class="sm:max-w-4/12 lt-md:mt-12 md:text-right")
-        p.leading-8.font-medium
-          span
+        p.leading-8.font-medium.intro-animation
+          span.el
             | Plot E10A, Close 51, VGC Lekki
             br
             | Peninsular, Lagos, Nigeria.
             br
-          span.underline
-            +link({
-              href: "tel:+2348033324072",
-              class: "hover:underline",
-              content: "+2348033324072"
-            })
-            br
-            +link({
-              href: "mailto:info@jabodent.com",
-              class: "hover:underline",
-              content: "info@jabodent.com"
-            })
+          span.intro-animation
+            span.underline.el
+              +link({
+                href: "tel:+2348033324072",
+                class: "hover:underline",
+                content: "+23480 el33324072"
+              })
+              br
+              +link({
+                href: "mailto:info@jabodent.com",
+                class: "hover:underline",
+                content: "info@jabodent.com"
+              })
         .mt-10.space-x-2.text-2xl
-          +link({
-            href: "/404",
-            class: "hover:underline",
-          })(aria-label="twitter")
-            i.icon.p-2
-              +icon("twitter")
+          span.intro-animation
+            +link({
+              href: "/404",
+              class: "hover:underline el",
+            })(aria-label="twitter")
+              i.icon.p-2
+                +icon("twitter")
 
-          +link({
-            href: "/404",
-            class: "hover:underline",
-          })(aria-label="facebook")
-            i.icon.p-2
-              +icon("facebook")
+          span.intro-animation
+            +link({
+              href: "/404",
+              class: "hover:underline el",
+            })(aria-label="facebook")
+              i.icon.p-2
+                +icon("facebook")
 
-          +link({
-            href: "/404",
-            class: "hover:underline",
-          })(aria-label="linkedin")
-            i.icon.p-2
-              +icon("linkedin")
+          span.intro-animation
+            +link({
+              href: "/404",
+              class: "hover:underline el",
+            })(aria-label="linkedin")
+              i.icon.p-2
+                +icon("linkedin")
 
-          +link({
-            href: "/404",
-            class: "hover:underline",
-          })(aria-label="instagram")
-            i.icon.p-2
-              +icon("instagram")
-    .max-w-screen-lg.flex.flex-wrap.mt-10.w-full.mx-auto.py-4.px-6.leading-10
+          span.intro-animation
+            +link({
+              href: "/404",
+              class: "hover:underline el",
+            })(aria-label="instagram")
+              i.icon.p-2
+                +icon("instagram")
+    .max-w-screen-lg.flex.flex-wrap.mt-10.w-full.mx-auto.py-4.px-6.leading-10.intro-animation
       .border-top.w-full.mb-4
-      section © 2020 Jabodent. All rights reserved.
+      section.el © 2020 Jabodent. All rights reserved.
       section.flex-grow
-      section
+      section.el
         | Designed
         //- i.icon.text-xl.text-red-600.mx-1
           +icon("favorite")

@@ -1,4 +1,5 @@
 module.exports = {
+    "ic_test": "ic_test cool",
     jabodent: /* {
         attrs: {
             "clip-rule": "evenodd",

@@ -6,12 +6,12 @@ const { src, dest, parallel, watch, task, series } = gulp;
 const stream = (_src, _opt = {}) => {
     let _end = _opt.end;
     let host =
-        typeof _src !== "string" && !Array.isArray(_src)
-            ? _src
-            : src(_src, _opt.opts),
+            typeof _src !== "string" && !Array.isArray(_src)
+                ? _src
+                : src(_src, _opt.opts),
         _pipes = _opt.pipes || [],
         _dest = _opt.dest === undefined ? "." : _opt.dest,
-        _log = _opt.log || (() => { });
+        _log = _opt.log || (() => {});
 
     _pipes.forEach((val) => {
         if (val !== undefined && val !== null) {
@@ -37,8 +37,8 @@ const stream = (_src, _opt = {}) => {
 
 // A list of streams
 const streamList = (...args) => {
-    //
-    return mergeStream.apply(null,
+    return mergeStream.apply(
+        null,
         (Array.isArray(args[0]) ? args[0] : args).map((_stream) => {
             return Array.isArray(_stream) ? stream(..._stream) : _stream;
         })
@@ -55,11 +55,11 @@ const tasks = (list) => {
 
 module.exports = {
     parallelFn(...args) {
-        let tasks = args.filter(x => (x !== undefined && x !== null));
+        let tasks = args.filter((x) => x !== undefined && x !== null);
         return (done) => parallel(...tasks)(done);
     },
     seriesFn(...args) {
-        let tasks = args.filter(x => (x !== undefined && x !== null));
+        let tasks = args.filter((x) => x !== undefined && x !== null);
         return (done) => series(...tasks)(done);
     },
     src,

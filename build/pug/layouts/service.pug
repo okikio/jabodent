@@ -41,7 +41,7 @@ block content
       section.mx-auto.text-white.w-full.max-w-screen-md
         .px-5.tracking-wide
           section.pb-10.text-base.leading-8.font-normal
-            p.clearfix
+            p.flow-root
               if article[0] !== "_"
                 span.float-left.letter-head.text-7xl.font-title.font-bold= article[0]
               span.text-lg.font-regular.font-thin(class="md:text-xl")!= article.substring(1).replace(/\n/g, "<br>")

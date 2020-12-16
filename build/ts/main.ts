@@ -49,7 +49,7 @@ try {
         if (!waitOnScroll) {
             let scrollTop = window.scrollY;
             requestAnimationFrame(() => {
-                if (scrollTop + 10 + navHeight >= top + (pjax.isTransitioning ? 100 : 0)) {
+                if (scrollTop + navHeight >= top + (pjax.isTransitioning ? 100 : 0)) {
                     navbar.navbar.classList.add("focus");
                 } else navbar.navbar.classList.remove("focus");
                 waitOnScroll = false;
@@ -98,7 +98,7 @@ try {
         top = layer
             ? layer.getBoundingClientRect().top +
             window.pageYOffset -
-            navHeight / 2
+            (navHeight / 4)
             : 0;
 
         go();
