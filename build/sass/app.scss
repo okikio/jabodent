@@ -654,11 +654,12 @@ img {
 .card {
     transition: transform ease-out 0.55s;
     // content-visibility: auto;
+    &-layout {
+        box-shadow: 0 0 15px 0 rgba(42, 47, 71, 0.24);
+        // , 0 0 50px 0 rgba(42, 50, 80, 0.19);
+    }
 
     .img {
-        // box-shadow: 0 12px 15px 0 rgba(52, 59, 90, 0.24),
-        //     0 17px 50px 0 rgba(51, 60, 94, 0.19);
-
         transform: scale(1.45);
     }
 
