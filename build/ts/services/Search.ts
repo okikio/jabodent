@@ -131,7 +131,7 @@ export class Search extends Service {
 
         // let opacity = this.active ? [0, 1] : [1, 0];
         // let transform = this.transformArr(this.active ? [-105, 0] : [0, -105]);
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
             requestAnimationFrame(() => {
                 this.navbar.blur();
                 this.navbar.classList.toggle("focus", !this.active);
@@ -217,7 +217,7 @@ export class Search extends Service {
             this.btn.addEventListener("click", this.toggle, false);
             this.input.addEventListener("keyup", this.keyup, false);
 
-            this.results.addEventListener("click", this.resultClick);
+            this.results.addEventListener("click", this.resultClick, false);
 
             this.rootElement.addEventListener("click", this.outOfFocus, false);
             this.navbar.addEventListener("click", this.navClick, false);

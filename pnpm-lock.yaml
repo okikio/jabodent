@@ -3,7 +3,6 @@ dependencies:
   '@okikio/emitter': 0.0.7
   '@okikio/manager': 0.0.7
   fast-stringify: 2.0.0
-  fuse.js: 6.4.3
 devDependencies:
   autoprefixer: 10.1.0_postcss@8.2.1
   browser-sync: 2.26.13
@@ -11,6 +10,7 @@ devDependencies:
   dotenv: 8.2.0
   esbuild: 0.8.23
   fs-extra: 9.0.1
+  fuzzysort: 1.1.4
   gulp: 4.0.2
   gulp-autoprefixer: 7.0.1_gulp@4.0.2
   gulp-csso: 4.0.1
@@ -2201,12 +2201,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
-  /fuse.js/6.4.3:
-    dev: false
-    engines:
-      node: '>=10'
+  /fuzzysort/1.1.4:
+    dev: true
     resolution:
-      integrity: sha512-JNgngolukIrqwayWnvy6NLH63hmwKPhm63o0uyBg51jPD0j09IvAzlV1rTXfAsgxpghI7khAo6Mv+EmvjDWXig==
+      integrity: sha512-JzK/lHjVZ6joAg3OnCjylwYXYVjRiwTY6Yb25LvfpJHK8bjisfnZJ5bY8aVWwTwCXgxPNgLAtmHL+Hs5q1ddLQ==
   /gauge/2.7.4:
     dependencies:
       aproba: 1.2.0
@@ -6105,7 +6103,7 @@ specifiers:
   esbuild: ^0.8.23
   fast-stringify: ^2.0.0
   fs-extra: ^9.0.1
-  fuse.js: ^6.4.3
+  fuzzysort: ^1.1.4
   gulp: ^4.0.2
   gulp-autoprefixer: ^7.0.1
   gulp-csso: ^4.0.1
