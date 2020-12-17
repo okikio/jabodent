@@ -1139,7 +1139,7 @@ img {
         overflow: hidden;
 
         &:before {
-            // animation: scrolldown 1.5s ease-out infinite;
+            animation: scrolldown 1.5s ease-out infinite;
             // transition: transform 2.2s cubic-bezier(0.76, 0, 0.3, 1);
             transform: translateY(0) scaleY(1);
             // opacity: 1;
