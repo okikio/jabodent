@@ -329,7 +329,7 @@ $delay: 0.8s;
         width: 100vw;
         height: 100vh;
         // visibility: hidden;
-        will-change: opacity;
+        // will-change: opacity;
 
         // transform: translateY(-100%);
         // transform: translateY(0px);
@@ -1121,53 +1121,104 @@ img {
     left: 50%;
     transform: translateX(-50%);
 
-    &::before {
-        background: linear-gradient(
-                to bottom,
-                currentColor 50%,
-                rgba(255, 255, 255, 0) 50%
-            ),
-            linear-gradient(to bottom, #ac911b 50%, #ac911b 50%);
-        background-position: 0 -100%;
-        background-size: 100% 200%;
-        animation: scrolldown 2.2s cubic-bezier(0.76, 0, 0.3, 1) reverse
-            infinite;
-        animation-delay: 0.5s;
+    &:visited {
+        border-color: white;
+    }
+
+    &-mouse {
+        $height: 50px;
 
         margin: 0 auto;
         margin-top: 25px;
-        height: 50px;
-        content: "";
-        border-radius: 20em;
-        width: 1px;
-        // border-left: 1px solid currentColor;
+        height: $height;
+        border-radius: 999px;
+        width: 25px;
+        border: 2px solid currentColor;
         display: block;
+        padding: 8px 5px;
+        overflow: hidden;
+
+        &:before {
+            // animation: scrolldown 1.5s ease-out infinite;
+            // transition: transform 2.2s cubic-bezier(0.76, 0, 0.3, 1);
+            transform: translateY(0) scaleY(1);
+            // opacity: 1;
+            background-color: currentColor;
+            margin: 0 auto;
+            height: 15px;
+            content: "";
+            border-radius: 999px;
+            display: block;
+            width: 2px;
+            transform-origin: 0% 0%;
+        }
+
+        @keyframes scrolldown {
+            0% {
+                // transform: translateY($height);
+                transform: translateY(0) scaleY(1);
+            }
+            50% {
+                transform: translateY(($height / 2) - 10px) scaleY(0);
+            }
+            50.01%,
+            70% {
+                transform: translateY(0) scaleY(0);
+            }
+            100% {
+                transform: translateY(0) scaleY(1);
+            }
+        }
     }
-}
-@keyframes scrolldown {
-    0% {
-        background-position: 0 -100%;
-    }
-    50% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 0 100%;
-    }
+
+    // &::before {
+    //     background: linear-gradient(
+    //             to bottom,
+    //             currentColor 50%,
+    //             rgba(255, 255, 255, 0) 50%
+    //         ),
+    //         linear-gradient(to bottom, #ac911b 50%, #ac911b 50%);
+    //     background-position: 0 -100%;
+    //     background-size: 100% 200%;
+    //     // animation: scrolldown 2.2s cubic-bezier(0.76, 0, 0.3, 1) reverse infinite;
+    //     animation-delay: 0.5s;
+
+    //     margin: 0 auto;
+    //     margin-top: 25px;
+    //     height: 50px;
+    //     content: "";
+    //     border-radius: 20em;
+    //     width: 1px;
+    //     // border-left: 1px solid currentColor;
+    //     display: block;
+    // }
 }
 
 .learn-more {
-    background-image: linear-gradient(
-        transparent 2px,
-        currentColor 2px,
-        currentColor 4px,
-        transparent 4px
-    );
-    background-size: 0% 6px, 100% 6px;
-    background-position: 0 bottom, 0 bottom;
-    transition: background-size 0.3s ease-in-out;
-    background-repeat: no-repeat;
-    padding-bottom: 8px;
+    // background-image: linear-gradient(
+    //     transparent 2px,
+    //     currentColor 2px,
+    //     currentColor 4px,
+    //     transparent 4px
+    // );
+
+    // background-size: 0% 6px, 100% 6px;
+    // background-position: 0 bottom, 0 bottom;
+    display: inline-block;
+    // background-repeat: no-repeat;
+    &:after {
+        transition: transform 0.3s ease-in-out;
+        margin-top: 4px;
+        // opacity: 1;
+        background-color: currentColor;
+        transform: scaleX(0);
+        height: 2px;
+        content: "";
+        border-radius: 999px;
+        display: block;
+        width: 100%;
+        transform-origin: 0% 0%;
+    }
     // border-bottom: 6px solid transparent;
     // text-decoration: none;
     text-decoration: dashed underline;
@@ -1205,7 +1256,10 @@ img {
     &:hover,
     &:focus,
     &:visited {
-        background-size: 100% 6px;
+        // background-size: 100% 6px;
+        &:after {
+            transform: scaleX(1);
+        }
     }
 }
 

@@ -10,6 +10,9 @@ export class Image extends Service {
     public init() {
         super.init();
         this.resize = this.resize.bind(this);
+        this.before_transition_out = this.before_transition_out.bind(this);
+        this.content_insert = this.content_insert.bind(this);
+
         (async () => {
             await this.test_webp();
             this.get_images();
@@ -27,73 +30,6 @@ export class Image extends Service {
 
     public remove_images() {
         while (this.images.length) this.images.pop();
-    }
-
-    public load_img() {
-        for (let elem of this.images) {
-            let img = elem.querySelector(".img-core") as HTMLImageElement;
-            let srcset = img.getAttribute("data-src");
-            let srcWid = Math.max(Math.round(elem.clientWidth), 10);
-            let srcHei = Math.max(Math.round(elem.clientHeight), 10);
-
-            // Use the largest image dimensions it remembers
-            let maxW = img.hasAttribute("data-max-w") ? img.getAttribute("data-max-w") : 0;
-            if (Number(maxW) < Number(srcWid)) {
-                img.setAttribute("data-max-w", "" + srcWid);
-                img.setAttribute("width", "" + srcWid);
-                img.setAttribute("height", "" + srcHei);
-            } else srcWid = Number(maxW);
-
-            let src = srcset.replace(/w_auto/, `w_${srcWid}`);
-            if (srcHei > srcWid) src = src.replace(/ar_4:3,/, `ar_3:4,`); // src = src.replace(/ar_4:3/, `ar_3:4`);
-            if (!this.WebpSupport) src = src.replace(".webp", ".jpg");
-
-            // If nothing has changed don't bother
-            if (src === img.src) return;
-
-            // Ensure the image has loaded, then replace the small preview
-            img.src = src;
-            if (!elem.classList.contains("img-show"))
-                (img.onload = () => { elem.classList.add("img-show"); img.onload = undefined; }); // Hide the image preview
-
-        }
-    }
-
-    waitOnResize = false;
-    resize() {
-        if (!this.waitOnResize) {
-            let timer;
-            this.waitOnResize = true;
-            requestAnimationFrame(() => {
-                this.load_img();
-
-                // set a timeout to un-throttle
-                timer = window.setTimeout(() => {
-                    this.waitOnResize = false;
-                    timer = window.clearTimeout(timer);
-                }, 500);
-            });
-        }
-    }
-
-    public initEvents() {
-        window.addEventListener(
-            "resize", this.resize,
-            { passive: true }
-        );
-
-        this.EventEmitter.on("BEFORE_TRANSITION_OUT", () => {
-            this.remove_images();
-        });
-
-        this.EventEmitter.on("CONTENT_INSERT", () => {
-            this.get_images();
-            this.load_img();
-        });
-    }
-
-    public stopEvents() {
-        window.removeEventListener("resize", this.resize);
     }
 
     public async test_webp() {
@@ -167,5 +103,78 @@ export class Image extends Service {
 
         // if (!this.WebpSupport) {
         // }
+    }
+
+    public load_img() {
+        for (let elem of this.images) {
+            let img = elem.querySelector(".img-core") as HTMLImageElement;
+            let srcset = img.getAttribute("data-src");
+            let srcWid = Math.max(Math.round(elem.clientWidth), 10);
+            let srcHei = Math.max(Math.round(elem.clientHeight), 10);
+
+            // Use the largest image dimensions it remembers
+            let maxW = img.hasAttribute("data-max-w") ? img.getAttribute("data-max-w") : 0;
+            if (Number(maxW) < Number(srcWid)) {
+                img.setAttribute("data-max-w", "" + srcWid);
+                img.setAttribute("width", "" + srcWid);
+                img.setAttribute("height", "" + srcHei);
+            } else srcWid = Number(maxW);
+
+            let src = srcset.replace(/w_auto/, `w_${srcWid}`);
+            if (srcHei > srcWid) src = src.replace(/ar_4:3,/, `ar_3:4,`); // src = src.replace(/ar_4:3/, `ar_3:4`);
+            if (!this.WebpSupport) src = src.replace(".webp", ".jpg");
+
+            // If nothing has changed don't bother
+            if (src === img.src) return;
+
+            // Ensure the image has loaded, then replace the small preview
+            img.src = src;
+            if (!elem.classList.contains("img-show"))
+                (img.onload = () => { elem.classList.add("img-show"); img.onload = undefined; }); // Hide the image preview
+
+        }
+    }
+
+    waitOnResize = false;
+    resize() {
+        if (!this.waitOnResize) {
+            let timer;
+            this.waitOnResize = true;
+            requestAnimationFrame(() => {
+                this.load_img();
+
+                // set a timeout to un-throttle
+                timer = window.setTimeout(() => {
+                    this.waitOnResize = false;
+                    timer = window.clearTimeout(timer);
+                }, 500);
+            });
+        }
+    }
+
+    public initEvents() {
+        window.addEventListener(
+            "resize", this.resize,
+            { passive: true }
+        );
+
+        this.EventEmitter.on("BEFORE_TRANSITION_OUT", this.before_transition_out);
+        this.EventEmitter.on("CONTENT_INSERT", this.content_insert);
+    }
+
+    public content_insert() {
+        this.get_images();
+        this.load_img();
+    }
+
+    public before_transition_out() {
+        this.remove_images();
+    }
+
+    public stopEvents() {
+        window.removeEventListener("resize", this.resize);
+
+        this.EventEmitter.off("BEFORE_TRANSITION_OUT", this.before_transition_out);
+        this.EventEmitter.off("CONTENT_INSERT", this.content_insert);
     }
 }

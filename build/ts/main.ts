@@ -1,4 +1,3 @@
-import { themeSet, themeGet } from "./theme";
 import { PJAX, App, _URL, Router } from "./framework/api";
 
 import { Splashscreen } from "./services/Splashscreen";
@@ -8,33 +7,23 @@ import { Search } from "./services/Search";
 import { Image } from "./services/Image";
 
 import { CarouselBlockIntent } from "./blocks/Carousel";
-
 import { Fade } from "./transitions/Fade";
-// import { BigTransition } from "./transitions/BigTransition";
-// import { Slide, SlideLeft, SlideRight } from "./transitions/Slide";
 
 let app: App = new App();
 let navbar: Navbar, router: Router, splashscreen: Splashscreen;
-let search = new Search(), pjax;
-app.addService(new IntroAnimation())
-    .addService(new Splashscreen())
+let search: Search, pjax: PJAX;
+app
+    .addService(new IntroAnimation())
+    .addService(splashscreen = new Splashscreen())
     .add("service", pjax = new PJAX())
     .add("service", new Image())
-    .add("service", search)
+    .add("service", search = new Search())
 
-    .addService((navbar = new Navbar()))
-    .setService("router", (router = new Router()))
+    .addService(navbar = new Navbar())
+    .setService("router", router = new Router())
 
     .add("block", CarouselBlockIntent)
     .add("transition", new Fade());
-
-// On theme switcher button click (mouseup is a tiny bit more efficient) toggle the theme between dark and light mode
-let themeSwitch = document.querySelector(".theme-switch");
-if (themeSwitch) {
-    themeSwitch.addEventListener("click", () => {
-        themeSet(themeGet() === "dark" ? "light" : "dark");
-    });
-}
 
 try {
     let waitOnScroll = false;

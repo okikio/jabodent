@@ -47,15 +47,23 @@ export let runTheme = () => {
         if (theme === null) theme = mediaTheme();
         theme && themeSet(theme);
 
-        window.matchMedia("(prefers-color-scheme: dark)").addListener((e) => {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
             themeSet(e.matches ? "dark" : "light");
         });
 
-        window.matchMedia("(prefers-color-scheme: light)").addListener((e) => {
+        window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
             themeSet(e.matches ? "light" : "dark");
         });
+
+        // On theme switcher button click (mouseup is a tiny bit more efficient) toggle the theme between dark and light mode
+        let themeSwitch = document.querySelector(".theme-switch");
+        if (themeSwitch) {
+            themeSwitch.addEventListener("click", () => {
+                themeSet(themeGet() === "dark" ? "light" : "dark");
+            });
+        }
     } catch (e) {
-        console.warn("Theming isn't available on this browser.");
+        console.warn("Theming isn't available on this browser.", e);
     }
 };
 
