@@ -1143,7 +1143,7 @@ img {
         &:before {
             animation: scrolldown 1.5s ease-out infinite;
             // transition: transform 2.2s cubic-bezier(0.76, 0, 0.3, 1);
-            transform: translateY(0) scaleY(1);
+            transform: translate(-50%, 0) scaleY(1);
             // opacity: 1;
             background-color: currentColor;
             margin: 0 auto;
@@ -1153,22 +1153,25 @@ img {
             display: block;
             width: 2px;
             transform-origin: 0% 0%;
+            position: relative;
+            top: 0;
+            left: 0;
         }
 
         @keyframes scrolldown {
             0% {
                 // transform: translateY($height);
-                transform: translateY(0) scaleY(1);
+                transform: translate(-50%, 0) scaleY(1);
             }
             50% {
-                transform: translateY(($height / 2) - 10px) scaleY(0);
+                transform: translate(-50%, ($height / 2) - 10px) scaleY(0);
             }
             50.01%,
             70% {
-                transform: translateY(0) scaleY(0);
+                transform: translate(-50%, 0) scaleY(0);
             }
             100% {
-                transform: translateY(0) scaleY(1);
+                transform: translate(-50%, 0) scaleY(1);
             }
         }
     }

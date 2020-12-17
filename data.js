@@ -9,7 +9,7 @@ module.exports = {
                 src: "cloudinary/jabodent/john-ab-oyedeji-1",
                 alt: "A portrait of John A.B. Oyedeji.",
                 class: "person",
-                figclass: "min-h-400 lg:min-h-500"
+                figclass: "min-h-400 lg:min-h-500",
             },
             description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
 

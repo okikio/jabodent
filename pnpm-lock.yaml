@@ -6,6 +6,7 @@ dependencies:
 devDependencies:
   autoprefixer: 10.1.0_postcss@8.2.1
   browser-sync: 2.26.13
+  browser-sync-spa: 1.0.3
   del: 6.0.0
   dotenv: 8.2.0
   esbuild: 0.8.23
@@ -729,6 +730,13 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-p2VbZoYrpuDhkreq+/Sv1MkToHklh7T1OaIntDwpG6Iy2q/XkBcgwPcWjX+WwRNiZjN8MEehxIjEUh12LweLmQ==
+  /browser-sync-spa/1.0.3:
+    dependencies:
+      connect-history-api-fallback: 0.0.5
+      opt-merger: 1.1.1
+    dev: true
+    resolution:
+      integrity: sha1-SV9DfkJl5PBmSmdVeb1uToHJz54=
   /browser-sync-ui/2.26.13:
     dependencies:
       async-each-series: 0.1.1
@@ -1206,6 +1214,12 @@ packages:
       '0': node >= 0.8
     resolution:
       integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
+  /connect-history-api-fallback/0.0.5:
+    dev: true
+    engines:
+      node: '>=0.8'
+    resolution:
+      integrity: sha1-7wUJ0AQL+8SG6rX39QC7F2nPNUo=
   /connect-history-api-fallback/1.6.0:
     dev: true
     engines:
@@ -3383,6 +3397,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
+  /lodash/3.10.1:
+    dev: true
+    resolution:
+      integrity: sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
   /lodash/4.17.20:
     dev: true
     resolution:
@@ -3863,6 +3881,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-bYJHo/LOmoTd+pfiYhfZDnf9zekVJrY+cnS2a5F2x+w5ppvTqObojTP7WiFG+kVZs9Inw+qQ/lw7TroWwhdd2g==
+  /opt-merger/1.1.1:
+    dependencies:
+      lodash: 3.10.1
+      minimist: 1.2.5
+    dev: true
+    resolution:
+      integrity: sha1-30mVcJlBKHqEZ/nOWO4Gv0pk/0E=
   /ordered-read-streams/1.0.1:
     dependencies:
       readable-stream: 2.3.7
@@ -6098,6 +6123,7 @@ specifiers:
   '@okikio/manager': ^0.0.7
   autoprefixer: ^10.1.0
   browser-sync: ^2.26.13
+  browser-sync-spa: ^1.0.3
   del: ^6.0.0
   dotenv: ^8.2.0
   esbuild: ^0.8.23

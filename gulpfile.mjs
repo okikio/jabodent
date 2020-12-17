@@ -23,6 +23,8 @@ import { default as fs } from "fs-extra";
 import { default as path } from "path";
 import { default as del } from "del";
 
+import { default as spa } from "browser-sync-spa";
+
 // Gulp utilities
 import { default as util } from "./util.js";
 const {
@@ -39,6 +41,10 @@ const {
 
 import { default as dotenv } from "dotenv";
 dotenv.config();
+
+// BrowserSync
+const browserSync = bs;
+bs.use(spa()); //.create();
 
 const env = process.env;
 const dev = "dev" in env ? env.dev == "true" : false;
@@ -62,16 +68,6 @@ const htmlFolder = `${destFolder}`;
 // Main ts file bane
 const tsFile = `main.ts`;
 
-// BrowserSync
-const browserSync = bs.create();
-task("reload", (resolve) => {
-    browserSync.reload();
-    resolve();
-});
-
-// Delete destFolder for added performance
-task("clean", () => del(destFolder));
-
 // HTML Tasks
 const dataPath = `./data.js`;
 const iconPath = `./icons.js`;
@@ -92,11 +88,11 @@ task("html", () => {
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
                     pug({
+                        pretty: false,
                         basedir: pugFolder,
                         data: { ...data, icons, netlify },
                         self: true,
                     }),
-                    minifyJSON(), // Minify application/ld+json
                 ],
                 dest: htmlFolder,
             },
@@ -117,6 +113,7 @@ task("html", () => {
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
                     pug({
+                        pretty: false,
                         basedir: pugFolder,
                         self: true,
                         data: Object.assign(
@@ -131,7 +128,6 @@ task("html", () => {
                             data
                         ),
                     }),
-                    minifyJSON(), // Minify application/ld+json
                     rename(pageURL),
                 ],
                 dest: `${htmlFolder}/services`,
@@ -152,6 +148,7 @@ task("html", () => {
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
                     pug({
+                        pretty: false,
                         basedir: pugFolder,
                         self: true,
                         data: Object.assign(
@@ -165,7 +162,6 @@ task("html", () => {
                             data
                         ),
                     }),
-                    minifyJSON(), // Minify application/ld+json
                     rename(pageURL),
                 ],
                 dest: `${htmlFolder}/team`,
@@ -375,6 +371,7 @@ task("indexer", () => {
 task("inline", () => {
     return stream(`${htmlFolder}/**/*.html`, {
         pipes: [
+            minifyJSON(), // Minify application/ld+json
             posthtml([
                 inline({
                     transforms: {
@@ -462,13 +459,30 @@ task(
         "assets"
     )
 );
+
+task("reload", (resolve) => {
+    browserSync.reload();
+    resolve();
+});
+
+task("delayed-reload", (resolve) => {
+    setTimeout(() => {
+        browserSync.reload();
+    }, 500);
+
+    resolve();
+});
+// Delete destFolder for added performance
+task("clean", () => del(destFolder));
 task("watch", () => {
     browserSync.init(
         {
-            notify: true,
+            ghostMode: true,
+            notify: false,
             server: destFolder,
             online: true,
             scrollThrottle: 250,
+            open: false,
         },
         (_err, bs) => {
             bs.addMiddleware("*", (_req, res) => {
@@ -481,7 +495,7 @@ task("watch", () => {
     );
     watch(
         [`${pugFolder}/**/*.pug`, dataPath, iconPath],
-        series(`html`, "indexer", `reload`)
+        series(`html`, parallel("indexer", "delayed-reload"))
     );
     watch(`${sassFolder}/**/*.scss`, series(`app-css`));
     watch(
@@ -496,7 +510,7 @@ task("watch", () => {
         [`!${tsFolder}/${tsFile}`, `${tsFolder}/*.ts`],
         series(`other-js`, `reload`)
     );
-    watch(`${assetsFolder}/**/*`, series(`assets`, `reload`));
+    watch(`${assetsFolder}/**/*`, series(`assets`, "delayed-reload"));
 });
 
 task(
