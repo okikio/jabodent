@@ -7,7 +7,7 @@ import { default as minifyJSON } from "gulp-minify-inline-json";
 import { default as plumber } from "gulp-plumber";
 import { default as pug } from "gulp-pug";
 
-// import { default as autoprefixer } from "gulp-autoprefixer";
+import { default as autoprefixer } from "autoprefixer";
 import { default as postcss } from "gulp-postcss";
 import { default as tailwind } from "tailwindcss";
 import { default as purge } from "gulp-purgecss";
@@ -22,9 +22,6 @@ import { default as rename } from "gulp-rename";
 import { default as fs } from "fs-extra";
 import { default as path } from "path";
 import { default as del } from "del";
-
-import { default as presetENV } from "postcss-preset-env";
-// import { default as spa } from "browser-sync-spa";
 
 // Gulp utilities
 import { default as util } from "./util.js";
@@ -211,7 +208,17 @@ tasks({
                 purge({
                     content: [`${pugFolder}/**/*.pug`],
                     //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-                    safelist: [/min-h-400/, /min-h-500/], // ["active", "show", "focus", "hide"],
+                    safelist: [
+                        /min-h-400/,
+                        /min-h-500/,
+                        // /searching/,
+                        // /active/,
+                        // /focus/,
+                        // /show/,
+                        // /hide/,
+                        // /light/,
+                        // /dark/,
+                    ], // ["active", "show", "focus", "hide"],
                     keyframes: false,
                     fontFace: false,
                     defaultExtractor: (content) => {
@@ -235,11 +242,13 @@ tasks({
         return stream(`${cssFolder}/*.css`, {
             pipes: !dev
                 ? [
-                      // Prefix & Compress CSS
-                      //   autoprefixer({
-                      //       overrideBrowserslist: ["defaults"],
-                      //   }),
-                      postcss([presetENV(), csso()]),
+                      postcss([
+                          // Prefix & Compress CSS
+                          autoprefixer({
+                              overrideBrowserslist: ["defaults"],
+                          }),
+                          csso(),
+                      ]),
                   ]
                 : [],
             dest: cssFolder,
