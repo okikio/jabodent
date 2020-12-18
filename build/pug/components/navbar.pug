@@ -54,20 +54,20 @@ mixin navbar(page)
         })
 
         button.hide-no-script.search-btn.block.navbar-icon.cursor-pointer.group(type="button", aria-label="Search button" role="button", title="Search")
-          div(class="rounded-full flex justify-c-center w-12 h-12 mx-auto hover:border-black focus:outline-none text-xl")
+          div(class="rounded-full flex justify-c-center w-12 h-12 lt-sm:w-8 lt-sm:w-8 mx-auto hover:border-black focus:outline-none text-xl")
             .self-center
               .search-icon
                 i.icon.text-2xl(class="group-hover:opacity-65", title="Search")
                   +icon("search")
 
         button.hide-no-script.theme-switch.block.navbar-icon.cursor-pointer.group(type="button", role="button" aria-label="Light/Dark mode toggle" title="Switch Theme")
-          div(class="rounded-full flex justify-c-center w-12 h-12 mx-auto hover:border-black focus:outline-none text-xl")
+          div(class="rounded-full flex justify-c-center w-12 h-12 lt-sm:w-8 lt-sm:w-8 mx-auto hover:border-black focus:outline-none text-xl")
             .self-center
               i.icon.text-2xl(class="group-hover:opacity-65")
                 +icon("theme_switcher")
 
         button.navbar-menu.block.navbar-icon.cursor-pointer.group(class="md:hidden" type="button", role="button" aria-label="Navigation bar button" title="Menu")
-          div(class="rounded-full flex justify-c-center w-12 h-12 mx-auto hover:border-black focus:outline-none text-xl")
+          div(class="rounded-full flex justify-c-center w-12 h-12 lt-sm:w-8 lt-sm:w-8 mx-auto hover:border-black focus:outline-none text-xl")
             .self-center
               i.icon.text-3xl(class="group-hover:opacity-65")
                 +icon("menu_double_bar")

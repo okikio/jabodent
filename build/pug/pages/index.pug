@@ -4,7 +4,7 @@ block hero
   -
     let { services } = self;
 
-  section.relative.h-screen.bg-primary.fixed-img-container(class="lt-sm:h-60-screen")
+  section.relative.h-screen.bg-primary.fixed-img-container.min-h-500(class="lt-sm:h-60-screen")
     .absolute.top-0.left-0.w-full.h-full
       //- src: "cloudinary/e_improve/waves",
       +image({
@@ -25,7 +25,7 @@ block hero
           .text-sm.pt-2.font-normal.tracking-widest.uppercase scroll
 
   section.bg-black.text-white.w-full.scroll-point
-    .px-5.mx-auto.w-full.max-w-screen-md.py-24(class="lt-md:pb-12")
+    .px-5.mx-auto.w-full.max-w-screen-md.py-24(class="lt-md:py-12")
       h3.text-2xl.mb-6.font-bold.intro-animation About Us
       p.leading-8.text-lg.intro-animation We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliable and consistent delivery.
       .mt-16.intro-animation

@@ -854,6 +854,10 @@ img {
         position: relative;
         opacity: 1;
 
+        @media (max-width: 640px) {
+            padding: 0 0.55rem;
+        }
+
         &:hover {
             text-decoration: underline;
         }
@@ -953,7 +957,7 @@ img {
             }
 
             .navbar-item {
-                // transition: transform ease-out 0.65s 0.2s;
+                transition: transform ease-out 0.65s 0.2s;
                 transform: translateY(0px);
             }
 
@@ -977,6 +981,10 @@ img {
 
     &-icon {
         padding: 0 0.25rem;
+
+        @media (max-width: 640px) {
+            padding: 0 0.55rem;
+        }
     }
 }
 
@@ -1137,41 +1145,44 @@ img {
         width: 25px;
         border: 2px solid currentColor;
         display: block;
-        padding: 8px 5px;
         overflow: hidden;
 
         &:before {
+            $x: -50%;
+
             animation: scrolldown 1.5s ease-out infinite;
+            margin: 8px 0;
             // transition: transform 2.2s cubic-bezier(0.76, 0, 0.3, 1);
-            transform: translate(0, 0) scaleY(1);
+            transform: translate($x, 0) scaleY(1);
             // opacity: 1;
             background-color: currentColor;
-            margin: 0 auto;
+            // margin: 0 auto;
             height: 15px;
             content: "";
             border-radius: 999px;
             display: block;
-            width: 2px;
-            transform-origin: 0 0;
-            position: relative;
-            top: 0;
-            left: 0;
-        }
+            width: 1px;
+            border: 1px solid currentColor;
+            transform-origin: center 0;
+            position: absolute;
+            left: 50%;
+            top: 8px + $height / 2;
 
-        @keyframes scrolldown {
-            0% {
-                // transform: translateY($height);
-                transform: translate(0, 0) scaleY(1);
-            }
-            50% {
-                transform: translate(0, ($height / 2) - 10px) scaleY(0);
-            }
-            50.01%,
-            70% {
-                transform: translate(0, 0) scaleY(0);
-            }
-            100% {
-                transform: translate(0, 0) scaleY(1);
+            @keyframes scrolldown {
+                0% {
+                    // transform: translateY($height);
+                    transform: translate($x, 0) scaleY(1);
+                }
+                50% {
+                    transform: translate($x, ($height / 2) - 10px) scaleY(0);
+                }
+                50.01%,
+                70% {
+                    transform: translate($x, 0) scaleY(0);
+                }
+                100% {
+                    transform: translate($x, 0) scaleY(1);
+                }
             }
         }
     }

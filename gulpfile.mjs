@@ -24,7 +24,7 @@ import { default as path } from "path";
 import { default as del } from "del";
 
 import { default as presetENV } from "postcss-preset-env";
-import { default as spa } from "browser-sync-spa";
+// import { default as spa } from "browser-sync-spa";
 
 // Gulp utilities
 import { default as util } from "./util.js";
@@ -44,8 +44,7 @@ import { default as dotenv } from "dotenv";
 dotenv.config();
 
 // BrowserSync
-const browserSync = bs;
-bs.use(spa()); //.create();
+const browserSync = bs.create();
 
 const env = process.env;
 const dev = "dev" in env ? env.dev == "true" : false;
@@ -477,12 +476,12 @@ task("clean", () => del(destFolder));
 task("watch", () => {
     browserSync.init(
         {
-            ghostMode: true,
-            notify: false,
+            // ghostMode: true,
+            notify: true,
             server: destFolder,
             online: true,
             scrollThrottle: 250,
-            open: false,
+            // open: false,
         },
         (_err, bs) => {
             bs.addMiddleware("*", (_req, res) => {
@@ -497,6 +496,7 @@ task("watch", () => {
         [
             `${pugFolder}/pages/**/*.pug`,
             `${pugFolder}/layouts/layout.pug`,
+            `${pugFolder}/components/*.pug`,
             dataPath,
             iconPath,
         ],
@@ -507,6 +507,7 @@ task("watch", () => {
         [
             `${pugFolder}/layouts/person.pug`,
             `${pugFolder}/layouts/layout.pug`,
+            `${pugFolder}/components/*.pug`,
             dataPath,
             iconPath,
         ],
@@ -517,6 +518,7 @@ task("watch", () => {
         [
             `${pugFolder}/layouts/service.pug`,
             `${pugFolder}/layouts/layout.pug`,
+            `${pugFolder}/components/*.pug`,
             dataPath,
             iconPath,
         ],
