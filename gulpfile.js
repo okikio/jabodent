@@ -296,17 +296,11 @@ tasks({
         const [
             { default: postcss },
             { default: tailwind },
-            import("gulp-postcss"),
-            import("tailwindcss")
-        ]);
+        ] = await Promise.all([import("gulp-postcss"), import("tailwindcss")]);
         // const { default: postcss } = await import("gulp-postcss");
         // const { default: tailwind } = await import("tailwindcss");
         return stream(`${sassFolder}/tailwind.css`, {
-            pipes: [
-                postcss(
-                    [tailwind("./tailwind.js")]
-                ),
-            ],
+            pipes: [postcss([tailwind("./tailwind.js")])],
             // end: browserSync && dev ? [browserSync.stream()] : undefined,
             dest: cssFolder,
         });
