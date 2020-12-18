@@ -7,12 +7,12 @@ import { default as minifyJSON } from "gulp-minify-inline-json";
 import { default as plumber } from "gulp-plumber";
 import { default as pug } from "gulp-pug";
 
-import { default as autoprefixer } from "gulp-autoprefixer";
+// import { default as autoprefixer } from "gulp-autoprefixer";
 import { default as postcss } from "gulp-postcss";
 import { default as tailwind } from "tailwindcss";
 import { default as purge } from "gulp-purgecss";
+import { default as csso } from "postcss-csso";
 import { default as sass } from "gulp-sass";
-import { default as csso } from "gulp-csso";
 
 import { default as esbuildGulp } from "gulp-esbuild";
 import { default as bs } from "browser-sync";
@@ -23,6 +23,7 @@ import { default as fs } from "fs-extra";
 import { default as path } from "path";
 import { default as del } from "del";
 
+import { default as presetENV } from "postcss-preset-env";
 import { default as spa } from "browser-sync-spa";
 
 // Gulp utilities
@@ -77,45 +78,49 @@ const require = createRequire(import.meta.url);
 
 const resolve = require.resolve(dataPath);
 const iconResolve = require.resolve(iconPath);
-task("html", () => {
-    let data = require(resolve);
-    let icons = require(iconResolve);
-    let pages = [
-        [
-            `${pugFolder}/pages/**/*.pug`,
-            {
-                pipes: [
-                    plumber(), // Recover from errors without cancelling build task
-                    // Compile src html using Pug
-                    pug({
-                        pretty: false,
-                        basedir: pugFolder,
-                        data: { ...data, icons, netlify },
-                        self: true,
-                    }),
-                ],
-                dest: htmlFolder,
-            },
-        ],
-    ];
 
-    let values = Object.values(data.services),
-        i = 0,
-        len = values.length;
-    for (; i < len; i++) {
-        let next = i + 1 < len ? values[i + 1] : values[0];
-        let service = values[i];
-        let { pageURL } = service;
-        pages.push([
-            `${pugFolder}/layouts/service.pug`,
-            {
+const pugConfig = {
+    pretty: false,
+    basedir: pugFolder,
+    self: true,
+    // debug: false,
+    // compileDebug: false,
+    // cache: true,
+    // inlineRuntimeFunctions: true,
+};
+tasks({
+    "app-html": () => {
+        let data = require(resolve);
+        let icons = require(iconResolve);
+        return stream(`${pugFolder}/pages/**/*.pug`, {
+            pipes: [
+                plumber(), // Recover from errors without cancelling build task
+                // Compile src html using Pug
+                pug({
+                    ...pugConfig,
+                    data: { ...data, icons, netlify },
+                }),
+            ],
+            dest: htmlFolder,
+        });
+    },
+    "services-html": () => {
+        let data = require(resolve);
+        let icons = require(iconResolve);
+        let values = Object.values(data.services),
+            pages = [],
+            i = 0,
+            len = values.length;
+        for (; i < len; i++) {
+            let next = i + 1 < len ? values[i + 1] : values[0];
+            let service = values[i];
+            let { pageURL } = service;
+            let page = stream(`${pugFolder}/layouts/service.pug`, {
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
                     pug({
-                        pretty: false,
-                        basedir: pugFolder,
-                        self: true,
+                        ...pugConfig,
                         data: Object.assign(
                             {
                                 index: i,
@@ -131,26 +136,29 @@ task("html", () => {
                     rename(pageURL),
                 ],
                 dest: `${htmlFolder}/services`,
-            },
-        ]);
-    }
+            });
 
-    let team = Object.values(data.team);
-    i = 0;
-    len = team.length;
-    for (; i < len; i++) {
-        let person = team[i];
-        let { pageURL } = person;
-        pages.push([
-            `${pugFolder}/layouts/person.pug`,
-            {
+            pages.push(page);
+        }
+
+        return streamList(pages);
+    },
+    "team-html": () => {
+        let data = require(resolve);
+        let icons = require(iconResolve);
+        let team = Object.values(data.team),
+            pages = [],
+            i = 0,
+            len = team.length;
+        for (; i < len; i++) {
+            let person = team[i];
+            let { pageURL } = person;
+            let page = stream(`${pugFolder}/layouts/person.pug`, {
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
                     pug({
-                        pretty: false,
-                        basedir: pugFolder,
-                        self: true,
+                        ...pugConfig,
                         data: Object.assign(
                             {
                                 index: i,
@@ -165,14 +173,15 @@ task("html", () => {
                     rename(pageURL),
                 ],
                 dest: `${htmlFolder}/team`,
-            },
-        ]);
-    }
+            });
 
-    delete require.cache[resolve];
-    delete require.cache[iconResolve];
+            pages.push(page);
+        }
 
-    return streamList(pages);
+        return streamList(pages);
+    },
+
+    html: parallelFn("app-html", "services-html", "team-html"),
 });
 
 // CSS Tasks
@@ -228,10 +237,10 @@ tasks({
             pipes: !dev
                 ? [
                       // Prefix & Compress CSS
-                      autoprefixer({
-                          overrideBrowserslist: ["defaults"],
-                      }),
-                      csso(),
+                      //   autoprefixer({
+                      //       overrideBrowserslist: ["defaults"],
+                      //   }),
+                      postcss([presetENV(), csso()]),
                   ]
                 : [],
             dest: cssFolder,
@@ -453,25 +462,16 @@ task("inline", () => {
 // Build & Watch Tasks
 task(
     "build",
-    parallel(
-        series("html", "indexer"),
-        series(parallel("css", "js"), "inline"),
-        "assets"
-    )
+    series("html", parallel("css", "js", "indexer", "assets"), "inline")
 );
 
 task("reload", (resolve) => {
     browserSync.reload();
+    delete require.cache[resolve];
+    delete require.cache[iconResolve];
     resolve();
 });
 
-task("delayed-reload", (resolve) => {
-    setTimeout(() => {
-        browserSync.reload();
-    }, 500);
-
-    resolve();
-});
 // Delete destFolder for added performance
 task("clean", () => del(destFolder));
 task("watch", () => {
@@ -494,36 +494,64 @@ task("watch", () => {
         }
     );
     watch(
-        [`${pugFolder}/**/*.pug`, dataPath, iconPath],
-        series(`html`, parallel("indexer", "delayed-reload"))
+        [
+            `${pugFolder}/pages/**/*.pug`,
+            `${pugFolder}/layouts/layout.pug`,
+            dataPath,
+            iconPath,
+        ],
+        { delay: 100 },
+        series(`app-html`)
     );
-    watch(`${sassFolder}/**/*.scss`, series(`app-css`));
+    watch(
+        [
+            `${pugFolder}/layouts/person.pug`,
+            `${pugFolder}/layouts/layout.pug`,
+            dataPath,
+            iconPath,
+        ],
+        { delay: 100 },
+        series(`team-html`)
+    );
+    watch(
+        [
+            `${pugFolder}/layouts/service.pug`,
+            `${pugFolder}/layouts/layout.pug`,
+            dataPath,
+            iconPath,
+        ],
+        { delay: 100 },
+        series(`services-html`)
+    );
+    watch(
+        [`${htmlFolder}/**/*.html`],
+        { delay: 500 },
+        parallel("indexer", "reload")
+    );
+    watch(`${sassFolder}/**/*.scss`, { delay: 100 }, series(`app-css`));
     watch(
         [`${sassFolder}/tailwind.css`, `./tailwind.js`],
+        { delay: 100 },
         series(`tailwind-css`)
     );
     watch(
         [`${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`, `${tsFolder}/${tsFile}`],
+        { delay: 100 },
         series(parallelFn(`modern-js`, dev ? null : `legacy-js`), `reload`)
     );
     watch(
         [`!${tsFolder}/${tsFile}`, `${tsFolder}/*.ts`],
+        { delay: 100 },
         series(`other-js`, `reload`)
     );
-    watch(`${assetsFolder}/**/*`, series(`assets`, "delayed-reload"));
+    watch(`${assetsFolder}/**/*`, { delay: 500 }, series(`assets`, "reload"));
 });
 
 task(
     "default",
     series(
         "clean",
-        parallel(
-            series("html", "indexer"),
-            "app-css",
-            "tailwind-css",
-            "js",
-            "assets"
-        ),
-        "watch"
+        parallel("html", "css", "js", "assets"),
+        parallel("indexer", "watch")
     )
 );

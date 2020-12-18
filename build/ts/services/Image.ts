@@ -42,7 +42,7 @@ export class Image extends Service {
                     animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
                 };
 
-                let img = new window.Image();
+                let img: HTMLImageElement | void = new window.Image();
 
                 // @ts-ignore
                 img.src = "data:image/webp;base64," + kTestImages[feature];
@@ -50,12 +50,12 @@ export class Image extends Service {
                 img.onload = () => {
                     // @ts-ignore
                     let result = (img.width > 0) && (img.height > 0);
-                    resolve(result);
+                    img = resolve(result);
                 };
 
                 // @ts-ignore
                 img.onerror = () => {
-                    reject(false);
+                    img = reject(false);
                 };
             });
         };
@@ -130,7 +130,7 @@ export class Image extends Service {
             // Ensure the image has loaded, then replace the small preview
             img.src = src;
             if (!elem.classList.contains("img-show"))
-                (img.onload = () => { elem.classList.add("img-show"); img.onload = undefined; }); // Hide the image preview
+                (img.onload = () => { elem.classList.add("img-show"); img.onload = undefined; img = undefined; }); // Hide the image preview
 
         }
     }
@@ -176,5 +176,11 @@ export class Image extends Service {
 
         this.EventEmitter.off("BEFORE_TRANSITION_OUT", this.before_transition_out);
         this.EventEmitter.off("CONTENT_INSERT", this.content_insert);
+    }
+
+    public stop() {
+        super.stop();
+        this.remove_images();
+        this.images = undefined;
     }
 }
