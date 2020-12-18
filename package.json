@@ -33,7 +33,7 @@
     "homepage": "https://github.com/okikio/jabodent#readme",
     "license": "GNU",
     "private": true,
-    "devDependencies": {
+    "dependencies": {
         "@fullhuman/postcss-purgecss": "^3.1.3",
         "autoprefixer": "^10.1.0",
         "browser-sync": "^2.26.13",
@@ -58,12 +58,7 @@
         "posthtml-inline-assets": "^3.1.0",
         "posthtml-match-helper": "^1.0.1",
         "tailwindcss": "^1.9.6",
-        "ultra-runner": "^3.7.1"
-    },
-    "peerDependencies": {
-        "postcss": "^8.2.1"
-    },
-    "dependencies": {
+        "ultra-runner": "^3.7.1",
         "@okikio/animate": "^0.0.7",
         "@okikio/emitter": "^0.0.7",
         "@okikio/manager": "^0.0.7",
