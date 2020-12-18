@@ -55,13 +55,6 @@ export let runTheme = () => {
             themeSet(e.matches ? "light" : "dark");
         });
 
-        // On theme switcher button click (mouseup is a tiny bit more efficient) toggle the theme between dark and light mode
-        let themeSwitch = document.querySelector(".theme-switch");
-        if (themeSwitch) {
-            themeSwitch.addEventListener("click", () => {
-                themeSet(themeGet() === "dark" ? "light" : "dark");
-            });
-        }
     } catch (e) {
         console.warn("Theming isn't available on this browser.", e);
     }
@@ -70,8 +63,20 @@ export let runTheme = () => {
 let handler = (() => {
     document.removeEventListener("DOMContentLoaded", handler);
     window.removeEventListener("load", handler);
-    runTheme();
+
+    try {
+        // On theme switcher button click (mouseup is a tiny bit more efficient) toggle the theme between dark and light mode
+        let themeSwitch = document.querySelector(".theme-switch");
+        if (themeSwitch) {
+            themeSwitch.addEventListener("click", () => {
+                themeSet(themeGet() === "dark" ? "light" : "dark");
+            });
+        }
+    } catch (e) {
+        console.warn("Theming seems to break on this browser.", e);
+    }
 }).bind(this);
 
+runTheme();
 document.addEventListener("DOMContentLoaded", handler);
 window.addEventListener("load", handler);
