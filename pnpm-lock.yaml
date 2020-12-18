@@ -4,21 +4,21 @@ dependencies:
   '@okikio/manager': 0.0.7
   fast-stringify: 2.0.0
 devDependencies:
+  '@fullhuman/postcss-purgecss': 3.1.3
   autoprefixer: 10.1.0_postcss@8.2.1
   browser-sync: 2.26.13
   del: 6.0.0
   dotenv: 8.2.0
-  esbuild: 0.8.23
+  esbuild: 0.8.24
   fs-extra: 9.0.1
   fuzzysort: 1.1.4
   gulp: 4.0.2
-  gulp-esbuild: 0.3.6
+  gulp-esbuild: 0.3.7
   gulp-minify-inline-json: 1.3.4
   gulp-plumber: 1.2.1
   gulp-postcss: 9.0.0_postcss@8.2.1
   gulp-posthtml: 3.0.5
   gulp-pug: 4.0.1
-  gulp-purgecss: 3.1.3
   gulp-rename: 2.0.0
   gulp-sass: 4.1.0
   merge-stream: 2.0.0
@@ -38,6 +38,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-qnKm5dIOyPGJ70kPZ5jiz0I9foVOic0j+cOzNDoo8KoCf6HjicIZ99UfO2OmE7vCYSKAAepEwJtNzpiiZAh9xw==
+  /@fullhuman/postcss-purgecss/3.1.3:
+    dependencies:
+      purgecss: 3.1.3
+    dev: true
+    resolution:
+      integrity: sha512-kwOXw8fZ0Lt1QmeOOrd+o4Ibvp4UTEBFQbzvWldjlKv5n+G9sXfIPn1hh63IQIL8K8vbvv1oYMJiIUbuy9bGaA==
   /@nodelib/fs.scandir/2.1.3:
     dependencies:
       '@nodelib/fs.stat': 2.0.3
@@ -832,7 +838,7 @@ packages:
   /call-bind/1.0.0:
     dependencies:
       function-bind: 1.1.1
-      get-intrinsic: 1.0.1
+      get-intrinsic: 1.0.2
     dev: true
     resolution:
       integrity: sha512-AEXsYIyyDY3MCzbwdhzG3Jx1R0J2wetQyUynn6dYHAO+bg8l1k7jwZtRv4ryryFs7EP+NDlikJlVe59jr0cM2w==
@@ -1761,12 +1767,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.8.23:
+  /esbuild/0.8.24:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-LkgCmotGnhVgRGxjDkTBBYrnJ5stcxK+40cEJGtXUS16hcAWy90cn1qjxKCogzLPJ75gW/L6ejly7VKrMstVGQ==
+      integrity: sha512-bqgEa2VemAN+YM52SM1626+/pdLp+p9NyqISB06ixcvauKIJk6akia3UTTsGAgn0oHEdReZ97gL+LYX+UjgwKA==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -2234,14 +2240,14 @@ packages:
       node: 6.* || 8.* || >= 10.*
     resolution:
       integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
-  /get-intrinsic/1.0.1:
+  /get-intrinsic/1.0.2:
     dependencies:
       function-bind: 1.1.1
       has: 1.0.3
       has-symbols: 1.0.1
     dev: true
     resolution:
-      integrity: sha512-ZnWP+AmS1VUaLgTRy47+zKtjTxz+0xMpx3I52i+aalBK1QP19ggLF3Db89KJX7kjfOfP2eoa01qc++GwPgufPg==
+      integrity: sha512-aeX0vrFm21ILl3+JpFFRNe9aUvp6VFZb2/CTbgLb8j75kOhvoNYjt9d8KA/tJG4gSo8nzEDedRl0h7vDmBYRVg==
   /get-stdin/4.0.1:
     dev: true
     engines:
@@ -2404,16 +2410,16 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-zzGBl5fHo0EKSXsHzjspp3y5CONegCm8ErO5Qh0UzFzk2y4tMvzLWhoDokADbarfZRL2pGpRp7yt6gfJX4ph7A==
-  /gulp-esbuild/0.3.6:
+  /gulp-esbuild/0.3.7:
     dependencies:
-      esbuild: 0.8.23
+      esbuild: 0.8.24
       plugin-error: 1.0.1
       vinyl: 2.2.1
     dev: true
     engines:
       node: '>=8.6.0'
     resolution:
-      integrity: sha512-fnKxliEWjGeiJ+dQp2tQrYGgQ3elhmN9S1MA/3aTHHKKWQbEd+oeqL+RYNO4Hnwr1jDCU1t5Na1aZ4TBmDflaw==
+      integrity: sha512-yLdRfCVyedLV5wBTGpUJZ7Q3JEDPFVqtIsxPRRFUW+x3m7J0v5jO373PQJ4lZZXNilCYxh6BgZgMPcq01Rhjhg==
   /gulp-minify-inline-json/1.3.4:
     dependencies:
       minify-inline-json: 1.0.1
@@ -2474,15 +2480,6 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-RsayLPwJtKKMub9bbO4VYlMPVnImUPdK8+BjvkiulkorrjWnahTbI3a3Li/7YkD0xs7ap7ePciNiPwweoVEPMQ==
-  /gulp-purgecss/3.1.3:
-    dependencies:
-      glob: 7.1.6
-      plugin-error: 1.0.1
-      purgecss: 3.1.3
-      through2: 4.0.2
-    dev: true
-    resolution:
-      integrity: sha512-sKm9F5xyllBE0/iRW9EQomKienZK6FExXJABjjsRXHTyl6jNaZnWe9I7yGn8A6QoDconzA0eeGlmxkmYIZUjEA==
   /gulp-rename/2.0.0:
     dev: true
     engines:
@@ -5392,12 +5389,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-enaDQ4MUyP2W6ZyT6EsMzqBPZaM/avg8iuo+l2d3QCs0J+6RaqkHV/2/lOwDTueBHeJ/2LG9lrLW3d5rWPucuQ==
-  /through2/4.0.2:
-    dependencies:
-      readable-stream: 3.6.0
-    dev: true
-    resolution:
-      integrity: sha512-iOqSav00cVxEEICeD7TjLB1sueEL+81Wpzp2bY17uZjZN0pWZPuo4suZ/61VujxmqSGFfgOcNuTZ85QJwNZQpw==
   /time-stamp/1.1.0:
     dev: true
     engines:
@@ -6062,6 +6053,7 @@ packages:
     resolution:
       integrity: sha1-AI4G2AlDIMNy28L47XagymyKxBk=
 specifiers:
+  '@fullhuman/postcss-purgecss': ^3.1.3
   '@okikio/animate': ^0.0.7
   '@okikio/emitter': ^0.0.7
   '@okikio/manager': ^0.0.7
@@ -6069,18 +6061,17 @@ specifiers:
   browser-sync: ^2.26.13
   del: ^6.0.0
   dotenv: ^8.2.0
-  esbuild: ^0.8.23
+  esbuild: ^0.8.24
   fast-stringify: ^2.0.0
   fs-extra: ^9.0.1
   fuzzysort: ^1.1.4
   gulp: ^4.0.2
-  gulp-esbuild: ^0.3.6
+  gulp-esbuild: ^0.3.7
   gulp-minify-inline-json: ^1.3.4
   gulp-plumber: ^1.2.1
   gulp-postcss: ^9.0.0
   gulp-posthtml: ^3.0.5
   gulp-pug: ^4.0.1
-  gulp-purgecss: ^3.1.3
   gulp-rename: ^2.0.0
   gulp-sass: ^4.1.0
   merge-stream: ^2.0.0

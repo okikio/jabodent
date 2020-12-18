@@ -37,6 +37,7 @@ const stream = (_src, _opt = {}) => {
 
 // A list of streams
 const streamList = (...args) => {
+    // return Promise.all(
     return mergeStream.apply(
         null,
         (Array.isArray(args[0]) ? args[0] : args).map((_stream) => {
@@ -56,11 +57,15 @@ const tasks = (list) => {
 module.exports = {
     parallelFn(...args) {
         let tasks = args.filter((x) => x !== undefined && x !== null);
-        return (done) => parallel(...tasks)(done);
+        return function parallelrun(done) {
+            return parallel(...tasks)(done);
+        };
     },
     seriesFn(...args) {
         let tasks = args.filter((x) => x !== undefined && x !== null);
-        return (done) => series(...tasks)(done);
+        return function seriesrun(done) {
+            return series(...tasks)(done);
+        };
     },
     src,
     dest,
