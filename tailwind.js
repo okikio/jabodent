@@ -1,7 +1,36 @@
 const srcFolder = `build`;
 const pugFolder = `${srcFolder}/pug`;
 module.exports = {
-    purge: [], // [`${pugFolder}/**/*.pug`],
+    purge: {
+        content: [`${pugFolder}/**/*.pug`],
+        //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
+        safelist: [
+            /min-h-400/,
+            /min-h-500/,
+            // /searching/,
+            // /active/,
+            // /focus/,
+            // /show/,
+            // /hide/,
+            // /light/,
+            // /dark/,
+        ], // ["active", "show", "focus", "hide"],
+        keyframes: false,
+        fontFace: false,
+        defaultExtractor: (content) => {
+            // Capture as liberally as possible, including things like `h-(screen-1.5)`
+            const broadMatches =
+                content.match(
+                    /[^<>"'`\s]*[^<>"'`\s:]/g
+                ) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+
+            const innerMatches =
+                content.match(
+                    /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
+                ) || [];
+            return broadMatches.concat(innerMatches);
+        },
+    }, // [`${pugFolder}/**/*.pug`],
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,

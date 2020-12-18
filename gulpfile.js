@@ -296,54 +296,15 @@ tasks({
         const [
             { default: postcss },
             { default: tailwind },
-            { default: purge },
-        ] = await Promise.all([
             import("gulp-postcss"),
-            import("tailwindcss"),
-            !dev
-                ? import("@fullhuman/postcss-purgecss")
-                : Promise.resolve({ default: () => ({}) }),
+            import("tailwindcss")
         ]);
         // const { default: postcss } = await import("gulp-postcss");
         // const { default: tailwind } = await import("tailwindcss");
         return stream(`${sassFolder}/tailwind.css`, {
             pipes: [
                 postcss(
-                    [tailwind("./tailwind.js")].concat(
-                        // Remove unused CSS
-                        !dev
-                            ? purge({
-                                  content: [`${pugFolder}/**/*.pug`],
-                                  //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-                                  safelist: [
-                                      /min-h-400/,
-                                      /min-h-500/,
-                                      // /searching/,
-                                      // /active/,
-                                      // /focus/,
-                                      // /show/,
-                                      // /hide/,
-                                      // /light/,
-                                      // /dark/,
-                                  ], // ["active", "show", "focus", "hide"],
-                                  keyframes: false,
-                                  fontFace: false,
-                                  defaultExtractor: (content) => {
-                                      // Capture as liberally as possible, including things like `h-(screen-1.5)`
-                                      const broadMatches =
-                                          content.match(
-                                              /[^<>"'`\s]*[^<>"'`\s:]/g
-                                          ) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
-
-                                      const innerMatches =
-                                          content.match(
-                                              /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
-                                          ) || [];
-                                      return broadMatches.concat(innerMatches);
-                                  },
-                              })
-                            : []
-                    )
+                    [tailwind("./tailwind.js")]
                 ),
             ],
             // end: browserSync && dev ? [browserSync.stream()] : undefined,
