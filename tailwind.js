@@ -2,33 +2,35 @@ const srcFolder = `build`;
 const pugFolder = `${srcFolder}/pug`;
 module.exports = {
     purge: {
+        mode: "all",
         content: [`${pugFolder}/**/*.pug`],
         //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-        safelist: [
-            /min-h-400/,
-            /min-h-500/,
-            // /searching/,
-            // /active/,
-            // /focus/,
-            // /show/,
-            // /hide/,
-            // /light/,
-            // /dark/,
-        ], // ["active", "show", "focus", "hide"],
-        keyframes: false,
-        fontFace: false,
-        defaultExtractor: (content) => {
-            // Capture as liberally as possible, including things like `h-(screen-1.5)`
-            const broadMatches =
-                content.match(
-                    /[^<>"'`\s]*[^<>"'`\s:]/g
-                ) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+        options: {
+            // safelist: [
+            whitelistPatterns: [
+                /min-h-400/,
+                /min-h-500/,
+                // /searching/,
+                // /active/,
+                // /focus/,
+                // /show/,
+                // /hide/,
+                // /light/,
+                // /dark/,
+            ], // ["active", "show", "focus", "hide"],
+            keyframes: false,
+            fontFace: false,
+            defaultExtractor: (content) => {
+                // Capture as liberally as possible, including things like `h-(screen-1.5)`
+                const broadMatches =
+                    content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
 
-            const innerMatches =
-                content.match(
-                    /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
-                ) || [];
-            return broadMatches.concat(innerMatches);
+                const innerMatches =
+                    content.match(
+                        /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
+                    ) || [];
+                return broadMatches.concat(innerMatches);
+            },
         },
     }, // [`${pugFolder}/**/*.pug`],
     future: {
@@ -45,9 +47,9 @@ module.exports = {
             sm: "640px",
             "lt-md": { max: "768px" },
             md: "768px",
-            "lt-lg": { max: "1024px" },
+            // "lt-lg": { max: "1024px" },
             lg: "1024px",
-            xl: "1280px",
+            // xl: "1280px",
         },
         colors: {
             transparent: "transparent",
@@ -63,15 +65,15 @@ module.exports = {
             white: "#fff",
 
             gray: {
-                100: "#f7fafc",
-                200: "#edf2f7",
-                300: "#e2e8f0",
+                // 100: "#f7fafc",
+                // 200: "#edf2f7",
+                // 300: "#e2e8f0",
                 400: "#cbd5e0",
                 500: "#a0aec0",
                 600: "#718096",
                 700: "#4a5568",
-                800: "#2d3748",
-                900: "#1a202c",
+                // 800: "#2d3748",
+                // 900: "#1a202c",
             },
             // red: {
             //     100: "#fff5f5",
@@ -191,8 +193,8 @@ module.exports = {
             "24": "6rem",
             "32": "8rem",
             "40": "10rem",
-            "48": "12rem",
-            "56": "14rem",
+            // "48": "12rem",
+            // "56": "14rem",
             "64": "16rem",
             "68": "20rem",
             "72": "24rem",

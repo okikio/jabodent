@@ -43,8 +43,8 @@ const stream = (_src, _opt = {}) => {
     });
 
     if (_dest !== null) host = host.pipe(dest(_dest));
+    host.on("data", _log);
     host = host.on("end", (...args) => {
-        _log(...args);
         if (typeof _end === "function") _end(...args);
     }); // Output
 
@@ -287,7 +287,6 @@ tasks({
                 rename({ suffix: ".min" }), // Rename
                 sass({ outputStyle: "compressed" }).on("error", sass.logError),
             ],
-            end: browserSync && dev ? [browserSync.stream()] : undefined,
             dest: cssFolder,
         });
     },
@@ -301,7 +300,6 @@ tasks({
         // const { default: tailwind } = await import("tailwindcss");
         return stream(`${sassFolder}/tailwind.css`, {
             pipes: [postcss([tailwind("./tailwind.js")])],
-            // end: browserSync && dev ? [browserSync.stream()] : undefined,
             dest: cssFolder,
         });
     },
@@ -425,21 +423,22 @@ task("assets", () => {
 // import { default as querySelector } from "posthtml-match-helper";
 // import { default as posthtml } from "gulp-posthtml";
 task("indexer", async () => {
-    const index = [];
     const [
         { default: querySelector },
         { default: posthtml },
         { default: stringify },
         { default: fs },
         { default: path },
+        { default: log },
     ] = await Promise.all([
         import("posthtml-match-helper"),
         import("gulp-posthtml"),
         import("fast-stringify"),
         import("fs-extra"),
         import("path"),
+        import("fancy-log"),
     ]);
-    const __dirname = path.resolve();
+    const index = [];
     // const { default: querySelector } = await import("posthtml-match-helper");
     // const { default: posthtml } = await import("gulp-posthtml");
     // const { default: stringify } = await import("fast-stringify");
@@ -447,6 +446,9 @@ task("indexer", async () => {
     // const { default: path } = await import("path");
 
     return stream([`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`], {
+        opts: {
+            base: htmlFolder,
+        },
         pipes: [
             posthtml([
                 (tree) => {
@@ -495,12 +497,12 @@ task("indexer", async () => {
         async end() {
             try {
                 await fs.outputFile(
-                    path.join(__dirname, destFolder, "searchindex.json"),
+                    path.join(__dirname, `${destFolder}/searchindex.json`),
                     stringify(index)
                 );
-                console.log("Search index json created successfully.");
+                log("Search index json created successfully.");
             } catch (err) {
-                throw err;
+                log.warn(err);
             }
         },
     });
@@ -685,11 +687,15 @@ task("watch", async () => {
         { delay: 500 },
         parallel("indexer", "reload")
     );
-    watch(`${sassFolder}/**/*.scss`, { delay: 100 }, series(`app-css`));
+    watch(
+        `${sassFolder}/**/*.scss`,
+        { delay: 100 },
+        series(`app-css`, "minify-css")
+    );
     watch(
         [`${sassFolder}/tailwind.css`, `./tailwind.js`],
         { delay: 100 },
-        series(`tailwind-css`)
+        series(`tailwind-css`, "minify-css")
     );
     watch(
         [`${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`, `${tsFolder}/${tsFile}`],
@@ -715,9 +721,5 @@ task(
 );
 task(
     "default",
-    series(
-        "clean",
-        parallel("html", "css", "js", "assets"),
-        parallel("indexer", "watch")
-    )
+    series("clean", parallel("html", "css", "js", "assets"), "indexer", "watch")
 );

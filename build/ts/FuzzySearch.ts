@@ -74,30 +74,47 @@ fetch("/searchindex.json")
         //     includeMatches: true,
         //     threshold: 0.5,
         // });
-
+        let waitForMessage = false;
         self.onmessage = ({ data }) => {
-            let json = [], keys = ["title", "description", "keywords", "href"];
-            let results = go(data, searchindex as any, {
-                keys,
-                allowTypo: true, // if you don't care about allowing typos
-                // Create a custom combined score to sort by. -100 to the desc score makes it a worse match
-                // scoreFn: (a) => Math.max(a[0] ? a[0].score : -1000, a[1] ? a[1].score - 100 : -1000)
-            });
+            try {
+                if (!waitForMessage) {
+                    let timer;
+                    let json = [], keys = ["title", "description", "keywords", "href"];
 
-            let i = 0, len = results.length;
-            for (; i < len; i++) {
-                json[i] = keys.reduce((acc, key, x) => {
-                    if (key == "href")
-                        acc[key] = results[i].obj[key];
-                    else
-                        acc[key] = highlight(results[i][x], `<span class="highlight">`, `</span>`) ?? results[i].obj[key];
-                    return acc;
-                }, {});
+                    waitForMessage = true;
+
+                    // set a timeout to un-throttle
+                    timer = window.setTimeout(() => {
+                        let results = go(data, searchindex as any, {
+                            keys,
+                            allowTypo: true, // if you don't care about allowing typos
+                            // Create a custom combined score to sort by. -100 to the desc score makes it a worse match
+                            // scoreFn: (a) => Math.max(a[0] ? a[0].score : -1000, a[1] ? a[1].score - 100 : -1000)
+                        });
+
+                        let i = 0, len = results.length;
+                        for (; i < len; i++) {
+                            json[i] = keys.reduce((acc, key, x) => {
+                                if (key == "href")
+                                    acc[key] = results[i].obj[key];
+                                else
+                                    acc[key] = highlight(results[i][x], `<span class="highlight">`, `</span>`) ?? results[i].obj[key];
+                                return acc;
+                            }, {});
+                        }
+
+                        // console.log(json)
+                        // let json = highlight(searcher.search(data));
+                        let result: string = stringify(json);
+                        self.postMessage(result);
+
+                        waitForMessage = false;
+                        timer = window.clearTimeout(timer);
+                    }, 250);
+
+                }
+            } catch (err) {
+                console.warn(err);
             }
-
-            // console.log(json)
-            // let json = highlight(searcher.search(data));
-            let result: string = stringify(json);
-            self.postMessage(result);
         };
     });
