@@ -67,4 +67,11 @@ export let runTheme = () => {
     }
 };
 
-runTheme();
+let handler = (() => {
+    document.removeEventListener("DOMContentLoaded", handler);
+    window.removeEventListener("load", handler);
+    runTheme();
+}).bind(this);
+
+document.addEventListener("DOMContentLoaded", handler);
+window.addEventListener("load", handler);
