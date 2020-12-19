@@ -63,6 +63,7 @@ module.exports = {
 
             black: "#000",
             white: "#fff",
+            overlay: "#051431",
 
             gray: {
                 // 100: "#f7fafc",
