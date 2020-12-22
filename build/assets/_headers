@@ -7,9 +7,9 @@
   Cache-Control: no-cache, max-age=0, public
   Accept-CH: DPR, Viewport-Width, Width
   X-UA-Compatible: IE=edge
-  Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app data:; script-src 'self' https://res.cloudinary.com https://polyfill.io 'unsafe-inline'; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
+  Content-Security-Policy: default-src 'self'; font-src 'self'; style-src 'self'; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app data:; script-src 'self' https://res.cloudinary.com https://polyfill.io 'unsafe-inline'; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
   Feature-Policy: microphone 'none'; geolocation 'none'; usb 'none'; sync-xhr 'self'; camera 'none';
-  Link: </css/app.min.css>; rel=preload; as=style; crossorigin=anonymous
+  Link: </css/app.min.css>; rel=preload; as=style
   Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
   Link: <https://polyfill.io>; rel=preconnect; crossorigin
   Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
