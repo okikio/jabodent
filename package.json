@@ -62,7 +62,6 @@
         "postcss": "^8.2.1",
         "postcss-csso": "^5.0.0",
         "posthtml": "^0.15.1",
-        "posthtml-inline-assets": "^3.1.0",
         "posthtml-match-helper": "^1.0.1",
         "tailwindcss": "^1.9.6",
         "ultra-runner": "^3.7.1"

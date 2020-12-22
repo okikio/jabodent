@@ -422,7 +422,6 @@ task("inline", async () => {
     const [
         { default: minifyJSON },
         { default: querySelector },
-        { default: inline },
         { default: posthtml },
         { default: concat },
 
@@ -433,7 +432,6 @@ task("inline", async () => {
     ] = await Promise.all([
         import("gulp-minify-inline-json"),
         import("posthtml-match-helper"),
-        import("posthtml-inline-assets"),
         import("gulp-posthtml"),
         import("gulp-concat"),
 
@@ -450,39 +448,6 @@ task("inline", async () => {
                 pipes: [
                     minifyJSON(), // Minify application/ld+json
                     posthtml([
-                        inline({
-                            transforms: {
-                                script: {
-                                    resolve(node) {
-                                        return (
-                                            node.tag === "script" &&
-                                            node.attrs &&
-                                            "inline" in node.attrs &&
-                                            typeof node.attrs.src == "string" &&
-                                            node.attrs.src.length > 1 &&
-                                            (node.attrs.src[0] == "/"
-                                                ? (node.attrs.src + "").slice(1)
-                                                : node.attrs.src)
-                                        );
-                                    },
-                                    transform(node, data) {
-                                        delete node.attrs.src;
-                                        delete node.attrs["inline"];
-                                        if ("async" in node.attrs)
-                                            delete node.attrs.async;
-
-                                        node.content = [
-                                            data.buffer.toString("utf8"),
-                                        ];
-                                        return node;
-                                    },
-                                },
-                                style: false,
-                                favicon: false,
-                                image: false,
-                            },
-                        }),
-
                         (tree) => {
                             tree.match(
                                 querySelector("link.style-concat"),

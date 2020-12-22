@@ -26,7 +26,6 @@ dependencies:
   postcss: 8.2.1
   postcss-csso: 5.0.0_postcss@8.2.1
   posthtml: 0.15.1
-  posthtml-inline-assets: 3.1.0
   posthtml-match-helper: 1.0.1_posthtml@0.15.1
   tailwindcss: 1.9.6
   ultra-runner: 3.7.1
@@ -1943,12 +1942,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NL2Qc5L3iQEsyYzweq7qfgy5OtXCmGzGvhElGEd/SoFWEMOEczNh5s5ocaF01HDetxz+p8ecjNPA6cZxxIHmzA==
-  /file-type/10.11.0:
-    dev: false
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-uzk64HRpUZyTGZtVuvrjP0FYxzQrBf4rojot6J65YMEbwBLB0CWm0CLojVpwpmFmxcE/lkvYICgfcGozbBq6rw==
   /file-uri-to-path/1.0.0:
     dev: false
     optional: true
@@ -2167,12 +2160,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
-  /fse/4.0.1:
-    dev: false
-    engines:
-      node: '>=4.0.0'
-    resolution:
-      integrity: sha512-5XLUrweQvJxSJKhBe3XjimHSJ2EUhYOG+K2tLQy8I9kp78Fa3CgUXqxAZWxE9+fsvnI5GVkHl4NDqbf1tSb93Q==
   /fsevents/1.2.13:
     dependencies:
       bindings: 1.5.0
@@ -4233,15 +4220,6 @@ packages:
       node: ^10 || ^12 || >=14
     resolution:
       integrity: sha512-RhsqOOAQzTgh1UB/IZdca7F9WDb7SUCR2Vnv1x7DbvuuggQIpoDwjK+q0rzoPffhYvWNKX5JSwS4so4K3UC6vA==
-  /posthtml-inline-assets/3.1.0:
-    dependencies:
-      file-type: 10.11.0
-      fse: 4.0.1
-    dev: false
-    engines:
-      node: '>=4.0.0'
-    resolution:
-      integrity: sha512-52VGs/FG8NNlzv04jZe1HBy5pQ+HWifbQpZN5q0tt6QNkgy3SZCutf4UZyM93uzYym71tKPCQkzAXN3XnRSTgA==
   /posthtml-load-config/1.0.0:
     dependencies:
       cosmiconfig: 2.2.2
@@ -6097,7 +6075,6 @@ specifiers:
   postcss: ^8.2.1
   postcss-csso: ^5.0.0
   posthtml: ^0.15.1
-  posthtml-inline-assets: ^3.1.0
   posthtml-match-helper: ^1.0.1
   tailwindcss: ^1.9.6
   ultra-runner: ^3.7.1
