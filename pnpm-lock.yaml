@@ -786,7 +786,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001170
       colorette: 1.2.1
-      electron-to-chromium: 1.3.631
+      electron-to-chromium: 1.3.632
       escalade: 3.1.1
       node-releases: 1.1.67
     dev: false
@@ -1640,10 +1640,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.631:
+  /electron-to-chromium/1.3.632:
     dev: false
     resolution:
-      integrity: sha512-mPEG/52142po0XK1jQkZtbMmp38MZtQ3JDFItYxV65WXyhxDYEQ54tP4rb93m0RbMlZqQ+4zBw2N7UumSgGfbA==
+      integrity: sha512-LkaEH9HHr9fodmm3txF4nFMyHN3Yr50HcpD/DBHpLCxzM9doV8AV0er6aBWva4IDs2aA9kGguces0rp+WKL7rg==
   /emoji-regex/7.0.3:
     dev: false
     resolution:
