@@ -1,41 +1,10 @@
 const srcFolder = `build`;
 const pugFolder = `${srcFolder}/pug`;
 module.exports = {
-    purge: {
-        mode: "all",
-        content: [`${pugFolder}/**/*.pug`],
-        //   safelistPatterns: [/active/, /focus/, /show/, /hide/],
-        options: {
-            // safelist: [
-            whitelistPatterns: [
-                /min-h-400/,
-                /min-h-500/,
-                /searching/,
-                /active/,
-                /focus/,
-                /show/,
-                /hide/,
-                /light/,
-                /dark/,
-            ], // ["active", "show", "focus", "hide"],
-            keyframes: false,
-            fontFace: false,
-            defaultExtractor: (content) => {
-                // Capture as liberally as possible, including things like `h-(screen-1.5)`
-                const broadMatches =
-                    content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
-
-                const innerMatches =
-                    content.match(
-                        /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
-                    ) || [];
-                return broadMatches.concat(innerMatches);
-            },
-        },
-    }, // [`${pugFolder}/**/*.pug`],
+    purge: false, //
     future: {
         removeDeprecatedGapUtilities: true,
-        purgeLayersByDefault: true,
+        // purgeLayersByDefault: true,
     },
     target: "relaxed",
     prefix: "",
@@ -287,6 +256,9 @@ module.exports = {
         flexShrink: {
             "0": "0",
             default: "1",
+        },
+        fontFamily: {
+            sans: ["Manrope", "Arial", "Helvetica", "Verdana", "sans-serif"],
         },
         // fontFamily: {
         //     sans: [

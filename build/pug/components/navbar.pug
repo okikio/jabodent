@@ -35,13 +35,13 @@ mixin navbar(page)
         each val, i in links
           +link({
             href: val.href,
-            class: val.class || `navbar-link navbar-item font-thin ${new RegExp(val.data_path, "i").test(page.url) ? "active" : ""}`,
+            class: val.class || `navbar-link navbar-item ${new RegExp(val.data_path, "i").test(page.url) ? "active" : ""}`,
             content: val.content
           })(data-path=val.data_path)
 
         +link({
           href: "/404",
-          class: `block navbar-link navbar-item font-thin md:hidden`,
+          class: `block navbar-link navbar-item md:hidden`,
           content: "Our Blog"
         })
 
@@ -49,7 +49,7 @@ mixin navbar(page)
         .flex-grow
         +link({
           href: "/404",
-          class: `hidden navbar-link navbar-item font-thin md:block`,
+          class: `hidden navbar-link navbar-item md:block`,
           content: "Our Blog"
         })
 

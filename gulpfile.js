@@ -1,26 +1,4 @@
 // Import external modules
-// import { default as querySelector } from "posthtml-match-helper";
-// import { default as inline } from "posthtml-inline-assets";
-// import { default as posthtml } from "gulp-posthtml";
-
-// import { default as stringify } from "fast-stringify";
-// // import { default as rename } from "gulp-rename";
-// import { default as fs } from "fs-extra";
-// import { default as path } from "path";
-// import { default as del } from "del";
-
-// Gulp utilities
-// const {
-//     stream,
-//     streamList,
-//     tasks,
-//     task,
-//     watch,
-//     parallel,
-//     series,
-//     parallelFn,
-//     seriesFn,
-// } = require("./util");
 const gulp = require("gulp");
 const mergeStream = require("merge-stream");
 const { src, dest, parallel, watch, task, series } = gulp;
@@ -129,22 +107,14 @@ const pugConfig = {
     pretty: false,
     basedir: pugFolder,
     self: true,
-    // debug: false,
-    // compileDebug: false,
-    // cache: true,
-    // inlineRuntimeFunctions: true,
 };
 
-// import { default as plumber } from "gulp-plumber";
-// import { default as pug } from "gulp-pug";
 tasks({
     "app-html": async () => {
         const [{ default: plumber }, { default: pug }] = await Promise.all([
             import("gulp-plumber"),
             import("gulp-pug"),
         ]);
-        // const  = await import("gulp-plumber");
-        // const  = await import("gulp-pug");
 
         let data = require(resolve);
         let icons = require(iconResolve);
@@ -170,9 +140,6 @@ tasks({
             import("gulp-pug"),
             import("gulp-rename"),
         ]);
-        // const { default: plumber } = await import("gulp-plumber");
-        // const { default: pug } = await import("gulp-pug");
-        // const { default: rename } = await import("gulp-rename");
 
         let data = require(resolve);
         let icons = require(iconResolve);
@@ -222,9 +189,6 @@ tasks({
             import("gulp-pug"),
             import("gulp-rename"),
         ]);
-        // const { default: plumber } = await import("gulp-plumber");
-        // const { default: pug } = await import("gulp-pug");
-        // const { default: rename } = await import("gulp-rename");
 
         let data = require(resolve);
         let icons = require(iconResolve);
@@ -266,25 +230,13 @@ tasks({
     html: parallelFn("app-html", "services-html", "team-html"),
 });
 
-// import { default as autoprefixer } from "autoprefixer";
-// import { default as postcss } from "gulp-postcss";
-// import { default as tailwind } from "tailwindcss";
-// import { default as purge } from "gulp-purgecss";
-// import { default as csso } from "postcss-csso";
-
 let browserSync;
 // CSS Tasks
 tasks({
     "app-css": async () => {
-        const [{ default: sass }, { default: rename }] = await Promise.all([
-            import("gulp-sass"),
-            import("gulp-rename"),
-        ]);
-        // const { default: sass } = await import("gulp-sass");
-        // const { default: rename } = await import("gulp-rename");
-        return stream(`${sassFolder}/**/*.scss`, {
+        const [{ default: sass }] = await Promise.all([import("gulp-sass")]);
+        return stream(`${sassFolder}/*.scss`, {
             pipes: [
-                rename({ suffix: ".min" }), // Rename
                 sass({ outputStyle: "compressed" }).on("error", sass.logError),
             ],
             dest: cssFolder,
@@ -296,44 +248,21 @@ tasks({
             { default: postcss },
             { default: tailwind },
         ] = await Promise.all([import("gulp-postcss"), import("tailwindcss")]);
-        // const { default: postcss } = await import("gulp-postcss");
-        // const { default: tailwind } = await import("tailwindcss");
         return stream(`${sassFolder}/tailwind.css`, {
             pipes: [postcss([tailwind("./tailwind.js")])],
             dest: cssFolder,
         });
     },
 
-    "minify-css": async () => {
-        const [
-            { default: postcss },
-            { default: autoprefixer },
-            { default: csso },
-        ] = await Promise.all([
-            import("gulp-postcss"),
-            import("autoprefixer"), // import("gulp-autoprefixer"),
-            import("postcss-csso"), // import("gulp-csso"),
-        ]);
-        // const { default: autoprefixer } = await import("autoprefixer");
-        // const { default: csso } = await import("postcss-csso");
-        return stream(`${cssFolder}/**/*.css`, {
-            pipes: !dev
-                ? [
-                      postcss([
-                          // Prefix & Compress CSS
-                          csso(),
-                          autoprefixer({
-                              overrideBrowserslist: ["defaults"],
-                          }),
-                      ]),
-                  ]
-                : [],
-            dest: cssFolder,
+    "reload-css": () => {
+        return stream(`${cssFolder}/*.css`, {
+            pipes: [],
+            dest: null,
             end: browserSync ? [browserSync.stream()] : undefined,
         });
     },
 
-    css: seriesFn(parallelFn("app-css", "tailwind-css"), "minify-css"),
+    css: seriesFn(parallelFn("app-css", "tailwind-css"), "reload-css"),
 });
 
 // JS Tasks
@@ -343,16 +272,12 @@ tasks({
             { default: esbuildGulp },
             { default: rename },
         ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
-        // const { default: esbuildGulp } = await import("gulp-esbuild");
-        // const { default: rename } = await import("gulp-rename");
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
                 esbuildGulp({
-                    // target: "es2015", // default, or 'es20XX', 'esnext'
                     bundle: true,
                     minify: true,
-                    // sourcemap: true,
                     target: ["chrome71"],
                 }),
                 rename("modern.min.js"), // Rename
@@ -365,13 +290,11 @@ tasks({
             { default: esbuildGulp },
             { default: rename },
         ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
-        // const { default: esbuildGulp } = await import("gulp-esbuild");
-        // const { default: rename } = await import("gulp-rename");
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
                 esbuildGulp({
-                    // target: "es2015", // default, or 'es20XX', 'esnext'
+                    color: true,
                     bundle: true,
                     minify: true,
                     target: ["chrome58", "firefox57", "safari11", "edge16"],
@@ -386,13 +309,11 @@ tasks({
             { default: esbuildGulp },
             { default: rename },
         ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
-        // const { default: esbuildGulp } = await import("gulp-esbuild");
-        // const { default: rename } = await import("gulp-rename");
         return stream([`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`], {
             pipes: [
                 // Bundle Modules
                 esbuildGulp({
-                    // target: "es2015", // default, or 'es20XX', 'esnext'
+                    color: true,
                     bundle: true,
                     minify: true,
                     target: ["chrome58", "firefox57", "safari11", "edge16"],
@@ -416,12 +337,6 @@ task("assets", () => {
 });
 
 // Search Indexer
-// import { default as stringify } from "fast-stringify";
-// import { default as fs } from "fs-extra";
-// import { default as path } from "path";
-
-// import { default as querySelector } from "posthtml-match-helper";
-// import { default as posthtml } from "gulp-posthtml";
 task("indexer", async () => {
     const [
         { default: querySelector },
@@ -439,12 +354,6 @@ task("indexer", async () => {
         import("fancy-log"),
     ]);
     const index = [];
-    // const { default: querySelector } = await import("posthtml-match-helper");
-    // const { default: posthtml } = await import("gulp-posthtml");
-    // const { default: stringify } = await import("fast-stringify");
-    // const { default: fs } = await import("fs-extra");
-    // const { default: path } = await import("path");
-
     return stream([`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`], {
         opts: {
             base: htmlFolder,
@@ -509,110 +418,150 @@ task("indexer", async () => {
 });
 
 // Inline assets
-// import { default as minifyJSON } from "gulp-minify-inline-json";
-// import { default as querySelector } from "posthtml-match-helper";
-// import { default as inline } from "posthtml-inline-assets";
-// import { default as posthtml } from "gulp-posthtml";
 task("inline", async () => {
     const [
         { default: minifyJSON },
         { default: querySelector },
         { default: inline },
         { default: posthtml },
+        { default: concat },
+
+        { default: postcss },
+        { default: autoprefixer },
+        { default: csso },
+        { default: purge },
     ] = await Promise.all([
         import("gulp-minify-inline-json"),
         import("posthtml-match-helper"),
         import("posthtml-inline-assets"),
         import("gulp-posthtml"),
+        import("gulp-concat"),
+
+        import("gulp-postcss"),
+        import("autoprefixer"),
+        import("postcss-csso"),
+        import("@fullhuman/postcss-purgecss"),
     ]);
-    // const { default: minifyJSON } = await import("gulp-minify-inline-json");
-    // const { default: querySelector } = await import("posthtml-match-helper");
-    // const { default: inline } = await import("posthtml-inline-assets");
-    // const { default: posthtml } = await import("gulp-posthtml");
 
-    return stream(`${htmlFolder}/**/*.html`, {
-        pipes: [
-            minifyJSON(), // Minify application/ld+json
-            posthtml([
-                inline({
-                    transforms: {
-                        script: {
-                            resolve(node) {
-                                return (
-                                    node.tag === "script" &&
-                                    node.attrs &&
-                                    "inline" in node.attrs &&
-                                    typeof node.attrs.src == "string" &&
-                                    node.attrs.src.length > 1 &&
-                                    (node.attrs.src[0] == "/"
-                                        ? (node.attrs.src + "").slice(1)
-                                        : node.attrs.src)
-                                );
-                            },
-                            transform(node, data) {
-                                delete node.attrs.src;
-                                delete node.attrs["inline"];
-                                if ("async" in node.attrs)
-                                    delete node.attrs.async;
+    return streamList([
+        [
+            `${htmlFolder}/**/*.html`,
+            {
+                pipes: [
+                    minifyJSON(), // Minify application/ld+json
+                    posthtml([
+                        inline({
+                            transforms: {
+                                script: {
+                                    resolve(node) {
+                                        return (
+                                            node.tag === "script" &&
+                                            node.attrs &&
+                                            "inline" in node.attrs &&
+                                            typeof node.attrs.src == "string" &&
+                                            node.attrs.src.length > 1 &&
+                                            (node.attrs.src[0] == "/"
+                                                ? (node.attrs.src + "").slice(1)
+                                                : node.attrs.src)
+                                        );
+                                    },
+                                    transform(node, data) {
+                                        delete node.attrs.src;
+                                        delete node.attrs["inline"];
+                                        if ("async" in node.attrs)
+                                            delete node.attrs.async;
 
-                                node.content = [data.buffer.toString("utf8")];
-                                return node;
+                                        node.content = [
+                                            data.buffer.toString("utf8"),
+                                        ];
+                                        return node;
+                                    },
+                                },
+                                style: false,
+                                favicon: false,
+                                image: false,
                             },
+                        }),
+
+                        (tree) => {
+                            tree.match(
+                                querySelector("link.style-concat"),
+                                (node) => {
+                                    delete node;
+                                }
+                            );
+
+                            tree.match(
+                                querySelector("meta#concat-style"),
+                                (node) => {
+                                    node.tag = "link";
+                                    node.attrs = {
+                                        rel: "stylesheet",
+                                        href: "/css/app.min.css",
+                                        async: "",
+                                    };
+
+                                    return node;
+                                }
+                            );
                         },
-                        style: {
-                            resolve(node) {
-                                return (
-                                    node.tag === "link" &&
-                                    node.attrs &&
-                                    node.attrs.rel === "stylesheet" &&
-                                    "inline" in node.attrs &&
-                                    typeof node.attrs.href === "string" &&
-                                    node.attrs.href.length > 1 &&
-                                    (node.attrs.href[0] == "/"
-                                        ? (node.attrs.href + "").slice(1)
-                                        : node.attrs.href)
-                                );
-                            },
-                            transform(node, data) {
-                                delete node.attrs.href;
-                                delete node.attrs.rel;
-                                delete node.attrs["inline"];
-                                if ("async" in node.attrs)
-                                    delete node.attrs.async;
-
-                                node.tag = "style";
-                                node.content = [data.buffer.toString("utf8")];
-                                return node;
-                            },
-                        },
-                        favicon: false,
-                        image: false,
-                    },
-                }),
-
-                (tree) => {
-                    let data = "";
-
-                    tree.match(querySelector("style.style-concat"), (node) => {
-                        data += node.content.toString();
-                        // delete node;
-                    });
-
-                    tree.match(querySelector("meta#concat-style"), (node) => {
-                        node.tag = "style";
-                        node.content = data;
-                        // console.log(node.content);
-                        return node;
-                    });
-                },
-            ]),
+                    ]),
+                ],
+                dest: htmlFolder,
+            },
         ],
-        dest: htmlFolder,
-    });
+        [
+            `${cssFolder}/*.css`,
+            {
+                pipes: [
+                    // Concat all files
+                    concat("app.min.css"),
+
+                    postcss([
+                        // Purge, Prefix & Compress CSS
+                        purge({
+                            mode: "all",
+                            content: [`${pugFolder}/**/*.pug`],
+
+                            safelist: [
+                                "min-h-400",
+                                "min-h-500",
+                                "searching",
+                                // "active",
+                                // "focus",
+                                /show/,
+                                /hide/,
+                                /light/,
+                                /dark/,
+                            ],
+                            keyframes: false,
+                            fontFace: false,
+                            defaultExtractor: (content) => {
+                                // Capture as liberally as possible, including things like `h-(screen-1.5)`
+                                const broadMatches =
+                                    content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) ||
+                                    []; // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+
+                                const innerMatches =
+                                    content.match(
+                                        /[^<>"'`\s.(){}\[\]#=%]*[^<>"'`\s.(){}\[\]#=%:]/g
+                                    ) || [];
+                                return broadMatches.concat(innerMatches);
+                            },
+                        }),
+                        csso(),
+                        autoprefixer({
+                            overrideBrowserslist: ["defaults"],
+                        }),
+                    ]),
+                ],
+                dest: cssFolder,
+            },
+        ],
+    ]);
 });
 
 // BrowserSync
-// import { default as bs } from "browser-sync";
 task("reload", (resolve) => {
     if (browserSync) browserSync.reload();
     delete require.cache[resolve];
@@ -621,7 +570,6 @@ task("reload", (resolve) => {
 });
 
 // Delete destFolder for added performance
-// import { default as del } from "del";
 task("clean", async (done) => {
     if (netlify) return await Promise.resolve(done());
     const { default: del } = await import("del");
@@ -632,12 +580,10 @@ task("watch", async () => {
     browserSync = bs.create();
     browserSync.init(
         {
-            // ghostMode: true,
             notify: true,
             server: destFolder,
             online: true,
             scrollThrottle: 250,
-            // open: false,
         },
         (_err, bs) => {
             bs.addMiddleware("*", (_req, res) => {
@@ -690,12 +636,12 @@ task("watch", async () => {
     watch(
         `${sassFolder}/**/*.scss`,
         { delay: 100 },
-        series(`app-css`, "minify-css")
+        series(`app-css`, "reload-css")
     );
     watch(
         [`${sassFolder}/tailwind.css`, `./tailwind.js`],
         { delay: 100 },
-        series(`tailwind-css`, "minify-css")
+        series(`tailwind-css`, "reload-css")
     );
     watch(
         [`${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`, `${tsFolder}/${tsFile}`],

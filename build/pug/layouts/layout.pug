@@ -200,11 +200,11 @@ html(lang="en" data-theme="dark")
     //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     //- link(rel="preload" href="/fonts/manrope-700-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     //- link(rel="preload" href="/fonts/playfair-display-900-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
-    link.style-concat(rel="stylesheet", href="/css/fonts.min.css", async inline)
+    link.style-concat(rel="stylesheet", href="/css/fonts.css", async)
     meta#concat-style
 
-    link.style-concat(rel="stylesheet", href="/css/tailwind.css", inline async)
-    link.style-concat(rel="stylesheet", href="/css/app.min.css", inline async)
+    link.style-concat(rel="stylesheet", href="/css/tailwind.css", async)
+    link.style-concat(rel="stylesheet", href="/css/app.css", async)
     noscript
       style.
         .splashscreen-overlay,

@@ -57,31 +57,25 @@ html[data-theme="dark"] {
 
 .theme {
     &-bg {
-        // background-color: white;
         @include applyTheme(background-color, "bg");
 
         &-invert {
-            // background-color: black;
             @include applyTheme(background-color, "bg-invert");
         }
     }
 
     &-surface {
-        // background-color: white;
         @include applyTheme(background-color, "surface");
 
         &-invert {
-            // background-color: var(--surface-invert);
             @include applyTheme(background-color, "surface-invert");
         }
     }
 
     &-text {
-        // color: var(--text);
         @include applyTheme(color, "text");
 
         &-invert {
-            // color: var(--text-invert);
             @include applyTheme(color, "text-invert");
         }
     }
@@ -94,7 +88,6 @@ html[data-theme="dark"] {
 }
 
 .gradient:before {
-    // background-color: var(--surface);
     @include applyTheme(background-color, "surface");
     position: absolute;
     content: "";
@@ -114,30 +107,16 @@ html[data-theme="dark"] {
     }
 }
 
-// button,
-// a {
-//     &:focus {
-//         // outline: 1px dotted currentColor;
-//         // outline: 5px auto currentColor;
-//         // outline: -webkit-focus-ring-color auto 1px;
-//         outline-offset: 1px;
-//         outline: yellow 2px solid;
-//         @include applyTheme(outline-color, "text");
-//     }
-// }
-
 html {
-    // background-color: var(--bg);
     @include applyTheme(background-color, "bg");
-    // font-family: Arial, Helvetica, sans-serif;
     font-family: "Manrope", "Arial", "Helvetica", "Verdana", sans-serif;
     overflow-x: hidden;
 
     font-size: 15px;
     font-weight: 400;
     text-rendering: optimizeSpeed;
-    // scroll-behavior: smooth;
 }
+
 @media screen and (min-width: 758px) {
     html {
         width: 100vw;
@@ -155,7 +134,6 @@ html {
 
 $delay: 0.8s;
 .splashscreen-overlay {
-    // background-color: var(--bg);
     @include applyTheme(background-color, "bg");
     position: fixed;
     z-index: 1030;
@@ -174,8 +152,6 @@ $delay: 0.8s;
             ($delay + 0.2s) forwards;
         opacity: 0.8;
     }
-    // content-visibility: auto;
-    // contain-intrinsic-size: 100vh; /* Explained in the next section. */
 }
 @keyframes splashanimoverlay {
     0% {
@@ -188,31 +164,23 @@ $delay: 0.8s;
 }
 
 .splashscreen {
-    // animation-fill-mode: both;
-    // animation-delay: 1s;
     position: fixed;
     z-index: 1040;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    // transform: translateY(0px);
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: center;
-    // visibility: hidden;
     opacity: 0;
     pointer-events: none;
     contain: layout size;
 
-    // content-visibility: auto;
-    // contain-intrinsic-size: 100vh; /* Explained in the next section. */
-
     &.active {
         animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1)
             $delay forwards;
-        // visibility: visible;
         opacity: 1;
         pointer-events: auto;
 
@@ -238,13 +206,10 @@ $delay: 0.8s;
 }
 
 .splashscreen-inner {
-    // animation-fill-mode: forwards;
-    // animation-delay: 1s;
     position: relative;
     z-index: 11;
     display: block;
     contain: layout paint;
-    // opacity: 0;
 }
 
 @keyframes splashanim {
@@ -264,7 +229,6 @@ $delay: 0.8s;
     right: 0;
     bottom: 0;
     left: 0;
-    // background-color: var(--bg);
     @include applyTheme(background-color, "bg");
     contain: layout size paint;
 }
@@ -282,18 +246,10 @@ $delay: 0.8s;
 }
 
 .search {
-    &-overlay,
-    &-banner {
-        // contain-intrinsic-size: 100vh; /* Explained in the next section. */
-    }
     &-overlay {
-        transition: opacity 0.35s ease-out; // forwards
-        // cubic-bezier(0.645, 0.045, 0.355, 1)
-        // background-color: var(--bg);
-        // @include applyTheme(background-color, "bg");
+        transition: opacity 0.35s ease-out;
         background-color: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(10px);
-        // filter: blur(10px);
         position: fixed;
         z-index: 8;
         top: 0;
@@ -305,11 +261,10 @@ $delay: 0.8s;
         height: 100vh;
         pointer-events: none;
         contain: layout size;
-        // visibility: hidden;
+        will-change: opacity;
 
         &.show {
             opacity: 1;
-            // visibility: visible;
         }
     }
 
@@ -320,28 +275,20 @@ $delay: 0.8s;
     }
 
     &-banner {
-        transition: opacity 0.25s ease; // forwards
-        // content-visibility: auto;
+        transition: opacity 0.25s ease;
         position: fixed;
         z-index: 10;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        // visibility: hidden;
-        // will-change: opacity;
-
-        // transform: translateY(-100%);
-        // transform: translateY(0px);
         pointer-events: none;
-        // background-color: var(--bg);
         opacity: 0;
 
         &.show {
             transition: opacity 0.75s ease;
             opacity: 1;
             pointer-events: auto;
-            // visibility: visible;
 
             .search-inner,
             .search-scrollable-area,
@@ -357,13 +304,8 @@ $delay: 0.8s;
     }
 
     &-inner {
-        // opacity: 0;
         pointer-events: none;
     }
-
-    // &-close {
-    //     display: none;
-    // }
 
     &-icon {
         display: block;
@@ -373,20 +315,15 @@ $delay: 0.8s;
         box-shadow: 0 4px 12px 4px rgba(50, 50, 50, 0.1),
             0 -2px 8px 2px rgba(50, 50, 50, 0.06);
         border: 2px solid transparent;
-        // padding: 0 1em;
         padding-top: 1em;
         padding-bottom: 1em;
         padding-right: 0.5em;
         background-color: white;
-        // opacity: 0.5;
-        // background-color: rgba(150, 150, 150, 0.6);
-        // background-color: rgb(255, 255, 255);
         border-radius: 5px;
         width: 100%;
         height: 3em;
 
         color: black;
-        // color: var(--bg-invert);
         display: flex;
         pointer-events: none;
 
@@ -394,38 +331,26 @@ $delay: 0.8s;
             html[data-theme="dark"] .search-container {
                 background-color: black;
                 border-color: #ffd626;
-                // border-color: #fff;
                 color: white;
             }
-        }
-
-        &:focus-within {
-            // border-color: white;
-            // border-color: yellow;
         }
     }
 
     &-input {
         vertical-align: middle;
-        // padding: 0 0.75em;
         padding-left: 1em;
         background: transparent;
-        // box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05),
-        //             0 -2px 10px 0 rgba(0, 0, 0, 0.05);
         width: 100%;
         line-height: 1;
 
         &:focus {
-            // border-color: transparent;
             outline: none;
-            // outline: solid 2px var(--bg-invert);
         }
 
         &::placeholder {
             $parent: &;
             font-weight: 500;
             color: rgb(46, 46, 46);
-            // opacity: 0.6;
 
             @at-root {
                 html[data-theme="dark"] #{$parent} {
@@ -473,13 +398,9 @@ $delay: 0.8s;
 
 .no-results {
     color: white;
-    // visibility: visible;
-    // pointer-events: auto;
 
     &.hide {
         display: none;
-        // pointer-events: none;
-        // visibility: hidden;
     }
 }
 
@@ -495,8 +416,6 @@ html.no-scroll {
 
 /* background of the scrollbar except button or resizer */
 ::-webkit-scrollbar-track {
-    // background: none; //var(--bg);
-    // background: transparent url('images/backgrounds/scrollbar.png') repeat-y !important;
     display: none;
 }
 
@@ -517,16 +436,14 @@ html.no-scroll {
 
     &-title {
         font-family: "Playfair Display", serif;
-        // font-weight: 900;
     }
 
     &-article {
         font-family: "Roboto Slab", serif;
-        // font-weight: 900;
     }
 }
 
-/* -- Icons & Font -- */ // direction: ltr;
+/* -- Icons & Font -- */
 .icon {
     -webkit-font-smoothing: antialiased;
     font-family: "Material Icons Round";
@@ -550,7 +467,6 @@ html.no-scroll {
 }
 
 img {
-    // content-visibility: auto;
     object-fit: cover;
     display: block;
     border: none;
@@ -572,26 +488,16 @@ img {
         .core-img-pic {
             opacity: 0.6;
         }
-
-        // .placeholder-img img {
-        //     transform: scale(1);
-        //     opacity: 0;
-        // }
     }
-    //
-    // contain: size;
 
     &-overlay {
-        // transition: opacity ease 0.45s;
         background: rgb(5, 20, 49);
-        // opacity: 0.45;
         width: 100%;
         height: 100%;
         position: absolute;
         top: 0;
         left: 0;
         pointer-events: fill;
-        // z-index: 50;
     }
 }
 
@@ -608,57 +514,17 @@ img {
     top: 0;
 }
 
-// .placeholder-img {
-//     // image-rendering: auto;
-//     // image-rendering: smooth;
-//     position: absolute;
-//     filter: blur(15px);
-//     height: 100%;
-//     width: 100%;
-//     left: 0;
-
-//     & img {
-//         transition: opacity 0.9s ease-out, transform 0.8s ease;
-//         opacity: 0.6;
-//         transform: scale(1.2);
-//         transform-origin: center center;
-//     }
-// }
-
 .core-img-pic {
     transition: opacity 0.35s ease-out;
-    // will-change: opacity;
     opacity: 0;
-}
-
-// .intro-animation {
-//     &.hide-anim .el,
-//     &.show-anim .el {
-//         transition: opacity ease 0.75s; //, transform ease 0.5s;
-//     }
-//     &.hide-anim .el {
-//         // transform: translateY(20px);
-//         opacity: 0;
-//     }
-//     &.show-anim .el {
-//         // transform: translateY(0px);
-//         opacity: 1;
-//     }
-// }
-
-.content-visibility {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 800px; /* this is the guess at the height of the content, and also saying width doesn't matter */
 }
 
 .card {
     transition: transform ease-out 0.55s;
 
-    // content-visibility: auto;
     &-layout {
         border-radius: 12px;
         box-shadow: 0 0 15px 0 rgba(42, 47, 71, 0.24);
-        // , 0 0 50px 0 rgba(42, 50, 80, 0.19);
     }
 
     .img {
@@ -674,36 +540,19 @@ img {
 
 .lackluster {
     transition: opacity ease-out 0.45s;
-    // filter: blur(15px);
     background: rgba(38, 43, 63, 0.8);
     background: linear-gradient(
         to bottom,
         rgba(38, 43, 63, 0) 30%,
         rgba(5, 20, 49, 1) 90%
     );
-    // background: linear-gradient(
-    //     to bottom,
-    //     rgba(1, 1, 2, 0) 20%,
-    //     rgba(0, 0, 0, 0.65)
-    // );
-    // opacity: 0.6;
-    // transform: scale(1.25);
 
-    // transition: opacity ease-out 0.25s;
-    // filter: sepia(100%) hue-rotate(190deg) saturate(420%) grayscale(75%)
-    //     brightness(80%);
     opacity: 1;
-    // opacity: 1;
-    // filter: grayscale(1);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-
-    // .core-img-pic {
-    //     opacity: 0.6;
-    // }
 }
 .col:hover .lackluster {
     opacity: 0.2;
@@ -738,10 +587,6 @@ img {
         left: 0;
     }
 
-    // &-mini {
-    //     transform: translateY(-$height - 5px);
-    // }
-
     &-mini {
         transition: transform 0.25s ease-out;
         transform: translateY(-$height - 5px);
@@ -751,32 +596,17 @@ img {
 
     &-large {
         transition: transform 0.75s cubic-bezier(0.46, -0.01, 0.58, 0.99);
-        // transform: translateY(calc(-105%));
-        // animation: navLargeClose 0.95s ease;
         height: 100vh;
         transform: translateY(calc(-100% - #{$height}));
         pointer-events: auto;
         contain: content;
     }
 
-    // &:hover {
-    //     .navbar-large {
-    //         transform: translateY(calc(-100vh + #{$height}));
-    //     }
-    // }
-
     &:hover {
         .navbar-large {
             transform: translateY(calc(-100% + #{$height}));
         }
     }
-
-    // @keyframes navLargeClose {
-    //     0% { transform: translateY(0px); }
-    //     100% {
-    //         transform: translateY(calc(-100% + #{$height}));
-    //     }
-    // }
 
     &-overlay {
         transition: opacity 0.5s ease-out;
@@ -794,7 +624,6 @@ img {
     &.focus,
     &.active,
     &:hover {
-        // color: var(--text, black);
         @include applyTheme(color, "text");
 
         .navbar-mini {
@@ -828,9 +657,7 @@ img {
         vertical-align: top;
         font-size: 1.5rem;
         font-weight: 700 !important;
-        // padding-left: 0rem !important;
 
-        // &:focus,
         &:hover {
             text-decoration: none !important;
         }
@@ -847,8 +674,6 @@ img {
     &-link {
         line-height: inherit;
         vertical-align: middle;
-        // pointer-events: auto;
-        // text-transform: uppercase;
         font-weight: 500;
         padding: 0 1.25rem;
         position: relative;
@@ -885,7 +710,6 @@ img {
         }
 
         &.active {
-            // font-weight: 700 !important;
             &,
             &:before,
             &:after {
@@ -894,20 +718,9 @@ img {
         }
     }
 
-    @for $i from 5 through 1 {
-        .navbar-item:nth-of-type(#{5-$i}) {
-            // transition-delay: (($i - 1) * 4) * 50ms;
-            // transform: translateY(calc(50% + ((($i - 1) * 4) * 50px)));
-        }
-    }
-
     @media (min-width: 768px) {
         &-overlay {
-            // visibility: hidden;
             opacity: 0;
-        }
-        &-item {
-            // opacity: 1;
         }
 
         &-large {
@@ -921,13 +734,8 @@ img {
             padding-left: 5rem;
         }
 
-        &-list {
-            // content-visibility: auto;
-            // contain-intrinsic-size: 100vh; /* Explained in the next section. */
-        }
-
         &:not(.active) {
-            // Avoid the gitter that occurs when resizing
+            // Avoid the jitter that occurs when resizing
             &:not(:focus-within) .navbar-list {
                 visibility: hidden;
             }
@@ -936,16 +744,6 @@ img {
                 transition: opacity ease-out 0.45s;
                 pointer-events: none;
                 opacity: 0;
-            }
-
-            // .navbar-item {
-            //     transform: translateY(50%);
-            // }
-            @for $i from 1 through 5 {
-                .navbar-item:nth-of-type(#{$i}) {
-                    // transform: translateY(calc(50% + #{($i - 1) * 10px}));
-                    // transition-delay: ($i * 4) * 35ms;
-                }
             }
         }
 
@@ -972,8 +770,6 @@ img {
                 }
                 .navbar-item:nth-of-type(#{$i}) {
                     animation: navOpen#{$i} 0.75s ease 0.25s;
-                    // transform: translateY(calc(50% + ((($i - 1) * 4) * 50px)));
-                    // transition-delay: ($i * 4) * 35ms;
                 }
             }
         }
@@ -992,8 +788,6 @@ img {
     touch-action: pan-y;
 
     &-container {
-        // content-visibility: auto;
-        // transition: height ease-out 0.45s;
         overflow: hidden;
         position: relative;
         display: block;
@@ -1002,7 +796,6 @@ img {
         height: 464px;
         width: 100%;
         touch-action: pan-y;
-        // touch-action: pan-right pinch-zoom;
     }
 
     &-viewport {
@@ -1029,10 +822,8 @@ img {
     }
 
     &-dot {
-        // margin: 0.rem;
         padding: 0.2rem;
         &:before {
-            // background-color: var(--bg-invert);
             @include applyTheme(background-color, "bg-invert");
             border-radius: 999px;
             width: 12px;
@@ -1046,9 +837,6 @@ img {
         &:focus {
             outline: 1px dotted;
             outline: 5px auto -webkit-focus-ring-color;
-            // outline: none;
-            // border-radius: 999px;
-            // border: 2px dotted black;
         }
 
         @media (max-width: 640px) {
@@ -1061,7 +849,6 @@ img {
         }
 
         &.active:before {
-            // background-color: #fff;
             opacity: 1;
         }
     }
@@ -1069,46 +856,22 @@ img {
 
 [data-wrapper] {
     position: relative;
-    // z-index: auto;
-    // height: 100%;
-    // margin: 0;
-    // will-change: opacity;
-    // transform: translate(0, 0, 0);
-
     z-index: 4;
 }
 
 .fixed-img {
-    // background-attachment: fixed;
-    // background-size: cover;
-    // contain: strict;
-    // will-change: transform; // creates a new paint layer
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    // top: initial;
-    // object-position: bottom;
-    // width: 100vw;
-    // height: 100vh;
 
     &-container {
-        // background-size: cover;
         position: relative;
         overflow: hidden;
         z-index: -1;
-        // width: 100%;
     }
 }
-
-// .hero-img {
-//     &,
-//     &:before {
-//         background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,w_800,ar_16:9,c_fill,g_auto,f_auto,q_80/waves.jpg");
-//         background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,ar_16:9,c_fill,g_auto,f_auto/waves.webp");
-//     }
-// }
 
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.3);
@@ -1152,11 +915,8 @@ img {
 
             animation: scrolldown 1.5s ease-out infinite;
             margin: 8px 0;
-            // transition: transform 2.2s cubic-bezier(0.76, 0, 0.3, 1);
             transform: translate($x, 0) scaleY(1);
-            // opacity: 1;
             background-color: currentColor;
-            // margin: 0 auto;
             height: 15px;
             content: "";
             border-radius: 999px;
@@ -1170,7 +930,6 @@ img {
 
             @keyframes scrolldown {
                 0% {
-                    // transform: translateY($height);
                     transform: translate($x, 0) scaleY(1);
                 }
                 50% {
@@ -1186,46 +945,13 @@ img {
             }
         }
     }
-
-    // &::before {
-    //     background: linear-gradient(
-    //             to bottom,
-    //             currentColor 50%,
-    //             rgba(255, 255, 255, 0) 50%
-    //         ),
-    //         linear-gradient(to bottom, #ac911b 50%, #ac911b 50%);
-    //     background-position: 0 -100%;
-    //     background-size: 100% 200%;
-    //     // animation: scrolldown 2.2s cubic-bezier(0.76, 0, 0.3, 1) reverse infinite;
-    //     animation-delay: 0.5s;
-
-    //     margin: 0 auto;
-    //     margin-top: 25px;
-    //     height: 50px;
-    //     content: "";
-    //     border-radius: 20em;
-    //     width: 1px;
-    //     // border-left: 1px solid currentColor;
-    //     display: block;
-    // }
 }
 
 .learn-more {
-    // background-image: linear-gradient(
-    //     transparent 2px,
-    //     currentColor 2px,
-    //     currentColor 4px,
-    //     transparent 4px
-    // );
-
-    // background-size: 0% 6px, 100% 6px;
-    // background-position: 0 bottom, 0 bottom;
     display: inline-block;
-    // background-repeat: no-repeat;
     &:after {
         transition: transform 0.3s ease-in-out;
         margin-top: 4px;
-        // opacity: 1;
         background-color: currentColor;
         transform: scaleX(0);
         height: 2px;
@@ -1235,44 +961,13 @@ img {
         width: 100%;
         transform-origin: 0% 0%;
     }
-    // border-bottom: 6px solid transparent;
-    // text-decoration: none;
+
     text-decoration: dashed underline;
     text-underline-offset: 3px;
-    // &:after {
-    //     position: absolute;
-    //         margin-right: 1.25rem;
-    //         // content: "";
-    //         width: 50px;
-    //         content: "";
-    //         height: 1px;
-    //         border-bottom: 1px solid currentColor;
-    //         display: inline-block;
-    //         vertical-align: middle;
-    //         bottom: 0;
-    //         width: 100%;
-    //     }
-    @media (min-width: 650px) {
-        // &:before {
-        //     margin-right: 1.25rem;
-        //     // content: "";
-        //     width: 50px;
-        //     content: "";
-        //     height: 1px;
-        //     border-bottom: 1px solid currentColor;
-        //     display: inline-block;
-        //     vertical-align: middle;
-        // }
-    }
-
-    @media (max-width: 650px) {
-        // text-decoration: underline;
-    }
 
     &:hover,
     &:focus,
     &:visited {
-        // background-size: 100% 6px;
         &:after {
             transform: scaleX(1);
         }
@@ -1282,8 +977,6 @@ img {
 .cave-image {
     &,
     &:before {
-        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.jpg");
-        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai,q_100/cave-water.webp");
         background-size: cover;
         object-fit: cover;
         background-position: bottom;
@@ -1293,8 +986,6 @@ img {
 .water-image {
     &,
     &:before {
-        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.jpg");
-        // background-image: url("https://res.cloudinary.com/okikio-assets/image/upload/e_improve,q_100/e_art:hokusai/golden-hour.webp");
         background-size: cover;
         object-fit: cover;
         background-position: bottom;
@@ -1320,10 +1011,6 @@ img {
     bottom: 0;
 }
 
-.person {
-    // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
 .line-clamp {
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -1337,7 +1024,6 @@ img {
 }
 
 .highlight {
-    // color: rgb(54, 114, );
     background: yellow;
     color: black;
     font-weight: 900;
@@ -1345,21 +1031,8 @@ img {
 }
 
 .letter-head {
-    // margin: 0;
-    // margin-top: -6px;
-    // padding-bottom: 0;
-    // margin-right: 4px;
-    // line-height: 80%;
-
-    // line-height: 1;
-    // // letter-spacing: -0.003em;
-    // word-break: break-word;
-
     padding-right: 4px;
-
     position: relative;
-    // float: left;
-
     display: inline-block !important;
     letter-spacing: 2.54px;
     line-height: 1.62rem;
@@ -1367,7 +1040,6 @@ img {
     font-weight: 900;
     margin: 0;
     padding-top: 1rem;
-    // padding-bottom: 2px;
 }
 
 .underlay-right {
@@ -1392,7 +1064,6 @@ img {
     &:focus {
         outline: none;
         border: 3px solid #ffd626;
-        // @include applyTheme(border-color, "bg-invert");
         @include applyTheme(background-color, "bg-invert");
         @include applyTheme(color, "text-invert");
     }
@@ -1410,20 +1081,6 @@ img {
             }
         }
     }
-}
-
-// .leading-doc {
-//     // letter-spacing: 0;
-//     // font-weight: 400;
-// }
-
-.footer {
-    // content-visibility: auto;
-    // contain-intrinsic-size: 100vw 600px; /* this is the guess at the height of the content, and also saying width doesn't matter */
-
-    // &-line {
-    //     border-top:
-    // }
 }
 
 .border-top {

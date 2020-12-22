@@ -1,4 +1,5 @@
 dependencies:
+  '@fullhuman/postcss-purgecss': 3.1.3
   '@okikio/animate': 0.0.7
   '@okikio/emitter': 0.0.7
   '@okikio/manager': 0.0.7
@@ -6,13 +7,14 @@ dependencies:
   browser-sync: 2.26.13
   del: 6.0.0
   dotenv: 8.2.0
-  esbuild: 0.8.24
+  esbuild: 0.8.26
   fancy-log: 1.3.3
   fast-stringify: 2.0.0
   fs-extra: 9.0.1
   fuzzysort: 1.1.4
   gulp: 4.0.2
-  gulp-esbuild: 0.3.7
+  gulp-concat: 2.6.1
+  gulp-esbuild: 0.3.9
   gulp-minify-inline-json: 1.3.4
   gulp-plumber: 1.2.1
   gulp-postcss: 9.0.0_postcss@8.2.1
@@ -37,6 +39,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-qnKm5dIOyPGJ70kPZ5jiz0I9foVOic0j+cOzNDoo8KoCf6HjicIZ99UfO2OmE7vCYSKAAepEwJtNzpiiZAh9xw==
+  /@fullhuman/postcss-purgecss/3.1.3:
+    dependencies:
+      purgecss: 3.1.3
+    dev: false
+    resolution:
+      integrity: sha512-kwOXw8fZ0Lt1QmeOOrd+o4Ibvp4UTEBFQbzvWldjlKv5n+G9sXfIPn1hh63IQIL8K8vbvv1oYMJiIUbuy9bGaA==
   /@nodelib/fs.scandir/2.1.3:
     dependencies:
       '@nodelib/fs.stat': 2.0.3
@@ -55,7 +63,7 @@ packages:
   /@nodelib/fs.walk/1.2.4:
     dependencies:
       '@nodelib/fs.scandir': 2.1.3
-      fastq: 1.9.0
+      fastq: 1.10.0
     dev: false
     engines:
       node: '>= 8'
@@ -517,9 +525,9 @@ packages:
   /autoprefixer/10.1.0_postcss@8.2.1:
     dependencies:
       browserslist: 4.16.0
-      caniuse-lite: 1.0.30001168
+      caniuse-lite: 1.0.30001170
       colorette: 1.2.1
-      fraction.js: 4.0.12
+      fraction.js: 4.0.13
       normalize-range: 0.1.2
       postcss: 8.2.1
       postcss-value-parser: 4.1.0
@@ -534,7 +542,7 @@ packages:
   /autoprefixer/9.8.6:
     dependencies:
       browserslist: 4.16.0
-      caniuse-lite: 1.0.30001168
+      caniuse-lite: 1.0.30001170
       colorette: 1.2.1
       normalize-range: 0.1.2
       num2fraction: 1.2.2
@@ -777,9 +785,9 @@ packages:
       integrity: sha512-JPYLTngIzI+Dzx+StSSlMtF+Q9yjdh58HW6bMFqkFXuzQkJL8FCvp4lozlS6BbECZcsM2Gmlgp0uhEjvl18X4w==
   /browserslist/4.16.0:
     dependencies:
-      caniuse-lite: 1.0.30001168
+      caniuse-lite: 1.0.30001170
       colorette: 1.2.1
-      electron-to-chromium: 1.3.629
+      electron-to-chromium: 1.3.631
       escalade: 3.1.1
       node-releases: 1.1.67
     dev: false
@@ -900,10 +908,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
-  /caniuse-lite/1.0.30001168:
+  /caniuse-lite/1.0.30001170:
     dev: false
     resolution:
-      integrity: sha512-P2zmX7swIXKu+GMMR01TWa4csIKELTNnZKc+f1CjebmZJQtTAEXmpQSoKVJVVcvPGAA0TEYTOUp3VehavZSFPQ==
+      integrity: sha512-Dd4d/+0tsK0UNLrZs3CvNukqalnVTRrxb5mcQm8rHL49t7V5ZaTygwXkrq+FB+dVDf++4ri8eJnFEJAB8332PA==
   /caseless/0.12.0:
     dev: false
     resolution:
@@ -1166,6 +1174,12 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
+  /commander/6.2.1:
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
   /component-bind/1.0.0:
     dev: false
     resolution:
@@ -1197,6 +1211,12 @@ packages:
       '0': node >= 0.8
     resolution:
       integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
+  /concat-with-sourcemaps/1.1.0:
+    dependencies:
+      source-map: 0.6.1
+    dev: false
+    resolution:
+      integrity: sha512-4gEjHJFT9e+2W/77h/DS5SGUgwDaOwprX8L/gl5+3ixnzkVJJsZWDSelmN3Oilw3LNDZjZV0yqH1hLG3k6nghg==
   /connect-history-api-fallback/1.6.0:
     dev: false
     engines:
@@ -1621,10 +1641,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.629:
+  /electron-to-chromium/1.3.631:
     dev: false
     resolution:
-      integrity: sha512-iSPPJtPvHrMAvYOt+9cdbDmTasPqwnwz4lkP8Dn200gDNUBQOLQ96xUsWXBwXslAo5XxdoXAoQQ3RAy4uao9IQ==
+      integrity: sha512-mPEG/52142po0XK1jQkZtbMmp38MZtQ3JDFItYxV65WXyhxDYEQ54tP4rb93m0RbMlZqQ+4zBw2N7UumSgGfbA==
   /emoji-regex/7.0.3:
     dev: false
     resolution:
@@ -1754,12 +1774,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.8.24:
+  /esbuild/0.8.26:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-bqgEa2VemAN+YM52SM1626+/pdLp+p9NyqISB06ixcvauKIJk6akia3UTTsGAgn0oHEdReZ97gL+LYX+UjgwKA==
+      integrity: sha512-u3MMHOOumdWoAKF+073GHPpzvVB2cM+y9VD4ZwYs1FAQ6atRPISya35dbrbOu/mM68mQ42P+nwPzQVBTfQhkvQ==
   /escalade/3.1.1:
     dev: false
     engines:
@@ -1917,12 +1937,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+b+ki4C5K/tw+RmyiehpRzHjWmeqPb3Wn0whMsi+JPrYjzdapybfGejhCTblfLBErPMRSToYXDObawLG9BN78A==
-  /fastq/1.9.0:
+  /fastq/1.10.0:
     dependencies:
       reusify: 1.0.4
     dev: false
     resolution:
-      integrity: sha512-i7FVWL8HhVY+CTkwFxkN2mk3h+787ixS5S63eb78diVRc1MCssarHq3W5cj0av7YDSwmaV928RNag+U1etRQ7w==
+      integrity: sha512-NL2Qc5L3iQEsyYzweq7qfgy5OtXCmGzGvhElGEd/SoFWEMOEczNh5s5ocaF01HDetxz+p8ecjNPA6cZxxIHmzA==
   /file-type/10.11.0:
     dev: false
     engines:
@@ -2087,10 +2107,10 @@ packages:
       node: '>= 0.12'
     resolution:
       integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==
-  /fraction.js/4.0.12:
+  /fraction.js/4.0.13:
     dev: false
     resolution:
-      integrity: sha512-8Z1K0VTG4hzYY7kA/1sj4/r1/RWLBD3xwReT/RCrUCbzPszjNQCCsy3ktkU/eaEqX3MYa4pY37a52eiBlPMlhA==
+      integrity: sha512-E1fz2Xs9ltlUp+qbiyx9wmt2n9dRzPsS11Jtdb8D2o+cC7wr9xkkKsVKJuBX0ST+LVS+LhLO+SbLJNtfWcJvXA==
   /fragment-cache/0.2.1:
     dependencies:
       map-cache: 0.2.2
@@ -2397,16 +2417,26 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-zzGBl5fHo0EKSXsHzjspp3y5CONegCm8ErO5Qh0UzFzk2y4tMvzLWhoDokADbarfZRL2pGpRp7yt6gfJX4ph7A==
-  /gulp-esbuild/0.3.7:
+  /gulp-concat/2.6.1:
     dependencies:
-      esbuild: 0.8.24
+      concat-with-sourcemaps: 1.1.0
+      through2: 2.0.5
+      vinyl: 2.2.1
+    dev: false
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-Yz0WyV2IUEYorQJmVmPO5aR5M1M=
+  /gulp-esbuild/0.3.9:
+    dependencies:
+      esbuild: 0.8.26
       plugin-error: 1.0.1
       vinyl: 2.2.1
     dev: false
     engines:
       node: '>=8.6.0'
     resolution:
-      integrity: sha512-yLdRfCVyedLV5wBTGpUJZ7Q3JEDPFVqtIsxPRRFUW+x3m7J0v5jO373PQJ4lZZXNilCYxh6BgZgMPcq01Rhjhg==
+      integrity: sha512-3fK25q3IDWwF6/pcyH1dMgF0XOJFNRDNh7HvTH8c2HZE21j6ntZy4KcRdnYzskyzxf7LkZ/1qUopt5gRMkyb3Q==
   /gulp-minify-inline-json/1.3.4:
     dependencies:
       minify-inline-json: 1.0.1
@@ -4431,6 +4461,16 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-BE5CROfVGsx2XIhxGuZAT7rTH9lLeQx/6M0P7DTXQH4IUc3BBzs9JUzt4yzGf3JrH9enkeq6YJBe9CTtkm1WmQ==
+  /purgecss/3.1.3:
+    dependencies:
+      commander: 6.2.1
+      glob: 7.1.6
+      postcss: 8.2.1
+      postcss-selector-parser: 6.0.4
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-hRSLN9mguJ2lzlIQtW4qmPS2kh6oMnA9RxdIYK8sz18QYqd6ePp4GNDl18oWHA1f2v2NEQIh51CO8s/E3YGckQ==
   /qs/6.2.3:
     dev: false
     engines:
@@ -6030,6 +6070,7 @@ packages:
     resolution:
       integrity: sha1-AI4G2AlDIMNy28L47XagymyKxBk=
 specifiers:
+  '@fullhuman/postcss-purgecss': ^3.1.3
   '@okikio/animate': ^0.0.7
   '@okikio/emitter': ^0.0.7
   '@okikio/manager': ^0.0.7
@@ -6037,13 +6078,14 @@ specifiers:
   browser-sync: ^2.26.13
   del: ^6.0.0
   dotenv: ^8.2.0
-  esbuild: ^0.8.24
+  esbuild: ^0.8.26
   fancy-log: ^1.3.3
   fast-stringify: ^2.0.0
   fs-extra: ^9.0.1
   fuzzysort: ^1.1.4
   gulp: ^4.0.2
-  gulp-esbuild: ^0.3.7
+  gulp-concat: ^2.6.1
+  gulp-esbuild: ^0.3.9
   gulp-minify-inline-json: ^1.3.4
   gulp-plumber: ^1.2.1
   gulp-postcss: ^9.0.0
