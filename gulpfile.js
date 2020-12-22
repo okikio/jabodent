@@ -494,6 +494,7 @@ task("inline", async () => {
                                 "searching",
                                 // "active",
                                 // "focus",
+                                /-webkit-scrollbar/,
                                 /show/,
                                 /hide/,
                                 /light/,
