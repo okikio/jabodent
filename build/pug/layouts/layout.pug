@@ -16,9 +16,7 @@ doctype html
 html(lang="en" data-theme="dark")
   head
     meta(charset="utf-8")
-    //- meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width,initial-scale=1")
-    //- meta(http-equiv="Accept-CH" content="DPR, Viewport-Width, Width")
     meta(name="color-scheme" content="dark light")
 
     //- link(rel="preconnect" href='https://d33wubrfki0l68.cloudfront.net' crossorigin)
@@ -37,8 +35,6 @@ html(lang="en" data-theme="dark")
     //- link(rel="dns-prefetch" href='https://polyfill.io' crossorigin)
 
     link(rel="manifest", href="/manifest.json")
-    //- meta(http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com https://d33wubrfki0l68.cloudfront.net; style-src 'self' 'unsafe-inline' https://d33wubrfki0l68.cloudfront.net; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app https://d33wubrfki0l68.cloudfront.net; script-src 'self' https://res.cloudinary.com https://polyfill.io 'unsafe-inline' https://d33wubrfki0l68.cloudfront.net; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self'")
-
     -
       let defaults = {
         url: "/",
@@ -164,19 +160,12 @@ html(lang="en" data-theme="dark")
     meta(name="copyright" content="Jabodent")
     meta(name="contact" content="info@jabodent.com")
 
-    //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" as="font" crossorigin)
-    //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7gYHE41ni1AdIRggexSg.woff2" as="font" crossorigin)
-    //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk4aE9_C-bk.woff2" as="font" crossorigin)
-
-    //- link(href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;900&family=Manrope:wght@300;400;500;600;700&display=swap", rel="stylesheet", async)
-
-
     <!--[if IE]>
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
     <![endif]-->
 
-    link(rel="icon", type="image/svg+xml", href="/favicon.svg")
-    //- link(rel="alternate icon",  type="image/x-icon", href="/favicon.ico")
+    link(rel="icon", href="/favicon.svg" type="image/svg+xml")
+    //- link(rel="alternate icon", type="image/x-icon", href="/favicon.ico")
     link(rel="apple-touch-icon", sizes="180x180", href="/favicon/apple-touch-icon.png")
     link(rel="icon", type="image/png", sizes="32x32", href="/favicon/favicon-32x32.png")
     link(rel="icon", type="image/png", sizes="16x16", href="/favicon/favicon-16x16.png")
@@ -186,20 +175,7 @@ html(lang="en" data-theme="dark")
     meta(name="msapplication-TileColor", content="#000000")
     meta(name="msapplication-config", content="/favicon/browserconfig.xml")
     meta(name="theme-color", content="#fff")
-    //- link(rel="modulepreload", href="/js/FuzzySearch.min.js")
 
-    //- Link: </favicon.svg> rel=preload as=image type=image/svg+xml
-    //- Link: </js/modern.min.js>; rel=preload; as=script; crossorigin
-    //-
-      Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
-      Link: <https://polyfill.io>; rel=preconnect; crossorigin
-      Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-      Link: </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-
-    //- link(rel="preload" href="https://fonts.gstatic.com/s/manrope/v3/xn7gYHE41ni1AdIRggexSg.woff2" type="font/woff2" as="font" crossorigin="anonymous")
-    //- link(rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v21/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" type="font/woff2" as="font" crossorigin="anonymous")
-    //- link(rel="preload" href="/fonts/manrope-700-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
-    //- link(rel="preload" href="/fonts/playfair-display-900-latin.woff2" type="font/woff2" as="font" crossorigin="anonymous")
     link.style-concat(rel="stylesheet", href="/css/fonts.css", async)
     meta#concat-style
 
@@ -254,9 +230,7 @@ html(lang="en" data-theme="dark")
         }
 
     script(src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim" defer)
-
   body
-
     .splashscreen-overlay.active(aria-hidden="true")
     .splashscreen.active(aria-hidden="true")
       .splashscreen-inner.theme-text
@@ -264,10 +238,7 @@ html(lang="en" data-theme="dark")
           +icon("jabodent")(class="splashscreen-icon self-center mr-4")
           div Jabodent
       .splashscreen-bg
-    //- script(src="/js/splashscreen.min.js", inline async)
 
-    //- svg(xmlns="http://www.w3.org/2000/svg", width="45", height="45", fill="none")
-      path(fill="#000", d="M0 0h45v45H0z")
     .search-overlay(aria-hidden="true")
     .search-banner.px-5.pt-24.overflow-y-auto(aria-hidden="true")
       .search-inner.mx-auto.max-w-screen-sm.w-full.pt-5
@@ -276,7 +247,6 @@ html(lang="en" data-theme="dark")
             +icon("search")
           input.search-input.font-normal.self-center(type="text", placeholder="Type to start the search..." role="search" aria-label="Searchbox")
           button.clear-search.self-center.z-10.ml-5.rounded-full.flex.text-2xl(class="hover:bg-gray-500" type="button", title="Clear search")
-            //- .bg-translucentLight  hover:text-translucentLight
             i.icon.w-full.justify-center.text-2xl.self-center
               +icon("clear")
         .search-scrollable-area.mt-5
@@ -291,8 +261,6 @@ html(lang="en" data-theme="dark")
                 .py-5
                   p.text-lg.font-bold Waiting for input
                   p.text-base Don't be shy start typing.
-                //- figure(itemprop="image")
-                  img(src="/search-illustration.svg" width="100%" height="300px" alt="An image of a lady looking at a plant. From unDraw." loading="auto" itemprop="url")
             .no-results.hide.px-5.text-center.text-lg No results...
         button.search-close(type="button", aria-label="Close" role="button", title="Close" class="z-10 mt-5 bg-secondary border-2 border-solid border-secondary text-black rounded-full flex justify-c-center w-14 h-14 mx-auto text-lg hover:bg-darker-highlight focus:bg-darker-highlight focus:outline-none")
           i.text-xl.icon.self-center
@@ -300,39 +268,6 @@ html(lang="en" data-theme="dark")
     +navbar(page)
 
     div(data-wrapper)
-      //- section
-
-      //-   h1.sticky-div Introduction To Sticky Elements In CSS
-      //-   div.relative.h-screen.bg-primary.fixed-img-container.block
-      //-   .sticky.inline-block.top-0.left-0.w-full.h-full
-      //-     +image({
-      //-       src: "cloudinary/stoney-wave",
-      //-       alt: "An image of waves hitting the stoney edge of a beach by @johnonolan on unsplash.",
-      //-       class: "fixed-img ",
-      //-       figclass: "theme-surface fixed-img-container min-h-300",
-      //-       loading: "lazy"
-      //-     })(width="100vw" height="100vh")
-      //-   div.relative.h-screen.bg-primary.fixed-img-container.block
-      //- div
-      //-   h1.sticky-div Introduction To Sticky Elements In CSS
-      //-   p#description
-      //-     br
-      //-     br
-      //-     | &ldquo;Your Text&rdquo;
-      //-     br
-      //-     br
-      //-   h1.sticky-div
-      //-     | What is Sticky position?
-      //-   p#description
-      //-     br
-      //-     br
-      //-     p#description
-      //-       | &ldquo;Your Text&rdquo;
-      //-     br
-      //-     br
-      //-     p#description
-      //-       | &ldquo;Your Text&rdquo;
-
       block hero
       block social
       main#main.scroll-point
