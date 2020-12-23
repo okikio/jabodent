@@ -25,48 +25,12 @@ export class IntroAnimation extends Service {
                 this.entries.push(el);
             }
         }
-
-        // let options = {
-        //     rootMargin: '0px',
-        //     threshold: Array.from(Array(100), (_, x) => x / 100)
-        // };
-        // this.observerCallback = this.observerCallback.bind(this);
-        // this.observer = new IntersectionObserver(this.observerCallback, options);
-
-        // for (let el of this.elements)
-        //     this.observer.observe(el);
-    }
-
-    observerCallback(entries) {
-        entries.forEach(({ target, intersectionRatio }) => {
-            if (intersectionRatio >= 0.5) {
-                if (!this.splashscreen && !this.entries.includes(target)) {
-                    // !target.classList.has("show-anim")
-                    // this.show(target);
-                }
-            }
-            // Each entry describes an intersection change for one observed
-            // target element:
-            //   entry.boundingClientRect
-            //   entry.intersectionRatio
-            //   entry.intersectionRect
-            //   entry.isIntersecting
-            //   entry.rootBounds
-            //   entry.target
-            //   entry.time
-        }, this);
     }
 
     public newPage() {
-        // this.unobserve();
 
         this.init();
         this.prepareToShow();
-    }
-
-    public unobserve() {
-        for (let el of this.elements)
-            this.observer.unobserve(el);
     }
 
     public initEvents() {
@@ -81,14 +45,6 @@ export class IntroAnimation extends Service {
             this.show, // this.check
             this
         );
-    }
-
-    check() {
-        this.splashscreen = false;
-        for (let el of this.entries) {
-            console.log(el);
-            // this.show(el as HTMLElement);
-        }
     }
 
     public stopEvents() {

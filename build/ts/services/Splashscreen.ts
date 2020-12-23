@@ -26,20 +26,14 @@ export class Splashscreen extends Service {
         let rootElementAnim = this.rootElement.getAnimations()[0];
         let overlayElAnim = this.overlayEl.getAnimations()[0];
         let innerElAnim = this.innerEl.getAnimations()[0];
-
-        // rootElementAnim.pause();
-        // overlayElAnim.pause();
-        // innerElAnim.pause();
-
-        // rootElementAnim.currentTime = this.delay;
-        // overlayElAnim.currentTime = this.delay;
-        // innerElAnim.currentTime = this.delay;
+        
         this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
 
         let rootElementAnimFinish = () => {
           this.rootElement.style.transform = "translateY(100%)";
           this.rootElement.style.visibility = "hidden";
           this.rootElement.style.pointerEvents = "none";
+          console.log("Good");
           this.EventEmitter.emit("AFTER_SPLASHSCREEN_HIDE");
           rootElementAnimFinish = undefined;
         };
