@@ -88,6 +88,7 @@ export class IntroAnimation extends Service {
     }
 
     public async show() {
+        console.log("Interesting");
         // if (target) { target: HTMLElement
         //     target.classList.remove("hide-anim");
         //     target.classList.add("show-anim");

@@ -26,7 +26,7 @@ export class Splashscreen extends Service {
         let rootElementAnim = this.rootElement.getAnimations()[0];
         let overlayElAnim = this.overlayEl.getAnimations()[0];
         let innerElAnim = this.innerEl.getAnimations()[0];
-        
+
         this.EventEmitter.emit("BEFORE_SPLASHSCREEN_HIDE");
 
         let rootElementAnimFinish = () => {
