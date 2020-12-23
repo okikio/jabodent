@@ -33,7 +33,6 @@ export class Splashscreen extends Service {
           this.rootElement.style.transform = "translateY(100%)";
           this.rootElement.style.visibility = "hidden";
           this.rootElement.style.pointerEvents = "none";
-          console.log("Good");
           this.EventEmitter.emit("AFTER_SPLASHSCREEN_HIDE");
           rootElementAnimFinish = undefined;
         };
