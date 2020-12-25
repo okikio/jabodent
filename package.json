@@ -64,6 +64,6 @@
         "posthtml": "^0.15.1",
         "posthtml-match-helper": "^1.0.1",
         "tailwindcss": "^1.9.6",
-        "ultra-runner": "^3.7.1"
+        "ultra-runner": "^3.8.0"
     }
 }

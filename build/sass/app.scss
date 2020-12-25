@@ -909,24 +909,22 @@ img {
         border: 2px solid currentColor;
         display: block;
         overflow: hidden;
+        border-radius: 999px;
 
         &:before {
-            $x: -50%;
+            $x: 0;
 
-            animation: scrolldown 1.5s ease-out infinite;
-            margin: 8px 0;
+            // animation: scrolldown 1.5s ease-out infinite;
+            margin: 8px auto;
             transform: translate($x, 0) scaleY(1);
             background-color: currentColor;
             height: 15px;
             content: "";
             border-radius: 999px;
             display: block;
-            width: 1px;
-            border: 1px solid currentColor;
+            width: 2px;
+            background-color: currentColor;
             transform-origin: center 0;
-            position: absolute;
-            left: 50%;
-            top: 8px + $height / 2;
 
             @keyframes scrolldown {
                 0% {
