@@ -16,14 +16,14 @@
   Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
 
 /*.*
-  Cache-Control: public, max-age=36000
+  Cache-Control: public, max-age=300
 
 /css/*.css
-  Cache-Control: public, max-age=36000
+  Cache-Control: public, max-age=300
   Content-Type: text/css
 
 /js/*.js
-  Cache-Control: public, max-age=36000
+  Cache-Control: public, max-age=3600
   Content-Type: text/javascript
 
 /js/theme.min.js

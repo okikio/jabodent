@@ -1,4 +1,5 @@
-import { Service, getConfig } from "@okikio/native";
+import { Service } from "@okikio/native";
+import { toArr } from "../toArr";
 
 //== Blocks
 let lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
@@ -41,7 +42,7 @@ export class Carousel extends Service {
     public isDragging: boolean;
     public snapOnce: boolean;
     public isScrolling = false;
-    waitForResize: boolean;
+    public waitForResize: boolean;
 
     public init() {
         let rootEl = document.querySelector(`#Carousel`) as HTMLElement;
@@ -53,10 +54,7 @@ export class Carousel extends Service {
             this.viewport = this.rootElement.getElementsByClassName(
                 "carousel-viewport"
             )[0] as HTMLElement;
-            this.slides = Array.prototype.slice.call(
-                this.rootElement.getElementsByClassName("carousel-item")
-            ) as HTMLElement[];
-
+            this.slides = toArr(this.rootElement.getElementsByClassName("carousel-item"));
             this.carouselBtn = this.rootElement.getElementsByClassName(
                 "carousel-btn"
             )[0] as HTMLElement;
@@ -70,9 +68,7 @@ export class Carousel extends Service {
             this.dotContainer = this.rootElement.getElementsByClassName(
                 "carousel-dots"
             )[0] as HTMLElement;
-            this.dots = Array.prototype.slice.call(
-                this.rootElement.getElementsByClassName("carousel-dot")
-            ) as HTMLElement[];
+            this.dots = toArr(this.rootElement.getElementsByClassName("carousel-dot"));
             this.dot = this.dots[0] as HTMLElement;
 
             this.slideLen = this.slides.length;

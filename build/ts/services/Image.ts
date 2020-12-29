@@ -1,4 +1,5 @@
 import { Service } from "@okikio/native";
+import { toArr } from "../toArr";
 
 export class Image extends Service {
     images: HTMLImageElement[];
@@ -20,9 +21,7 @@ export class Image extends Service {
     }
 
     public get_images() {
-        this.images = Array.prototype.slice.call(
-            document.querySelectorAll("figure.img")
-        );
+        this.images = toArr(document.querySelectorAll("figure.img"));
     }
 
     public remove_images() {

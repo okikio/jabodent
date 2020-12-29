@@ -1,4 +1,5 @@
 import { Service } from "@okikio/native";
+import { toArr } from "../toArr";
 
 export class Navbar extends Service {
     public navbar: HTMLElement;
@@ -8,9 +9,7 @@ export class Navbar extends Service {
     public init() {
         // Elements
         this.navbar = document.querySelector(".navbar") as HTMLElement;
-        this.elements = Array.prototype.slice.call(
-            this.navbar.querySelectorAll(".navbar-item")
-        ) as HTMLElement[];
+        this.elements = toArr(this.navbar.querySelectorAll(".navbar-item"));
         this.menu = document.querySelector(".navbar-menu") as HTMLElement;
 
         this.click = this.click.bind(this);
@@ -27,9 +26,9 @@ export class Navbar extends Service {
 
     public getLink({ target }): HTMLAnchorElement {
         let el = target as HTMLAnchorElement;
-        while (el && !this.validLink(el)) {
+        while (el && !this.validLink(el))
             el = (el as HTMLElement).parentNode as HTMLAnchorElement;
-        }
+
         // Check for a valid link
         if (!el) return;
         return el;
@@ -39,32 +38,28 @@ export class Navbar extends Service {
         let el = this.getLink(event);
         if (!el) return;
 
-        requestAnimationFrame(() => {
-            if (el.classList.contains("navbar-menu")) {
-                this.navbar.classList.toggle("active");
-            } else if (el.classList.contains("navbar-link")) {
-                this.navbar.classList.remove("active");
-            }
-        });
+        if (el.classList.contains("navbar-menu"))
+            this.navbar.classList.toggle("active");
+        else if (el.classList.contains("navbar-link"))
+            this.navbar.classList.remove("active");
     }
 
     public activateLink() {
         let { href } = window.location;
 
-        requestAnimationFrame(() => {
-            for (let item of this.elements) {
-                let itemHref =
-                    item.getAttribute("data-path") ||
-                    (item as HTMLAnchorElement).href;
-                if (!itemHref || itemHref.length < 1) continue;
+        for (let item of this.elements) {
+            let itemHref =
+                item.getAttribute("data-path") ||
+                (item as HTMLAnchorElement).href;
+            if (!itemHref || itemHref.length < 1) continue;
 
-                let URLmatch = new RegExp(itemHref).test(href);
-                let isActive = item.classList.contains("active");
-                if (!(URLmatch && isActive)) {
-                    item.classList[URLmatch ? "add" : "remove"]("active");
-                }
+            let URLmatch = new RegExp(itemHref).test(href);
+            let isActive = item.classList.contains("active");
+            if (!(URLmatch && isActive)) {
+                item.classList.toggle("active", URLmatch);
             }
-        });
+        }
+
     }
 
     public initEvents() {
@@ -80,9 +75,9 @@ export class Navbar extends Service {
     }
 
     public uninstall() {
-        this.navbar = undefined;
         while (this.elements.length) this.elements.pop();
         this.elements = undefined;
         this.menu = undefined;
+        this.navbar = undefined;
     }
 }

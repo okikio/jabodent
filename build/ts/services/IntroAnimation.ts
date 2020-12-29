@@ -1,4 +1,5 @@
 import { Service, animate } from "@okikio/native";
+import { toArr } from "../toArr";
 
 export class IntroAnimation extends Service {
     protected elements: Array<Element>;
@@ -11,7 +12,7 @@ export class IntroAnimation extends Service {
         super.init();
 
         // Elements
-        this.elements = Array.prototype.slice.call(document.querySelectorAll(".intro-animation")) as HTMLElement[];
+        this.elements = toArr(document.querySelectorAll(".intro-animation"));
         this.entries = [];
 
         let scrollTop = window.scrollY;

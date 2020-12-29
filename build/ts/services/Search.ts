@@ -131,13 +131,8 @@ export class Search extends Service {
                     this.navbar.classList.remove("active");
 
                 this.navbar.classList.toggle("searching", this.active);
-                this.overlay.classList[this.active ? "add" : "remove"](
-                    "show"
-                );
-
-                this.rootElement.classList[this.active ? "add" : "remove"](
-                    "show"
-                );
+                this.overlay.classList.toggle("show", this.active);
+                this.rootElement.classList.toggle("show", this.active);
 
                 this.active && this.input.focus();
                 resolve();
@@ -208,6 +203,12 @@ export class Search extends Service {
             this.navbar.addEventListener("click", this.navClick, false);
             this.clearIcon.addEventListener("click", this.clearBtnClick, false);
         }
+
+        this.emitter.on("POPSTATE", this.popstate, this);
+    }
+
+    public popstate() {
+        this.getActive() && this.toggle();
     }
 
     public stopEvents() {
@@ -223,6 +224,8 @@ export class Search extends Service {
         this.rootElement.removeEventListener("click", this.outOfFocus);
         this.navbar.removeEventListener("click", this.navClick);
         this.clearIcon.removeEventListener("click", this.clearBtnClick);
+
+        this.emitter.off("POPSTATE", this.popstate, this);
     }
 
     public uninstall() {

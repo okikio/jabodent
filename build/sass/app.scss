@@ -81,10 +81,16 @@ html[data-theme="dark"] {
     }
 }
 
-.hover\:bg-darker-highlight:hover,
-.focus\:bg-darker-highlight:focus {
+.active\:bg-darker-highlight:active {
     background: #7c6915;
     color: white;
+}
+
+@media (min-width: 768px) {
+    .hover\:bg-darker-highlight:hover {
+        background: #7c6915;
+        color: white;
+    }
 }
 
 .gradient:before {
@@ -538,6 +544,10 @@ img {
     }
 }
 
+.no-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+}
+
 .lackluster {
     transition: opacity ease-out 0.45s;
     background: rgba(38, 43, 63, 0.8);
@@ -595,17 +605,12 @@ img {
     }
 
     &-large {
-        transition: transform 0.75s ease;
+        transition: transform 0.65s ease-out;
         height: 100vh;
-        transform: translateY(calc(-100% - #{$height}));
+        transform: scaleY(0);
         pointer-events: auto;
         contain: content;
-    }
-
-    &:hover {
-        .navbar-large {
-            transform: translateY(calc(-100% + #{$height}));
-        }
+        transform-origin: 0% 0%;
     }
 
     &-overlay {
@@ -633,8 +638,7 @@ img {
 
     &.active {
         .navbar-large {
-            transition: transform 0.65s ease-out;
-            transform: translateY(0px);
+            transform: scaleY(1);
             opacity: 1;
         }
 
@@ -733,6 +737,10 @@ img {
             padding-left: 5rem;
         }
 
+        &:not(.focus) {
+            transition: none;
+        }
+
         &:not(.active) {
             // Avoid the jitter that occurs when resizing
             &:not(:focus-within) .navbar-list {
@@ -761,7 +769,7 @@ img {
             @for $i from 1 through 5 {
                 @keyframes navOpen#{$i} {
                     0% {
-                        transform: translateY(calc(50% + #{($i - 1) * 30px}));
+                        transform: translateY(calc(50% + #{($i - 1) * 40px}));
                     }
                     100% {
                         transform: translateY(0px);
