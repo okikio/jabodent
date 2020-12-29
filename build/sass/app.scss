@@ -595,7 +595,7 @@ img {
     }
 
     &-large {
-        transition: transform 0.75s cubic-bezier(0.46, -0.01, 0.58, 0.99);
+        transition: transform 0.75s ease;
         height: 100vh;
         transform: translateY(calc(-100% - #{$height}));
         pointer-events: auto;
@@ -633,8 +633,7 @@ img {
 
     &.active {
         .navbar-large {
-            transition: transform 0.45s cubic-bezier(0.46, -0.01, 0.58, 0.99)
-                0.1s;
+            transition: transform 0.65s ease-out;
             transform: translateY(0px);
             opacity: 1;
         }
@@ -749,13 +748,13 @@ img {
 
         &.active {
             .navbar-list {
-                transition: opacity ease-out 0.75s 0.25s;
+                transition: opacity ease-out 0.95s 0.25s;
                 visibility: visible;
                 pointer-events: auto;
             }
 
             .navbar-item {
-                transition: transform ease-out 0.65s 0.2s;
+                // transition: transform ease-out 0.65s 0.2s;
                 transform: translateY(0px);
             }
 
@@ -769,7 +768,7 @@ img {
                     }
                 }
                 .navbar-item:nth-of-type(#{$i}) {
-                    animation: navOpen#{$i} 0.75s ease 0.25s;
+                    animation: navOpen#{$i} 0.95s ease 0.25s;
                 }
             }
         }
