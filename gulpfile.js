@@ -580,41 +580,34 @@ task("watch", async () => {
 
     watch(
         [
-            `${pugFolder}/pages/**/*.pug`,
-            `${pugFolder}/layouts/layout.pug`,
-            `${pugFolder}/components/*.pug`,
-            dataPath,
-            iconPath,
+            `${pugFolder}/pages/**/*.pug`
         ],
         { delay: 100 },
         series(`app-html`)
     );
     watch(
         [
-            `${pugFolder}/layouts/person.pug`,
-            `${pugFolder}/layouts/layout.pug`,
-            `${pugFolder}/components/*.pug`,
-            dataPath,
-            iconPath,
+            `${pugFolder}/layouts/person.pug`
         ],
         { delay: 100 },
-        series(`team-html`)
+        series(`team-html`, parallel("indexer", "reload"))
     );
     watch(
         [
-            `${pugFolder}/layouts/service.pug`,
+            `${pugFolder}/layouts/service.pug`
+        ],
+        { delay: 100 },
+        series(`services-html`, parallel("indexer", "reload"))
+    );
+    watch(
+        [
             `${pugFolder}/layouts/layout.pug`,
             `${pugFolder}/components/*.pug`,
             dataPath,
             iconPath,
         ],
-        { delay: 100 },
-        series(`services-html`)
-    );
-    watch(
-        [`${htmlFolder}/**/*.html`],
         { delay: 500 },
-        parallel("indexer", "reload")
+        series(`html`, parallel("indexer", "reload"))
     );
     watch(
         `${sassFolder}/**/*.scss`,
