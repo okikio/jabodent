@@ -13,7 +13,7 @@
   Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
   Link: </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
   Link: </css/app.min.css>; rel=preload; as=style
-  Link: <https://polyfill.io/v3/polyfill.min.js?features=es2015%2Cdefault%2CArray.prototype.includes%2CArray.prototype.entries%2CObject.entries%2CArray.prototype.values%2CObject.values%2CPromise%2CString.prototype.includes%2CURL%2CWebAnimations%2Cfetch%2CscrollIntoView%2Cscroll%2CmatchMedia%2ClocalStorage%2Chtml5shiv%2CgetComputedStyle%2CXMLHttpRequest%2CMap%2CElement.prototype.scrollIntoView%2CElement.prototype.scroll%2CString.prototype.trim>; rel=preload; as=script
+  Link: <https://polyfill.io>; rel=preconnect; crossorigin
   Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
 
 /*.*
