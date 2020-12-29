@@ -4,8 +4,8 @@ import { toArr } from "../toArr";
 //== Blocks
 let lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 export class Carousel extends Service {
-    public ease: number = 0.125;
-    public speed: number = 2;
+    public ease: number = 0.05;
+    public speed: number = 1.95;
 
     public rootElement: HTMLElement;
     public carouselBtn: HTMLElement;
@@ -167,7 +167,8 @@ export class Carousel extends Service {
 
         this.width = width;
         this.viewportWidth = this.width * this.slideLen;
-        this.maxX = -(this.viewportWidth - window.innerWidth);
+        this.maxX = -(this.viewportWidth - window.innerWidth + this.width / 4);
+        this.minX = this.width / 4;
         this.setHeight();
     }
 
@@ -265,6 +266,10 @@ export class Carousel extends Service {
 
     public setCurrentX(value: number) {
         this.currentX = this.toPercent(value);
+
+        let maxX = this.toPercent(this.maxX);
+        let minX = this.toPercent(this.minX);
+        this.currentX = Math.min(Math.max(this.currentX, maxX), minX);
     }
 
     public select(index: number) {
@@ -378,7 +383,7 @@ export class Carousel extends Service {
 
         let { deltaX } = evt;
         let currentX = this.parsePercent(this.currentX);
-        this.setCurrentX(currentX + -deltaX * (this.speed * 2));
+        this.setCurrentX(currentX - deltaX * this.speed);
         if (Math.abs(deltaX) > 0) evt.preventDefault();
         if (this.rAF === null) this.requestAnimationFrame();
 

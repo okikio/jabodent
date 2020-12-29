@@ -58,7 +58,7 @@
         "gulp-sass": "^4.1.0",
         "gzip-size": "^6.0.0",
         "merge-stream": "^2.0.0",
-        "postcss": "^8.2.1",
+        "postcss": "^8.2.2",
         "postcss-csso": "^5.0.0",
         "posthtml": "^0.15.1",
         "posthtml-match-helper": "^1.0.1",
