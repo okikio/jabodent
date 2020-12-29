@@ -1,12 +1,12 @@
-import { Block, IBlockInit, BlockIntent } from "../framework/api";
+import { Service, getConfig } from "@okikio/native";
 
 //== Blocks
 let lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
-
-export class Carousel extends Block {
+export class Carousel extends Service {
     public ease: number = 0.125;
     public speed: number = 2;
 
+    public rootElement: HTMLElement;
     public carouselBtn: HTMLElement;
     public prevBtn: HTMLElement;
     public nextBtn: HTMLElement;
@@ -43,82 +43,86 @@ export class Carousel extends Block {
     public isScrolling = false;
     waitForResize: boolean;
 
-    public init(value: IBlockInit) {
-        super.init(value);
+    public init() {
+        let rootEl = document.querySelector(`#Carousel`) as HTMLElement;
+        if (rootEl) {
+            this.rootElement = rootEl;
+            this.container = this.rootElement.getElementsByClassName(
+                "carousel-container"
+            )[0] as HTMLElement;
+            this.viewport = this.rootElement.getElementsByClassName(
+                "carousel-viewport"
+            )[0] as HTMLElement;
+            this.slides = Array.prototype.slice.call(
+                this.rootElement.getElementsByClassName("carousel-item")
+            ) as HTMLElement[];
 
-        this.container = this.rootElement.getElementsByClassName(
-            "carousel-container"
-        )[0] as HTMLElement;
-        this.viewport = this.rootElement.getElementsByClassName(
-            "carousel-viewport"
-        )[0] as HTMLElement;
-        this.slides = Array.prototype.slice.call(
-            this.rootElement.getElementsByClassName("carousel-item")
-        ) as HTMLElement[];
+            this.carouselBtn = this.rootElement.getElementsByClassName(
+                "carousel-btn"
+            )[0] as HTMLElement;
+            this.prevBtn = this.carouselBtn.getElementsByClassName(
+                "prev-btn"
+            )[0] as HTMLElement;
+            this.nextBtn = this.carouselBtn.getElementsByClassName(
+                "next-btn"
+            )[0] as HTMLElement;
 
-        this.carouselBtn = this.rootElement.getElementsByClassName(
-            "carousel-btn"
-        )[0] as HTMLElement;
-        this.prevBtn = this.carouselBtn.getElementsByClassName(
-            "prev-btn"
-        )[0] as HTMLElement;
-        this.nextBtn = this.carouselBtn.getElementsByClassName(
-            "next-btn"
-        )[0] as HTMLElement;
+            this.dotContainer = this.rootElement.getElementsByClassName(
+                "carousel-dots"
+            )[0] as HTMLElement;
+            this.dots = Array.prototype.slice.call(
+                this.rootElement.getElementsByClassName("carousel-dot")
+            ) as HTMLElement[];
+            this.dot = this.dots[0] as HTMLElement;
 
-        this.dotContainer = this.rootElement.getElementsByClassName(
-            "carousel-dots"
-        )[0] as HTMLElement;
-        this.dots = Array.prototype.slice.call(
-            this.rootElement.getElementsByClassName("carousel-dot")
-        ) as HTMLElement[];
-        this.dot = this.dots[0] as HTMLElement;
+            this.slideLen = this.slides.length;
+            this.center = window.innerWidth / 2;
 
-        this.slideLen = this.slides.length;
-        this.center = window.innerWidth / 2;
+            this.viewportWidth = 0;
+            this.currentX = 0;
+            this.width = 0;
 
-        this.viewportWidth = 0;
-        this.currentX = 0;
-        this.width = 0;
+            this.index = 0;
+            this.lastIndex = this.index;
 
-        this.index = 0;
-        this.lastIndex = this.index;
+            this.lastX = 0;
+            this.maxX = 0;
+            this.minX = 0;
 
-        this.lastX = 0;
-        this.maxX = 0;
-        this.minX = 0;
+            this.offX = 0;
+            this.onX = 0;
+            this.onY = 0;
 
-        this.offX = 0;
-        this.onX = 0;
-        this.onY = 0;
+            this.snapOnce = false;
+            this.isDragging = false;
+            this.isScrolling = false;
+            this.waitForResize = false;
 
-        this.snapOnce = false;
-        this.isDragging = false;
-        this.isScrolling = false;
-        this.waitForResize = false;
+            this.setBounds();
+            this.clearDots();
+            this.setDots();
+            this.select(this.index);
 
-        this.setBounds();
-        this.clearDots();
-        this.setDots();
-        this.select(this.index);
+            [
+                "on",
+                "off",
+                "run",
+                "next",
+                "prev",
+                "scroll",
+                "setPos",
+                "resize",
+                "keypress",
+                "dotClick",
+            ].forEach((key: string) => {
+                this[key] = this[key]?.bind(this);
+            });
 
-        [
-            "on",
-            "off",
-            "run",
-            "next",
-            "prev",
-            "scroll",
-            "setPos",
-            "resize",
-            "keypress",
-            "dotClick",
-        ].forEach((key: string) => {
-            this[key] = this[key]?.bind(this);
-        });
-
-        this.setHeight();
+            this.setHeight();
+            this.addCarouselEvents();
+        }
     }
+
     public setDots() {
         requestAnimationFrame(() => {
             for (let i = 0; i < this.slideLen; i++) {
@@ -300,7 +304,6 @@ export class Carousel extends Block {
 
         this.isScrolling = false;
         this.lastX = lerp(this.lastX, this.currentX, this.ease);
-        // this.lastX = Math.floor(this.lastX * 100) / 100;
     }
 
     public requestAnimationFrame() {
@@ -308,6 +311,11 @@ export class Carousel extends Block {
     }
 
     public initEvents() {
+        this.emitter.on("BEFORE_TRANSITION_OUT", this.removeCarouselEvents, this);
+        this.emitter.on("CONTENT_REPLACED", this.init, this);
+    }
+
+    public addCarouselEvents() {
         this.run();
 
         this.nextBtn.addEventListener("click", this.next, false);
@@ -334,6 +342,34 @@ export class Carousel extends Block {
         window.addEventListener("resize", this.resize, { passive: true });
     }
 
+    public removeCarouselEvents() {
+        if (this.rootElement) {
+            this.cancelAnimationFrame();
+
+            this.nextBtn.removeEventListener("click", this.next);
+            this.prevBtn.removeEventListener("click", this.prev);
+
+            this.dotContainer.removeEventListener(
+                "click",
+                this.dotClick
+            );
+
+            this.rootElement.removeEventListener("mousedown", this.on);
+            window.removeEventListener("mousemove", this.setPos);
+            window.removeEventListener("mouseup", this.off);
+
+            this.rootElement.removeEventListener("touchstart", this.on);
+            window.removeEventListener("touchmove", this.setPos);
+            window.removeEventListener("touchend", this.off);
+
+            this.rootElement.removeEventListener("wheel", this.scroll);
+            window.removeEventListener("keydown", this.keypress);
+            window.removeEventListener("resize", this.resize);
+            this.rootElement = undefined;
+            console.log("Remove Carousel Events");
+        }
+    }
+
     public keypress(evt: KeyboardEvent) {
         if (evt.code === "ArrowRight") this.next();
         if (evt.code === "ArrowLeft") this.prev();
@@ -348,7 +384,6 @@ export class Carousel extends Block {
         let currentX = this.parsePercent(this.currentX);
         this.setCurrentX(currentX + -deltaX * (this.speed * 2));
         if (Math.abs(deltaX) > 0) evt.preventDefault();
-
         if (this.rAF === null) this.requestAnimationFrame();
 
     }
@@ -375,29 +410,12 @@ export class Carousel extends Block {
     }
 
     public stopEvents() {
-        this.cancelAnimationFrame();
+        this.removeCarouselEvents();
+        this.emitter.off("BEFORE_TRANSITION_OUT", this.removeCarouselEvents, this);
+        this.emitter.off("CONTENT_REPLACED", this.init, this);
+    }
 
-        this.nextBtn.removeEventListener("click", this.next);
-        this.prevBtn.removeEventListener("click", this.prev);
-
-        this.dotContainer.removeEventListener(
-            "click",
-            this.dotClick
-        );
-
-        this.rootElement.removeEventListener("mousedown", this.on);
-        window.removeEventListener("mousemove", this.setPos);
-        window.removeEventListener("mouseup", this.off);
-
-        this.rootElement.removeEventListener("touchstart", this.on);
-        window.removeEventListener("touchmove", this.setPos);
-        window.removeEventListener("touchend", this.off);
-
-        this.rootElement.removeEventListener("wheel", this.scroll);
-        window.removeEventListener("keydown", this.keypress);
-        window.removeEventListener("resize", this.resize);
-        console.log("Remove Carousel Events")
-
+    public uninstall() {
         this.container = undefined;
         this.viewport = undefined;
         this.slides = undefined;
@@ -406,7 +424,6 @@ export class Carousel extends Block {
         this.prevBtn = undefined;
         this.nextBtn = undefined;
 
-        // this.clearDots();
         this.dotContainer = undefined;
         this.dots = undefined;
         this.dot = undefined;
@@ -439,7 +456,7 @@ export class Carousel extends Block {
 
     public resize() {
         if (!this.waitForResize) {
-            let timer;
+            let timer: number | void;
             this.waitForResize = true;
             requestAnimationFrame(() => {
                 this.setBounds();
@@ -447,15 +464,10 @@ export class Carousel extends Block {
                 // set a timeout to un-throttle
                 timer = window.setTimeout(() => {
                     this.waitForResize = false;
-                    timer = window.clearTimeout(timer);
+                    timer = window.clearTimeout(timer as number);
                 }, 500);
             });
 
         }
     }
 }
-
-export let CarouselBlockIntent = new BlockIntent({
-    name: "Carousel",
-    block: Carousel,
-});

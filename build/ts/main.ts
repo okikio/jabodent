@@ -1,4 +1,4 @@
-import { PJAX, App, _URL, Router } from "./framework/api";
+import { PJAX, App, Router, TransitionManager, HistoryManager, PageManager } from "@okikio/native";
 
 import { Splashscreen } from "./services/Splashscreen";
 import { IntroAnimation } from "./services/IntroAnimation";
@@ -6,41 +6,44 @@ import { Navbar } from "./services/Navbar";
 import { Search } from "./services/Search";
 import { Image } from "./services/Image";
 
-import { CarouselBlockIntent } from "./blocks/Carousel";
+import { Carousel } from "./services/Carousel";
 import { Fade } from "./transitions/Fade";
 
-let app: App = new App();
-let navbar: Navbar, router: Router, splashscreen: Splashscreen;
-let search: Search, pjax: PJAX;
+let app: App = new App(), pjax: PJAX, router: Router;
+let splashscreen: Splashscreen, search: Search;
 app
-    .addService(new IntroAnimation())
-    .addService(splashscreen = new Splashscreen())
-    .add("service", pjax = new PJAX())
-    .add("service", new Image())
-    .add("service", search = new Search())
+    .set("HistoryManager", new HistoryManager())
+    .set("PageManager", new PageManager())
+    .set("TransitionManager", new TransitionManager([
+        [Fade.name, Fade]
+    ]))
+    .add(pjax = new PJAX())
+    .add(new IntroAnimation())
+    .add(splashscreen = new Splashscreen())
+    .add(new Image())
+    .add(search = new Search())
 
-    .addService(navbar = new Navbar())
-    .setService("router", router = new Router())
-
-    .add("block", CarouselBlockIntent)
-    .add("transition", new Fade());
+    .add(new Navbar())
+    .add(new Carousel())
+    .set("router", router = new Router());
 
 try {
     let waitOnScroll = false;
-    let layers,
-        backToTop,
-        scrollBtn,
-        scrollPt,
+    let navbar = document.querySelector(".navbar");
+    let layers: NodeListOf<Element> | HTMLElement[],
+        backToTop: HTMLElement,
+        scrollBtn: HTMLElement,
+        scrollPt: HTMLElement,
         layer: HTMLElement,
         top: number,
-        navHeight: number = navbar.navbar.getBoundingClientRect().height;
+        navHeight: number = navbar.getBoundingClientRect().height;
     let scroll = () => {
         if (!waitOnScroll) {
             let scrollTop = window.scrollY;
             requestAnimationFrame(() => {
                 if (scrollTop + navHeight >= top + (pjax.isTransitioning ? 100 : 0)) {
-                    navbar.navbar.classList.add("focus");
-                } else navbar.navbar.classList.remove("focus");
+                    navbar.classList.add("focus");
+                } else navbar.classList.remove("focus");
                 waitOnScroll = false;
             });
 
@@ -49,17 +52,17 @@ try {
     };
     let go = () => {
         requestAnimationFrame(() => {
-            navbar.navbar.classList.remove("focus");
-            navbar.navbar.classList.remove("active");
+            navbar.classList.remove("focus");
+            navbar.classList.remove("active");
 
             if (
                 /(index(.html)?|\/$)|(services\/+)/g.test(
                     window.location.pathname
                 )
             ) {
-                navbar.navbar.classList.add("light");
-            } else if (navbar.navbar.classList.contains("light")) {
-                navbar.navbar.classList.remove("light");
+                navbar.classList.add("light");
+            } else if (navbar.classList.contains("light")) {
+                navbar.classList.remove("light");
             }
 
             if (
@@ -67,9 +70,9 @@ try {
                     window.location.pathname
                 ) || document.title.includes("404")
             ) {
-                navbar.navbar.classList.add("dark");
-            } else if (navbar.navbar.classList.contains("dark")) {
-                navbar.navbar.classList.remove("dark");
+                navbar.classList.add("dark");
+            } else if (navbar.classList.contains("dark")) {
+                navbar.classList.remove("dark");
             }
         });
         scroll();
@@ -81,7 +84,6 @@ try {
                 top: 0,
                 behavior: "smooth",
             });
-            // window.scroll(0, 0);
         });
     };
 

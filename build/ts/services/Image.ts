@@ -1,10 +1,7 @@
-import { Service } from "../framework/api";
-// import { animate } from "@okikio/animate";
+import { Service } from "@okikio/native";
 
 export class Image extends Service {
     images: HTMLImageElement[];
-    // observer: IntersectionObserver;
-
     WebpSupport = false;
 
     public init() {
@@ -71,38 +68,6 @@ export class Image extends Service {
                 "Using JPG instead, of WEBP as this browser doesn't support WEBP."
             );
         }
-
-        // if (!this.WebpSupport) {
-        //     // Long Test for webp support
-        //     (() => {
-        //         // If the browser doesn't has the method createImageBitmap, you can't display webp format
-        //         if (!window.createImageBitmap) {
-        //             this.WebpSupport = false;
-        //             return;
-        //         }
-
-        //         // Base64 representation of a white point image
-        //         let webpdata =
-        //             "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA=";
-
-        //         // Retrieve the Image in Blob Format
-        //         fetch(webpdata)
-        //             .then((response) => response.blob())
-        //             .then((blob) => {
-        //                 // If the createImageBitmap method succeeds, return true, otherwise false
-        //                 createImageBitmap(blob)
-        //                     .then(() => {
-        //                         this.WebpSupport = true;
-        //                     })
-        //                     .catch(() => {
-        //                         this.WebpSupport = false;
-        //                     });
-        //             });
-        //     })();
-        // }
-
-        // if (!this.WebpSupport) {
-        // }
     }
 
     public load_img() {
@@ -158,8 +123,8 @@ export class Image extends Service {
             { passive: true }
         );
 
-        this.EventEmitter.on("BEFORE_TRANSITION_OUT", this.before_transition_out);
-        this.EventEmitter.on("CONTENT_INSERT", this.content_insert);
+        this.emitter.on("BEFORE_TRANSITION_OUT", this.before_transition_out);
+        this.emitter.on("CONTENT_INSERT", this.content_insert);
     }
 
     public content_insert() {
@@ -174,12 +139,11 @@ export class Image extends Service {
     public stopEvents() {
         window.removeEventListener("resize", this.resize);
 
-        this.EventEmitter.off("BEFORE_TRANSITION_OUT", this.before_transition_out);
-        this.EventEmitter.off("CONTENT_INSERT", this.content_insert);
+        this.emitter.off("BEFORE_TRANSITION_OUT", this.before_transition_out);
+        this.emitter.off("CONTENT_INSERT", this.content_insert);
     }
 
-    public stop() {
-        super.stop();
+    public uninstall() {
         this.remove_images();
         this.images = undefined;
     }

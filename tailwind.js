@@ -18,7 +18,8 @@ module.exports = {
             md: "768px",
             // "lt-lg": { max: "1024px" },
             lg: "1024px",
-            // xl: "1280px",
+            xl: "1280px",
+            "2xl": "1680px",
         },
         colors: {
             transparent: "transparent",

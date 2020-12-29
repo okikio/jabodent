@@ -1,5 +1,4 @@
-import { Service } from "../framework/api";
-import { animate } from "@okikio/animate";
+import { Service, animate } from "@okikio/native";
 
 export class IntroAnimation extends Service {
     protected elements: Array<Element>;
@@ -10,7 +9,6 @@ export class IntroAnimation extends Service {
 
     public init() {
         super.init();
-        // this.splashscreen = true;
 
         // Elements
         this.elements = Array.prototype.slice.call(document.querySelectorAll(".intro-animation")) as HTMLElement[];
@@ -34,64 +32,50 @@ export class IntroAnimation extends Service {
     }
 
     public initEvents() {
-        this.EventEmitter.on(
+        this.emitter.on(
             "BEFORE_SPLASHSCREEN_HIDE",
             this.prepareToShow,
             this
         );
-        this.EventEmitter.on("CONTENT_REPLACED", this.newPage, this);
-        this.EventEmitter.on(
-            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN", //  AFTER_SPLASHSCREEN_DELAY AFTER_TRANSITION_IN
+        this.emitter.on("CONTENT_REPLACED", this.newPage, this);
+        this.emitter.on(
+            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN",
             this.show,
             this
         );
     }
 
     public stopEvents() {
-        this.EventEmitter.off(
+        this.emitter.off(
             "BEFORE_SPLASHSCREEN_HIDE",
             this.prepareToShow,
             this
         );
-        this.EventEmitter.off("CONTENT_REPLACED", this.newPage, this);
-        this.EventEmitter.off(
-            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN", //  AFTER_SPLASHSCREEN_DELAY AFTER_TRANSITION_IN
+        this.emitter.off("CONTENT_REPLACED", this.newPage, this);
+        this.emitter.off(
+            "AFTER_SPLASHSCREEN_HIDE BEFORE_TRANSITION_IN",
             this.show,
             this
         );
     }
 
-    public stop() {
+    public uninstall() {
         requestAnimationFrame(() => {
             for (let el of this.entries) {
-                // (el as HTMLElement).style.visibility = "visible";
                 (el as HTMLElement).style.opacity = "1";
-                // el.classList.remove("hide-anim");
             }
         });
-        // this.unobserve();
-
-        super.stop();
     }
 
     public prepareToShow() {
         requestAnimationFrame(() => {
             for (let el of this.entries) {
-                // this.elements
                 (el as HTMLElement).style.opacity = "0";
-                // el.classList.add("hide-anim");
-                // (el as HTMLElement).style.visibility = "hidden";
             }
-            // this.entries = [];
-            // window.scroll(0, 0);
         });
     }
 
     public async show() {
-        // if (target) { target: HTMLElement
-        //     target.classList.remove("hide-anim");
-        //     target.classList.add("show-anim");
-        // }
         return await animate({
             target: this.entries as HTMLElement[],
             opacity: [0, 1],
@@ -101,7 +85,6 @@ export class IntroAnimation extends Service {
             onfinish: (el: { style: { opacity: string, visibility: string } }) => {
                 requestAnimationFrame(() => {
                     el.style.opacity = "1";
-                    // el.style.visibility = "visible";
                 });
             },
             easing: "ease-out",

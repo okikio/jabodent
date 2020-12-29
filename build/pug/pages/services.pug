@@ -23,14 +23,14 @@ block hero
         span This is the complete list of all the services we offer:
 
 block content
-  section.theme-bg.relative.px-5.pt-8.mx-auto.w-full.max-w-screen-lg
+  section.theme-bg.relative.px-5.pt-8.mx-auto.w-full.max-w-screen-lg(class="2xl:max-w-screen-xl")
     .row.cards-list
       each service, index in services
         if index < 4
           +card(service, index)
 
   section
-    section.theme-bg.relative.px-5.mx-auto.w-full.max-w-screen-lg
+    section.theme-bg.relative.px-5.mx-auto.w-full.max-w-screen-lg(class="2xl:max-w-screen-xl")
       .row
         each service, index in services
           if index >= 4

@@ -20,7 +20,7 @@ block content
 
     section.text-white.w-full.relative.block
       .px-5.pt-32.mx-auto.w-full.max-w-screen-xl.container
-        .mx-auto.w-full.tracking-wide.max-w-screen-md
+        .mx-auto.w-full.tracking-wide.max-w-screen-md(class="2xl:max-w-screen-lg")
           span.font-light.lowercase.capitalize.text-gray-600.tracking-wider.text-sm
             +link({
               href: "/services",
@@ -35,10 +35,10 @@ block content
         .relative.w-full
           .h-84
             +image(image)(width="100%" height="30rem" loading="eager")
-          figcaption.relative.block.w-full.max-w-screen-md.mx-auto.block.tracking-wide.font-light.font-default.text-gray-600.text-center.text-sm.py-4.leading-relaxed Figure: #{image.alt}
+          figcaption.relative.block.w-full.max-w-screen-md.mx-auto.block.tracking-wide.font-light.font-default.text-gray-600.text-center.text-sm.py-4.leading-relaxed(class="2xl:max-w-screen-lg") Figure: #{image.alt}
 
     div.pt-6
-      section.mx-auto.text-white.w-full.max-w-screen-md
+      section.mx-auto.text-white.w-full.max-w-screen-md(class="2xl:max-w-screen-lg")
         .px-5.tracking-wide
           section.pb-10.text-base.leading-8.font-normal
             p.flow-root
@@ -46,67 +46,6 @@ block content
                 span.float-left.letter-head.text-7xl.font-title.font-bold= article[0]
               span.text-lg.font-regular.font-thin(class="md:text-xl")!= article.substring(1).replace(/\n/g, "<br>")
 
-      //- .mx-auto.w-full.max-w-screen-md.px-5
-        hr.border-white.border-opacity-25.mb-14
-
-      //- section.social.flex-wrap.cursor-pointer.z-10.text-white.mx-auto.max-w-screen-md
-        //- +link({
-        //-   href: "/404",
-        //-   class: "px-6 py-3 cursor-pointer underline inline-block bg-gray-700 rounded-xl",
-        //-   content: "Share"
-        //- })
-
-        //- button.native-share.block.cursor-pointer.group(class="focus:outline-none" type="button", role="button" aria-label="Native share button" title="Share")
-        //-   div(class="rounded-full flex justify-c-center w-12 h-12 mx-auto hover:border-black focus:outline-none text-xl")
-        //-     .self-center
-        //-       i.icon.text-2xl(class="group-hover:opacity-65")
-        //-         +icon("share")
-
-        +link({
-          href: "/404",
-          class: "px-6 py-3 cursor-pointer underline inline-block",
-          content: "Twitter"
-        })
-
-        +link({
-          href: "/404",
-          class: "px-6 py-3 cursor-pointer underline inline-block",
-          content: "Facebook"
-        })
-
-        +link({
-          href: "/404",
-          class: "px-6 py-3 cursor-pointer underline inline-block",
-          content: "Instagram"
-        })
-
-        +link({
-          href: "/404",
-          class: "px-6 py-3 cursor-pointer underline inline-block",
-          content: "Medium"
-        })
-
-      //- .mx-auto.w-full.max-w-screen-md.px-5
-        hr.border-white.border-opacity-25.my-8
-
-      //- button.native-share.z-10.ml-5.bg-secondary.border-2.border-solid.border-secondary.text-black.rounded-full.flex.w-14.h-14.text-2xl(class="hover:border-black" type="button", title="Share")
-      //-   i.icon.w-full.justify-center.self-center
-      //-     +icon("share")
-
-      //- .px-5.py-8.mx-auto.text-white.w-full.max-w-screen-md
-        //- span.font-light.lowercase.capitalize.text-gray-600.tracking-wider.text-sm
-          +link({
-            href: "/services",
-            class: "underline",
-            content: "Full list of Services"
-          })
-          span.px-5
-          +link({
-            href: "/contact",
-            class: "underline",
-            content: "Contact Us"
-
-          })
       +back-to-top
 
     +link({
@@ -114,8 +53,8 @@ block content
       class: "block text-white group"
     })
       .py-8.w-full.relative.transition(class="duration-300 ease-ease bg-white bg-opacity-15 hover:bg-gray-400 hover:bg-opacity-15")
-        .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-lg.relative.flex.flex-row.justify-center
-          section.self-center.w-full.max-w-screen-md
+        .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-lg.relative.flex.flex-row.justify-center(class="2xl:max-w-screen-xl")
+          section.self-center.w-full.max-w-screen-md(class="2xl:max-w-screen-lg")
             p.text-gray-600.mb-5 Next
             section.flex
               div.block.relative.z-10
@@ -129,20 +68,6 @@ block content
           div.self-center.hidden(class="md:block")
             section.ml-10.mr-8.opacity-45.self-center.icon.text-5xl.underlay-right(class="md:ml-12 group-hover:opacity-100 group-hover:text-secondary")
               +icon("thin_arrow")
-          //- div
-          //-   p.text-gray-600.mb-5 Next
-          //-   section.flex
-          //-     .w-full.max-w-screen-md
-          //-       .text-lg.w-full.leading-snug.tracking-wider.layer
-          //-         h1.text-4xl.font-title.font-medium= next.title
-          //-       p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-2(class="md:text-xl")= next.description
-              //- .self-center.hidden(class="md:block")
-                section.ml-8.opacity-45.icon.text-5xl(class="md:ml-16 group-hover:opacity-100 group-hover:text-secondary")
-                  +icon("thin_arrow")
-          //- .flex-grow
-          //- .self-center.cursor-pointer.rounded-lg.w-84.min-h-0.h-64.bg-blue-400.overflow-hidden.person.hidden.ml-8(class="md:block")
-          //-   +image(Object.assign(next.image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
-
 
     //- section.bg-primary
     //-   +contact

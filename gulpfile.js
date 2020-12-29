@@ -1,4 +1,5 @@
-// Import external modules
+const mode = process.argv.includes("--watch") ? "watch" : "build";
+
 const gulp = require("gulp");
 const mergeStream = require("merge-stream");
 const { src, dest, parallel, watch, task, series } = gulp;
@@ -269,51 +270,67 @@ tasks({
 tasks({
     "modern-js": async () => {
         const [
-            { default: esbuildGulp },
-            { default: rename },
-        ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
+            { default: gulpEsBuild, createGulpEsbuild },
+            { default: gzipSize },
+            { default: prettyBytes },
+        ] = await Promise.all([
+            import("gulp-esbuild"),
+            import("gzip-size"),
+            import("pretty-bytes"),
+        ]);
+
+        const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
-                esbuildGulp({
+                esbuild({
                     bundle: true,
                     minify: true,
+                    sourcemap: true,
+                    outfile: "modern.min.js",
                     target: ["chrome71"],
                 }),
-                rename("modern.min.js"), // Rename
             ],
             dest: jsFolder, // Output
+            async end() {
+                console.log(
+                    `=> Gzip size - ${prettyBytes(
+                        await gzipSize.file(`${jsFolder}/modern.min.js`)
+                    )}\n`
+                );
+            },
         });
     },
     "legacy-js": async () => {
         const [
-            { default: esbuildGulp },
-            { default: rename },
-        ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
+            { default: gulpEsBuild, createGulpEsbuild },
+        ] = await Promise.all([import("gulp-esbuild")]);
+
+        const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
-                esbuildGulp({
-                    color: true,
+                esbuild({
                     bundle: true,
                     minify: true,
+                    outfile: "legacy.min.js",
                     target: ["chrome58", "firefox57", "safari11", "edge16"],
                 }),
-                rename("legacy.min.js"), // Rename
             ],
             dest: jsFolder, // Output
         });
     },
     "other-js": async () => {
         const [
-            { default: esbuildGulp },
+            { default: gulpEsBuild, createGulpEsbuild },
             { default: rename },
         ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
+
+        const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
         return stream([`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`], {
             pipes: [
                 // Bundle Modules
-                esbuildGulp({
-                    color: true,
+                esbuild({
                     bundle: true,
                     minify: true,
                     target: ["chrome58", "firefox57", "safari11", "edge16"],

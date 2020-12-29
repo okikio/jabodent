@@ -1,5 +1,4 @@
-import { Service } from "../framework/api";
-// import { animate } from "@okikio/animate";
+import { Service } from "@okikio/native";
 
 export class Search extends Service {
     protected worker: Worker;
@@ -71,10 +70,6 @@ export class Search extends Service {
         }
     }
 
-    // protected transformArr(args) {
-    //     return args.map((num: number) => `translateY(${num}%)`);
-    // }
-
     /**
      * Returns the href or an Anchor element
      */
@@ -91,7 +86,7 @@ export class Search extends Service {
     /**
      * Check if event target is a valid anchor with an href, if so, return the link
      */
-    public getLink(event): HTMLAnchorElement {
+    public getLink(event: { target: HTMLAnchorElement; }): HTMLAnchorElement {
         let el = event.target as HTMLAnchorElement;
         let href: string = this.getHref(el);
 
@@ -128,9 +123,6 @@ export class Search extends Service {
         }
 
         this.active = !this.active;
-
-        // let opacity = this.active ? [0, 1] : [1, 0];
-        // let transform = this.transformArr(this.active ? [-105, 0] : [0, -105]);
         return new Promise<void>((resolve) => {
             requestAnimationFrame(() => {
                 this.navbar.blur();
@@ -138,17 +130,10 @@ export class Search extends Service {
                 this.navbar.classList.contains("active") &&
                     this.navbar.classList.remove("active");
 
-                // this.html.classList.toggle("no-scroll", this.active);
                 this.navbar.classList.toggle("searching", this.active);
-
-                // this.bg.classList[this.active ? "add" : "remove"](...bgClass);
                 this.overlay.classList[this.active ? "add" : "remove"](
                     "show"
                 );
-
-                // let pointerEvents = this.active ? "auto" : "none";
-                // this.close.style.display = this.active ? "flex" : "none";
-                // this.icon.style.display = !this.active ? "block" : "none";
 
                 this.rootElement.classList[this.active ? "add" : "remove"](
                     "show"
@@ -228,7 +213,6 @@ export class Search extends Service {
     public stopEvents() {
         if (this.worker) {
             this.worker.terminate();
-            this.worker = undefined;
         }
 
         this.btn.removeEventListener("click", this.toggle);
@@ -239,6 +223,12 @@ export class Search extends Service {
         this.rootElement.removeEventListener("click", this.outOfFocus);
         this.navbar.removeEventListener("click", this.navClick);
         this.clearIcon.removeEventListener("click", this.clearBtnClick);
+    }
+
+    public uninstall() {
+        if (this.worker) {
+            this.worker = undefined;
+        }
 
         this.html = undefined;
         this.navbar = undefined;

@@ -24,47 +24,14 @@ block hero
 block content
   -
     let { team } = self;
-  //- src: "cloudinary/e_art:hokusai/cave-water",
   +image({
     src: "cloudinary/dock-waves",
     class: "fixed-img",
     figclass: "theme-surface fixed-img-container min-h-300"
   })(width="100vw" height="100vh")
-  //- section#team.theme-bg.theme-text.relative.pt-6.carousel(data-block="Carousel")
-    h3.text-3xl.font-bold.text-center.intro-animation Our Team
-    +carousel-buttons
-
-    mixin carousel-item(value)
-      -
-        let { url, name, description, role } = value;
-        let image = Object.assign({ src: "cloudinary/city", alt: "An image of ... by ... on unsplash." }, value.image);
-
-      section.carousel-item
-        .mx-auto.px-5.w-full.max-w-screen-lg.py-12(class="sm:px-24 md:px-5 lt-md:py-6")
-          section.p-8.flex.flex-col.justify-center.rounded-xl(class="md:flex-row")
-            .cursor-pointer.self-center.w-full.h-auto.bg-blue-400.rounded-lg.overflow-hidden.person(class="md:max-w-1/2 md:mr-5")
-              +image(image)(draggable="false" width="50vw" height="300px")
-            .self-center.w-full(class="md:ml-5 md:max-w-1/2")
-              h3(class="md:mt-0").text-xl.font-semibold.mb-4.mt-4 #{name} — #{role}
-              p.font-thin.leading-8 #{description}...
-              .mt-6
-                +learn-more( url )
-
-    section.carousel-container.relative.w-full
-      .carousel-viewport.flex.flex-no-wrap
-        each person in team
-          +carousel-item(person)
-
-        //- +carousel-item({
-        //-   name: "Jane Doe — Principal Partner",
-        //-   description: "She has over 43 years of experience in the Marine, Oil and Gas industry with positions ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government",
-        //-   url: "404.html"
-        //- })
-
-    +carousel-dots
 
   section#team.theme-bg.theme-text.relative.pt-6
-    .px-5.mx-auto.w-full.max-w-screen-lg.pb-12
+    .px-5.mx-auto.w-full.max-w-screen-lg.pb-12(class="2xl:max-w-screen-xl")
       h3.text-3xl.font-bold.text-center.mb-12 Our Team
       p.mx-auto.text-lg.leading-8.max-w-screen-md.pb-14.border-bottom We are a growing organization, who builds long lasting relationships with our clients, and gets things done. As of this point in time Jabodent has only one employee, the Founder and Principal Partner John A.B Oyedeji.
 

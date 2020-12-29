@@ -25,7 +25,7 @@ block hero
           .text-sm.pt-2.font-normal.tracking-widest.uppercase scroll
 
   section.bg-black.text-white.w-full.scroll-point
-    .px-5.mx-auto.w-full.max-w-screen-md.py-24(class="lt-md:py-12")
+    .px-5.mx-auto.w-full.max-w-screen-md.py-24(class="lt-md:py-12 2xl:max-w-screen-lg")
       h3.text-2xl.mb-6.font-bold.intro-animation About Us
       p.leading-8.text-lg.intro-animation We are an independent marine specialist organization inspired to serve the Marine Oil and Gas communities with reliable and consistent delivery.
       .mt-16.intro-animation
@@ -35,13 +35,13 @@ block hero
 
 block content
   section.theme-surface.theme-text
-    .px-5.pt-8.mx-auto.w-full.max-w-screen-md(class="md:pt-24").intro-animation
+    .px-5.pt-8.mx-auto.w-full.max-w-screen-md(class="md:pt-24 2xl:max-w-screen-lg").intro-animation
       h3.text-2xl.mb-6.font-bold.intro-animation Mission & Vision
       p.leading-8.text-lg.intro-animation Our Vision is to be a leading African Marine, Oil and Gas player with global brand visibility by the year 2023. Our Mission is to deliver customer centric, innovative, well priced services.
 
     .text-black.flex.w-full.pt-12
       .flex-grow
-      section.bg-secondary.w-full.max-w-screen-md.text-lg
+      section.bg-secondary.w-full.max-w-screen-md.text-lg(class="2xl:max-w-screen-lg")
         .py-12.px-5.w-full(class="sm:px-10")
           h3.text-2xl.mb-6.font-bold Skills & Services
 
@@ -59,7 +59,7 @@ block content
             +learn-more("./services.html", "Take a look at the full list of services we offer.")
       .flex-grow.bg-secondary
 
-    .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5
+    .mx-auto.w-full.max-w-screen-lg.flex.flex-wrap.overflow-hidden.py-5(class="2xl:max-w-screen-xl")
       section.col.px-5(class="sm:max-w-1/2 md:max-w-1/4")
         .w-full.flex.mx-auto.my-5
           .h-12.w-12.flex.justify-center.bg-secondary.mr-5
@@ -101,7 +101,7 @@ block content
         figclass: "theme-surface  w-full min-h-300"
       })(width="100vw" height="300px")
     .px-16.py-24.w-full.relative.gradient.theme-text(class="md:w-10/12")
-      section.max-w-screen-md.mx-auto
+      section.max-w-screen-md.mx-auto(class="2xl:max-w-screen-lg")
         section.relative.max-width
           h3.text-3xl.mb-10.font-bold Why Choose Us?
           section
@@ -119,7 +119,7 @@ block content
           .mt-16.text-lg
             +learn-more("./services.html", "Find out how we deliver quality in all our services.")
 
-  section.carousel.theme-surface.relative.pt-6(data-block="Carousel")
+  section.carousel.theme-surface.relative.pt-6#Carousel(data-block="Carousel")
     h3.theme-text.text-3xl.font-medium.text-center Clients & Testimonials
     +carousel-buttons
 

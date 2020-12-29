@@ -1,13 +1,11 @@
-import { Service, _URL } from "../framework/api";
+import { Service } from "@okikio/native";
 
 export class Navbar extends Service {
     public navbar: HTMLElement;
     public elements: HTMLElement[];
     public menu: HTMLElement;
 
-    constructor() {
-        super();
-
+    public init() {
         // Elements
         this.navbar = document.querySelector(".navbar") as HTMLElement;
         this.elements = Array.prototype.slice.call(
@@ -53,31 +51,38 @@ export class Navbar extends Service {
     public activateLink() {
         let { href } = window.location;
 
-        for (let item of this.elements) {
-            let itemHref =
-                item.getAttribute("data-path") ||
-                (item as HTMLAnchorElement).href;
-            if (!itemHref || itemHref.length < 1) continue;
+        requestAnimationFrame(() => {
+            for (let item of this.elements) {
+                let itemHref =
+                    item.getAttribute("data-path") ||
+                    (item as HTMLAnchorElement).href;
+                if (!itemHref || itemHref.length < 1) continue;
 
-            let URLmatch = new RegExp(itemHref).test(href);
-            requestAnimationFrame(() => {
+                let URLmatch = new RegExp(itemHref).test(href);
                 let isActive = item.classList.contains("active");
                 if (!(URLmatch && isActive)) {
                     item.classList[URLmatch ? "add" : "remove"]("active");
                 }
-            });
-        }
+            }
+        });
     }
 
     public initEvents() {
-        this.EventEmitter.on("READY", this.activateLink, this);
-        this.EventEmitter.on("GO", this.activateLink, this);
         this.navbar.addEventListener("click", this.click);
+        this.emitter.on("READY", this.activateLink, this);
+        this.emitter.on("GO", this.activateLink, this);
     }
 
     public stopEvents() {
-        this.EventEmitter.off("READY", this.activateLink, this);
-        this.EventEmitter.off("GO", this.activateLink, this);
         this.navbar.removeEventListener("click", this.click);
+        this.emitter.off("READY", this.activateLink, this);
+        this.emitter.off("GO", this.activateLink, this);
+    }
+
+    public uninstall() {
+        this.navbar = undefined;
+        while (this.elements.length) this.elements.pop();
+        this.elements = undefined;
+        this.menu = undefined;
     }
 }
