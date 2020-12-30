@@ -509,9 +509,9 @@ task("inline", async () => {
                                 "min-h-400",
                                 "min-h-500",
                                 "searching",
-                                // "active",
                                 // "focus",
                                 /-webkit-scrollbar/,
+                                /active/,
                                 /show/,
                                 /hide/,
                                 /light/,
@@ -578,24 +578,14 @@ task("watch", async () => {
         }
     );
 
+    watch([`${pugFolder}/pages/**/*.pug`], { delay: 100 }, series(`app-html`));
     watch(
-        [
-            `${pugFolder}/pages/**/*.pug`
-        ],
-        { delay: 100 },
-        series(`app-html`)
-    );
-    watch(
-        [
-            `${pugFolder}/layouts/person.pug`
-        ],
+        [`${pugFolder}/layouts/person.pug`],
         { delay: 100 },
         series(`team-html`, parallel("indexer", "reload"))
     );
     watch(
-        [
-            `${pugFolder}/layouts/service.pug`
-        ],
+        [`${pugFolder}/layouts/service.pug`],
         { delay: 100 },
         series(`services-html`, parallel("indexer", "reload"))
     );

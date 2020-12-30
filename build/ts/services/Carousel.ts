@@ -45,9 +45,9 @@ export class Carousel extends Service {
     public waitForResize: boolean;
 
     public init() {
-        let rootEl = document.querySelector(`#Carousel`) as HTMLElement;
-        if (rootEl) {
-            this.rootElement = rootEl;
+        this.rootElement = document.querySelector(`#Carousel`) as HTMLElement;
+        if (this.rootElement) {
+            this.rootElement.classList.add("active");
             this.container = this.rootElement.getElementsByClassName(
                 "carousel-container"
             )[0] as HTMLElement;

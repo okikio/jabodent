@@ -267,7 +267,8 @@ $delay: 0.8s;
         height: 100vh;
         pointer-events: none;
         contain: layout size;
-        will-change: opacity;
+        transform: translateZ(0);
+        // will-change: transform;
 
         &.show {
             opacity: 1;
@@ -418,6 +419,7 @@ html.no-scroll {
 /* total width */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 /* background of the scrollbar except button or resizer */
@@ -793,16 +795,26 @@ img {
 
 .carousel {
     touch-action: pan-y;
+    &.active {
+        & .carousel-container {
+            touch-action: pan-y;
+            overflow: hidden;
+        }
+
+        & .carousel-dots {
+            display: block;
+        }
+    }
 
     &-container {
-        overflow: hidden;
+        scroll-snap-type: x mandatory;
+        overflow: auto;
         position: relative;
         display: block;
         cursor: move;
         cursor: grab;
         height: 464px;
         width: 100%;
-        touch-action: pan-y;
     }
 
     &-viewport {
@@ -826,6 +838,10 @@ img {
             -o-user-select: none;
             user-select: none;
         }
+    }
+
+    &-dots {
+        display: none;
     }
 
     &-dot {
@@ -919,10 +935,10 @@ img {
         border-radius: 999px;
 
         &:before {
-            $x: -50%;
+            $x: 0; // -50%;
 
             // animation: scrolldown 1.5s ease-out infinite;
-            margin: 8px 0;
+            margin: 8px auto;
             transform: translate($x, 0) scaleY(1);
             background-color: currentColor;
             height: 15px;
@@ -932,9 +948,9 @@ img {
             width: 2px;
             background-color: currentColor;
             transform-origin: center 0;
-            position: absolute;
-            left: 50%;
-            top: 8px + $height / 2;
+            // position: absolute;
+            // left: 50%;
+            // top: 8px + $height / 2;
 
             @keyframes scrolldown {
                 0% {
