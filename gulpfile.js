@@ -578,7 +578,7 @@ task("watch", async () => {
         }
     );
 
-    watch([`${pugFolder}/pages/**/*.pug`], { delay: 100 }, series(`app-html`));
+    watch([`${pugFolder}/pages/**/*.pug`], { delay: 100 }, series(`app-html`, "reload"));
     watch(
         [`${pugFolder}/layouts/person.pug`],
         { delay: 100 },

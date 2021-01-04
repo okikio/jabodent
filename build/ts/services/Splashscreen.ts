@@ -40,9 +40,6 @@ export class Splashscreen extends Service {
                     rootElementAnim.onfinish = rootElementAnimFinish;
                 } else { rootElementAnimFinish(); }
 
-
-
-
                 let overlayElAnimFinish = () => {
                     this.overlayEl.style.opacity = `0`;
                     this.overlayEl.style.visibility = "hidden";
@@ -54,8 +51,6 @@ export class Splashscreen extends Service {
                 if (overlayElAnim) {
                     overlayElAnim.onfinish = overlayElAnimFinish;
                 } else { overlayElAnimFinish(); }
-
-
 
 
                 let innerElAnimFinish = () => {
