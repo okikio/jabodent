@@ -17,18 +17,18 @@ module.exports = {
 
       A graduate of Manufacturing Engineering BSC from the John Moores University,Liverpool, school of Maritime Studies, college of Further Education, Plymouth, United Kingdom, A Class 1 Marine Engineering Certificate of Competency issued by MCA. He has over 43 years Experience in the Marine, Oil and Gas industry with position ranging from onboarding Chief Engineer in the Nigeria National shipping Lines (NNSL), Ships inspector/surveyor for Nigerian government, Non Exclusive Classification Society Surveyor for DNV and Principal Surveyor in-charge for Nigeria and angola with the American Bureau of Shipping (ABS)`,
         },
-        //     {
-        //         name: "Elizabeth Ufuoma A.",
-        //         role: "Engineer, Managing Director, IT Specialist",
-        //         keywords:
-        //             "engineer, managing director, it specialist, nigerian, bachelor of engineering, architect, managing partner, computer engineering, leader, visionary",
-        //         image: {},
-        //         description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
+            {
+                name: "Elizabeth Ufuoma A",
+                role: "Engineer, Managing Director, IT Specialist",
+                keywords:
+                    "engineer, managing director, it specialist, nigerian, bachelor of engineering, architect, managing partner, computer engineering, leader, visionary",
+                image: {},
+                description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
 
-        //         story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Engineering, Master of Architecture 1995, Managing Partner and IT Specialist
+                story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Engineering, Master of Architecture 1995, Managing Partner and IT Specialist
 
-        //   Managing Partner and IT Specialist Engr. ELIZABETH UFUOMA .A. is a Managing Partner and IT Specialist, a graduate from the Computer Engineering Department University of Benin, Edo State, and Nigeria. Over 8 years' experience as a Business owner, excellent leadership skills and visionary personality.`,
-        //     },
+          Managing Partner and IT Specialist Engr. ELIZABETH UFUOMA .A. is a Managing Partner and IT Specialist, a graduate from the Computer Engineering Department University of Benin, Edo State, and Nigeria. Over 8 years' experience as a Business owner, excellent leadership skills and visionary personality.`,
+            },
     ].map((person) => {
         let pageURL = `${person.name
             .toLowerCase()
@@ -84,7 +84,7 @@ module.exports = {
             article:
                 "Purchasing a Marine facility is a very capital intensive venture and absolute care is necessary to ensure you get the value for your money’s worth.\n\n A condition and value survey (in this case pre-purchase survey) is possibly the most comprehensive and detailed type of survey and it's a prerequisite in the buying of marine oil and gas facilities as surveyors inspects facilities as per their Class notations, ages, maintenance history and compliance to various standard e.g. Classiﬁcation society, Flag administrations, USCG, API.\n\nThese surveys are mostly conducted aﬂoat and on the dock as status reveals with an inclusion of sea trials.\n\n All ﬁndings during the survey are noted and clearly explained in the written survey report.\n\n An appraisal of the facilities/equipment fair market value in comparison to actual selling prices of comparable facilities/equipment is also included.\n\n These survey and value inspection could also be utilized for insurance and ﬁnancing purposes and JOCL survey reports are acceptable by all insurance companies.\n\n A Condition and Value Survey can also be used for insurance and ﬁnancing purposes.",
         },
-        {
+        /* {
             title: "INSURANCE / APPRAISAL SURVEY",
             image: {
                 src: "cloudinary/calm-water",
@@ -97,7 +97,7 @@ module.exports = {
                 "inspection of facility/equipment survey, insurance/appraisal survey",
             article:
                 "This form of survey is a summarized version of condition and value survey which mostly includes close visual inspection of structures and facility/equipment function- ability with concentration on worthiness and safety of the facility/equipment, the appraisal will also treat the fair market value. JOCL insurance/appraisal survey reports are acceptable by all insurance companies and ﬁnancing institutions.",
-        },
+        }, */
         {
             title: "ON AND OFF HIRE BUNKER / CONDITION SURVEYS",
             image: {
@@ -205,7 +205,7 @@ module.exports = {
             article:
                 'There is a saying that "failure to plan, is planning to fail", maintenance of equipment installed on your facility is top priority as this is a function of the facilities reliability, consistency, safety of personnel, assets and the environment.\n\n JOCL have made planned maintenance system an off the shelf process as our expertise goes beyond hookup, we start the process by evaluating your facility, your requirement which includes the capacity to which you want the planned maintenance system (PMS) to function, it could be used for maintenance purpose only or used for maintenance monitoring, requisition, HSE management and others. \n\nWe provide ﬂexible speciﬁcation of required maintenance integration with spare inventory, all class surveys and survey check sheets.\n\n JOCL Marine Chief Engineers will embark your facility to populate every details concerning installed equipment, this can be done on newly built facilities or existing facilities, history of repeated failures and incident will be factored into the maintenance system and Future prediction can be instituted in the system.\n\n JOCL machines planned maintenance system to suit speciﬁc needs.',
         },
-        {
+        /* {
             title: "MARINE ENGINEERING / NAVAL ARCHITECTURE",
             image: {
                 src: "cloudinary/dock-cargo-ship",
@@ -217,7 +217,7 @@ module.exports = {
             keywords: "marine engineering, naval architecture",
             article:
                 "Marine Engineering / Naval Architecture are closely knitted as both serves the discipline of dealing with Engineering designs, Engineering of ships, oil rigs and other marine vessels and structures, maintenance and operation of marine vessels and structures.\n\n JOCL provides a total package for marine Engineering services and design solutions with consideration to clients physical and budgetary need epitomize in reality. \n\nIf you are looking at designing commercial vessels, oil exploration platforms, Floating Storage and Ofﬂoading vessels (FSO), Floating Production, Storage and Ofﬂoading vessels (FPSO), Platform supply vessels and anchor handling tug supply vessels, JOCL is the leading Marine Engineering provider to satisfy all designs that meets both statutory and non-statutory requirement.",
-        },
+        }, */
         {
             title: "DRY DOCK CONSULTANTS",
             image: {
@@ -230,7 +230,7 @@ module.exports = {
             article:
                 "As easy as it sounds, planning for dry dock, searching for dock space, evaluating quotation considering optimum ships repair cost, preparing drawings, procurement of essential spare part, logistics of expert technicians for specialized equipment maintenance and repairs, aligning of class surveyors and ﬂag administration surveyors and execution of the dry dock is mostly not as easy as it sounds. \n\nAs the space between charter are mostly tight, proper planning for vessels dry dock is a top priority for us at JOCL as we know that dry dock is an expensive process that requires systematic and efﬁcient planning and cost estimation to minimize overhead cost. \n\n Experience harnessed from our long term service as Chief Engineers, technical superintendent, technical managers and classiﬁcation society principal surveyor, JOCL have developed a well-tested system that integrates the planning phase to the execution phase and completing phase of Your vessels dry dock, we will closely work with your personnel from start to ﬁnish to ensure delivery in the shortest of time practicable.",
         },
-        {
+        /* {
             title: "HIRING OF MARINE EQUIPMENTS AND SPECIALIST",
             image: {
                 src: "cloudinary/navigating-seamen",
@@ -241,7 +241,7 @@ module.exports = {
                 "JOCL operates locally and internationally serving the needs of our customers in hiring of marine equipment and routine and non-routine maintenance of marine equipment that are hired from us, our clients includes shipyards, offshore companies, ship owners, and operators and suppliers of marine equipment, systems and services.",
             article:
                 "JOCL operates locally and internationally serving the needs of our customers in hiring of marine equipment and routine and non- routine maintenance of marine equipment that are hired from us, our clients includes shipyards, offshore companies, ship owners, and operators and suppliers of marine equipment, systems and services. \n\nOur expertise goes beyond sourcing for the Equipment; we give you a sense of comfort and reliability because for every equipment we lease out to you, there is a standby in the case of an emergency. Equipment for hire is as listed below: \n\n 1. Diesel Power Generating plant \n2. Inﬂatable and Rigid Fast Rescue Boat 3. Assorted horse power Speed boat Engines \n4. Portable hydraulic or Pneumatic operated winches (1 Ton-30 Tons) \n5. Heavy duty winches (30Tons-150Tons) \n6. Load Cells (50 Tons-500Tons) \n7. Assorted load test water bags (20Tons- 100Tons) \n8. Mobile Cranes (5Tons – 100 Tons) \n9. Sea Going Dumb Barges (1000 GRT -3150 GRT) \n10. Sea Going Tugs (20Tons-150Tons Bollard pull) \n11. Fast Supply Intervention Vessels (FSIV).",
-        },
+        }, */
         {
             title: "SPECIALIST TECHNICIAN AND ENGINEERS",
             image: {

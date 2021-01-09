@@ -82,7 +82,7 @@ try {
 
 
         // On the about, services, contact, and 404 pages use a dark color scheme for text
-        if (/(about(.html)?)|(services(.html)?$)|(contact(.html)?)/g.test(pathname) ||
+        if (/(about(.html)?)|(service(.html)?$)|(contact(.html)?)/g.test(pathname) ||
             document.title.includes("404"))
             navbar.classList.add("dark");
         else if (navbar.classList.contains("dark")) navbar.classList.remove("dark");

@@ -116,6 +116,7 @@ export class Carousel extends Service {
 
             this.setHeight();
             this.addCarouselEvents();
+            console.log("Carousel is Ready"); 
         }
     }
 
@@ -169,6 +170,9 @@ export class Carousel extends Service {
         this.viewportWidth = this.width * this.slideLen;
         this.maxX = -(this.viewportWidth - window.innerWidth + this.width / 4);
         this.minX = this.width / 4;
+
+        this.maxX = this.round(this.toPercent(this.maxX));
+        this.minX = this.round(this.toPercent(this.minX));
         this.setHeight();
     }
 
@@ -267,9 +271,7 @@ export class Carousel extends Service {
     public setCurrentX(value: number) {
         this.currentX = this.toPercent(value);
 
-        let maxX = this.toPercent(this.maxX);
-        let minX = this.toPercent(this.minX);
-        this.currentX = Math.min(Math.max(this.currentX, maxX), minX);
+        this.currentX = Math.min(Math.max(this.currentX, this.maxX), this.minX);
     }
 
     public select(index: number) {
@@ -282,15 +284,24 @@ export class Carousel extends Service {
         if (this.rAF === null) this.requestAnimationFrame(); //
     }
 
+    public round(num: number) {
+        return Math.floor(num * 100) / 100;
+    }
+
     public run() {
+
         this.requestAnimationFrame();
 
-        let lastX = Math.floor(Math.abs(this.lastX) * 100) / 100;
-        let currentX = Math.floor(Math.abs(this.currentX) * 100) / 100;
-        console.log("Carousel is Running"); // , { lastX, currentX }
+        let lastX = this.round(Math.abs(this.lastX));
+        let currentX = this.round(Math.abs(this.currentX));
+
+        let actualCurrentX = this.round(this.currentX);
+        console.log("Carousel is Running", this.maxX, actualCurrentX); // { lastX, currentX, minX, maxX }
 
         // No point in requesting animation frame, when you know nothing is going to change
-        if (Math.abs(lastX - currentX) > 0) {
+        if (Math.abs(lastX - currentX) > 0 || 
+            Math.abs(actualCurrentX - this.maxX) <= 5 || 
+            Math.abs(actualCurrentX - this.minX) <= 5) {
             if (!this.isScrolling && !this.snapOnce) {
                 this.snap();
                 this.snapOnce = true;

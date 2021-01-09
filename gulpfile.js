@@ -564,14 +564,19 @@ task("watch", async () => {
     browserSync.init(
         {
             notify: true,
-            server: destFolder,
+            server:  {
+                baseDir: destFolder,
+                serveStaticOptions: {
+                    extensions: ["html"],
+                },
+            },
             online: true,
             scrollThrottle: 250,
         },
         (_err, bs) => {
             bs.addMiddleware("*", (_req, res) => {
                 res.writeHead(302, {
-                    location: `/404.html`,
+                    location: `/404`,
                 });
                 res.end("404 Error");
             });
@@ -592,7 +597,7 @@ task("watch", async () => {
     watch(
         [
             `${pugFolder}/layouts/layout.pug`,
-            `${pugFolder}/components/*.pug`,
+            `${pugFolder}/components/**/*.pug`,
             dataPath,
             iconPath,
         ],

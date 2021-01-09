@@ -23,7 +23,7 @@ mixin footer()
           })
 
           +link({
-            href: "/services",
+            href: "/service",
             class: "hover:underline",
             content: "Our Services"
           })
@@ -40,26 +40,31 @@ mixin footer()
             content: "Our Blog"
           })
 
-      section.col(class="sm:max-w-4/12 lt-md:mt-12 md:text-right")
+      section.col(class="sm:max-w-4/12 lt-md:mt-12 sm:text-right")
         p.leading-8.font-medium
           span
             | Plot E10A, Close 51, VGC Lekki
             br
             | Peninsular, Lagos, Nigeria.
             br
-          span.underline
+          
+          .mt-10.space-y-2.underline
             +link({
               href: "tel:+2348033324072",
-              class: "hover:underline",
+              class: "hover:underline block",
               content: "+2348033324072"
             })
-            br
             +link({
               href: "mailto:info@jabodent.com",
-              class: "hover:underline",
+              class: "hover:underline block",
               content: "info@jabodent.com"
             })
-        .mt-10.space-x-2.text-2xl
+            +link({
+              href: "/404",
+              class: "hover:underline block",
+              content: "Linkedin"
+            })
+        //- .mt-10.space-x-2.text-2xl
           +link({
             href: "/404",
             class: "hover:underline",

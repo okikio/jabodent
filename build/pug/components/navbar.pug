@@ -22,7 +22,7 @@ mixin navbar(page)
               data_path: "/about(.html)?"
             },
             {
-              href: "/services",
+              href: "/service",
               content: "Our Services",
               data_path: "/service(.html|s\/)?"
             },
@@ -39,19 +39,19 @@ mixin navbar(page)
             content: val.content
           })(data-path=val.data_path)
 
-        +link({
-          href: "/404",
-          class: `block navbar-link navbar-item md:hidden`,
-          content: "Our Blog"
-        })
+        //- +link({
+        //-   href: "/404",
+        //-   class: `block navbar-link navbar-item md:hidden`,
+        //-   content: "Our Blog"
+        //- })
 
       section.navbar-height.flex.w-full.whitespace-no-wrap.relative
         .flex-grow
-        +link({
-          href: "/404",
-          class: `hidden navbar-link navbar-item md:block`,
-          content: "Our Blog"
-        })
+        //- +link({
+        //-   href: "/404",
+        //-   class: `hidden navbar-link navbar-item md:block`,
+        //-   content: "Our Blog"
+        //- })
 
         button.hide-no-script.search-btn.block.navbar-icon.cursor-pointer.group(type="button", aria-label="Search button" role="button", title="Search")
           div(class="rounded-full flex justify-c-center w-12 h-12 lt-sm:w-8 lt-sm:w-8 mx-auto hover:border-black focus:outline-none text-xl")
