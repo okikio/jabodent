@@ -289,14 +289,13 @@ export class Carousel extends Service {
     }
 
     public run() {
-
         this.requestAnimationFrame();
 
         let lastX = this.round(Math.abs(this.lastX));
         let currentX = this.round(Math.abs(this.currentX));
 
         let actualCurrentX = this.round(this.currentX);
-        console.log("Carousel is Running", this.maxX, actualCurrentX); // { lastX, currentX, minX, maxX }
+        // console.log("Carousel is Running"); // { lastX, currentX, minX, maxX }
 
         // No point in requesting animation frame, when you know nothing is going to change
         if (Math.abs(lastX - currentX) > 0 || 
