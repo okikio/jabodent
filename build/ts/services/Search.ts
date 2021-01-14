@@ -124,19 +124,17 @@ export class Search extends Service {
 
         this.active = !this.active;
         return new Promise<void>((resolve) => {
-            requestAnimationFrame(() => {
-                this.navbar.blur();
-                this.navbar.classList.toggle("focus", !this.active);
-                this.navbar.classList.contains("active") &&
-                    this.navbar.classList.remove("active");
+            this.navbar.blur();
+            this.navbar.classList.toggle("focus", !this.active);
+            this.navbar.classList.contains("active") &&
+                this.navbar.classList.remove("active");
 
-                this.navbar.classList.toggle("searching", this.active);
-                this.overlay.classList.toggle("show", this.active);
-                this.rootElement.classList.toggle("show", this.active);
+            this.navbar.classList.toggle("searching", this.active);
+            this.overlay.classList.toggle("show", this.active);
+            this.rootElement.classList.toggle("show", this.active);
 
-                this.active && this.input.focus();
-                resolve();
-            });
+            this.active && this.input.focus();
+            resolve();
         });
     }
 
@@ -185,11 +183,9 @@ export class Search extends Service {
     }
 
     clearBtnClick() {
-        requestAnimationFrame(() => {
-            (this.input as HTMLInputElement).value = "";
-            this.value = "";
-            this.resetResults();
-        });
+        (this.input as HTMLInputElement).value = "";
+        this.value = "";
+        this.resetResults();
     }
 
     public initEvents() {
@@ -257,10 +253,8 @@ export class Search extends Service {
 
     public noResults() {
         this.removeResults();
-        requestAnimationFrame(() => {
-            this.newSearch.classList.remove("show");
-            this.noResultsEl.classList.remove("hide");
-        });
+        this.newSearch.classList.remove("show");
+        this.noResultsEl.classList.remove("hide");
     }
 
     public addResult({
@@ -275,38 +269,32 @@ export class Search extends Service {
         keywords: string;
     }) {
         let el = document.createElement("a");
-        requestAnimationFrame(() => {
-            el.href = `${href}`;
-            el.className =
-                "search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35 block";
-            el.innerHTML = `
+        el.href = `${href}`;
+        el.className =
+            "search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35 block";
+        el.innerHTML = `
             <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
             <p>${description}</p>
             <p class="mt-5 italic text-3">Keywords: ${keywords}</p>`;
-            this.results.appendChild(el);
-            el = undefined;
-        });
+        this.results.appendChild(el);
+        el = undefined;
     }
 
     public resetResults() {
         this.removeResults();
 
-        requestAnimationFrame(() => {
-            this.newSearch.classList.add("show");
-            this.noResultsEl.classList.add("hide");
-            this.active && this.input.focus();
-        });
+        this.newSearch.classList.add("show");
+        this.noResultsEl.classList.add("hide");
+        this.active && this.input.focus();
     }
 
     public removeResults() {
         let firstChild = this.results.firstChild;
 
-        requestAnimationFrame(() => {
-            while (firstChild) {
-                this.results.removeChild(firstChild);
-                firstChild = this.results.firstChild;
-            }
-            firstChild = undefined;
-        });
+        while (firstChild) {
+            this.results.removeChild(firstChild);
+            firstChild = this.results.firstChild;
+        }
+        firstChild = undefined;
     }
 }

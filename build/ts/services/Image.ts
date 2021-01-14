@@ -14,9 +14,7 @@ export class Image extends Service {
         (async () => {
             await this.test_webp();
             this.get_images();
-            requestAnimationFrame(() => {
-                this.load_img();
-            });
+            this.load_img();
         })();
     }
 

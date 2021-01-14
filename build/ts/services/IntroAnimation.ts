@@ -61,19 +61,15 @@ export class IntroAnimation extends Service {
     }
 
     public uninstall() {
-        requestAnimationFrame(() => {
-            for (let el of this.entries) {
-                (el as HTMLElement).style.opacity = "1";
-            }
-        });
+        for (let el of this.entries) {
+            (el as HTMLElement).style.opacity = "1";
+        }
     }
 
     public prepareToShow() {
-        requestAnimationFrame(() => {
-            for (let el of this.entries) {
-                (el as HTMLElement).style.opacity = "0";
-            }
-        });
+        for (let el of this.entries) {
+            (el as HTMLElement).style.opacity = "0";
+        }
     }
 
     public async show() {
@@ -83,10 +79,8 @@ export class IntroAnimation extends Service {
             delay(i: number) {
                 return 300 * (i);
             },
-            onfinish: (el: { style: { opacity: string, visibility: string } }) => {
-                requestAnimationFrame(() => {
+            onfinish(el) {
                     el.style.opacity = "1";
-                });
             },
             easing: "ease-out",
             duration: 650,

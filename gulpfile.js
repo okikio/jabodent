@@ -120,6 +120,7 @@ tasks({
         let data = require(resolve);
         let icons = require(iconResolve);
         return stream(`${pugFolder}/pages/**/*.pug`, {
+            opts: { ignoreInitial: false },
             pipes: [
                 plumber(), // Recover from errors without cancelling build task
                 // Compile src html using Pug
@@ -153,6 +154,7 @@ tasks({
             let service = values[i];
             let { pageURL } = service;
             let page = stream(`${pugFolder}/layouts/service.pug`, {
+                opts: { ignoreInitial: false },
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
@@ -201,6 +203,7 @@ tasks({
             let person = team[i];
             let { pageURL } = person;
             let page = stream(`${pugFolder}/layouts/person.pug`, {
+                opts: { ignoreInitial: false },
                 pipes: [
                     plumber(), // Recover from errors without cancelling build task
                     // Compile src html using Pug
@@ -227,8 +230,16 @@ tasks({
 
         return streamList(pages);
     },
+    "refresh-require": (done) => {
+        delete require.cache[resolve];
+        delete require.cache[iconResolve];
+        done();
+    },
 
-    html: parallelFn("app-html", "services-html", "team-html"),
+    html: seriesFn(
+        parallelFn("app-html", "services-html", "team-html"),
+        "refresh-require"
+    ),
 });
 
 let browserSync;
@@ -564,7 +575,7 @@ task("watch", async () => {
     browserSync.init(
         {
             notify: true,
-            server:  {
+            server: {
                 baseDir: destFolder,
                 serveStaticOptions: {
                     extensions: ["html"],
@@ -583,26 +594,25 @@ task("watch", async () => {
         }
     );
 
-    watch([`${pugFolder}/pages/**/*.pug`], { delay: 100 }, series(`app-html`, "reload"));
+    watch(
+        [`${pugFolder}/pages/**/*.pug`],
+        { delay: 100 },
+        series(`app-html`, parallel("refresh-require", "indexer", "reload"))
+    );
     watch(
         [`${pugFolder}/layouts/person.pug`],
         { delay: 100 },
-        series(`team-html`, parallel("indexer", "reload"))
+        series(`team-html`, parallel("refresh-require", "indexer", "reload"))
     );
     watch(
         [`${pugFolder}/layouts/service.pug`],
         { delay: 100 },
-        series(`services-html`, parallel("indexer", "reload"))
+        series(`services-html`, parallel("refresh-require", "indexer", "reload"))
     );
     watch(
-        [
-            `${pugFolder}/layouts/layout.pug`,
-            `${pugFolder}/components/**/*.pug`,
-            dataPath,
-            iconPath,
-        ],
-        { delay: 500 },
-        series(`html`, parallel("indexer", "reload"))
+        [`${pugFolder}/layouts/layout.pug`, `${pugFolder}/components/**/*.pug`, dataPath, iconPath],
+        { delay: 350 },
+        series(`html`, parallel("refresh-require", "indexer", "reload"))
     );
     watch(
         `${sassFolder}/**/*.scss`,

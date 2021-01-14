@@ -22,7 +22,12 @@ module.exports = {
                 role: "Engineer, Managing Director, IT Specialist",
                 keywords:
                     "engineer, managing director, it specialist, nigerian, bachelor of engineering, architect, managing partner, computer engineering, leader, visionary",
-                image: {},
+                image: {
+                    src: "cloudinary/cave-water",
+                    alt: "An image of a cave",
+                    class: "person",
+                    figclass: "min-h-400 lg:min-h-500",
+                },
                 description: `Safety management system manual (SMS) is an ofﬁcial document that depicts how a shipping company plans and implements policies to ensure safety of their ships and the marine environment`,
 
                 story: `<em>Nationality</em>: Nigerian\n<em>Qualifications</em>: Bachelor of Engineering, Master of Architecture 1995, Managing Partner and IT Specialist

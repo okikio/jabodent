@@ -4,27 +4,23 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Cache-Control: max-age=60, public
+  Cache-Control: max-age=600, public
   Accept-CH: DPR, Viewport-Width, Width
   X-UA-Compatible: IE=edge
-  Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://jabodent.netlify.app data:; script-src 'self' https://res.cloudinary.com https://polyfill.io; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
+  Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://okikio.dev data:; script-src 'self' https://res.cloudinary.com https://polyfill.io; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
   Permissions-Policy: geolocation=(), microphone=(), usb=(), sync-xhr=(self), camera=()
+  Link: </css/app.min.css>; rel=preload; as=style
   Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
   Link: </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
-  Link: </css/app.min.css>; rel=preload; as=style
-  Link: </js/theme.min.js>; rel=preload; as=script
   Link: <https://polyfill.io>; rel=preconnect; crossorigin
   Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
 
-/*.*
-  Cache-Control: public, max-age=300
-
 /css/*.css
-  Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=36000
   Content-Type: text/css
 
 /js/*.js
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=36000
   Content-Type: text/javascript
 
 /js/theme.min.js
