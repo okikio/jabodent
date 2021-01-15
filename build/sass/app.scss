@@ -38,6 +38,7 @@ html:not([data-theme]) {
 
     --text: #{map-get(map-get($theme, "text"), "dark")};
     --text-invert: #{map-get(map-get($theme, "text"), "light")};
+    background-color: map-get($colors, "bg-invert");
   }
   @media (prefers-color-scheme: light) {
     --bg: #{map-get(map-get($theme, "background"), "light")};
@@ -48,6 +49,7 @@ html:not([data-theme]) {
 
     --text: #{map-get(map-get($theme, "text"), "light")};
     --text-invert: #{map-get(map-get($theme, "text"), "dark")};
+    
   }
 }
 
@@ -73,7 +75,7 @@ html[data-theme="dark"] {
   --text-invert: #{map-get(map-get($theme, "text"), "light")};
 }
 
-@mixin applyTheme($property: background-color, $value: "bg") {
+@mixin applyTheme($property: background-color, $value: "bg") {  
   #{$property}: map-get($colors, $value);
   #{$property}: var(--#{$value}, map-get($colors, $value));
 }
