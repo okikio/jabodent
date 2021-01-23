@@ -74,7 +74,6 @@
         "tailwindcss": "^1.9.6",
         "through2": "^4.0.2",
         "ultra-runner": "^3.9.0",
-        "vercel": "^21.1.0",
         "vinyl-sourcemaps-apply": "^0.2.1"
     }
 }
