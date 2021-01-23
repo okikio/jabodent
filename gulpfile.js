@@ -70,7 +70,7 @@ tasks({
                 // Compile src html using Pug
                 pug({
                     ...pugConfig,
-                    data: { ...data, icons, netlify },
+                    data: { ...data, icons },
                 }),
             ],
             dest: htmlFolder,
@@ -110,8 +110,7 @@ tasks({
                                 len,
                                 next,
                                 service,
-                                icons,
-                                netlify,
+                                icons
                             },
                             data
                         ),
@@ -158,8 +157,7 @@ tasks({
                                 index: i,
                                 len,
                                 person,
-                                icons,
-                                netlify,
+                                icons
                             },
                             data
                         ),
