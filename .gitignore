@@ -116,3 +116,5 @@ coverage/
 docs/
 public/
 .vscode/settings.json
+
+.vercel
