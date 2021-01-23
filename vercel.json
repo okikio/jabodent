@@ -2,6 +2,55 @@
     "cleanUrls": true,
     "headers": [
         {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "max-age=36000, public"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-XSS-Protection",
+                    "value": "1; mode=block"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                },
+                {
+                    "key": "Strict-Transport-Security",
+                    "value": "max-age=63072000; includeSubDomains; preload"
+                },
+                {
+                    "key": "Accept-CH",
+                    "value": "DPR, Viewport-Width, Width"
+                },
+                {
+                    "key": "X-UA-Compatible",
+                    "value": "IE=edge"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://okikio.dev data:; script-src 'self' https://res.cloudinary.com https://polyfill.io; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';"
+                },
+                {
+                    "key": "Permissions-Policy",
+                    "value": "geolocation=(), microphone=(), usb=(), sync-xhr=(self), camera=()"
+                },
+                {
+                    "key": "Link",
+                    "value": "</css/app.min.css>; rel=preload; as=style, </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, <https://polyfill.io>; rel=preconnect; crossorigin, <https://res.cloudinary.com>; rel=preconnect; crossorigin"
+                }
+            ]
+        },
+        {
             "source": "/(css|js)/(.*)",
             "headers": [
                 {
@@ -51,55 +100,6 @@
                 {
                     "key": "Content-Type",
                     "value": "application/manifest+json"
-                }
-            ]
-        },
-        {
-            "source": "/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "max-age=3600, public"
-                },
-                {
-                    "key": "X-Frame-Options",
-                    "value": "DENY"
-                },
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-XSS-Protection",
-                    "value": "1; mode=block"
-                },
-                {
-                    "key": "Referrer-Policy",
-                    "value": "strict-origin-when-cross-origin"
-                },
-                {
-                    "key": "Strict-Transport-Security",
-                    "value": "max-age=63072000; includeSubDomains; preload"
-                },
-                {
-                    "key": "Accept-CH",
-                    "value": "DPR, Viewport-Width, Width"
-                },
-                {
-                    "key": "X-UA-Compatible",
-                    "value": "IE=edge"
-                },
-                {
-                    "key": "Content-Security-Policy",
-                    "value": "default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://okikio.dev data:; script-src 'self' https://res.cloudinary.com https://polyfill.io; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';"
-                },
-                {
-                    "key": "Permissions-Policy",
-                    "value": "geolocation=(), microphone=(), usb=(), sync-xhr=(self), camera=()"
-                },
-                {
-                    "key": "Link",
-                    "value": "</css/app.min.css>; rel=preload; as=style, </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, <https://polyfill.io>; rel=preconnect; crossorigin, <https://res.cloudinary.com>; rel=preconnect; crossorigin"
                 }
             ]
         }
