@@ -2,6 +2,6 @@ mixin link(arg = {})
   -
     let { content, href } = arg;
     let _class = arg.class || "layout-inline";
-    let _href = href ?? "/";
+    let _href = href == null || href == undefined ? "/" : href;
   a(href=_href class=_class)&attributes(attributes)= content
     block
