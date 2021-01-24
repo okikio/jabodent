@@ -1,8 +1,18 @@
 {
     "cleanUrls": true,
     "rewrites": [
-        { "source": "/polyfill/webanimations.js", "destination": "https://cdn.polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always" },
-      { "source": "/polyfill/polyfill.js", "destination": "https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView" }
+        {
+            "source": "/images/(.*)",
+            "destination": "https://res.cloudinary.com/okikio-assets/image/upload/$1"
+        },
+        {
+            "source": "/polyfill/webanimations.js",
+            "destination": "https://cdn.polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always"
+        },
+        {
+            "source": "/polyfill/polyfill.js",
+            "destination": "https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView"
+        }
     ],
     "headers": [
         {
@@ -73,6 +83,15 @@
             ]
         },
         {
+            "source": "/(polyfill|images)/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000"
+                }
+            ]
+        },
+        {
             "source": "/manifest.json",
             "headers": [
                 {
@@ -82,15 +101,6 @@
                 {
                     "key": "Content-Type",
                     "value": "application/manifest+json"
-                }
-            ]
-        },
-        {
-            "source": "/polyfill/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=31536000"
                 }
             ]
         }
