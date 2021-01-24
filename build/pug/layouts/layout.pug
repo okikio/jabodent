@@ -275,9 +275,9 @@ html(lang="en")
           +back-to-top
           +footer
 
-    script(src=`https://polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView` async)
+    script(src=`${self.jamstack ? "/polyfill/polyfill.js" : `https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView`}` async)
     script(src="/js/theme.min.js", async)
 
-    script(src=`https://polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always` async)
+    script(src=`${self.jamstack ? "/polyfill/webanimations.js" : `https://cdn.polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always`}` async)
     script(src="/js/legacy.min.js", nomodule defer)
     script(src="/js/modern.min.js", type="module" defer)

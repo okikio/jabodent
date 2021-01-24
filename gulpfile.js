@@ -14,14 +14,14 @@ const {
 } = require("./util");
 
 const dotenv =
-    "netlify" in process.env || "dev" in process.env
+    "jamstack" in process.env || "dev" in process.env
         ? process.env
         : require("dotenv");
 if (typeof dotenv.config === "function") dotenv.config();
 
 const env = process.env;
 const dev = "dev" in env ? env.dev == "true" : false;
-const netlify = "netlify" in env ? env.netlify == "true" : false;
+const jamstack = "jamstack" in env ? env.jamstack == "true" : false;
 
 // Origin folders (source and destination folders)
 const srcFolder = `build`;
@@ -70,7 +70,7 @@ tasks({
                 // Compile src html using Pug
                 pug({
                     ...pugConfig,
-                    data: { ...data, icons },
+                    data: { ...data, icons, jamstack },
                 }),
             ],
             dest: htmlFolder,
@@ -110,7 +110,8 @@ tasks({
                                 len,
                                 next,
                                 service,
-                                icons
+                                icons,
+                                jamstack,
                             },
                             data
                         ),
@@ -157,7 +158,8 @@ tasks({
                                 index: i,
                                 len,
                                 person,
-                                icons
+                                icons,
+                                jamstack
                             },
                             data
                         ),
@@ -509,7 +511,7 @@ task("reload", (resolve) => {
 
 // Delete destFolder for added performance
 task("clean", async (done) => {
-    if (netlify) return await Promise.resolve(done());
+    if (jamstack) return await Promise.resolve(done());
     const { default: del } = await import("del");
     return del(destFolder);
 });

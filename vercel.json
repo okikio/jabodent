@@ -1,5 +1,9 @@
 {
     "cleanUrls": true,
+    "rewrites": [
+        { "source": "/polyfill/webanimations.js", "destination": "https://cdn.polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always" },
+      { "source": "/polyfill/polyfill.js", "destination": "https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView" }
+    ],
     "headers": [
         {
             "source": "/(.*)",
@@ -55,7 +59,7 @@
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": "public, max-age=36000"
+                    "value": "public, max-age=31536000"
                 }
             ]
         },
@@ -73,7 +77,7 @@
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": "public, max-age=36000, immutable"
+                    "value": "public, max-age=31536000"
                 },
                 {
                     "key": "Content-Type",
@@ -82,24 +86,11 @@
             ]
         },
         {
-            "source": "/js/theme.min.js",
+            "source": "/polyfill/(.*)",
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": "public, max-age=31536000, immutable"
-                }
-            ]
-        },
-        {
-            "source": "/manifest.json",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=36000, immutable"
-                },
-                {
-                    "key": "Content-Type",
-                    "value": "application/manifest+json"
+                    "value": "public, max-age=31536000"
                 }
             ]
         }
