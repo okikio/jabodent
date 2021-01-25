@@ -1,3 +1,12 @@
+
+import { Promise as EsPromise } from 'es6-promise';
+
+let Promise: any = window.Promise;
+if (!Promise) { Promise = EsPromise; }
+window.Promise = Promise;
+
+import 'whatwg-fetch';
+
 import { go, highlight } from "fuzzysort";
 import stringify from "fast-stringify";
 

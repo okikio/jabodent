@@ -1,7 +1,9 @@
 dependencies:
   '@okikio/native': 2.0.4
+  es6-promise: 4.2.8
   fast-stringify: 2.0.0
   fuzzysort: 1.1.4
+  whatwg-fetch: 3.5.0
 devDependencies:
   '@fullhuman/postcss-purgecss': 4.0.0_postcss@8.2.4
   autoprefixer: 10.2.3_postcss@8.2.4
@@ -1592,6 +1594,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-p96IkUGgWpSwhUQDstCg+/qY87c=
+  /es6-promise/4.2.8:
+    dev: false
+    resolution:
+      integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
   /es6-symbol/3.1.3:
     dependencies:
       d: 1.0.1
@@ -5081,6 +5087,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
+  /whatwg-fetch/3.5.0:
+    dev: false
+    resolution:
+      integrity: sha512-jXkLtsR42xhXg7akoDKvKWE40eJeI+2KZqcp2h3NsOrRnDvtWX36KcKl30dy+hxECivdk2BVUHVNrPtoMBUx6A==
   /which-module/1.0.0:
     dev: true
     resolution:
@@ -5298,6 +5308,7 @@ specifiers:
   chalk: ^4.1.0
   del: ^6.0.0
   dotenv: ^8.2.0
+  es6-promise: ^4.2.8
   esbuild: ^0.8.34
   fancy-log: ^1.3.3
   fast-stringify: ^2.0.0
@@ -5330,3 +5341,4 @@ specifiers:
   typescript: ^4.1.3
   ultra-runner: ^3.9.0
   vinyl-sourcemaps-apply: ^0.2.1
+  whatwg-fetch: ^3.5.0

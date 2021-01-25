@@ -36,8 +36,10 @@
     "private": true,
     "dependencies": {
         "@okikio/native": "^2.0.4",
+        "es6-promise": "^4.2.8",
         "fast-stringify": "^2.0.0",
-        "fuzzysort": "^1.1.4"
+        "fuzzysort": "^1.1.4",
+        "whatwg-fetch": "^3.5.0"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^4.0.0",

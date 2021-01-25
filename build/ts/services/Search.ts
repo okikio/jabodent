@@ -102,7 +102,7 @@ export class Search extends Service {
 
     public toggle() {
         if (!this.worker) {
-            this.worker = new Worker("/js/FuzzySearch.min.js");
+            this.worker = new Worker("/js/worker.min.js");
 
             // Receive data from a worker
             this.worker.onmessage = (event) => {
