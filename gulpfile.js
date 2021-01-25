@@ -239,10 +239,6 @@ let terserOpts = {
     ecma: 5,
 };
 
-let babelOpts = {
-    presets: ["@babel/preset-env"],
-    minified: true,
-};
 tasks({
     "modern-js": async () => {
         const [
@@ -316,15 +312,27 @@ tasks({
         });
     },
     "js-es5": async () => {
-        const [{ default: babel }, { default: terser }] = await Promise.all([
-            import("gulp-babel"),
+        const [
+            { default: typescript },
+            { default: terser },
+        ] = await Promise.all([
+            import("gulp-typescript"),
             import("gulp-terser"),
         ]);
 
         return stream([`${jsFolder}/*.js`, `!${jsFolder}/modern.min.js`], {
             pipes: [
                 // Support for es5
-                babel(babelOpts),
+                typescript({
+                    target: "ES5",
+                    allowJs: true,
+                    noEmitOnError: true,
+                    sourceMap: false,
+                    declaration: false,
+                    isolatedModules: true,
+                }),
+
+                // Minify
                 terser(terserOpts),
             ],
             dest: jsFolder, // Output
