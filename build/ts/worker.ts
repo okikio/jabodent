@@ -1,9 +1,9 @@
 
 import { Promise as EsPromise } from 'es6-promise';
 
-let Promise: any = window.Promise;
+let Promise: any = self.Promise;
 if (!Promise) { Promise = EsPromise; }
-window.Promise = Promise;
+self.Promise = Promise;
 
 import 'whatwg-fetch';
 
