@@ -4,7 +4,7 @@ import { toArr } from "../toArr";
 //== Blocks
 let lerp = (a: number, b: number, n: number): number => (1 - n) * a + n * b;
 export class Carousel extends Service {
-    public ease: number = 0.325;
+    public ease: number = 0.0625;
     public speed: number = 1.95;
 
     public rootElement: HTMLElement;
