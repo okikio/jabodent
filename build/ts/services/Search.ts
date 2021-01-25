@@ -270,12 +270,11 @@ export class Search extends Service {
     }) {
         let el = document.createElement("a");
         el.href = `${href}`;
-        el.className =
-            "search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35 block";
-        el.innerHTML = `
-            <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>
-            <p>${description}</p>
-            <p class="mt-5 italic text-3">Keywords: ${keywords}</p>`;
+        el.className = "search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35 block";
+        el.innerHTML = `\
+        <h5 class="font-title text-xl search-result-title pb-2 mb-4">${title}</h5>\
+        <p>${description}</p>\
+        <p class="mt-5 italic text-3">Keywords: ${keywords}</p>`;
         this.results.appendChild(el);
         el = undefined;
     }

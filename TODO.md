@@ -7,4 +7,4 @@
 
 - [ ] Update Client & Testimonials
 - [ ] Update Team with new people including the Lady
-Update number of Years of Experience, Project Completed, Happy Clients, and Awards Won
+- [ ] Update number of Years of Experience, Project Completed, Happy Clients, and Awards Won

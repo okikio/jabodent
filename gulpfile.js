@@ -159,7 +159,7 @@ tasks({
                                 len,
                                 person,
                                 icons,
-                                jamstack
+                                jamstack,
                             },
                             data
                         ),
@@ -224,6 +224,25 @@ tasks({
 });
 
 // JS Tasks
+let terserOpts = {
+    keep_fnames: false, // change to true here
+    toplevel: true,
+    compress: {
+        dead_code: true,
+        pure_getters: true,
+    },
+    output: {
+        comments: /^!/,
+    },
+    safari10: false,
+    ie8: true,
+    ecma: 5,
+};
+
+let babelOpts = {
+    presets: ["@babel/preset-env"],
+    minified: true,
+};
 tasks({
     "modern-js": async () => {
         const [
@@ -262,7 +281,6 @@ tasks({
         const [
             { default: gulpEsBuild, createGulpEsbuild },
         ] = await Promise.all([import("gulp-esbuild")]);
-
         const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
@@ -293,6 +311,21 @@ tasks({
                     target: ["chrome58", "firefox57", "safari11", "edge16"],
                 }),
                 rename({ suffix: ".min", extname: ".js" }), // Rename
+            ],
+            dest: jsFolder, // Output
+        });
+    },
+    "js-es5": async () => {
+        const [{ default: babel }, { default: terser }] = await Promise.all([
+            import("gulp-babel"),
+            import("gulp-terser"),
+        ]);
+
+        return stream([`${jsFolder}/*.js`, `!${jsFolder}/modern.min.js`], {
+            pipes: [
+                // Support for es5
+                babel(babelOpts),
+                terser(terserOpts),
             ],
             dest: jsFolder, // Output
         });
@@ -597,7 +630,7 @@ task(
     series(
         "clean",
         parallel("html", "css", "js", "assets"),
-        parallel("indexer", "inline")
+        parallel("indexer", "inline", "js-es5")
     )
 );
 task(
