@@ -117,4 +117,8 @@ docs/
 public/
 .vscode/settings.json
 
+# Ignore package-lock.json
+package-lock.json
+
+# Ignore .vercel folder
 .vercel
