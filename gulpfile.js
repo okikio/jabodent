@@ -54,6 +54,9 @@ const pugConfig = {
     self: true,
 };
 
+// const plumber = require("gulp-plumber");
+// const pug = require("gulp-pug");
+const rename = require("gulp-rename");
 tasks({
     "app-html": async () => {
         const [{ default: plumber }, { default: pug }] = await Promise.all([
@@ -80,11 +83,11 @@ tasks({
         const [
             { default: plumber },
             { default: pug },
-            { default: rename },
+            // { default: rename },
         ] = await Promise.all([
             import("gulp-plumber"),
             import("gulp-pug"),
-            import("gulp-rename"),
+            // import("gulp-rename"),
         ]);
 
         let data = require(resolve);
@@ -130,11 +133,11 @@ tasks({
         const [
             { default: plumber },
             { default: pug },
-            { default: rename },
+            // { default: rename },
         ] = await Promise.all([
             import("gulp-plumber"),
             import("gulp-pug"),
-            import("gulp-rename"),
+            // import("gulp-rename"),
         ]);
 
         let data = require(resolve);
@@ -174,10 +177,10 @@ tasks({
 
         return streamList(pages);
     },
-    "refresh-require": (done) => {
+    "refresh-require": () => {
         delete require.cache[resolve];
         delete require.cache[iconResolve];
-        done();
+        return Promise.resolve();
     },
 
     html: seriesFn(
@@ -186,10 +189,10 @@ tasks({
     ),
 });
 
-let browserSync;
 // CSS Tasks
+let browserSync;
 tasks({
-    "app-css": async () => {
+    "app-css": () => {
         return stream(`${sassFolder}/*.scss`, {
             pipes: [
                 gulpSass({ outputStyle: "compressed" }).on(
@@ -198,6 +201,7 @@ tasks({
                 ),
             ],
             dest: cssFolder,
+            end: browserSync ? [browserSync.stream()] : undefined,
         });
     },
 
@@ -209,39 +213,17 @@ tasks({
         return stream(`${sassFolder}/tailwind.css`, {
             pipes: [postcss([tailwind("./tailwind.js")])],
             dest: cssFolder,
-        });
-    },
-
-    "reload-css": () => {
-        return stream(`${cssFolder}/*.css`, {
-            pipes: [],
-            dest: null,
             end: browserSync ? [browserSync.stream()] : undefined,
         });
     },
 
-    css: seriesFn(parallelFn("app-css", "tailwind-css"), "reload-css"),
+    css: parallelFn("app-css", "tailwind-css"),
 });
 
-// JS Tasks
-let terserOpts = {
-    keep_fnames: false, // change to true here
-    toplevel: true,
-    compress: {
-        dead_code: true,
-        pure_getters: true,
-    },
-    output: {
-        comments: /^!/,
-    },
-    safari10: false,
-    ie8: true,
-    ecma: 5,
-};
-
+// JS tasks
 tasks({
     "modern-js": async () => {
-        const [
+        let [
             { default: gulpEsBuild, createGulpEsbuild },
             { default: gzipSize },
             { default: prettyBytes },
@@ -251,7 +233,7 @@ tasks({
             import("pretty-bytes"),
         ]);
 
-        const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
+        let esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
@@ -274,10 +256,11 @@ tasks({
         });
     },
     "legacy-js": async () => {
-        const [
-            { default: gulpEsBuild, createGulpEsbuild },
-        ] = await Promise.all([import("gulp-esbuild")]);
-        const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
+        let { default: gulpEsBuild, createGulpEsbuild } = await import(
+            "gulp-esbuild"
+        );
+        let esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
+
         return stream(`${tsFolder}/${tsFile}`, {
             pipes: [
                 // Bundle Modules
@@ -292,12 +275,10 @@ tasks({
         });
     },
     "other-js": async () => {
-        const [
-            { default: gulpEsBuild, createGulpEsbuild },
-            { default: rename },
-        ] = await Promise.all([import("gulp-esbuild"), import("gulp-rename")]);
-
-        const esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
+        let { default: gulpEsBuild, createGulpEsbuild } = await import(
+            "gulp-esbuild"
+        );
+        let esbuild = mode == "watch" ? createGulpEsbuild() : gulpEsBuild;
         return stream([`${tsFolder}/*.ts`, `!${tsFolder}/${tsFile}`], {
             pipes: [
                 // Bundle Modules
@@ -311,29 +292,52 @@ tasks({
             dest: jsFolder, // Output
         });
     },
-    "js-es5": async () => {
-        const [
-            { default: typescript },
+    optimize: async () => {
+        let [
+            // { default: typescript },
+            { default: swc },
             { default: terser },
         ] = await Promise.all([
-            import("gulp-typescript"),
+            // import("gulp-typescript"),
+            import("gulp-swc"),
             import("gulp-terser"),
         ]);
 
         return stream([`${jsFolder}/*.js`, `!${jsFolder}/modern.min.js`], {
             pipes: [
                 // Support for es5
-                typescript({
+                /* typescript({
                     target: "ES5",
                     allowJs: true,
                     noEmitOnError: true,
                     sourceMap: false,
                     declaration: false,
                     isolatedModules: true,
+                }), */
+                swc({
+                    jsc: {
+                        target: "es5",
+                        parser: {
+                            // file use ecmascript
+                            syntax: "typescript",
+                        },
+                    },
                 }),
 
                 // Minify
-                terser(terserOpts),
+                terser({
+                    keep_fnames: false, // change to true here
+                    toplevel: true,
+                    // compress: {
+                    //     dead_code: true,
+                    //     pure_getters: true,
+                    // },
+                    compress: false,
+                    // output: {
+                    //     comments: /^!/,
+                    // },
+                    ecma: 5,
+                }),
             ],
             dest: jsFolder, // Output
         });
@@ -353,7 +357,7 @@ task("assets", () => {
 
 // Search Indexer
 task("indexer", async () => {
-    const [
+    let [
         { default: querySelector },
         { default: posthtml },
         { default: stringify },
@@ -368,7 +372,8 @@ task("indexer", async () => {
         import("path"),
         import("fancy-log"),
     ]);
-    const index = [];
+
+    let index = [];
     return stream([`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`], {
         opts: {
             base: htmlFolder,
@@ -434,7 +439,7 @@ task("indexer", async () => {
 
 // Inline assets
 task("inline", async () => {
-    const [
+    let [
         { default: minifyJSON },
         { default: querySelector },
         { default: posthtml },
@@ -543,16 +548,16 @@ task("inline", async () => {
 });
 
 // BrowserSync
-task("reload", (resolve) => {
+task("reload", () => {
     if (browserSync) browserSync.reload();
     delete require.cache[resolve];
     delete require.cache[iconResolve];
-    resolve();
+    return Promise.resolve();
 });
 
 // Delete destFolder for added performance
-task("clean", async (done) => {
-    if (jamstack) return await Promise.resolve(done());
+task("clean", async () => {
+    if (jamstack) return Promise.resolve();
     const { default: del } = await import("del");
     return del(destFolder);
 });
@@ -583,17 +588,14 @@ task("watch", async () => {
 
     watch(
         [`${pugFolder}/pages/**/*.pug`],
-        { delay: 100 },
         series(`app-html`, parallel("refresh-require", "indexer", "reload"))
     );
     watch(
         [`${pugFolder}/layouts/person.pug`],
-        { delay: 100 },
         series(`team-html`, parallel("refresh-require", "indexer", "reload"))
     );
     watch(
         [`${pugFolder}/layouts/service.pug`],
-        { delay: 100 },
         series(
             `services-html`,
             parallel("refresh-require", "indexer", "reload")
@@ -606,27 +608,20 @@ task("watch", async () => {
             dataPath,
             iconPath,
         ],
-        { delay: 350 },
         series(`html`, parallel("refresh-require", "indexer", "reload"))
     );
-    watch(
-        `${sassFolder}/**/*.scss`,
-        { delay: 100 },
-        series(`app-css`, "reload-css")
-    );
+    watch(`${sassFolder}/**/*.scss`, series(`app-css`));
     watch(
         [`${sassFolder}/tailwind.css`, `./tailwind.js`],
         { delay: 100 },
-        series(`tailwind-css`, "reload-css")
+        series(`tailwind-css`)
     );
     watch(
         [`${tsFolder}/**/*.ts`, `!${tsFolder}/*.ts`, `${tsFolder}/${tsFile}`],
-        { delay: 100 },
         series(parallelFn(`modern-js`, dev ? null : `legacy-js`), `reload`)
     );
     watch(
         [`!${tsFolder}/${tsFile}`, `${tsFolder}/*.ts`],
-        { delay: 100 },
         series(`other-js`, `reload`)
     );
     watch(`${assetsFolder}/**/*`, { delay: 500 }, series(`assets`, "reload"));
@@ -638,7 +633,7 @@ task(
     series(
         "clean",
         parallel("html", "css", "js", "assets"),
-        parallel("indexer", "inline", "js-es5")
+        parallel("indexer", "inline", "optimize")
     )
 );
 task(

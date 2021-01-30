@@ -1,5 +1,5 @@
 @tailwind base;
-@tailwind components;
+/* @tailwind components; */
 @tailwind utilities;
 
 .row {
@@ -8,7 +8,8 @@
 }
 
 .col {
-    @apply relative min-h-1 w-full flex-grow;
+    @apply relative min-h-1 w-full;
+    flex-grow: 1;
     flex-basis: 100%;
 }
 

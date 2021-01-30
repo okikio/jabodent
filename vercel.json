@@ -20,7 +20,7 @@
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": "max-age=36000, public"
+                    "value": "max-age=60, public"
                 },
                 {
                     "key": "X-Frame-Options",

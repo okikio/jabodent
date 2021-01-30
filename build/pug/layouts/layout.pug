@@ -229,6 +229,9 @@ html(lang="en")
               --text-invert: #000000;
           }
         }
+
+    script(src=`${self.jamstack ? "/polyfill/polyfill.js" : `https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView`}` defer)
+    script(src="/js/theme.min.js", defer)
   body
     .splashscreen-overlay.active(aria-hidden="true")
     .splashscreen.active(aria-hidden="true")
@@ -250,8 +253,8 @@ html(lang="en")
               +icon("clear")
         .search-scrollable-area.mt-5
           .search-non-clickable
-            .search-results.space-y-5
-              button.hidden(class="search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35" type="button", hidden)
+            .search-results
+              button.hidden(class="mb-5 search-result rounded-lg p-5 bg-gray-600 bg-opacity-15 hover:bg-opacity-35" type="button", hidden)
                 h5(class="font-title text-xl search-result-title pb-2 mb-4") Title
                 p Description
                 p.mt-5.italic.text-3 Keywords: Block
@@ -275,9 +278,6 @@ html(lang="en")
           +back-to-top
           +footer
 
-    script(src=`${self.jamstack ? "/polyfill/polyfill.js" : `https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es2015,es2016,es2017,es2018,Object.entries,fetch,IntersectionObserver,IntersectionObserverEntry,smoothscroll,matchMedia,localStorage,getComputedStyle,Element.prototype.scrollIntoView`}` async)
-    script(src="/js/theme.min.js", async)
-
-    script(src=`${self.jamstack ? "/polyfill/webanimations.js" : `https://cdn.polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always`}` async)
+    script(src=`${self.jamstack ? "/polyfill/webanimations.js" : `https://cdn.polyfill.io/v3/polyfill.min.js?features=WebAnimations&flags=always`}` defer)
     script(src="/js/legacy.min.js", nomodule defer)
     script(src="/js/modern.min.js", type="module" defer)

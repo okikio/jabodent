@@ -1,46 +1,58 @@
 // CODEPEN CODE [https://codepen.io/okikio/pen/zYrzdma]
 // @import "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Material+Icons+Round&family=Manrope:wght@400;500;600;700;800&display=swap";
 $theme: (
-  "background": (
-    "light": #ffffff,
-    "dark": #000000,
-  ),
-  "surface": (
-    "light": #d5d2e4,
-    "dark": #232325,
-  ),
-  "text": (
-    "light": #000000,
-    "dark": #ffffff,
-  ),
+    "background": (
+        "light": #ffffff,
+        "dark": #000000,
+    ),
+    "surface": (
+        "light": #d5d2e4,
+        "dark": #232325,
+    ),
+    "text": (
+        "light": #000000,
+        "dark": #ffffff,
+    ),
 );
 
 :root {
-  color-scheme: dark light;
+    color-scheme: dark light;
 }
 
 $colors: (
-  "bg": #{map-get(map-get($theme, "background"), "light")},
-  "bg-invert": #{map-get(map-get($theme, "background"), "dark")},
-  "surface": #{map-get(map-get($theme, "surface"), "light")},
-  "surface-invert": #{map-get(map-get($theme, "surface"), "dark")},
-  "text": #{map-get(map-get($theme, "text"), "light")},
-  "text-invert": #{map-get(map-get($theme, "text"), "dark")},
+    "bg": #{map-get(map-get($theme, "background"), "light")},
+    "bg-invert": #{map-get(map-get($theme, "background"), "dark")},
+    "surface": #{map-get(map-get($theme, "surface"), "light")},
+    "surface-invert": #{map-get(map-get($theme, "surface"), "dark")},
+    "text": #{map-get(map-get($theme, "text"), "light")},
+    "text-invert": #{map-get(map-get($theme, "text"), "dark")},
 );
 
 html:not([data-theme]) {
-  @media (prefers-color-scheme: dark) {
-    --bg: #{map-get(map-get($theme, "background"), "dark")};
-    --bg-invert: #{map-get(map-get($theme, "background"), "light")};
+    @media (prefers-color-scheme: dark) {
+        --bg: #{map-get(map-get($theme, "background"), "dark")};
+        --bg-invert: #{map-get(map-get($theme, "background"), "light")};
 
-    --surface: #{map-get(map-get($theme, "surface"), "dark")};
-    --surface-invert: #{map-get(map-get($theme, "surface"), "light")};
+        --surface: #{map-get(map-get($theme, "surface"), "dark")};
+        --surface-invert: #{map-get(map-get($theme, "surface"), "light")};
 
-    --text: #{map-get(map-get($theme, "text"), "dark")};
-    --text-invert: #{map-get(map-get($theme, "text"), "light")};
-    background-color: map-get($colors, "bg-invert");
-  }
-  @media (prefers-color-scheme: light) {
+        --text: #{map-get(map-get($theme, "text"), "dark")};
+        --text-invert: #{map-get(map-get($theme, "text"), "light")};
+        background-color: map-get($colors, "bg-invert");
+    }
+    @media (prefers-color-scheme: light) {
+        --bg: #{map-get(map-get($theme, "background"), "light")};
+        --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
+
+        --surface: #{map-get(map-get($theme, "surface"), "light")};
+        --surface-invert: #{map-get(map-get($theme, "surface"), "dark")};
+
+        --text: #{map-get(map-get($theme, "text"), "light")};
+        --text-invert: #{map-get(map-get($theme, "text"), "dark")};
+    }
+}
+
+html[data-theme="light"] {
     --bg: #{map-get(map-get($theme, "background"), "light")};
     --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
 
@@ -49,1103 +61,1097 @@ html:not([data-theme]) {
 
     --text: #{map-get(map-get($theme, "text"), "light")};
     --text-invert: #{map-get(map-get($theme, "text"), "dark")};
-    
-  }
-}
-
-html[data-theme="light"] {
-  --bg: #{map-get(map-get($theme, "background"), "light")};
-  --bg-invert: #{map-get(map-get($theme, "background"), "dark")};
-
-  --surface: #{map-get(map-get($theme, "surface"), "light")};
-  --surface-invert: #{map-get(map-get($theme, "surface"), "dark")};
-
-  --text: #{map-get(map-get($theme, "text"), "light")};
-  --text-invert: #{map-get(map-get($theme, "text"), "dark")};
 }
 
 html[data-theme="dark"] {
-  --bg: #{map-get(map-get($theme, "background"), "dark")};
-  --bg-invert: #{map-get(map-get($theme, "background"), "light")};
+    --bg: #{map-get(map-get($theme, "background"), "dark")};
+    --bg-invert: #{map-get(map-get($theme, "background"), "light")};
 
-  --surface: #{map-get(map-get($theme, "surface"), "dark")};
-  --surface-invert: #{map-get(map-get($theme, "surface"), "light")};
+    --surface: #{map-get(map-get($theme, "surface"), "dark")};
+    --surface-invert: #{map-get(map-get($theme, "surface"), "light")};
 
-  --text: #{map-get(map-get($theme, "text"), "dark")};
-  --text-invert: #{map-get(map-get($theme, "text"), "light")};
+    --text: #{map-get(map-get($theme, "text"), "dark")};
+    --text-invert: #{map-get(map-get($theme, "text"), "light")};
 }
 
-@mixin applyTheme($property: background-color, $value: "bg") {  
-  #{$property}: map-get($colors, $value);
-  #{$property}: var(--#{$value}, map-get($colors, $value));
+@mixin applyTheme($property: background-color, $value: "bg") {
+    #{$property}: map-get($colors, $value);
+    #{$property}: var(--#{$value}, map-get($colors, $value));
 }
 
 .theme {
-  &-bg {
-    @include applyTheme(background-color, "bg");
+    &-bg {
+        @include applyTheme(background-color, "bg");
 
-    &-invert {
-      @include applyTheme(background-color, "bg-invert");
+        &-invert {
+            @include applyTheme(background-color, "bg-invert");
+        }
     }
-  }
 
-  &-surface {
-    @include applyTheme(background-color, "surface");
+    &-surface {
+        @include applyTheme(background-color, "surface");
 
-    &-invert {
-      @include applyTheme(background-color, "surface-invert");
+        &-invert {
+            @include applyTheme(background-color, "surface-invert");
+        }
     }
-  }
 
-  &-text {
-    @include applyTheme(color, "text");
+    &-text {
+        @include applyTheme(color, "text");
 
-    &-invert {
-      @include applyTheme(color, "text-invert");
+        &-invert {
+            @include applyTheme(color, "text-invert");
+        }
     }
-  }
 }
 
 .active\:bg-darker-highlight:active {
-  background: #7c6915;
-  color: white;
+    background: #7c6915;
+    color: white;
 }
 
 @media (min-width: 768px) {
-  .hover\:bg-darker-highlight:hover {
-    background: #7c6915;
-    color: white;
-  }
+    .hover\:bg-darker-highlight:hover {
+        background: #7c6915;
+        color: white;
+    }
 }
 
 .gradient:before {
-  @include applyTheme(background-color, "surface");
-  position: absolute;
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.8;
+    @include applyTheme(background-color, "surface");
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
 }
 
 @media (min-width: 680px) {
-  .gradient:before {
-    background: linear-gradient(90deg, white 80%, transparent);
-    background: linear-gradient(90deg, var(--bg) 80%, transparent);
-    opacity: 1;
-  }
+    .gradient:before {
+        background: linear-gradient(90deg, white 80%, transparent);
+        background: linear-gradient(90deg, var(--bg) 80%, transparent);
+        opacity: 1;
+    }
 }
 
 html {
-  @include applyTheme(background-color, "bg");
-  font-family: "Manrope", "Arial", "Helvetica", "Verdana", sans-serif;
-  overflow-x: hidden;
+    @include applyTheme(background-color, "bg");
+    font-family: "Manrope", "Arial", "Helvetica", "Verdana", sans-serif;
+    overflow-x: hidden;
 
-  font-size: 15px;
-  font-weight: 400;
-  text-rendering: optimizeSpeed;
+    font-size: 15px;
+    font-weight: 400;
+    text-rendering: optimizeSpeed;
 }
 
 @media screen and (min-width: 758px) {
-  html {
-    width: 100vw;
-  }
+    html {
+        width: 100vw;
+    }
 }
 
 .back-to-top {
-  position: sticky;
-  bottom: 0;
-  float: right;
-  transform: translateY(-50%);
-  margin-bottom: -100%;
-  contain: layout paint size;
+    position: sticky;
+    bottom: 0;
+    float: right;
+    transform: translateY(-50%);
+    margin-bottom: -100%;
+    contain: layout paint size;
 }
 
 $delay: 0.8s;
 .splashscreen-overlay {
-  @include applyTheme(background-color, "bg");
-  position: fixed;
-  z-index: 1030;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  width: 100%;
-  height: 100vh;
-  pointer-events: none;
-  contain: layout size;
-
-  &.active {
-    animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
-      ($delay + 0.2s) forwards;
-    opacity: 0.8;
-  }
-}
-@keyframes splashanimoverlay {
-  0% {
-    opacity: 0.8;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-.splashscreen {
-  position: fixed;
-  z-index: 1040;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  contain: layout size;
-
-  &.active {
-    animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) $delay
-      forwards;
-    opacity: 1;
-    pointer-events: auto;
-
-    .splashscreen-inner {
-      animation: splashanim 0.5s ease $delay forwards;
-    }
-  }
-
-  &-icon {
-    width: 1.5em;
-    height: 1.5em;
-  }
-}
-
-@keyframes splashanimmove {
-  0% {
-    transform: translateY(0px);
-  }
-
-  100% {
-    transform: translateY(105vh);
-  }
-}
-
-.splashscreen-inner {
-  position: relative;
-  z-index: 11;
-  display: block;
-  contain: layout paint;
-}
-
-@keyframes splashanim {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-.splashscreen-bg {
-  position: absolute;
-  z-index: 10;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  @include applyTheme(background-color, "bg");
-  contain: layout size paint;
-}
-
-.splashscreen-text {
-  position: relative;
-  z-index: 11;
-  font-size: 16px;
-  margin-top: 150px;
-  letter-spacing: 5px;
-}
-
-.animate {
-  opacity: 0;
-}
-
-.search {
-  &-overlay {
-    transition: opacity 0.35s ease-out;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
+    @include applyTheme(background-color, "bg");
     position: fixed;
-    z-index: 8;
+    z-index: 1030;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     opacity: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     pointer-events: none;
     contain: layout size;
-    // transform: translateZ(0);
-    will-change: opacity;
 
-    &.show {
-      opacity: 1;
+    &.active {
+        animation: splashanimoverlay 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)
+            ($delay + 0.2s) forwards;
+        opacity: 0.8;
     }
-  }
+}
+@keyframes splashanimoverlay {
+    0% {
+        opacity: 0.8;
+    }
 
-  &-banner,
-  &-inner,
-  &-container {
-    contain: layout paint;
-  }
+    100% {
+        opacity: 0;
+    }
+}
 
-  &-banner {
-    transition: opacity 0.25s ease;
+.splashscreen {
     position: fixed;
+    z-index: 1040;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    contain: layout size;
+
+    &.active {
+        animation: splashanimmove 1.2s cubic-bezier(0.645, 0.045, 0.355, 1)
+            $delay forwards;
+        opacity: 1;
+        pointer-events: auto;
+
+        .splashscreen-inner {
+            animation: splashanim 0.5s ease $delay forwards;
+        }
+    }
+
+    &-icon {
+        width: 1.5em;
+        height: 1.5em;
+    }
+}
+
+@keyframes splashanimmove {
+    0% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(105vh);
+    }
+}
+
+.splashscreen-inner {
+    position: relative;
+    z-index: 11;
+    display: block;
+    contain: layout paint;
+}
+
+@keyframes splashanim {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.splashscreen-bg {
+    position: absolute;
     z-index: 10;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
+    @include applyTheme(background-color, "bg");
+    contain: layout size paint;
+}
+
+.splashscreen-text {
+    position: relative;
+    z-index: 11;
+    font-size: 16px;
+    margin-top: 150px;
+    letter-spacing: 5px;
+}
+
+.animate {
     opacity: 0;
+}
 
-    &.show {
-      transition: opacity 0.75s ease;
-      opacity: 1;
-      pointer-events: auto;
+.search {
+    &-overlay {
+        transition: opacity 0.35s ease-out;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        z-index: 8;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        contain: layout size;
+        // transform: translateZ(0);
+        will-change: opacity;
 
-      .search-inner,
-      .search-scrollable-area,
-      .search-container {
-        pointer-events: auto;
-      }
+        &.show {
+            opacity: 1;
+        }
+    }
 
-      .new-search.show {
+    &-banner,
+    &-inner,
+    &-container {
+        contain: layout paint;
+    }
+
+    &-banner {
+        transition: opacity 0.25s ease;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        opacity: 0;
+
+        &.show {
+            transition: opacity 0.75s ease;
+            opacity: 1;
+            pointer-events: auto;
+
+            .search-inner,
+            .search-scrollable-area,
+            .search-container {
+                pointer-events: auto;
+            }
+
+            .new-search.show {
+                display: block;
+                pointer-events: auto;
+            }
+        }
+    }
+
+    &-inner {
+        pointer-events: none;
+    }
+
+    &-icon {
         display: block;
-        pointer-events: auto;
-      }
     }
-  }
 
-  &-inner {
-    pointer-events: none;
-  }
+    &-container {
+        box-shadow: 0 4px 12px 4px rgba(50, 50, 50, 0.1),
+            0 -2px 8px 2px rgba(50, 50, 50, 0.06);
+        border: 2px solid transparent;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        padding-right: 0.5em;
+        background-color: white;
+        border-radius: 5px;
+        width: 100%;
+        height: 3em;
 
-  &-icon {
-    display: block;
-  }
+        color: black;
+        display: flex;
+        pointer-events: none;
 
-  &-container {
-    box-shadow: 0 4px 12px 4px rgba(50, 50, 50, 0.1),
-      0 -2px 8px 2px rgba(50, 50, 50, 0.06);
-    border: 2px solid transparent;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-right: 0.5em;
-    background-color: white;
-    border-radius: 5px;
-    width: 100%;
-    height: 3em;
+        @at-root {
+            html[data-theme="dark"] .search-container {
+                background-color: black;
+                border-color: #ffd626;
+                color: white;
+            }
+        }
+    }
 
-    color: black;
-    display: flex;
-    pointer-events: none;
+    &-input {
+        vertical-align: middle;
+        padding-left: 1em;
+        background: transparent;
+        width: 100%;
+        line-height: 1;
 
-    @at-root {
-      html[data-theme="dark"] .search-container {
-        background-color: black;
-        border-color: #ffd626;
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            $parent: &;
+            font-weight: 500;
+            color: rgb(46, 46, 46);
+
+            @at-root {
+                html[data-theme="dark"] #{$parent} {
+                    color: rgb(156, 156, 156);
+                }
+            }
+        }
+    }
+    &-scrollable-area {
+        pointer-events: none;
+        overflow-y: auto;
+        height: calc(95vh - 285px);
+        min-height: 200px;
+        max-height: 440px;
+    }
+
+    &-result {
         color: white;
-      }
-    }
-  }
+        border: 3px solid transparent;
 
-  &-input {
-    vertical-align: middle;
-    padding-left: 1em;
-    background: transparent;
-    width: 100%;
-    line-height: 1;
+        &:focus {
+            $parent: &;
+            border: 3px solid #ffd626;
+            background-color: rgba(0, 0, 0, 0.3);
+            outline: none;
 
-    &:focus {
-      outline: none;
-    }
-
-    &::placeholder {
-      $parent: &;
-      font-weight: 500;
-      color: rgb(46, 46, 46);
-
-      @at-root {
-        html[data-theme="dark"] #{$parent} {
-          color: rgb(156, 156, 156);
+            @at-root {
+                html[data-theme="dark"] #{$parent} {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+            }
         }
-      }
-    }
-  }
-  &-scrollable-area {
-    pointer-events: none;
-    overflow-y: auto;
-    height: calc(95vh - 285px);
-    min-height: 200px;
-    max-height: 440px;
-  }
 
-  &-result {
-    color: white;
-    border: 3px solid transparent;
-
-    &:focus {
-      $parent: &;
-      border: 3px solid #ffd626;
-      background-color: rgba(0, 0, 0, 0.3);
-      outline: none;
-
-      @at-root {
-        html[data-theme="dark"] #{$parent} {
-          background-color: rgba(255, 255, 255, 0.3);
+        &-title {
+            border-bottom: 1px solid currentColor;
         }
-      }
     }
-
-    &-title {
-      border-bottom: 1px solid currentColor;
-    }
-  }
 }
 
 .new-search {
-  color: white;
-  pointer-events: none;
-  display: none;
+    color: white;
+    pointer-events: none;
+    display: none;
 }
 
 .no-results {
-  color: white;
+    color: white;
 
-  &.hide {
-    display: none;
-  }
+    &.hide {
+        display: none;
+    }
 }
 
 html.no-scroll {
-  overflow: hidden;
-  height: 100vh;
+    overflow: hidden;
+    height: 100vh;
 }
 
 /* total width */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+    width: 6px;
+    height: 6px;
 }
 
 /* background of the scrollbar except button or resizer */
 ::-webkit-scrollbar-track {
-  display: none;
+    display: none;
 }
 
 /* scrollbar itself */
 ::-webkit-scrollbar-thumb {
-  background-color: #ffd626;
+    background-color: #ffd626;
 }
 
 /* set button(top and bottom of the scrollbar) */
 ::-webkit-scrollbar-button {
-  display: none;
+    display: none;
 }
 
 .font {
-  &-default {
-    font-family: "Manrope", sans-serif;
-  }
+    &-default {
+        font-family: "Manrope", sans-serif;
+    }
 
-  &-title {
-    font-family: "Playfair Display", serif;
-  }
+    &-title {
+        font-family: "Playfair Display", serif;
+    }
 
-  &-article {
-    font-family: "Roboto Slab", serif;
-  }
+    &-article {
+        font-family: "Roboto Slab", serif;
+    }
 }
 
 /* -- Icons & Font -- */
 .icon {
-  -webkit-font-smoothing: antialiased;
-  font-family: "Material Icons Round";
-  vertical-align: middle;
-  line-height: inherit;
-  font-style: normal;
-  direction: ltr;
-
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-
-  & svg {
-    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Material Icons Round";
     vertical-align: middle;
-    height: 1em;
-    width: 1em;
-  }
+    line-height: inherit;
+    font-style: normal;
+    direction: ltr;
+
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+
+    & svg {
+        margin: 0 auto;
+        vertical-align: middle;
+        height: 1em;
+        width: 1em;
+    }
 }
 
 img {
-  object-fit: cover;
-  display: block;
-  border: none;
-  width: 100%;
+    object-fit: cover;
+    display: block;
+    border: none;
+    width: 100%;
 }
 
 .img {
-  transition: transform ease 0.45s;
-  overflow: hidden;
-  position: relative;
-  display: block;
-  height: 100%;
-  width: 100%;
-  z-index: 0;
-  left: 0;
-  top: 0;
-
-  &-show {
-    .core-img-pic {
-      opacity: 0.6;
-    }
-  }
-
-  &-overlay {
-    background: rgb(5, 20, 49);
-    width: 100%;
+    transition: transform ease 0.45s;
+    overflow: hidden;
+    position: relative;
+    display: block;
     height: 100%;
-    position: absolute;
-    top: 0;
+    width: 100%;
+    z-index: 0;
     left: 0;
-    pointer-events: fill;
-  }
+    top: 0;
+
+    &-show {
+        .core-img-pic {
+            opacity: 0.6;
+        }
+    }
+
+    &-overlay {
+        background: rgb(5, 20, 49);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: fill;
+    }
 }
 
 .img-core,
 .no-script-img,
 .plchldr-img {
-  image-rendering: auto;
-  image-rendering: optimizespeed;
-  position: absolute;
-  opacity: 0.6;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
+    image-rendering: auto;
+    image-rendering: optimizespeed;
+    position: absolute;
+    opacity: 0.6;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
 }
 
 .core-img-pic {
-  transition: opacity 0.35s ease-out;
-  opacity: 0;
+    transition: opacity 0.35s ease-out;
+    opacity: 0;
 }
 
 .card {
-  transition: transform ease-out 0.55s;
+    transition: transform ease-out 0.55s;
 
-  &-layout {
-    border-radius: 12px;
-    box-shadow: 0 0 15px 0 rgba(42, 47, 71, 0.24);
-  }
-
-  .img {
-    transform: scale(1.45);
-  }
-
-  &:hover {
-    .img {
-      transform: scale(1);
+    &-layout {
+        border-radius: 12px;
+        box-shadow: 0 0 15px 0 rgba(42, 47, 71, 0.24);
     }
-  }
+
+    .img {
+        transform: scale(1.45);
+    }
+
+    &:hover {
+        .img {
+            transform: scale(1);
+        }
+    }
 }
 
 .no-tap-highlight {
-  -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .lackluster {
-  transition: opacity ease-out 0.45s;
-  background: rgba(38, 43, 63, 0.8);
-  background: linear-gradient(
-    to bottom,
-    rgba(38, 43, 63, 0) 30%,
-    rgba(5, 20, 49, 1) 90%
-  );
+    transition: opacity ease-out 0.45s;
+    background: rgba(38, 43, 63, 0.8);
+    background: linear-gradient(
+        to bottom,
+        rgba(38, 43, 63, 0) 30%,
+        rgba(5, 20, 49, 1) 90%
+    );
 
-  opacity: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.col:hover .lackluster {
-  opacity: 0.2;
-}
-
-.text-shadow {
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.navbar {
-  $height: 60px;
-  transition: color 0.35s ease;
-  color: black;
-  @include applyTheme(color, "text");
-  contain: layout size;
-
-  &,
-  &-height {
-    height: $height;
-    line-height: $height;
-  }
-
-  &.active {
-    height: 100%;
-  }
-
-  &-large,
-  &-overlay,
-  &-mini {
+    opacity: 1;
     position: absolute;
     top: 0;
     left: 0;
-  }
+    width: 100%;
+    height: 100%;
+}
+.col:hover .lackluster {
+    opacity: 0.2;
+}
 
-  &-mini {
-    transition: transform 0.25s ease-out;
-    transform: translateY(-$height - 5px);
-    contain: content;
-    opacity: 1;
-  }
+.text-shadow {
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
 
-  &-large {
-    transition: transform 0.65s ease-out;
-    height: 100vh;
-    transform: scaleY(0);
-    pointer-events: auto;
-    contain: content;
-    transform-origin: 0% 0%;
-  }
-
-  &-overlay {
-    transition: opacity 0.5s ease-out;
-    background-color: #262638;
-    opacity: 0;
-    height: 100vh;
-    pointer-events: none;
-    contain: layout paint size;
-  }
-
-  &.searching {
-    color: white;
-  }
-
-  &.focus,
-  &.active,
-  &:hover {
+.navbar {
+    $height: 60px;
+    transition: color 0.35s ease;
+    color: black;
     @include applyTheme(color, "text");
+    contain: layout size;
 
-    .navbar-mini {
-      transform: translateY(0px);
-    }
-  }
-
-  &.active {
-    .navbar-large {
-      transform: scaleY(1);
-      opacity: 1;
-    }
-
-    .navbar-overlay {
-      opacity: 0.8;
-      pointer-events: auto;
-    }
-  }
-
-  &.light:not(:hover):not(.active):not(.focus):not(.searching) {
-    color: map-get(map-get($theme, "text"), "dark");
-  }
-
-  &.dark:not(:hover):not(.active):not(.focus):not(.searching) {
-    color: map-get(map-get($theme, "text"), "light");
-  }
-
-  &-logo {
-    vertical-align: top;
-    font-size: 1.5rem;
-    font-weight: 700 !important;
-
-    &:hover {
-      text-decoration: none !important;
-    }
-  }
-
-  &-list {
-    transition: opacity ease-out 0.65s 0.3s;
-    left: 0;
-    top: 0;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  &-link {
-    line-height: inherit;
-    vertical-align: middle;
-    font-weight: 500;
-    padding: 0 1.25rem;
-    position: relative;
-    opacity: 1;
-
-    @media (max-width: 640px) {
-      padding: 0 0.55rem;
-    }
-
-    &:hover {
-      text-decoration: underline;
+    &,
+    &-height {
+        height: $height;
+        line-height: $height;
     }
 
     &.active {
-      text-decoration: underline;
+        height: 100%;
     }
 
-    @media (max-width: 768px) {
-      &:before {
-        transition: opacity ease-out 0.45s, background-color ease-out 0.25s;
+    &-large,
+    &-overlay,
+    &-mini {
         position: absolute;
-        border-radius: 4px;
-        content: "";
-        display: block;
-        width: 10px;
-        height: 10px;
-        background-color: currentColor;
-        transform: translateY(-50%);
-        top: 50%;
-        left: 45px;
-        opacity: 0;
-      }
+        top: 0;
+        left: 0;
     }
 
-    &.active {
-      &,
-      &:before,
-      &:after {
-        opacity: 0.6;
-      }
-    }
-  }
-
-  @media (min-width: 768px) {
-    &-overlay {
-      opacity: 0;
+    &-mini {
+        transition: transform 0.25s ease-out;
+        transform: translateY(-$height - 5px);
+        contain: content;
+        opacity: 1;
     }
 
     &-large {
-      pointer-events: none;
-      opacity: 0;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .navbar-item {
-      padding-left: 5rem;
+        transition: transform 0.65s ease-out;
+        height: 100vh;
+        transform: scaleY(0);
+        pointer-events: auto;
+        contain: content;
+        transform-origin: 0% 0%;
     }
 
-    &:not(.focus) {
-      transition: none;
-    }
-
-    &:not(.active) {
-      // Avoid the jitter that occurs when resizing
-      &:not(:focus-within) .navbar-list {
-        visibility: hidden;
-      }
-
-      .navbar-list {
-        transition: opacity ease-out 0.45s;
-        pointer-events: none;
+    &-overlay {
+        transition: opacity 0.5s ease-out;
+        background-color: #262638;
         opacity: 0;
-      }
+        height: 100vh;
+        pointer-events: none;
+        contain: layout paint size;
+    }
+
+    &.searching {
+        color: white;
+    }
+
+    &.focus,
+    &.active,
+    &:hover {
+        @include applyTheme(color, "text");
+
+        .navbar-mini {
+            transform: translateY(0px);
+        }
     }
 
     &.active {
-      .navbar-list {
-        transition: opacity ease-out 0.95s 0.25s;
-        visibility: visible;
+        .navbar-large {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+        .navbar-overlay {
+            opacity: 0.8;
+            pointer-events: auto;
+        }
+    }
+
+    &.light:not(:hover):not(.active):not(.focus):not(.searching) {
+        color: map-get(map-get($theme, "text"), "dark");
+    }
+
+    &.dark:not(:hover):not(.active):not(.focus):not(.searching) {
+        color: map-get(map-get($theme, "text"), "light");
+    }
+
+    &-logo {
+        vertical-align: top;
+        font-size: 1.5rem;
+        font-weight: 700 !important;
+
+        &:hover {
+            text-decoration: none !important;
+        }
+    }
+
+    &-list {
+        transition: opacity ease-out 0.65s 0.3s;
+        left: 0;
+        top: 0;
+        opacity: 1;
         pointer-events: auto;
-      }
-
-      .navbar-item {
-        // transition: transform ease-out 0.65s 0.2s;
-        transform: translateY(0px);
-      }
-
-      @for $i from 1 through 3 {
-        @keyframes navOpen#{$i} {
-          0% {
-            transform: translateY(calc(50% + #{($i - 1) * 40px}));
-          }
-          100% {
-            transform: translateY(0px);
-          }
-        }
-        .navbar-item:nth-of-type(#{$i}) {
-          animation: navOpen#{$i} 0.95s ease #{0.125s + ($i - 1) * 0.05s};
-        }
-      }
     }
-  }
 
-  &-icon {
-    padding: 0 0.25rem;
+    &-link {
+        white-space: nowrap;
+        line-height: inherit;
+        vertical-align: middle;
+        font-weight: 500;
+        padding: 0 1.25rem;
+        position: relative;
+        opacity: 1;
 
-    @media (max-width: 640px) {
-      padding: 0 0.55rem;
+        @media (max-width: 640px) {
+            padding: 0 0.55rem;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &.active {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            &:before {
+                transition: opacity ease-out 0.45s,
+                    background-color ease-out 0.25s;
+                position: absolute;
+                border-radius: 4px;
+                content: "";
+                display: block;
+                width: 10px;
+                height: 10px;
+                background-color: currentColor;
+                transform: translateY(-50%);
+                top: 50%;
+                left: 45px;
+                opacity: 0;
+            }
+        }
+
+        &.active {
+            &,
+            &:before,
+            &:after {
+                opacity: 0.6;
+            }
+        }
     }
-  }
+
+    @media (min-width: 768px) {
+        &-overlay {
+            opacity: 0;
+        }
+
+        &-large {
+            pointer-events: none;
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .navbar-item {
+            padding-left: 5rem;
+        }
+
+        &:not(.focus) {
+            transition: none;
+        }
+
+        &:not(.active) {
+            // Avoid the jitter that occurs when resizing
+            &:not(:focus-within) .navbar-list {
+                visibility: hidden;
+            }
+
+            .navbar-list {
+                transition: opacity ease-out 0.45s;
+                pointer-events: none;
+                opacity: 0;
+            }
+        }
+
+        &.active {
+            .navbar-list {
+                transition: opacity ease-out 0.95s 0.25s;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .navbar-item {
+                // transition: transform ease-out 0.65s 0.2s;
+                transform: translateY(0px);
+            }
+
+            @for $i from 1 through 3 {
+                @keyframes navOpen#{$i} {
+                    0% {
+                        transform: translateY(calc(50% + #{($i - 1) * 40px}));
+                    }
+                    100% {
+                        transform: translateY(0px);
+                    }
+                }
+                .navbar-item:nth-of-type(#{$i}) {
+                    animation: navOpen#{$i}
+                        0.95s
+                        ease
+                        #{0.125s +
+                        ($i - 1) *
+                        0.05s};
+                }
+            }
+        }
+    }
+
+    &-icon {
+        padding: 0 0.25rem;
+
+        @media (max-width: 640px) {
+            padding: 0 0.55rem;
+        }
+    }
 }
 
 .carousel {
-  touch-action: pan-y;
-  &.active {
-    & .carousel-container {
-      touch-action: pan-y;
-      overflow: hidden;
+    touch-action: pan-y;
+    &.active {
+        & .carousel-container {
+            touch-action: pan-y;
+            overflow: hidden;
+        }
+
+        & .carousel-dots {
+            display: block;
+        }
     }
 
-    & .carousel-dots {
-      display: block;
-    }
-  }
-
-  &-container {
-    scroll-snap-type: x mandatory;
-    overflow: auto;
-    position: relative;
-    display: block;
-    cursor: move;
-    cursor: grab;
-    height: 464px;
-    width: 100%;
-  }
-
-  &-viewport {
-    position: relative;
-    height: 100%;
-    left: 0;
-    top: 0;
-    width: fit-content;
-  }
-
-  &-item {
-    scroll-snap-align: start start;
-    align-self: center;
-    user-select: none;
-    width: 100vw;
-
-    img {
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -o-user-select: none;
-      user-select: none;
-    }
-  }
-
-  &-dots {
-    display: none;
-  }
-
-  &-dot {
-    padding: 0.2rem;
-    &:before {
-      @include applyTheme(background-color, "bg-invert");
-      border-radius: 999px;
-      width: 12px;
-      height: 12px;
-      opacity: 0.3;
-      margin: 0.2rem;
-      content: "";
-      display: block;
+    &-container {
+        scroll-snap-type: x mandatory;
+        overflow: auto;
+        position: relative;
+        display: block;
+        cursor: move;
+        cursor: grab;
+        height: 464px;
+        width: 100%;
     }
 
-    &:focus {
-      outline: 1px dotted;
-      outline: 5px auto -webkit-focus-ring-color;
+    &-viewport {
+        position: relative;
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: fit-content;
     }
 
-    @media (max-width: 640px) {
-      padding: 0.5rem;
-      &:before {
-        width: 15px;
-        height: 15px;
-        margin: 0.1rem;
-      }
+    &-item {
+        scroll-snap-align: start start;
+        align-self: center;
+        user-select: none;
+        width: 100vw;
+
+        img {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
     }
 
-    &.active:before {
-      opacity: 1;
+    &-dots {
+        display: none;
     }
-  }
+
+    &-dot {
+        padding: 0.2rem;
+        &:before {
+            @include applyTheme(background-color, "bg-invert");
+            border-radius: 999px;
+            width: 12px;
+            height: 12px;
+            opacity: 0.3;
+            margin: 0.2rem;
+            content: "";
+            display: block;
+        }
+
+        &:focus {
+            outline: 1px dotted;
+            outline: 5px auto -webkit-focus-ring-color;
+        }
+
+        @media (max-width: 640px) {
+            padding: 0.5rem;
+            &:before {
+                width: 15px;
+                height: 15px;
+                margin: 0.1rem;
+            }
+        }
+
+        &.active:before {
+            opacity: 1;
+        }
+    }
 }
 
 [data-wrapper] {
-  position: relative;
-  z-index: 4;
+    position: relative;
+    z-index: 4;
 }
 
 .fixed-img {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
 
-  &-container {
-    position: relative;
-    overflow: hidden;
-    z-index: -1;
-  }
+    &-container {
+        position: relative;
+        overflow: hidden;
+        z-index: -1;
+    }
 }
 
 .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 
-  &.loaded {
-    background: linear-gradient(transparent, black);
-  }
+    &.loaded {
+        background: linear-gradient(transparent, black);
+    }
 }
 
 .person {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
-  opacity: 1;
-  object-position: right top;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    opacity: 1;
+    object-position: right top;
 }
 
 .scroll {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 
-  &:visited {
-    border-color: white;
-  }
-
-  &-mouse {
-    $height: 50px;
-
-    margin: 0 auto;
-    margin-top: 25px;
-    height: $height;
-    border-radius: 999px;
-    width: 25px;
-    border: 2px solid currentColor;
-    display: block;
-    overflow: hidden;
-    border-radius: 999px;
-
-    &:before {
-      $x: 0; // -50%;
-
-      // animation: scrolldown 1.5s ease-out infinite;
-      margin: 8px auto;
-      transform: translate($x, 0) scaleY(1);
-      background-color: currentColor;
-      height: 15px;
-      content: "";
-      border-radius: 999px;
-      display: block;
-      width: 2px;
-      background-color: currentColor;
-      transform-origin: center 0;
-      // position: absolute;
-      // left: 50%;
-      // top: 8px + $height / 2;
-
-      @keyframes scrolldown {
-        0% {
-          transform: translate($x, 0) scaleY(1);
-        }
-        50% {
-          transform: translate($x, ($height / 2) - 10px) scaleY(0);
-        }
-        50.01%,
-        70% {
-          transform: translate($x, 0) scaleY(0);
-        }
-        100% {
-          transform: translate($x, 0) scaleY(1);
-        }
-      }
+    &:visited {
+        border-color: white;
     }
-  }
+
+    &-mouse {
+        $height: 50px;
+
+        margin: 0 auto;
+        margin-top: 25px;
+        height: $height;
+        border-radius: 999px;
+        width: 25px;
+        border: 2px solid currentColor;
+        display: block;
+        overflow: hidden;
+        border-radius: 999px;
+
+        &:before {
+            $x: 0; // -50%;
+
+            // animation: scrolldown 1.5s ease-out infinite;
+            margin: 8px auto;
+            transform: translate($x, 0) scaleY(1);
+            background-color: currentColor;
+            height: 15px;
+            content: "";
+            border-radius: 999px;
+            display: block;
+            width: 2px;
+            background-color: currentColor;
+            transform-origin: center 0;
+            // position: absolute;
+            // left: 50%;
+            // top: 8px + $height / 2;
+
+            @keyframes scrolldown {
+                0% {
+                    transform: translate($x, 0) scaleY(1);
+                }
+                50% {
+                    transform: translate($x, ($height / 2) - 10px) scaleY(0);
+                }
+                50.01%,
+                70% {
+                    transform: translate($x, 0) scaleY(0);
+                }
+                100% {
+                    transform: translate($x, 0) scaleY(1);
+                }
+            }
+        }
+    }
 }
 
 .learn-more {
-  display: inline-block;
-  &:after {
-    transition: transform 0.3s ease-in-out;
-    margin-top: 4px;
-    background-color: currentColor;
-    transform: scaleX(0);
-    height: 2px;
-    content: "";
-    border-radius: 999px;
-    display: block;
-    width: 100%;
-    transform-origin: 0% 0%;
-  }
-
-  text-decoration: dashed underline;
-  text-underline-offset: 3px;
-
-  &:hover,
-  &:focus,
-  &:visited {
+    display: inline-block;
     &:after {
-      transform: scaleX(1);
+        transition: transform 0.3s ease-in-out;
+        margin-top: 4px;
+        background-color: currentColor;
+        transform: scaleX(0);
+        height: 2px;
+        content: "";
+        border-radius: 999px;
+        display: block;
+        width: 100%;
+        transform-origin: 0% 0%;
     }
-  }
+
+    text-decoration: dashed underline;
+    text-underline-offset: 3px;
+
+    &:hover,
+    &:focus,
+    &:visited {
+        &:after {
+            transform: scaleX(1);
+        }
+    }
 }
 
 .cave-image {
-  &,
-  &:before {
-    background-size: cover;
-    object-fit: cover;
-    background-position: bottom;
-  }
+    &,
+    &:before {
+        background-size: cover;
+        object-fit: cover;
+        background-position: bottom;
+    }
 }
 
 .water-image {
-  &,
-  &:before {
-    background-size: cover;
-    object-fit: cover;
-    background-position: bottom;
-  }
+    &,
+    &:before {
+        background-size: cover;
+        object-fit: cover;
+        background-position: bottom;
+    }
 }
 
 .max-width {
-  max-width: 480px;
+    max-width: 480px;
 }
 
 .top-half {
-  transform: translateY(-50%);
-  position: absolute;
-  top: 50%;
-  left: 0;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 0;
 }
 
 .left-half {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-block;
-  bottom: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    bottom: 0;
 }
 
 .line-clamp {
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .justify-c-center {
-  justify-content: center;
+    justify-content: center;
 }
 
 .highlight {
-  background: yellow;
-  color: black;
-  font-weight: 900;
-  text-decoration: underline;
+    background: yellow;
+    color: black;
+    font-weight: 900;
+    text-decoration: underline;
 }
 
 .letter-head {
-  padding-right: 4px;
-  position: relative;
-  display: inline-block !important;
-  letter-spacing: 2.54px;
-  line-height: 1.62rem;
-  font-size: 5.15rem;
-  font-weight: 900;
-  margin: 0;
-  padding-top: 1rem;
+    padding-right: 4px;
+    position: relative;
+    display: inline-block !important;
+    letter-spacing: 2.54px;
+    line-height: 1.62rem;
+    font-size: 5.15rem;
+    font-weight: 900;
+    margin: 0;
+    padding-top: 1rem;
 }
 
 .underlay-right {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .clear-search {
-  width: 2.5rem;
-  min-width: 2.5rem;
-  height: 2.5rem;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
 
-  $parent: &;
+    $parent: &;
 
-  color: black;
-  &:hover {
-    color: white;
-  }
-
-  &:focus {
-    outline: none;
-    border: 3px solid #ffd626;
-    @include applyTheme(background-color, "bg-invert");
-    @include applyTheme(color, "text-invert");
-  }
-
-  @at-root {
-    html[data-theme="dark"] #{$parent} {
-      color: white;
-      &:hover {
-        color: black;
-      }
-
-      &:focus {
-        border-color: transparent;
-        @include applyTheme(color, "text-invert");
-      }
+    color: black;
+    &:hover {
+        color: white;
     }
-  }
+
+    &:focus {
+        outline: none;
+        border: 3px solid #ffd626;
+        @include applyTheme(background-color, "bg-invert");
+        @include applyTheme(color, "text-invert");
+    }
+
+    @at-root {
+        html[data-theme="dark"] #{$parent} {
+            color: white;
+            &:hover {
+                color: black;
+            }
+
+            &:focus {
+                border-color: transparent;
+                @include applyTheme(color, "text-invert");
+            }
+        }
+    }
 }
 
 .border-top {
-  border-top: 1px solid white;
-  @include applyTheme(border-top-color, "surface");
+    border-top: 1px solid white;
+    @include applyTheme(border-top-color, "surface");
 }
 
 .border-bottom {
-  border-bottom: 1px solid white;
-  @include applyTheme(border-bottom-color, "surface");
+    border-bottom: 1px solid white;
+    @include applyTheme(border-bottom-color, "surface");
 }
 
 .text-surface {
-  color: white;
-  @include applyTheme(color, "surface");
+    color: white;
+    @include applyTheme(color, "surface");
 }
 
 .cards-list {
-  margin-top: -8rem;
+    margin-top: -8rem;
 }
