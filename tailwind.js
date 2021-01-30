@@ -307,9 +307,9 @@ module.exports = {
             // ...theme("spacing"),
         }),
         fontWeight: {
-            // hairline: "100",
-            // thin: "200",
-            // light: "300",
+            hairline: "100",
+            thin: "200",
+            light: "300",
             normal: "400",
             medium: "500",
             semibold: "600",
@@ -731,10 +731,10 @@ module.exports = {
         listStylePosition: [],
         listStyleType: [],
         margin: ["responsive"],
-        maxHeight: [], // "responsive"
-        maxWidth: [], // "responsive"
-        minHeight: [], // "responsive"
-        minWidth: [], // "responsive"
+        maxHeight: ["responsive"], // "responsive"
+        maxWidth: ["responsive"], // "responsive"
+        minHeight: ["responsive"], // "responsive"
+        minWidth: ["responsive"], // "responsive"
         objectFit: [], // "responsive"
         objectPosition: [], // "responsive"
         opacity: ["hover", "group-hover"], // "responsive", , "focus"
