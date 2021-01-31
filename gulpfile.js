@@ -395,7 +395,7 @@ task("indexer", async () => {
                     });
 
                     tree.match(
-                        querySelector('link[rel="canonical"]'),
+                        querySelector('link[rel="relative-url"]'),
                         (node) => {
                             data.href = node.attrs.href;
                             return node;
