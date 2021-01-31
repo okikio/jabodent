@@ -100,15 +100,16 @@ export class Image extends Service {
     waitOnResize = false;
     resize() {
         if (!this.waitOnResize) {
-            let timer;
+            let timer: number | void, raf: number | void;
             this.waitOnResize = true;
-            requestAnimationFrame(() => {
+            raf = window.requestAnimationFrame(() => {
                 this.load_img();
 
                 // set a timeout to un-throttle
                 timer = window.setTimeout(() => {
                     this.waitOnResize = false;
-                    timer = window.clearTimeout(timer);
+                    timer = window.clearTimeout(timer as number);
+                    raf = window.cancelAnimationFrame(raf as number);
                 }, 500);
             });
         }

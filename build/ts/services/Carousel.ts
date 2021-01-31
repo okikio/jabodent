@@ -116,7 +116,7 @@ export class Carousel extends Service {
 
             this.setHeight();
             this.addCarouselEvents();
-            console.log("Carousel is Ready"); 
+            console.log("Carousel is Ready");
         }
     }
 
@@ -132,25 +132,25 @@ export class Carousel extends Service {
     }
 
     public setActiveDot() {
-            this.dots[this.lastIndex].classList.remove("active");
-            this.dots[this.index].classList.add("active");
+        this.dots[this.lastIndex].classList.remove("active");
+        this.dots[this.index].classList.add("active");
     }
 
     public clearDots() {
-            for (let i = this.dots.length; --i >= 0;) {
-                this.dots[i].classList.remove("active");
-                this.dots[i].removeAttribute("data-index");
-                this.dots[i].remove();
-                this.dots.pop();
-            }
+        for (let i = this.dots.length; --i >= 0;) {
+            this.dots[i].classList.remove("active");
+            this.dots[i].removeAttribute("data-index");
+            this.dots[i].remove();
+            this.dots.pop();
+        }
     }
 
     public setHeight() {
-            let maxHeight = this.slides[0].getBoundingClientRect().height;
-            for (let i = 0; i < this.slideLen; i++) {
-                let height = this.slides[i].scrollHeight;
-                if (height > maxHeight) maxHeight = height;
-            }
+        let maxHeight = this.slides[0].getBoundingClientRect().height;
+        for (let i = 0; i < this.slideLen; i++) {
+            let height = this.slides[i].scrollHeight;
+            if (height > maxHeight) maxHeight = height;
+        }
 
         requestAnimationFrame(() => {
             this.container.style.height = `${maxHeight}px`;
@@ -292,8 +292,8 @@ export class Carousel extends Service {
         // console.log("Carousel is Running"); // { lastX, currentX, minX, maxX }
 
         // No point in requesting animation frame, when you know nothing is going to change
-        if (Math.abs(lastX - currentX) > 0 || 
-            Math.abs(actualCurrentX - this.maxX) <= 5 || 
+        if (Math.abs(lastX - currentX) > 0 ||
+            Math.abs(actualCurrentX - this.maxX) <= 5 ||
             Math.abs(actualCurrentX - this.minX) <= 5) {
             if (!this.isScrolling && !this.snapOnce) {
                 this.snap();
@@ -461,18 +461,18 @@ export class Carousel extends Service {
 
     public resize() {
         if (!this.waitForResize) {
-            let timer: number | void;
+            let timer: number | void, raf: number | void;
             this.waitForResize = true;
-            requestAnimationFrame(() => {
+            raf = window.requestAnimationFrame(() => {
                 this.setBounds();
 
                 // set a timeout to un-throttle
                 timer = window.setTimeout(() => {
                     this.waitForResize = false;
                     timer = window.clearTimeout(timer as number);
+                    raf = window.cancelAnimationFrame(raf as number);
                 }, 500);
             });
-
         }
     }
 }

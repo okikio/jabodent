@@ -9,15 +9,17 @@ export class Perspective extends Service {
     public init() {
         super.init();
 
-        this.getEl();
         this.mousemove = this.mousemove.bind(this);
+        this.getEl();
     }
 
     public getEl() {
         this.rootEl = document.querySelector(".perspective-group");
 
-        let el = this.rootEl?.querySelectorAll(".perspective");
-        this.el = this.rootEl ? toArr(el) : undefined;
+        let el = document.querySelectorAll(".perspective");
+        this.el = toArr(el);
+
+        if (this.rootEl) this.rootEl.addEventListener("mousemove", this.mousemove, { passive: true });
     }
 
     public removeEl() {
@@ -26,9 +28,9 @@ export class Perspective extends Service {
     }
 
     public mousemove(e: { clientX: number; clientY: number; }) {
-        if (!this.waitOnMouseMove) {
+        if (!this.waitOnMouseMove && window.innerWidth > 1024) {
             this.waitOnMouseMove = true;
-            requestAnimationFrame(() => {
+            let raf: number | void = window.requestAnimationFrame(() => {
                 let i = 0, len = this.el.length;
 
                 let { left, top, width, height } = this.rootEl.getBoundingClientRect();
@@ -45,29 +47,27 @@ export class Perspective extends Service {
 
                 // Set a timeout to un-throttle
                 this.waitOnMouseMove = false;
+                raf = window.cancelAnimationFrame(raf as number);
             });
         }
     }
 
     public initEvents() {
-        if (window.innerWidth > 1024) {
-            this?.rootEl.addEventListener(
-                "mousemove", this.mousemove,
-                { passive: true }
-            );
-        }
-
-        this.emitter.on("BEFORE_TRANSITION_OUT", this.getEl);
-        this.emitter.on("CONTENT_INSERT", this.removeEl);
+        this.emitter.on("BEFORE_TRANSITION_OUT", this.transitionOut, this);
+        this.emitter.on("CONTENT_REPLACED", this.init, this);
     }
 
     public stopEvents() {
-        if (window.innerWidth > 1024) {
-            this?.rootEl.removeEventListener("mousemove", this.mousemove);
-        }
 
-        this.emitter.off("BEFORE_TRANSITION_OUT", this.getEl);
-        this.emitter.off("CONTENT_INSERT", this.removeEl);
+        this.emitter.off("BEFORE_TRANSITION_OUT", this.transitionOut, this);
+        this.emitter.off("CONTENT_REPLACED", this.init, this);
+    }
+
+    public transitionOut() {
+        if (this.rootEl) {
+            this.rootEl.removeEventListener("mousemove", this.mousemove);
+            this.removeEl();
+        }
     }
 
     public uninstall() {

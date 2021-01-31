@@ -40,16 +40,18 @@ try {
     let toTopEl: HTMLElement;
     let scrollDownEl: HTMLElement;
     let wait = false;
+    let raf: number | void;
 
     const ScrollEventListener = () => {
         if (!wait) {
             wait = true;
-            requestAnimationFrame(() => {
+            raf = requestAnimationFrame(() => {
                 let scrollTop = window.scrollY + navHeight;
                 if (scrollTop >= topOfLayer) {
                     navbar.classList.add("focus");
                 } else navbar.classList.remove("focus");
                 wait = false;
+                raf = window.cancelAnimationFrame(raf as number);
             });
         }
     };
