@@ -16,8 +16,8 @@ export class Perspective extends Service {
     public getEl() {
         this.rootEl = document.querySelector(".perspective-group");
 
-        let el = this.rootEl.querySelectorAll(".perspective");
-        this.el = toArr(el);
+        let el = this.rootEl?.querySelectorAll(".perspective");
+        this.el = this.rootEl ? toArr(el) : undefined;
     }
 
     public removeEl() {

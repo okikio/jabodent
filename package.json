@@ -49,12 +49,12 @@
         "chalk": "^4.1.0",
         "del": "^6.0.0",
         "dotenv": "^8.2.0",
-        "esbuild": "^0.8.36",
+        "esbuild": "^0.8.37",
         "fancy-log": "^1.3.3",
         "fs-extra": "^9.1.0",
         "gulp": "^4.0.2",
         "gulp-concat": "^2.6.1",
-        "gulp-esbuild": "^0.3.18",
+        "gulp-esbuild": "^0.3.19",
         "gulp-minify-inline-json": "^1.3.4",
         "gulp-plumber": "^1.2.1",
         "gulp-postcss": "^9.0.0",
@@ -79,7 +79,7 @@
         "through2": "^4.0.2",
         "typescript": "^4.1.3",
         "ultra-runner": "^3.9.0",
-        "vercel": "^21.2.1",
+        "vercel": "^21.2.2",
         "vinyl-sourcemaps-apply": "^0.2.1"
     }
 }
