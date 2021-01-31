@@ -256,7 +256,7 @@ module.exports = {
         //     DEFAULT: "1",
         // },
         fontFamily: {
-            sans: ["Manrope", "Arial", "Helvetica", "Verdana", "sans-serif"],
+           // sans: ["Manrope", "Arial", "Helvetica", "Verdana", "sans-serif"],
         },
         // fontFamily: {
         //     sans: [
@@ -817,6 +817,7 @@ module.exports = {
         fill: false,
         float: false,
         flexShrink: false,
+        fontFamily: false,
         // clear: false,
         fontVariantNumeric: false,
         fontSmoothing: false,
