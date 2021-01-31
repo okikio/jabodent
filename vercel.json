@@ -60,7 +60,7 @@
                 },
                 {
                     "key": "Link",
-                    "value": "</css/app.min.css>; rel=preload; as=style, </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, <https://polyfill.io>; rel=preconnect; crossorigin, <https://res.cloudinary.com>; rel=preconnect; crossorigin"
+                    "value": "</css/app.min.css>; rel=preload; as=style, </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </polyfill/polyfill.js>; rel=preload; as=script, </js/theme.min.js>; rel=preload; as=script"
                 }
             ]
         },
@@ -87,7 +87,7 @@
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": "public, max-age=31536000"
+                    "value": "public, s-maxage=604800, max-age=31536000"
                 }
             ]
         },
