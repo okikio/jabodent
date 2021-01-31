@@ -137,14 +137,13 @@ html[data-theme="dark"] {
     }
 }
 
-html {
+html,
+body {
     @include applyTheme(background-color, "bg");
-    font-family: "Manrope", "Arial", "Helvetica", "Verdana", sans-serif;
-    overflow-x: hidden;
+}
 
-    font-size: 15px;
-    font-weight: 400;
-    text-rendering: optimizeSpeed;
+html {
+    overflow-x: hidden;
 }
 
 @media screen and (min-width: 758px) {
