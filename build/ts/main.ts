@@ -3,6 +3,7 @@ import { toArr } from "./toArr";
 
 import { Splashscreen } from "./services/Splashscreen";
 import { IntroAnimation } from "./services/IntroAnimation";
+import { Perspective } from "./services/Perspective";
 import { Navbar } from "./services/Navbar";
 import { Search } from "./services/Search";
 import { Image } from "./services/Image";
@@ -18,6 +19,7 @@ app
         [Fade.name, Fade]
     ]))
     .set("PJAX", new PJAX())
+    .add(new Perspective())
     .add(new IntroAnimation())
     .add(new Splashscreen())
     .add(new Image())

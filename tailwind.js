@@ -325,10 +325,10 @@ module.exports = {
             "90-screen": "90vh",
             screen: "100vh",
         }),
-        // inset: {
-        //     "0": "0",
-        //     auto: "auto",
-        // },
+        inset: {
+            "0": "0",
+            auto: "auto",
+        },
         letterSpacing: {
             // tighter: "-0.05em",
             // tight: "-0.025em",
@@ -706,7 +706,7 @@ module.exports = {
         boxShadow: [], // "responsive", "hover", "group-hover", "focus"
         boxSizing: [],
         cursor: [], // "responsive"
-        display: [],
+        display: ["responsive"],
         divideColor: [], // "responsive"
         divideOpacity: [], // "responsive"
         divideWidth: [], // "responsive"
@@ -820,7 +820,7 @@ module.exports = {
         // clear: false,
         fontVariantNumeric: false,
         fontSmoothing: false,
-        inset: false,
+        // inset: false,
         // justifyContent: false,
         listStylePosition: false,
         listStyleType: false,

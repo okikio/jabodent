@@ -50,7 +50,7 @@ block content
 
     +link({
       href: next.url,
-      class: "block text-white group"
+      class: "block text-white group perspective-group"
     })
       .py-8.w-full.relative.transition(class="duration-300 ease-ease bg-white bg-opacity-15 hover:bg-gray-400 hover:bg-opacity-15")
         .px-5.py-8.mx-auto.w-full.tracking-wide.max-w-screen-lg.relative.flex.flex-row.justify-center(class="2xl:max-w-screen-xl")
@@ -62,7 +62,7 @@ block content
                   p.h1.text-4xl.font-title.font-medium(class="group-hover:underline")= next.title
                 p.tracking-wide.leading-8.text-lg.text-gray-400.pt-8.pb-2(class="md:text-xl")= next.description
           .flex-grow
-          div.ml-8.self-center
+          div.ml-8.self-center.perspective
             .mr-16.underlay-right.cursor-pointer.w-84.min-h-0.h-68.bg-blue-400.overflow-hidden.hidden.max-w-84.opacity-0.transition(class="duration-300 ease-ease group-hover:opacity-100 lg:block")
               +image(Object.assign(next.image, { figclass: "" }))(draggable="false" width="50vw" height="300px" class="min-h-0")
           div.self-center.hidden(class="md:block")
