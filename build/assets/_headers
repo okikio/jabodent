@@ -12,7 +12,6 @@
   Link: </css/app.min.css>; rel=preload; as=style
   Link: </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
   Link: </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous
-  Link: </polyfill/webanimations.js>; rel=preload; as=script
   Link: </js/theme.min.js>; rel=preload; as=script
 
 /css/*.css
