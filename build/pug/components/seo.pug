@@ -15,6 +15,7 @@ mixin seo(page)
   meta(name="apple-mobile-web-app-title", content=title)
 
   link(rel="home", href=`/`)
+  link(rel="relative-url", href=`${url}`)
   link(rel="canonical" href=`${websiteURL}${url}`)
   meta(itemprop='url' content=`${websiteURL}${url}`)
   meta(name="shortlink" content=`${websiteURL}${url}`)
