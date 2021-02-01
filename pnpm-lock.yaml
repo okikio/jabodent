@@ -12,7 +12,7 @@ devDependencies:
   chalk: 4.1.0
   del: 6.0.0
   dotenv: 8.2.0
-  esbuild: 0.8.38
+  esbuild: 0.8.39
   fancy-log: 1.3.3
   fs-extra: 9.1.0
   gulp: 4.0.2
@@ -65,13 +65,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EL3SiX43m9poFSnhDx4d4fn9SSaqyO2rHsCNhETi9bWPmjXK3uPJ0QpPFtx39FEdHcz1vJmsiW41kqc0AgvtzQ==
-  /@node-rs/helper/1.0.0:
+  /@node-rs/helper/1.1.0:
     dependencies:
       '@napi-rs/triples': 1.0.2
       tslib: 2.1.0
     dev: true
     resolution:
-      integrity: sha512-B4CSMHCuYPqai3LMsRTXyvBEP24YRnCZUUsDPYkgFD6tFA+q43rLkaEzsnTJTKJq5ZnJ4n5YJpJwEz7Xn8+0vg==
+      integrity: sha512-r43YnnrY5JNzDuXJdW3sBJrKzvejvFmFWbiItUEoBJsaPzOIWFMhXB7i5j4c9EMXcFfxveF4l7hT+rLmwtjrVQ==
   /@nodelib/fs.scandir/2.1.4:
     dependencies:
       '@nodelib/fs.stat': 2.0.4
@@ -228,7 +228,7 @@ packages:
       integrity: sha512-rG9S6LRKFrlE/HEZqQRBJ/X9tG9vy/6TdupXpUSNrDUidHJdULsGwqjeXlY4kXhNP/SqpqoFC8l8DwmlEbkQtQ==
   /@swc/core/1.2.47:
     dependencies:
-      '@node-rs/helper': 1.0.0
+      '@node-rs/helper': 1.1.0
     dev: true
     engines:
       node: '>=10'
@@ -675,7 +675,7 @@ packages:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
   /autoprefixer/10.2.4_postcss@8.2.4:
     dependencies:
-      browserslist: 4.16.1
+      browserslist: 4.16.3
       caniuse-lite: 1.0.30001181
       colorette: 1.2.1
       fraction.js: 4.0.13
@@ -903,11 +903,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-3TtpsheGolJT6UFtM2CZWEcGJmI4ZEvoCKiKE2bvcDnPxRkhQT4nIGVtfiyPcoHKXGM0LwMOZmYJNWfiNfVXWA==
-  /browserslist/4.16.1:
+  /browserslist/4.16.3:
     dependencies:
       caniuse-lite: 1.0.30001181
       colorette: 1.2.1
-      electron-to-chromium: 1.3.649
+      electron-to-chromium: 1.3.650
       escalade: 3.1.1
       node-releases: 1.1.70
     dev: true
@@ -915,7 +915,7 @@ packages:
       node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7
     hasBin: true
     resolution:
-      integrity: sha512-UXhDrwqsNcpTYJBTZsbGATDxZbiVDsx6UjpmRUmtnP10pr8wAYr5LgFoEFw9ixriQH2mv/NX2SfGzE/o8GndLA==
+      integrity: sha512-vIyhWmIkULaq04Gt93txdh+j02yX/JzlyhLYbV3YQCn/zvES3JnY7TifHHvvr1w5hTDluNKMkV05cs4vy8Q7sw==
   /bs-recipes/1.3.4:
     dev: true
     resolution:
@@ -1787,10 +1787,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
-  /electron-to-chromium/1.3.649:
+  /electron-to-chromium/1.3.650:
     dev: true
     resolution:
-      integrity: sha512-ojGDupQ3UMkvPWcTICe4JYe17+o9OLiFMPoduoR72Zp2ILt1mRVeqnxBEd6s/ptekrnsFU+0A4lStfBe/wyG/A==
+      integrity: sha512-j6pRuNylFBbroG6NB8Lw/Im9oDY74s2zWHBP5TmdYg73cBuL6cz//SMgolVa0gIJk/DSL+kO7baJ1DSXW1FUZg==
   /emoji-regex/7.0.3:
     dev: true
     resolution:
@@ -1900,12 +1900,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.8.38:
+  /esbuild/0.8.39:
     dev: true
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-wSunJl8ujgBs9eVGubc8Y6fn/DkDjNyfQBVOFTY1E7sRxr8KTjmqyLIiE0M3Z4CjMnCu/rttCugwnOzY+HiwIw==
+      integrity: sha512-/do5H74a5ChyeKRWfkDh3EpICXpsz6dWTtFFbotb7BlIHvWqnRrZYDb8IBubOHdEtKzuiksilRO19aBtp3/HHQ==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -2484,7 +2484,7 @@ packages:
       integrity: sha1-Yz0WyV2IUEYorQJmVmPO5aR5M1M=
   /gulp-esbuild/0.3.20:
     dependencies:
-      esbuild: 0.8.38
+      esbuild: 0.8.39
       plugin-error: 1.0.1
       vinyl: 2.2.1
     dev: true
@@ -3246,7 +3246,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
-  /json5/2.1.3:
+  /json5/2.2.0:
     dependencies:
       minimist: 1.2.5
     dev: true
@@ -3254,7 +3254,7 @@ packages:
       node: '>=6'
     hasBin: true
     resolution:
-      integrity: sha512-KXPvOm8K9IJKFM0bmdn8QXh7udDh1g/giieX0NLCaMnb4hEiVFqnop2ImTXCc5e0/oHz3LTqmHGtExn5hfMkOA==
+      integrity: sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
   /jsonfile/3.0.1:
     dev: true
     optionalDependencies:
@@ -5472,7 +5472,7 @@ packages:
       cross-spawn: 7.0.3
       fast-glob: 3.2.5
       globrex: 0.1.2
-      json5: 2.1.3
+      json5: 2.2.0
       micro-memoize: 4.0.9
       npm-run-path: 4.0.1
       pid-cwd: 1.2.0
@@ -5982,7 +5982,7 @@ specifiers:
   del: ^6.0.0
   dotenv: ^8.2.0
   es6-promise: ^4.2.8
-  esbuild: ^0.8.38
+  esbuild: ^0.8.39
   fancy-log: ^1.3.3
   fast-stringify: ^2.0.0
   fs-extra: ^9.1.0

@@ -11,7 +11,7 @@ mixin image(value = {})
 
     let cloudinaryTest = /^cloudinary\//.test(src);
     let origin = "https://res.cloudinary.com/okikio-assets/image/upload/";
-    //- self.jamstack ? "/images/" : 
+    //- self.jamstack ? "/images/" :
     let urlParse = (filters = "") => cloudinaryTest ? `${origin + "ar_4:3,c_fill/q_auto/c_scale," + filters},dpr_auto/c_limit/${src.replace(/^cloudinary\//, "")}` : src;
 
   figure.img(class=_figClass itemprop="image" itemscope itemtype="https://schema.org/ImageObject")
@@ -22,7 +22,7 @@ mixin image(value = {})
           img(src!=`${urlParse("w_50,q_auto")}.jpeg` sizes="50px" width="50px"  alt=alt loading="lazy")
       - let effects = (blur ? "/e_blur:1000" : "") + (grayscale ? "/e_grayscale" : "");
       .core-img-pic
-        img.img-core(data-src!=`${urlParse(`w_auto${effects}`)}.webp`  class=_class alt=alt loading=_loading itemprop="url")&attributes(attributes)
+        img.img-core(data-src!=`${urlParse(`w_auto${effects}`)}.webp` sizes="100vw" class=_class alt=alt loading=_loading itemprop="url")&attributes(attributes)
 
       noscript Javascript is necessary for this sites awesome experience.
         - var n = 4;
@@ -32,4 +32,4 @@ mixin image(value = {})
           - srcset += `, ${urlParse(`w_${n * 100}${effects}`)}.webp ${n * 100}w`;
           - n ++
 
-        img.no-script-img(class=_class srcset=srcset src!=`${urlParse(`w_auto${effects}`)}.jpg` alt=alt loading=_loading itemprop="url")&attributes(attributes)
+        img.no-script-img(class=_class srcset=srcset src!=`${urlParse(`w_auto${effects}`)}.jpg` sizes="100vw" alt=alt loading=_loading itemprop="url")&attributes(attributes)

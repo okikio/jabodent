@@ -80,6 +80,7 @@ export class Image extends Service {
                 img.setAttribute("data-max-w", "" + srcWid);
                 img.setAttribute("width", "" + srcWid);
                 img.setAttribute("height", "" + srcHei);
+                img.setAttribute("sizes", `${srcWid}px`);
             } else srcWid = Number(maxW);
 
             let src = srcset.replace(/w_auto/, `w_${srcWid}`);

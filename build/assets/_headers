@@ -4,7 +4,7 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  Cache-Control: max-age=60, public
+  Cache-Control: max-age=60, stale-while-revalidate=120, public
   Accept-CH: DPR, Viewport-Width, Width
   X-UA-Compatible: IE=edge
   Content-Security-Policy: default-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com https://okikio.dev data:; script-src 'self' https://res.cloudinary.com https://cdn.polyfill.io; connect-src 'self'; block-all-mixed-content; upgrade-insecure-requests; base-uri 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; media-src 'self' https://res.cloudinary.com/; form-action 'self'; frame-ancestors 'self';
@@ -17,11 +17,11 @@
   Link: <https://res.cloudinary.com>; rel=preconnect; crossorigin
 
 /css/*.css
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=604800, stale-while-revalidate=31536000
   Content-Type: text/css
 
 /js/*.js
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=604800, stale-while-revalidate=31536000
   Content-Type: text/javascript
 
 /js/theme.min.js
@@ -31,7 +31,7 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /manifest.json
-  Cache-Control: public, max-age=31536000
+  Cache-Control: public, max-age=604800, stale-while-revalidate=31536000
   Content-Type: application/manifest+json
 
 /fonts/*.woff2
@@ -39,10 +39,10 @@
   Content-Type: font/woff2
 
 /polyfill/*
-  Cache-Control: public, s-maxage=604800, max-age=31536000
+  Cache-Control: public, s-maxage=604800, max-age=604800, stale-while-revalidate=31536000
 
 /images/*
-  Cache-Control: public, s-maxage=604800, max-age=31536000
+  Cache-Control: public, s-maxage=604800, max-age=604800, stale-while-revalidate=31536000
 
 /favicon/*
   Cache-Control: public, max-age=31536000, immutable
