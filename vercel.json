@@ -60,7 +60,7 @@
                 },
                 {
                     "key": "Link",
-                    "value": "</css/app.min.css>; rel=preload; as=style, </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </js/theme.min.js>; rel=preload; as=script"
+                    "value": "</css/app.min.css>; rel=preload; as=style, </fonts/manrope-700-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </fonts/playfair-display-900-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin=anonymous, </js/theme.min.js>; rel=preload; as=script, <https://res.cloudinary.com>; rel=preconnect; crossorigin"
                 }
             ]
         },
