@@ -294,27 +294,27 @@ tasks({
     },
     optimize: async () => {
         let [
-            // { default: typescript },
-            { default: swc },
+            { default: typescript },
+            // { default: swc },
             { default: terser },
         ] = await Promise.all([
-            // import("gulp-typescript"),
-            import("gulp-swc"),
+            import("gulp-typescript"),
+            // import("gulp-swc"),
             import("gulp-terser"),
         ]);
 
         return stream([`${jsFolder}/*.js`, `!${jsFolder}/modern.min.js`], {
             pipes: [
                 // Support for es5
-                /* typescript({
+                typescript({
                     target: "ES5",
                     allowJs: true,
                     noEmitOnError: true,
                     sourceMap: false,
                     declaration: false,
                     isolatedModules: true,
-                }), */
-                swc({
+                }),
+                /* swc({
                     jsc: {
                         target: "es5",
                         parser: {
@@ -322,7 +322,7 @@ tasks({
                             syntax: "typescript",
                         },
                     },
-                }),
+                }), */
 
                 // Minify
                 terser({
