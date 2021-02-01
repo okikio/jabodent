@@ -309,20 +309,24 @@ tasks({
                 typescript({
                     target: "ES5",
                     allowJs: true,
+                    checkJs: false,
+                    noEmit: true,
                     noEmitOnError: true,
                     sourceMap: false,
                     declaration: false,
                     isolatedModules: true,
                 }),
-                /* swc({
-                    jsc: {
-                        target: "es5",
-                        parser: {
-                            // file use ecmascript
-                            syntax: "typescript",
-                        },
-                    },
-                }), */
+                // swc({
+                //     jsc: {
+                //         externalHelpers: false,
+                //         target: "es5",
+                //         parser: {
+                //             // file use ecmascript
+                //             syntax: "ecmascript",
+                //             decorators: false,
+                //         },
+                //     },
+                // }),
 
                 // Minify
                 terser({
