@@ -57,106 +57,6 @@ html(lang="en")
     block seo
       +seo(page)
 
-    script(type="application/ld+json").
-      {
-        "@context":"https://schema.org",
-        "@graph":[
-          {
-            "@type":"Organization",
-            "@id":"#{defaults.websiteURL}/#organization",
-            "name":"Jabodent Offshore Consultants Limited",
-            "url":"#{defaults.websiteURL}",
-            "sameAs":[
-              "https://jabodent.netlify.app",
-              "https://jabodent.com",
-              "https://github.com/okikio/jabodent"
-            ],
-            "description":"#{defaults.description}",
-            "logo":{
-              "@type":"ImageObject",
-              "@id":"#{defaults.websiteURL}/#logo",
-              "url":"#{defaults.websiteURL}/favicon/android-chrome-512x512.png",
-              "width":512,
-              "height":512,
-              "caption":"Jabodent's Logo"
-            },
-            "contactPoint":[
-              {
-                "@type":"ContactPoint",
-                "url":"#{defaults.websiteURL}",
-                "email":"mailto:info@jabodent.com",
-                "contactType":"customer service"
-              }
-            ]
-          },
-          {
-            "@type":"Person",
-            "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html",
-            "name":"John A.B Oyedeji",
-            "url":"#{defaults.websiteURL}",
-            "description":"#{defaults.description}",
-            "jobTitle":"Principal Partner",
-            "image":{
-              "@type":"ImageObject",
-              "@id":"#{defaults.websiteURL}/#image",
-              "url":"https://res.cloudinary.com/okikio-assets/image/upload/city.jpg",
-              "width":410,
-              "height":512,
-              "caption":"An image of John Oyedeji."
-            },
-            "contactPoint":[
-              {
-                "@type":"ContactPoint",
-                "url":"#{defaults.websiteURL}",
-                "email":"mailto:info@jabodent.com",
-                "contactType":"customer service"
-              }
-            ]
-          },
-          {
-            "@type":"WebSite",
-            "@id":"#{defaults.websiteURL}/#website",
-            "url":"#{defaults.websiteURL}",
-            "description":"#{defaults.description}",
-            "sameAs":[
-              "https://github.com/okikio/jabodent"
-            ],
-            "mainEntityOfPage":{
-              "@type":"WebPage",
-              "@id":"#{defaults.websiteURL}/services.html#mainentity",
-              "lastReviewed":"Sat January 23 2021 15:35:01 GMT-0400"
-            },
-            "about":{
-              "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html"
-            },
-            "name":"John A.B Oyedeji",
-            "publisher":{
-              "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html"
-            },
-            "copyrightYear":"2021",
-            "copyrightHolder":[
-              {
-                "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html"
-              }
-            ]
-          },
-          {
-            "@type":"WebPage",
-            "@id":"#{page.websiteURL + page.url}#webpage",
-            "url":"#{page.websiteURL + page.url}",
-            "description":"#{page.description}",
-            "inLanguage":"en",
-            "name":"#{page.title}",
-            "isPartOf":{
-              "@id":"#{defaults.websiteURL}/#website"
-            },
-            "about":{
-              "@id":"#{defaults.websiteURL}/about.html"
-            }
-          }
-        ]
-      }
-
     meta(name="web-author" content="Okiki Ojo")
     meta(name="robots" content="index, follow")
     meta(name="copyright" content="Jabodent")
@@ -282,3 +182,103 @@ html(lang="en")
         block footer
           +back-to-top
           +footer
+
+    script(type="application/ld+json").
+      {
+        "@context":"https://schema.org",
+        "@graph":[
+          {
+            "@type":"Organization",
+            "@id":"#{defaults.websiteURL}/#organization",
+            "name":"Jabodent Offshore Consultants Limited",
+            "url":"#{defaults.websiteURL}",
+            "sameAs":[
+              "https://jabodent.netlify.app",
+              "https://jabodent.com",
+              "https://github.com/okikio/jabodent"
+            ],
+            "description":"#{defaults.description}",
+            "logo":{
+              "@type":"ImageObject",
+              "@id":"#{defaults.websiteURL}/#logo",
+              "url":"#{defaults.websiteURL}/favicon/android-chrome-512x512.png",
+              "width":512,
+              "height":512,
+              "caption":"Jabodent's Logo"
+            },
+            "contactPoint":[
+              {
+                "@type":"ContactPoint",
+                "url":"#{defaults.websiteURL}",
+                "email":"mailto:info@jabodent.com",
+                "contactType":"customer service"
+              }
+            ]
+          },
+          {
+            "@type":"Person",
+            "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html",
+            "name":"John A.B Oyedeji",
+            "url":"#{defaults.websiteURL}",
+            "description":"#{defaults.description}",
+            "jobTitle":"Principal Partner",
+            "image":{
+              "@type":"ImageObject",
+              "@id":"#{defaults.websiteURL}/#image",
+              "url":"https://res.cloudinary.com/okikio-assets/image/upload/city.jpg",
+              "width":410,
+              "height":512,
+              "caption":"An image of John Oyedeji."
+            },
+            "contactPoint":[
+              {
+                "@type":"ContactPoint",
+                "url":"#{defaults.websiteURL}",
+                "email":"mailto:info@jabodent.com",
+                "contactType":"customer service"
+              }
+            ]
+          },
+          {
+            "@type":"WebSite",
+            "@id":"#{defaults.websiteURL}/#website",
+            "url":"#{defaults.websiteURL}",
+            "description":"#{defaults.description}",
+            "sameAs":[
+              "https://github.com/okikio/jabodent"
+            ],
+            "mainEntityOfPage":{
+              "@type":"WebPage",
+              "@id":"#{defaults.websiteURL}/services.html#mainentity",
+              "lastReviewed":"Sat January 23 2021 15:35:01 GMT-0400"
+            },
+            "about":{
+              "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html"
+            },
+            "name":"John A.B Oyedeji",
+            "publisher":{
+              "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html"
+            },
+            "copyrightYear":"2021",
+            "copyrightHolder":[
+              {
+                "@id":"#{defaults.websiteURL}/team/john-a-b-oyedeji.html"
+              }
+            ]
+          },
+          {
+            "@type":"WebPage",
+            "@id":"#{page.websiteURL + page.url}#webpage",
+            "url":"#{page.websiteURL + page.url}",
+            "description":"#{page.description}",
+            "inLanguage":"en",
+            "name":"#{page.title}",
+            "isPartOf":{
+              "@id":"#{defaults.websiteURL}/#website"
+            },
+            "about":{
+              "@id":"#{defaults.websiteURL}/about.html"
+            }
+          }
+        ]
+      }
