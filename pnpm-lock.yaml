@@ -6,7 +6,6 @@ dependencies:
   whatwg-fetch: 3.5.0
 devDependencies:
   '@fullhuman/postcss-purgecss': 4.0.0_postcss@8.2.4
-  '@swc/core': 1.2.47
   autoprefixer: 10.2.4_postcss@8.2.4
   browser-sync: 2.26.14
   chalk: 4.1.0
@@ -17,14 +16,13 @@ devDependencies:
   fs-extra: 9.1.0
   gulp: 4.0.2
   gulp-concat: 2.6.1
-  gulp-esbuild: 0.3.20
-  gulp-minify-inline-json: 1.3.4
+  gulp-esbuild: 0.3.21
+  gulp-minify-inline-json: 1.4.0
   gulp-plumber: 1.2.1
   gulp-postcss: 9.0.0_postcss@8.2.4
   gulp-posthtml: 3.0.5
   gulp-pug: 4.0.1
   gulp-rename: 2.0.0
-  gulp-swc: 1.1.1_@swc+core@1.2.47+gulp@4.0.2
   gulp-terser: 2.0.1
   gulp-typescript: 6.0.0-alpha.1_typescript@4.1.3
   gzip-size: 6.0.0
@@ -36,7 +34,7 @@ devDependencies:
   posthtml-match-helper: 1.0.1_posthtml@0.15.1
   pretty-bytes: 5.5.0
   replace-ext: 2.0.0
-  sass: 1.32.5
+  sass: 1.32.6
   strip-ansi: 6.0.0
   tailwindcss: 2.0.2_90874d0ac9c8f3b30e7bed02cb9a0d41
   through2: 4.0.2
@@ -61,17 +59,6 @@ packages:
       postcss: ^8.0.0
     resolution:
       integrity: sha512-1DNYIDxFsvGOeKdc2BFtIQriMWwzX6dY+9q0Z0n9TNZhFZ9T6nHRZHPC22aYLlPDd0ucCgIr1deTgDTrjq21KQ==
-  /@napi-rs/triples/1.0.2:
-    dev: true
-    resolution:
-      integrity: sha512-EL3SiX43m9poFSnhDx4d4fn9SSaqyO2rHsCNhETi9bWPmjXK3uPJ0QpPFtx39FEdHcz1vJmsiW41kqc0AgvtzQ==
-  /@node-rs/helper/1.1.0:
-    dependencies:
-      '@napi-rs/triples': 1.0.2
-      tslib: 2.1.0
-    dev: true
-    resolution:
-      integrity: sha512-r43YnnrY5JNzDuXJdW3sBJrKzvejvFmFWbiItUEoBJsaPzOIWFMhXB7i5j4c9EMXcFfxveF4l7hT+rLmwtjrVQ==
   /@nodelib/fs.scandir/2.1.4:
     dependencies:
       '@nodelib/fs.stat': 2.0.4
@@ -127,123 +114,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
-  /@swc/core-android-arm64/1.2.47:
-    cpu:
-      - arm64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - android
-    resolution:
-      integrity: sha512-N11TLGtK+pKPFCcimg07CnJCj8qKqPbyAx8a5z2CW2+qtAB1a8XpK9njl5ExA3mxrur9qa9ITb0OPNBjojb7nw==
-  /@swc/core-darwin-arm64/1.2.47:
-    cpu:
-      - arm64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - darwin
-    resolution:
-      integrity: sha512-HRdUR6wd2w3mky8j6tOpL4j2MMsAFWSe7KfgPOCwlIWPlprlK1ACB0r+BmqpwC+REYnWoUG+dtPmpX1UdqGShQ==
-  /@swc/core-darwin-x64/1.2.47:
-    cpu:
-      - x64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - darwin
-    resolution:
-      integrity: sha512-Sp6D+Nyw6n4tDl4SxcGpK/FxoX/GDSMhvNunmoTL0KJjRCNe8SJO83jsv6YLJSCV+q6hl+x6XeiZ0JzKGzFjfQ==
-  /@swc/core-linux-arm-gnueabihf/1.2.47:
-    cpu:
-      - arm
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - linux
-    resolution:
-      integrity: sha512-U6ZfRloE1UFjhmyFptlAk5HACAzSTEeQLZmxqzhN6w1l7tsHDG4oLJuBPkZivL7cgwbiyO6RbaCu3mBG426+uA==
-  /@swc/core-linux-arm64-gnu/1.2.47:
-    cpu:
-      - arm64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - linux
-    resolution:
-      integrity: sha512-D1+/veC1EdkuIYmwLK/ka22L4HOX4rejmwhBATrfQX6XfewmLe1+y2LxBhkLd0CG1+N5L2/Eoq3ohLjdtoKnwg==
-  /@swc/core-linux-x64-gnu/1.2.47:
-    cpu:
-      - x64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - linux
-    resolution:
-      integrity: sha512-x9PJcnlVj4bARNB2t7oBn84T+80wItHm2YSWj4L47Us0/oNRB1IYe2icsaAUlgZMviIJTSgS5j8UQCLmg3kiGg==
-  /@swc/core-linux-x64-musl/1.2.47:
-    cpu:
-      - x64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - linux
-    resolution:
-      integrity: sha512-cTUTxQCejdkBHnzWBiAzy0oMy3gM3MTmwPmHX4hDmM6TO8+MG4D2qlDJEe2cM45R66GdUsl01hXJtcd46MIs6Q==
-  /@swc/core-win32-ia32-msvc/1.2.47:
-    cpu:
-      - ia32
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - win32
-    resolution:
-      integrity: sha512-bysp0kLK8hzqDktDr3N8NHG9bmF+aGO7FSjixLRFeiXhKwVgGoMMMv0S0myHoPUIEo4K3TU7QnGqhpkvohmNaQ==
-  /@swc/core-win32-x64-msvc/1.2.47:
-    cpu:
-      - x64
-    dev: true
-    engines:
-      node: '>=10'
-    optional: true
-    os:
-      - win32
-    resolution:
-      integrity: sha512-rG9S6LRKFrlE/HEZqQRBJ/X9tG9vy/6TdupXpUSNrDUidHJdULsGwqjeXlY4kXhNP/SqpqoFC8l8DwmlEbkQtQ==
-  /@swc/core/1.2.47:
-    dependencies:
-      '@node-rs/helper': 1.1.0
-    dev: true
-    engines:
-      node: '>=10'
-    optionalDependencies:
-      '@swc/core-android-arm64': 1.2.47
-      '@swc/core-darwin-arm64': 1.2.47
-      '@swc/core-darwin-x64': 1.2.47
-      '@swc/core-linux-arm-gnueabihf': 1.2.47
-      '@swc/core-linux-arm64-gnu': 1.2.47
-      '@swc/core-linux-x64-gnu': 1.2.47
-      '@swc/core-linux-x64-musl': 1.2.47
-      '@swc/core-win32-ia32-msvc': 1.2.47
-      '@swc/core-win32-x64-msvc': 1.2.47
-    resolution:
-      integrity: sha512-y1Xfp/8K9jLg1QRBkV7XDpI9wz8yvVjBw60DhtAIzpRnmfv2uDK+y5p0OY+5zC7/OTmUB9DWtyM5YX6snkHqag==
   /@szmarczak/http-timer/1.1.2:
     dependencies:
       defer-to-connect: 1.1.3
@@ -676,7 +546,7 @@ packages:
   /autoprefixer/10.2.4_postcss@8.2.4:
     dependencies:
       browserslist: 4.16.3
-      caniuse-lite: 1.0.30001181
+      caniuse-lite: 1.0.30001183
       colorette: 1.2.1
       fraction.js: 4.0.13
       normalize-range: 0.1.2
@@ -905,7 +775,7 @@ packages:
       integrity: sha512-3TtpsheGolJT6UFtM2CZWEcGJmI4ZEvoCKiKE2bvcDnPxRkhQT4nIGVtfiyPcoHKXGM0LwMOZmYJNWfiNfVXWA==
   /browserslist/4.16.3:
     dependencies:
-      caniuse-lite: 1.0.30001181
+      caniuse-lite: 1.0.30001183
       colorette: 1.2.1
       electron-to-chromium: 1.3.650
       escalade: 3.1.1
@@ -1023,10 +893,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
-  /caniuse-lite/1.0.30001181:
+  /caniuse-lite/1.0.30001183:
     dev: true
     resolution:
-      integrity: sha512-m5ul/ARCX50JB8BSNM+oiPmQrR5UmngaQ3QThTTp5HcIIQGP/nPBs82BYLE+tigzm3VW+F4BJIhUyaVtEweelQ==
+      integrity: sha512-7JkwTEE1hlRKETbCFd8HDZeLiQIUcl8rC6JgNjvHCNaxOeNmQ9V4LvQXRUsKIV2CC73qKxljwVhToaA3kLRqTw==
   /center-align/0.1.3:
     dependencies:
       align-text: 0.1.4
@@ -1078,7 +948,7 @@ packages:
       integrity: sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
   /character-parser/2.2.0:
     dependencies:
-      is-regex: 1.1.1
+      is-regex: 1.1.2
     dev: true
     resolution:
       integrity: sha1-x84o821LzZdE5f/CxfzeHHMmH8A=
@@ -1821,7 +1691,7 @@ packages:
       indexof: 0.0.1
       parseqs: 0.0.6
       parseuri: 0.0.6
-      ws: 7.4.2
+      ws: 7.4.3
       xmlhttprequest-ssl: 1.5.5
       yeast: 0.1.2
     dev: true
@@ -1844,7 +1714,7 @@ packages:
       cookie: 0.4.1
       debug: 4.1.1
       engine.io-parser: 2.2.1
-      ws: 7.4.2
+      ws: 7.4.3
     dev: true
     engines:
       node: '>=8.0.0'
@@ -2482,7 +2352,7 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha1-Yz0WyV2IUEYorQJmVmPO5aR5M1M=
-  /gulp-esbuild/0.3.20:
+  /gulp-esbuild/0.3.21:
     dependencies:
       esbuild: 0.8.39
       plugin-error: 1.0.1
@@ -2491,17 +2361,17 @@ packages:
     engines:
       node: '>=8.6.0'
     resolution:
-      integrity: sha512-HBhpm6mH/3VTyU7Pezil9axt3KgnL6yzxjwB53uxNf6queSqh1K9M/hZqoK14YQqFr4VQtfJyiRJx+T4wOn5DQ==
-  /gulp-minify-inline-json/1.3.4:
+      integrity: sha512-fWZYO903sPe+VXElAHqgJ9L1ZmsGaVIEVNjMyjXP4Ckr5CulUZrP+gYjnpi+P0ElBI95pcbr4JmxmDcOZzN6nA==
+  /gulp-minify-inline-json/1.4.0:
     dependencies:
-      minify-inline-json: 1.0.1
+      minify-inline-json: 1.1.1
       plugin-error: 1.0.1
-      through2: 2.0.5
+      through2: 4.0.2
     dev: true
     engines:
       node: '>=6.9.4'
     resolution:
-      integrity: sha512-LuQ+LthDUhzHj9f8YeRe+xvEcrMK10ZNbTWmmGSxjE4RKpQhHOlqRFp+qnD1CeyV/iy5iygnelI+ch8ISbOXJA==
+      integrity: sha512-pr+3c8xS5chY5gj41SRQlOlO7F8I5sVK1BilDBiJDj4sL7KW7Rc8Syc06mdVrGtLZC99EQLKIhIHa3O6BvgO0A==
   /gulp-plumber/1.2.1:
     dependencies:
       chalk: 1.1.3
@@ -2558,21 +2428,6 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-97Vba4KBzbYmR5VBs9mWmK+HwIf5mj+/zioxfZhOKeXtx5ZjBk57KFlePf5nxq9QsTtFl0ejnHE3zTC9MHXqyQ==
-  /gulp-swc/1.1.1_@swc+core@1.2.47+gulp@4.0.2:
-    dependencies:
-      '@swc/core': 1.2.47
-      gulp: 4.0.2
-      plugin-error: 1.0.1
-      replace-ext: 2.0.0
-      vinyl-sourcemaps-apply: 0.2.1
-    dev: true
-    engines:
-      node: '>=10'
-    peerDependencies:
-      '@swc/core': ^1.2.37
-      gulp: ^3.9.1
-    resolution:
-      integrity: sha512-nnMe6NJztCa5yLXkf5HjhXGTGc6PKcmLgUaUOUsvGPdBk2n+W4Y3EdUzPwKESKojE5R18V2aB6BNW+sev81vqg==
   /gulp-terser/2.0.1:
     dependencies:
       plugin-error: 1.0.1
@@ -2760,7 +2615,7 @@ packages:
       depd: 1.1.2
       inherits: 2.0.3
       setprototypeof: 1.1.0
-      statuses: 1.4.0
+      statuses: 1.5.0
     dev: true
     engines:
       node: '>= 0.6'
@@ -3142,14 +2997,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==
-  /is-regex/1.1.1:
+  /is-regex/1.1.2:
     dependencies:
+      call-bind: 1.0.2
       has-symbols: 1.0.1
     dev: true
     engines:
       node: '>= 0.4'
     resolution:
-      integrity: sha512-1+QkEcxiLlB7VEyFtyBg94e08OAsvq7FUBgApTq/w2ymCLyKJgDPsybBENVtA7XCQEgEXxKPonG+mvYRxh/LIg==
+      integrity: sha512-axvdhb5pdhEVThqJzYXwMlVuZwC+FF2DpcOhTS+y/8jVq4trxyPgfcwIxIKiyeuLlSQYKkmUaPQJ8ZE4yNKXDg==
   /is-relative/1.0.0:
     dependencies:
       is-unc-path: 1.0.0
@@ -3561,10 +3417,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
-  /minify-inline-json/1.0.1:
+  /minify-inline-json/1.1.1:
     dev: true
     resolution:
-      integrity: sha512-8+Nszr4YRYXlxKgOfqmlXbHHzQP///qCM+k+VzLs+nzLr/66x2HDvgYc/ekxc5KbKWH4CQIqJJVxSoxHrS+YtQ==
+      integrity: sha512-1LPT09at8vOZPm+0W0d1NJzveYHR6QNSgsraQ5JZjrLStbBAP1TFiDqAMwYtfVHR8F2XoXX/ab1S0G8IKe/76w==
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
@@ -4747,7 +4603,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-  /sass/1.32.5:
+  /sass/1.32.6:
     dependencies:
       chokidar: 3.5.1
     dev: true
@@ -4755,7 +4611,7 @@ packages:
       node: '>=8.9.0'
     hasBin: true
     resolution:
-      integrity: sha512-kU1yJ5zUAmPxr7f3q0YXTAd1oZjSR1g3tYyv+xu0HZSl5JiNOaE987eiz7wCUvbm4I9fGWGU2TgApTtcP4GMNQ==
+      integrity: sha512-1bcDHDcSqeFtMr0JXI3xc/CXX6c4p0wHHivJdru8W7waM7a1WjKMm4m/Z5sY7CbVw4Whi2Chpcw6DFfSWwGLzQ==
   /semver-diff/3.1.1:
     dependencies:
       semver: 6.3.0
@@ -4973,7 +4829,7 @@ packages:
       atob: 2.1.2
       decode-uri-component: 0.2.0
       resolve-url: 0.2.1
-      source-map-url: 0.4.0
+      source-map-url: 0.4.1
       urix: 0.1.0
     dev: true
     resolution:
@@ -4985,10 +4841,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
-  /source-map-url/0.4.0:
+  /source-map-url/0.4.1:
     dev: true
     resolution:
-      integrity: sha1-PpNdfd1zYxuXZZlW1VEo6HtQhKM=
+      integrity: sha512-cPiFOTLUKvJFIg4SKVScy4ilPPW6rFgMgfuZJPNoDuMs3nC1HbMUycBoJw77xFIp6z1UJQJOfx6C9GMH80DiTw==
   /source-map/0.5.7:
     dev: true
     engines:
@@ -5827,7 +5683,7 @@ packages:
     dev: true
     resolution:
       integrity: sha512-AvHcyZ5JnSfq3ioSyjrBkH9yW4m7Ayk8/9My/DD9onKeu/94fwrMocemO2QAJFAlnnDN+ZDS+ZjAR5ua1/PV/Q==
-  /ws/7.4.2:
+  /ws/7.4.3:
     dev: true
     engines:
       node: '>=8.3.0'
@@ -5840,7 +5696,7 @@ packages:
       utf-8-validate:
         optional: true
     resolution:
-      integrity: sha512-T4tewALS3+qsrpGI/8dqNMLIVdq/g/85U98HPMa6F0m6xTbvhXU6RCQLqPH3+SlomNV/LdY6RXEbBpMH6EOJnA==
+      integrity: sha512-hr6vCR76GsossIRsr8OLR9acVVm1jyfEWvhbNjtgPOrfvAlKzvyeg/P6r8RuDjRyrcQoPQT7K0DGEPc7Ae6jzA==
   /xdg-basedir/4.0.0:
     dev: true
     engines:
@@ -5975,7 +5831,6 @@ packages:
 specifiers:
   '@fullhuman/postcss-purgecss': ^4.0.0
   '@okikio/native': ^2.0.4
-  '@swc/core': ^1.2.47
   autoprefixer: ^10.2.4
   browser-sync: ^2.26.14
   chalk: ^4.1.0
@@ -5989,14 +5844,13 @@ specifiers:
   fuzzysort: ^1.1.4
   gulp: ^4.0.2
   gulp-concat: ^2.6.1
-  gulp-esbuild: ^0.3.20
-  gulp-minify-inline-json: ^1.3.4
+  gulp-esbuild: ^0.3.21
+  gulp-minify-inline-json: ^1.4.0
   gulp-plumber: ^1.2.1
   gulp-postcss: ^9.0.0
   gulp-posthtml: ^3.0.5
   gulp-pug: ^4.0.1
   gulp-rename: ^2.0.0
-  gulp-swc: ^1.1.1
   gulp-terser: ^2.0.1
   gulp-typescript: ^6.0.0-alpha.1
   gzip-size: ^6.0.0
@@ -6008,7 +5862,7 @@ specifiers:
   posthtml-match-helper: ^1.0.1
   pretty-bytes: ^5.5.0
   replace-ext: ^2.0.0
-  sass: ^1.32.5
+  sass: ^1.32.6
   strip-ansi: ^6.0.0
   tailwindcss: ^2.0.2
   through2: ^4.0.2

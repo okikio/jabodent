@@ -207,7 +207,7 @@ module.exports = {
             // "4": "4px",
             // "8": "8px",
         },
-        float: false,
+        // float: false,
         boxShadow: false,
         // boxShadow: {
         //     xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
@@ -256,7 +256,7 @@ module.exports = {
         //     DEFAULT: "1",
         // },
         fontFamily: {
-           // sans: ["Manrope", "Arial", "Helvetica", "Verdana", "sans-serif"],
+            // sans: ["Manrope", "Arial", "Helvetica", "Verdana", "sans-serif"],
         },
         // fontFamily: {
         //     sans: [
@@ -815,7 +815,7 @@ module.exports = {
         divideWidth: false,
         divideStyle: false,
         fill: false,
-        float: false,
+        // float: false,
         flexShrink: false,
         fontFamily: false,
         // clear: false,

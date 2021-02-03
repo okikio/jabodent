@@ -1,2 +1,2 @@
-Sitemap: https://jabodent.netlify.app/sitemap.xml
+Sitemap: https://jabodent.com/sitemap.xml
 User-agent: *
