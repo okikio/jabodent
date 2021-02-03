@@ -21,6 +21,7 @@ if (typeof dotenv.config === "function") dotenv.config();
 
 const env = process.env;
 const dev = "dev" in env ? env.dev == "true" : false;
+const siteUrl = "siteUrl" in env ? env.siteUrl : "https://www.jabodent.com";
 const jamstack = "jamstack" in env ? env.jamstack == "true" : false;
 
 // Origin folders (source and destination folders)
@@ -368,6 +369,7 @@ task("indexer", async () => {
         { default: fs },
         { default: path },
         { default: log },
+        { default: sitemap },
     ] = await Promise.all([
         import("posthtml-match-helper"),
         import("gulp-posthtml"),
@@ -375,70 +377,111 @@ task("indexer", async () => {
         import("fs-extra"),
         import("path"),
         import("fancy-log"),
+        import("gulp-sitemap"),
     ]);
 
     let index = [];
-    return stream([`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`], {
-        opts: {
-            base: htmlFolder,
-        },
-        pipes: [
-            posthtml([
-                (tree) => {
-                    const data = {
-                        title: "",
-                        description: "",
-                        keywords: "",
-                    };
-
-                    tree.match(querySelector("title"), (node) => {
-                        if (data.title === "" && node.tag === "title") {
-                            data.title = node.content.join("");
-                        }
-                        return node;
-                    });
-
-                    tree.match(
-                        querySelector('link[rel="relative-url"]'),
-                        (node) => {
-                            data.href = node.attrs.href;
-                            return node;
-                        }
-                    );
-
-                    tree.match(
-                        querySelector("meta[name='description']"),
-                        (node) => {
-                            data.description = node.attrs.content;
-                            return node;
-                        }
-                    );
-
-                    tree.match(
-                        querySelector("meta[name='keywords']"),
-                        (node) => {
-                            data.keywords = node.attrs.content;
-                            return node;
-                        }
-                    );
-
-                    index.push(data);
+    return streamList([
+        [
+            [`${htmlFolder}/**/*.html`, `!${htmlFolder}/**/404.html`],
+            {
+                opts: {
+                    base: htmlFolder,
                 },
-            ]),
+                pipes: [
+                    posthtml([
+                        (tree) => {
+                            const data = {
+                                title: "",
+                                description: "",
+                                keywords: "",
+                            };
+
+                            tree.match(querySelector("title"), (node) => {
+                                if (data.title === "" && node.tag === "title") {
+                                    data.title = node.content.join("");
+                                }
+                                return node;
+                            });
+
+                            tree.match(
+                                querySelector('link[rel="relative-url"]'),
+                                (node) => {
+                                    data.href = node.attrs.href;
+                                    return node;
+                                }
+                            );
+
+                            tree.match(
+                                querySelector("meta[name='description']"),
+                                (node) => {
+                                    data.description = node.attrs.content;
+                                    return node;
+                                }
+                            );
+
+                            tree.match(
+                                querySelector("meta[name='keywords']"),
+                                (node) => {
+                                    data.keywords = node.attrs.content;
+                                    return node;
+                                }
+                            );
+
+                            index.push(data);
+                        },
+                    ]),
+                ],
+                dest: null,
+                async end() {
+                    try {
+                        await fs.outputFile(
+                            path.join(
+                                __dirname,
+                                `${destFolder}/searchindex.json`
+                            ),
+                            stringify(index)
+                        );
+                        log("Search index json created successfully.");
+                    } catch (err) {
+                        log.warn(err);
+                    }
+                },
+            },
         ],
-        dest: null,
-        async end() {
-            try {
-                await fs.outputFile(
-                    path.join(__dirname, `${destFolder}/searchindex.json`),
-                    stringify(index)
-                );
-                log("Search index json created successfully.");
-            } catch (err) {
-                log.warn(err);
-            }
-        },
-    });
+        [
+            `${htmlFolder}/**/*.html`,
+            {
+                opts: {
+                    base: htmlFolder,
+                },
+                pipes: [
+                    sitemap({
+                        siteUrl,
+                        mappings: [
+                            {
+                                pages: ["**/*"],
+                                changefreq: "monthly",
+                                // priority: 0.5,
+                                // lastmod: Date.now(),
+                                getLoc(siteUrl, loc, entry) {
+                                    // Removes the file extension if it exists
+                                    return loc.replace(/\.\w+$/, "");
+                                },
+                                // hreflang: [{
+                                //     lang: 'ru',
+                                //     getHref(siteUrl, file, lang, loc) {
+                                //         return 'http://www.amazon.ru/' + file;
+                                //     }
+                                // }]
+                            },
+                        ],
+                    }),
+                ],
+                dest: htmlFolder,
+            },
+        ],
+    ]);
 });
 
 // Inline assets

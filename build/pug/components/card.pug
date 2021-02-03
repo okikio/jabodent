@@ -1,7 +1,7 @@
 include /components/image.pug
 mixin card(service = {}, index)
   -
-    let url = service.url;
+    let url = service.url.replace(/.html$/g, "");
     let title = service.title;
     let description = service.description;
     let { image } = service;
