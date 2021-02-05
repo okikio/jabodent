@@ -21,7 +21,7 @@ if (typeof dotenv.config === "function") dotenv.config();
 
 const env = process.env;
 const dev = "dev" in env ? env.dev == "true" : false;
-const siteUrl = "siteUrl" in env ? env.siteUrl : "https://www.jabodent.com";
+const siteUrl = "siteUrl" in env ? env.siteUrl : "https://jabodent.com";
 const jamstack = "jamstack" in env ? env.jamstack == "true" : false;
 
 // Origin folders (source and destination folders)
