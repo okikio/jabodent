@@ -1,3 +1,4 @@
+import "web-animations-js";
 import { PJAX, App, TransitionManager, HistoryManager, PageManager } from "@okikio/native";
 import { toArr } from "./toArr";
 
