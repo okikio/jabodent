@@ -68,6 +68,8 @@ export class Search extends Service {
             this.newSearch = this.inner.querySelector(".new-search");
             this.noResultsEl = this.inner.querySelector(".no-results");
         }
+
+        this.pagehideEvent = this.pagehideEvent.bind(this);
     }
 
     /**
@@ -188,6 +190,10 @@ export class Search extends Service {
         this.resetResults();
     }
 
+    pagehideEvent () {
+        this?.worker?.terminate();
+    }
+
     public initEvents() {
         if (this.input) {
             this.btn.addEventListener("click", this.toggle, false);
@@ -199,8 +205,9 @@ export class Search extends Service {
             this.navbar.addEventListener("click", this.navClick, false);
             this.clearIcon.addEventListener("click", this.clearBtnClick, false);
         }
-
+        
         this.emitter.on("POPSTATE", this.popstate, this);
+        window.addEventListener("pagehide", this.pagehideEvent);
     }
 
     public popstate() {
@@ -222,6 +229,7 @@ export class Search extends Service {
         this.clearIcon.removeEventListener("click", this.clearBtnClick);
 
         this.emitter.off("POPSTATE", this.popstate, this);
+        window.removeEventListener("pagehide", this.pagehideEvent);
     }
 
     public uninstall() {
